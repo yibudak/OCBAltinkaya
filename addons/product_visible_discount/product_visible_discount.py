@@ -44,47 +44,60 @@ class sale_order_line(osv.osv):
             fiscal_position=False, flag=False, context=None):
 
         def get_real_price(res_dict, product_id, qty, uom, pricelist):
+            product_obj = self.pool.get('product.product')
+            currency_obj = self.pool.get('res.currency')
             item_obj = self.pool.get('product.pricelist.item')
             price_type_obj = self.pool.get('product.price.type')
-            product_obj = self.pool.get('product.product')
-            field_name = 'list_price'
-
+            pricelist_obj = self.pool.get('product.pricelist')
+            price = res_dict.get(pricelist, False)
+            
             if res_dict.get('item_id',False) and res_dict['item_id'].get(pricelist,False):
                 item = res_dict['item_id'].get(pricelist,False)
-                item_base = item_obj.read(cr, uid, [item], ['base'])[0]['base']
-                if item_base > 0:
-                    field_name = price_type_obj.browse(cr, uid, item_base).field
-
-            product = product_obj.browse(cr, uid, product_id, context)
-            product_read = product_obj.read(cr, uid, product_id, [field_name], context=context)
-
+                item_base = item_obj.browse(cr, uid, item, context=context)
+                pricelist_currency = pricelist_obj.browse(cr, uid, pricelist, context=context).currency_id
+                if item_base.base == -1:
+                    base_pricelist = item_base.base_pricelist_id.id
+                    if not base_pricelist:
+                        price = 0.0
+                    else:
+                        price_tmp = pricelist_obj.price_get(cr, uid,
+                                     [base_pricelist], product_id,
+                                     qty, context=context)[base_pricelist]
+                        ptype_src = pricelist_obj.browse(cr, uid, base_pricelist, context=context).currency_id.id
+                        price = currency_obj.compute(cr, uid,
+                                 ptype_src, pricelist_currency.id,
+                                 price_tmp, round=False, context=context)
+            elif item_base.base > 0:
+                price_type = price_type_obj.browse(cr, uid, item_base.base)
+                price = currency_obj.compute(cr, uid,
+                        price_type.currency_id.id, pricelist_currency.id,
+                        product_obj.price_get(cr, uid, [product_id],price_type.field, context=context)[product_id],
+                        round=False, context=context)
             factor = 1.0
             if uom and uom != product.uom_id.id:
                 product_uom_obj = self.pool.get('product.uom')
                 uom_data = product_uom_obj.browse(cr, uid,  product.uom_id.id)
                 factor = uom_data.factor
-            return product_read[field_name] * factor
 
-
-        res=super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty,
-            uom, qty_uos, uos, name, partner_id,
-            lang, update_tax, date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
-
+            return price * factor
+        res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty, uom, qty_uos, uos,
+                                                             name, partner_id, lang, update_tax, date_order, packaging=packaging, 
+                                                             fiscal_position=fiscal_position, flag=flag, context=context)
         context = {'lang': lang, 'partner_id': partner_id}
-        result=res['value']
-        pricelist_obj=self.pool.get('product.pricelist')
+        result = res['value']
+        pricelist_obj = self.pool.get('product.pricelist')
         product_obj = self.pool.get('product.product')
         if product:
             if result.get('price_unit',False):
-                price=result['price_unit']
+                price = result['price_unit']
             else:
                 return res
 
-            product = product_obj.browse(cr, uid, product, context)
+            product = product_obj.browse(cr, uid, product, context=context)
             list_price = pricelist_obj.price_get(cr, uid, [pricelist],
                     product.id, qty or 1.0, partner_id, {'uom': uom,'date': date_order })
 
-            pricelists = pricelist_obj.read(cr,uid,[pricelist],['visible_discount'])
+            pricelists = pricelist_obj.read(cr, uid, [pricelist], ['visible_discount'], context=context)
 
             new_list_price = get_real_price(list_price, product.id, qty, uom, pricelist)
             if len(pricelists)>0 and pricelists[0]['visible_discount'] and list_price[pricelist] != 0 and new_list_price != 0:
