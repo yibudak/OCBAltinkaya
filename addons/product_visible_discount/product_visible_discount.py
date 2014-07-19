@@ -60,11 +60,11 @@ class sale_order_line(osv.osv):
                     if not base_pricelist:
                         price = 0.0
                     else:
-                        price_tmp = pricelist_obj.price_get(cr, uid,
+                         price_tmp = pricelist_obj.price_get(cr, uid,
                                      [base_pricelist], product_id,
                                      qty, context=context)[base_pricelist]
-                        ptype_src = pricelist_obj.browse(cr, uid, base_pricelist, context=context).currency_id.id
-                        price = currency_obj.compute(cr, uid,
+                         ptype_src = pricelist_obj.browse(cr, uid, base_pricelist, context=context).currency_id.id
+                         price = currency_obj.compute(cr, uid,
                                  ptype_src, pricelist_currency.id,
                                  price_tmp, round=False, context=context)
             elif item_base.base > 0:
