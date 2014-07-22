@@ -50,7 +50,7 @@ class sale_order_line(osv.osv):
             price_type_obj = self.pool.get('product.price.type')
             pricelist_obj = self.pool.get('product.pricelist')
             price = res_dict.get(pricelist, False)
-            
+
             if res_dict.get('item_id',False) and res_dict['item_id'].get(pricelist,False):
                 item = res_dict['item_id'].get(pricelist,False)
                 item_base = item_obj.browse(cr, uid, item, context=context)
@@ -63,8 +63,8 @@ class sale_order_line(osv.osv):
                         price_tmp = pricelist_obj.price_get(cr, uid,
                                      [base_pricelist], product_id,
                                      qty, context=context)[base_pricelist]
-                         ptype_src = pricelist_obj.browse(cr, uid, base_pricelist, context=context).currency_id.id
-                         price = currency_obj.compute(cr, uid,
+                        ptype_src = pricelist_obj.browse(cr, uid, base_pricelist, context=context).currency_id.id
+                        price = currency_obj.compute(cr, uid,
                                  ptype_src, pricelist_currency.id,
                                  price_tmp, round=False, context=context)
             elif item_base.base > 0:
@@ -81,7 +81,7 @@ class sale_order_line(osv.osv):
 
             return price * factor
         res = super(sale_order_line, self).product_id_change(cr, uid, ids, pricelist, product, qty, uom, qty_uos, uos,
-                                                             name, partner_id, lang, update_tax, date_order, packaging=packaging, 
+                                                             name, partner_id, lang, update_tax, date_order, packaging=packaging,
                                                              fiscal_position=fiscal_position, flag=flag, context=context)
         context = {'lang': lang, 'partner_id': partner_id}
         result = res['value']
