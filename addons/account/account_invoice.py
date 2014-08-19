@@ -133,7 +133,7 @@ class account_invoice(osv.osv):
                     result[invoice.id] = new_value
 
             #prevent the residual amount on the invoice to be less than 0
-            result[invoice.id] = max(result[invoice.id], 0.0)            
+            result[invoice.id] = max(result[invoice.id], 0.0)
         return result
 
     # Give Journal Items related to the payment reconciled to this invoice
@@ -416,8 +416,9 @@ class account_invoice(osv.osv):
              'form': self.read(cr, uid, ids[0], context=context)
         }
         return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'account.invoice',
+            'type': 'ir.actions.act_window',
+            'report_name': 'aeroo.print_actions',
+            'context':{'report_action_id':273},
             'datas': datas,
             'nodestroy' : True
         }
@@ -1752,9 +1753,9 @@ class account_invoice_tax(osv.osv):
                     val['account_analytic_id'] = tax['account_analytic_paid_id']
 
                 # If the taxes generate moves on the same financial account as the invoice line
-                # and no default analytic account is defined at the tax level, propagate the 
+                # and no default analytic account is defined at the tax level, propagate the
                 # analytic account from the invoice line to the tax line. This is necessary
-                # in situations were (part of) the taxes cannot be reclaimed, 
+                # in situations were (part of) the taxes cannot be reclaimed,
                 # to ensure the tax move is allocated to the proper analytic account.
                 if not val.get('account_analytic_id') and line.account_analytic_id and val['account_id'] == line.account_id.id:
                     val['account_analytic_id'] = line.account_analytic_id.id
