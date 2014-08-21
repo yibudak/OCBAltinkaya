@@ -447,7 +447,7 @@ class mrp_production(osv.osv):
         'location_dest_id': fields.many2one('stock.location', 'Finished Products Location', required=True,
             readonly=True, states={'draft':[('readonly',False)]},
             help="Location where the system will stock the finished products."),
-        'date_planned': fields.datetime('Scheduled Date', required=True, select=1, readonly=True, states={'draft':[('readonly',False)]}),
+        'date_planned': fields.datetime('Scheduled Date', required=True, select=1,
         'date_start': fields.datetime('Start Date', select=True, readonly=True),
         'date_finished': fields.datetime('End Date', select=True, readonly=True),
         'bom_id': fields.many2one('mrp.bom', 'Bill of Material', domain=[('bom_id','=',False)], readonly=True, states={'draft':[('readonly',False)]},
@@ -593,7 +593,7 @@ class mrp_production(osv.osv):
         """
         self.write(cr, uid, ids, {'state': 'picking_except'})
         return True
-    
+
     def _action_compute_lines(self, cr, uid, ids, properties=None, context=None):
         """ Compute product_lines and workcenter_lines from BoM structure
         @return: product_lines
@@ -610,10 +610,10 @@ class mrp_production(osv.osv):
         for production in self.browse(cr, uid, ids, context=context):
             #unlink product_lines
             prod_line_obj.unlink(cr, SUPERUSER_ID, [line.id for line in production.product_lines], context=context)
-    
+
             #unlink workcenter_lines
             workcenter_line_obj.unlink(cr, SUPERUSER_ID, [line.id for line in production.workcenter_lines], context=context)
-    
+
             # search BoM structure and route
             bom_point = production.bom_id
             bom_id = production.bom_id.id
@@ -623,21 +623,21 @@ class mrp_production(osv.osv):
                     bom_point = bom_obj.browse(cr, uid, bom_id)
                     routing_id = bom_point.routing_id.id or False
                     self.write(cr, uid, [production.id], {'bom_id': bom_id, 'routing_id': routing_id})
-    
+
             if not bom_id:
                 raise osv.except_osv(_('Error!'), _("Cannot find a bill of material for this product."))
-    
+
             # get components and workcenter_lines from BoM structure
             factor = uom_obj._compute_qty(cr, uid, production.product_uom.id, production.product_qty, bom_point.product_uom.id)
             res = bom_obj._bom_explode(cr, uid, bom_point, factor / bom_point.product_qty, properties, routing_id=production.routing_id.id)
             results = res[0] # product_lines
             results2 = res[1] # workcenter_lines
-    
+
             # reset product_lines in production order
             for line in results:
                 line['production_id'] = production.id
                 prod_line_obj.create(cr, uid, line)
-    
+
             #reset workcenter_lines in production order
             for line in results2:
                 line['production_id'] = production.id
@@ -681,7 +681,7 @@ class mrp_production(osv.osv):
                 produce_move_id = self._make_production_produce_line(cr, uid, production, context=context)
                 for scheduled in production.product_lines:
                     self._make_production_line_procurement(cr, uid, scheduled, False, context=context)
-        
+
             if production.move_prod_id and production.move_prod_id.location_id.id != production.location_dest_id.id:
                 move_obj.write(cr, uid, [production.move_prod_id.id],
                         {'location_id': production.location_dest_id.id})
@@ -775,7 +775,7 @@ class mrp_production(osv.osv):
                         # if qtys we have to consume is more than qtys available to consume
                         prod_name = scheduled.product_id.name_get()[0][1]
                         raise osv.except_osv(_('Warning!'), _('You are going to consume total %s quantities of "%s".\nBut you can only consume up to total %s quantities.') % (qty, prod_name, qty_avail))
-                    if float_compare(qty, 0, precision_rounding=scheduled.product_id.uom_id.rounding) <= 0:                        
+                    if float_compare(qty, 0, precision_rounding=scheduled.product_id.uom_id.rounding) <= 0:
                         # we already have more qtys consumed than we need
                         continue
 
@@ -884,7 +884,7 @@ class mrp_production(osv.osv):
 
     def _get_auto_picking(self, cr, uid, production):
         return True
-    
+
     def _hook_create_post_procurement(self, cr, uid, production, procurement_id, context=None):
         return True
 
