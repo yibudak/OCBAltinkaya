@@ -788,7 +788,7 @@ class Database(openerpweb.Controller):
         password, db = operator.itemgetter(
             'drop_pwd', 'drop_db')(
                 dict(map(operator.itemgetter('name', 'value'), fields)))
-        
+
         try:
             if req.session.proxy("db").drop(password, db):return True
         except xmlrpclib.Fault, e:
@@ -1765,6 +1765,7 @@ class Reports(openerpweb.Controller):
                 if action.get('name'):
                     item_names.insert(0, action['name'])
                 file_name = '-'.join(item_names)
+                file_name = file_name[0:40]
         file_name = '%s.%s' % (file_name, report_struct['format'])
         # Create safe filename
         p = re.compile('[/:(")<>|?*]|(\\\)')
