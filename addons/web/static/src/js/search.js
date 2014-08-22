@@ -700,14 +700,14 @@ instance.web.SearchView = instance.web.Widget.extend(/** @lends instance.web.Sea
             null, _(this.select_for_drawer()).invoke(
                 'appendTo', this.$('.oe_searchview_drawer')));
 
-        
+
         // load defaults
         var defaults_fetched = $.when.apply(null, _(this.inputs).invoke(
                 'facet_for_defaults', this.defaults))
             .then(this.proxy('setup_default_query'));
 
         return $.when(drawer_started, defaults_fetched)
-            .then(function () { 
+            .then(function () {
                 self.trigger("search_view_loaded", data);
                 self.ready.resolve();
             });
@@ -787,7 +787,7 @@ instance.web.SearchView = instance.web.Widget.extend(/** @lends instance.web.Sea
             groupbys: groupbys,
             errors: errors
         };
-    }, 
+    },
     /**
      * Performs the search view collection of widget data.
      *
@@ -2051,12 +2051,12 @@ instance.web.search.ExtendedSearchProposition.Field = instance.web.Widget.extend
 instance.web.search.ExtendedSearchProposition.Char = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.char',
     operators: [
-        {value: "ilike", text: _lt("contains")},
-        {value: "not ilike", text: _lt("doesn't contain")},
-        {value: "=", text: _lt("is equal to")},
-        {value: "!=", text: _lt("is not equal to")},
-        {value: "∃", text: _lt("is set")},
-        {value: "∄", text: _lt("is not set")}
+        {value: "ilike", text: _lt("içerir")},
+        {value: "not ilike", text: _lt("içermez")},
+        {value: "=", text: _lt("eşittir")},
+        {value: "!=", text: _lt("eşit değildir")},
+        {value: "∃", text: _lt("ayarlanmış")},
+        {value: "∄", text: _lt("ayarlanmamış")}
     ],
     get_value: function() {
         return this.$el.val();
@@ -2065,14 +2065,14 @@ instance.web.search.ExtendedSearchProposition.Char = instance.web.search.Extende
 instance.web.search.ExtendedSearchProposition.DateTime = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.empty',
     operators: [
-        {value: "=", text: _lt("is equal to")},
-        {value: "!=", text: _lt("is not equal to")},
-        {value: ">", text: _lt("greater than")},
-        {value: "<", text: _lt("less than")},
-        {value: ">=", text: _lt("greater or equal than")},
-        {value: "<=", text: _lt("less or equal than")},
-        {value: "∃", text: _lt("is set")},
-        {value: "∄", text: _lt("is not set")}
+        {value: "=", text: _lt("eşittir")},
+        {value: "!=", text: _lt("eşit değildir")},
+        {value: ">", text: _lt("büyüktür")},
+        {value: "<", text: _lt("küçüktür")},
+        {value: ">=", text: _lt("büyük ya da eşittir")},
+        {value: "<=", text: _lt("küçük ya da eşittir")},
+        {value: "∃", text: _lt("ayarlanmış")},
+        {value: "∄", text: _lt("ayarlanmamış")}
     ],
     /**
      * Date widgets live in view_form which is not yet loaded when this is
@@ -2101,14 +2101,14 @@ instance.web.search.ExtendedSearchProposition.Date = instance.web.search.Extende
 instance.web.search.ExtendedSearchProposition.Integer = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.integer',
     operators: [
-        {value: "=", text: _lt("is equal to")},
-        {value: "!=", text: _lt("is not equal to")},
-        {value: ">", text: _lt("greater than")},
-        {value: "<", text: _lt("less than")},
-        {value: ">=", text: _lt("greater or equal than")},
-        {value: "<=", text: _lt("less or equal than")},
-        {value: "∃", text: _lt("is set")},
-        {value: "∄", text: _lt("is not set")}
+        {value: "=", text: _lt("eşittir")},
+        {value: "!=", text: _lt("eşit değildir")},
+        {value: ">", text: _lt("büyüktür")},
+        {value: "<", text: _lt("küçüktür")},
+        {value: ">=", text: _lt("büyük ya da eşittir")},
+        {value: "<=", text: _lt("küçük ya da eşittir")},
+        {value: "∃", text: _lt("ayarlanmış")},
+        {value: "∄", text: _lt("ayarlanmamış")}
     ],
     toString: function () {
         return this.$el.val();
@@ -2128,14 +2128,14 @@ instance.web.search.ExtendedSearchProposition.Id = instance.web.search.ExtendedS
 instance.web.search.ExtendedSearchProposition.Float = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.float',
     operators: [
-        {value: "=", text: _lt("is equal to")},
-        {value: "!=", text: _lt("is not equal to")},
-        {value: ">", text: _lt("greater than")},
-        {value: "<", text: _lt("less than")},
-        {value: ">=", text: _lt("greater or equal than")},
-        {value: "<=", text: _lt("less or equal than")},
-        {value: "∃", text: _lt("is set")},
-        {value: "∄", text: _lt("is not set")}
+        {value: "=", text: _lt("eşittir")},
+        {value: "!=", text: _lt("eşit değildir")},
+        {value: ">", text: _lt("büyüktür")},
+        {value: "<", text: _lt("küçüktür")},
+        {value: ">=", text: _lt("büyük ya da eşittir")},
+        {value: "<=", text: _lt("küçük ya da eşittir")},
+        {value: "∃", text: _lt("ayarlanmış")},
+        {value: "∄", text: _lt("ayarlanmamış")}
     ],
     toString: function () {
         return this.$el.val();
@@ -2152,10 +2152,10 @@ instance.web.search.ExtendedSearchProposition.Float = instance.web.search.Extend
 instance.web.search.ExtendedSearchProposition.Selection = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.selection',
     operators: [
-        {value: "=", text: _lt("is")},
-        {value: "!=", text: _lt("is not")},
-        {value: "∃", text: _lt("is set")},
-        {value: "∄", text: _lt("is not set")}
+        {value: "=", text: _lt("eşittir")},
+        {value: "!=", text: _lt("eşit değildir")},
+        {value: "∃", text: _lt("ayarlanmış")},
+        {value: "∄", text: _lt("ayarlanmamış")}
     ],
     toString: function () {
         var select = this.$el[0];
@@ -2169,8 +2169,8 @@ instance.web.search.ExtendedSearchProposition.Selection = instance.web.search.Ex
 instance.web.search.ExtendedSearchProposition.Boolean = instance.web.search.ExtendedSearchProposition.Field.extend({
     template: 'SearchView.extended_search.proposition.empty',
     operators: [
-        {value: "=", text: _lt("is true")},
-        {value: "!=", text: _lt("is false")}
+        {value: "=", text: _lt("doğru")},
+        {value: "!=", text: _lt("yanlış")}
     ],
     get_label: function (field, operator) {
         return this.format_label(
