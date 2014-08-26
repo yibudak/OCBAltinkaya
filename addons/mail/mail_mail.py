@@ -188,7 +188,7 @@ class mail_mail(osv.Model):
                 }
                 url = urljoin(base_url, "?%s#%s" % (urlencode(query), urlencode(fragment)))
                 text = _("""<p>Access this document <a href="%s">directly in OpenERP</a></p>""") % url
-                body = tools.append_content_to_html(body, ("<div><p>%s</p></div>" % text), plaintext=False)
+#                body = tools.append_content_to_html(body, ("<div><p>%s</p></div>" % text), plaintext=False)
             except except_orm, e:
                 pass
         return body
