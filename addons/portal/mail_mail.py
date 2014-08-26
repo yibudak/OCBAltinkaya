@@ -52,5 +52,5 @@ class mail_mail(osv.Model):
                     text = _("""<p>Access this document <a href="%s">directly in OpenERP</a></p>""") % url
                 except except_orm, e:
                     pass
-#            body = append_content_to_html(body, ("<div><p>%s</p></div>" % text), plaintext=False)
+            body = append_content_to_html(body, ("<div><p>%s</p></div>" % text), plaintext=False)
         return body
