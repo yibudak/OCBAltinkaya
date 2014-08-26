@@ -219,7 +219,7 @@ class mail_mail(osv.Model):
                 # sanitize document name
                 sanitized_doc_name = re.sub(r'[^\w+.]+', '-', document_name[1])
                 # generate reply to
-                email_reply_to = _('Followers of %s <%s>') % (sanitized_doc_name, email_reply_to)
+                email_reply_to = _('"Followers of %s" <%s>') % (sanitized_doc_name, email_reply_to)
 
         return email_reply_to
 
