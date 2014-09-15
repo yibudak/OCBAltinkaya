@@ -23,8 +23,9 @@
                             <field name="qty" class="oe_inline"/>
                             <field name="uom_id" groups="product.group_uom"/>
                         </div>
+                        <field name="priority"/>
                         <field name="date_planned"/>
-                    </group>
+                     </group>
                     <footer>
                         <button name="make_procurement" string="Ask New Products" type="object"  class="oe_highlight"  />
                         or

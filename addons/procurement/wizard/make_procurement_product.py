@@ -26,25 +26,26 @@ from openerp.osv import fields, osv
 class make_procurement(osv.osv_memory):
     _name = 'make.procurement'
     _description = 'Make Procurements'
-    
+
     def onchange_product_id(self, cr, uid, ids, prod_id):
         """ On Change of Product ID getting the value of related UoM.
          @param self: The object pointer.
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
-         @param ids: List of IDs selected 
-         @param prod_id: Changed ID of Product 
-         @return: A dictionary which gives the UoM of the changed Product 
+         @param ids: List of IDs selected
+         @param prod_id: Changed ID of Product
+         @return: A dictionary which gives the UoM of the changed Product
         """
         product = self.pool.get('product.product').browse(cr, uid, prod_id)
         return {'value': {'uom_id': product.uom_id.id}}
-    
+
     _columns = {
         'qty': fields.float('Quantity', digits=(16,2), required=True),
         'product_id': fields.many2one('product.product', 'Product', required=True, readonly=1),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', required=True),
         'warehouse_id': fields.many2one('stock.warehouse', 'Warehouse', required=True),
         'date_planned': fields.date('Planned Date', required=True),
+        'priority': fields.selection([('0','Acil Değil'),('1','Normal'),('2','Acil'),('3','Çok Acil')], 'Öncelik', required=True, select=True),
     }
 
     _defaults = {
@@ -74,6 +75,7 @@ class make_procurement(osv.osv_memory):
                 'date_planned': proc.date_planned,
                 'product_id': proc.product_id.id,
                 'product_qty': proc.qty,
+                'priority':proc.priority,
                 'product_uom': proc.uom_id.id,
                 'location_id': wh.lot_stock_id.id,
                 'procure_method':'make_to_order',
