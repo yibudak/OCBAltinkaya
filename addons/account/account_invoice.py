@@ -416,7 +416,7 @@ class account_invoice(osv.osv):
              'form': self.read(cr, uid, ids[0], context=context)
         }
 
-        server_action_ids = [844]
+        server_action_ids = [840]
         server_action_ids = map(int, server_action_ids)
         action_server_obj = self.pool.get('ir.actions.server')
         ctx = dict(context, active_model='account.invoice', active_ids=ids, active_id=ids[0])
