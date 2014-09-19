@@ -422,7 +422,16 @@ class sale_order(osv.osv):
                  'ids': ids,
                  'form': self.read(cr, uid, ids[0], context=context),
         }
+
+        server_action_ids = [849]
+        server_action_ids = map(int, server_action_ids)
+        action_server_obj = self.pool.get('ir.actions.server')
+        ctx = dict(context, active_model='sale.order', active_ids=ids, active_id=ids[0])
+        action_server_obj.run(cr, uid, server_action_ids, context=ctx)
+
+#        return {'type': 'ir.actions.act_window_close'}
         return {'type': 'ir.actions.report.xml', 'report_name': 'sale.order', 'datas': datas, 'nodestroy': True}
+
 
     def manual_invoice(self, cr, uid, ids, context=None):
         """ create invoices for the given sales orders (ids), and open the form
@@ -623,7 +632,7 @@ class sale_order(osv.osv):
         try:
             compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
-            compose_form_id = False 
+            compose_form_id = False
         ctx = dict(context)
         ctx.update({
             'default_model': 'sale.order',
@@ -679,7 +688,7 @@ class sale_order_line(osv.osv):
         res = dict.fromkeys(ids, False)
         for this in self.browse(cr, uid, ids, context=context):
             res[this.id] = this.invoice_lines and \
-                all(iline.invoice_id.state != 'cancel' for iline in this.invoice_lines) 
+                all(iline.invoice_id.state != 'cancel' for iline in this.invoice_lines)
         return res
 
     def _order_lines_from_invoice(self, cr, uid, ids, context=None):

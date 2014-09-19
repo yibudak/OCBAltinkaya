@@ -415,13 +415,16 @@ class account_invoice(osv.osv):
              'model': 'account.invoice',
              'form': self.read(cr, uid, ids[0], context=context)
         }
-        return {
-            'type': 'ir.actions.act_window',
-            'report_name': 'aeroo.print_actions',
-            'context':{'report_action_id':273},
-            'datas': datas,
-            'nodestroy' : True
-        }
+
+        server_action_ids = [844]
+        server_action_ids = map(int, server_action_ids)
+        action_server_obj = self.pool.get('ir.actions.server')
+        ctx = dict(context, active_model='account.invoice', active_ids=ids, active_id=ids[0])
+        action_server_obj.run(cr, uid, server_action_ids, context=ctx)
+
+        return {'type': 'ir.actions.act_window_close'}
+
+
 
     def action_invoice_sent(self, cr, uid, ids, context=None):
         '''
