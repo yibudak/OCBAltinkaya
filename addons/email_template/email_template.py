@@ -135,9 +135,9 @@ class email_template(osv.osv):
                             help="Optional translation language (ISO code) to select when sending out an email. "
                                  "If not set, the english version will be used. "
                                  "This should usually be a placeholder expression "
-                                 "that provides the appropriate language code, e.g. "
-                                 "${object.partner_id.lang.code}.",
-                            placeholder="${object.partner_id.lang.code}"),
+                                 "that provides the appropriate language, e.g. "
+                                 "${object.partner_id.lang}.",
+                            placeholder="${object.partner_id.lang}"),
         'user_signature': fields.boolean('Add Signature',
                                          help="If checked, the user's signature will be appended to the text version "
                                               "of the message"),
@@ -341,7 +341,7 @@ class email_template(osv.osv):
             service = netsvc.LocalService(report_service)
             (result, format) = service.create(cr, uid, [res_id], {'model': template.model}, ctx)
             # TODO in trunk, change return format to binary to match message_post expected format
-            if not ctx['default_composition_mode'] == 'mass_mail':
+            if not ctx.get('default_composition_mode', False) == 'mass_mail':
                 result = base64.b64encode(result)
             if not report_name:
                 report_name = report_service
