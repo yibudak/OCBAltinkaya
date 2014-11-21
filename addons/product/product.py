@@ -132,10 +132,10 @@ class product_uom(osv.osv):
         'name': fields.char('Unit of Measure', size=64, required=True, translate=True),
         'category_id': fields.many2one('product.uom.categ', 'Category', required=True, ondelete='cascade',
             help="Conversion between Units of Measure can only occur if they belong to the same category. The conversion will be made based on the ratios."),
-        'factor': fields.float('Ratio', required=True,digits=(12, 12),
+        'factor': fields.float('Ratio', required=True, digits=0, # force NUMERIC with unlimited precision
             help='How much bigger or smaller this unit is compared to the reference Unit of Measure for this category:\n'\
                     '1 * (reference unit) = ratio * (this unit)'),
-        'factor_inv': fields.function(_factor_inv, digits=(12,12),
+        'factor_inv': fields.function(_factor_inv, digits=0, # force NUMERIC with unlimited precision
             fnct_inv=_factor_inv_write,
             string='Ratio',
             help='How many times this Unit of Measure is bigger than the reference Unit of Measure in this category:\n'\
@@ -691,7 +691,7 @@ class product_product(osv.osv):
                 ids.update(self.search(cr, user, args + [('default_code',operator,name)], limit=limit, context=context))
                 if not limit or len(ids) < limit:
                     # we may underrun the limit because of dupes in the results, that's fine
-                    ids.update(self.search(cr, user, args + [('name',operator,name)], limit=(limit and (limit-len(ids)) or False) , context=context))
+                    ids.update(self.search(cr, user, args + [('name',operator,name), ('id', 'not in', list(ids))], limit=(limit and (limit-len(ids)) or False) , context=context))
                 ids = list(ids)
             elif not ids and operator in expression.NEGATIVE_TERM_OPERATORS:
                 ids = self.search(cr, user, args + ['&', ('default_code', operator, name), ('name', operator, name)], limit=limit, context=context)
@@ -719,7 +719,8 @@ class product_product(osv.osv):
 
         res = {}
         product_uom_obj = self.pool.get('product.uom')
-        for product in self.browse(cr, SUPERUSER_ID, ids, context=context):
+        company_id = self.pool['res.users'].read(cr, uid, uid, ['company_id'], context=context)['company_id'][0]
+        for product in self.browse(cr, SUPERUSER_ID, ids, context=dict(context, force_company=company_id)):
             res[product.id] = product[ptype] or 0.0
             if ptype == 'list_price':
                 res[product.id] = (res[product.id] * (product.price_margin or 1.0)) + \
@@ -769,6 +770,34 @@ class product_product(osv.osv):
         if context and context.get('search_default_categ_id', False):
             args.append((('categ_id', 'child_of', context['search_default_categ_id'])))
         return super(product_product, self).search(cr, uid, args, offset=offset, limit=limit, order=order, context=context, count=count)
+
+    def _compute_uos_qty(self, cr, uid, ids, uom, qty, uos, context=None):
+        '''
+        Computes product's invoicing quantity in UoS from quantity in UoM.
+        Takes into account the
+        :param uom: Source unit
+        :param qty: Source quantity
+        :param uos: Target UoS unit.
+        '''
+        if not uom or not qty or not uos:
+            return qty
+        uom_obj = self.pool['product.uom']
+        product_id = ids[0] if isinstance(ids, (list, tuple)) else ids
+        product = self.browse(cr, uid, product_id, context=context)
+        if isinstance(uos, (int, long)):
+            uos = uom_obj.browse(cr, uid, uos, context=context)
+        if isinstance(uom, (int, long)):
+            uom = uom_obj.browse(cr, uid, uom, context=context)
+        if product.uos_id:  # Product has UoS defined
+            # We cannot convert directly between units even if the units are of the same category
+            # as we need to apply the conversion coefficient which is valid only between quantities
+            # in product's default UoM/UoS
+            qty_default_uom = uom_obj._compute_qty_obj(cr, uid, uom, qty, product.uom_id)  # qty in product's default UoM
+            qty_default_uos = qty_default_uom * product.uos_coeff
+            return uom_obj._compute_qty_obj(cr, uid, product.uos_id, qty_default_uos, uos)
+        else:
+            return uom_obj._compute_qty_obj(cr, uid, uom, qty, uos)
+
 
 product_product()
 

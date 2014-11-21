@@ -750,9 +750,8 @@ class stock_picking(osv.osv):
         if ('name' not in default) or (picking_obj.name == '/'):
             seq_obj_name = 'stock.picking.' + picking_obj.type
             default['name'] = self.pool.get('ir.sequence').get(cr, uid, seq_obj_name)
-            default['backorder_id'] = False
-        if 'origin' not in default:
-            default['origin'] = ''
+            default.setdefault('origin', False)
+            default.setdefault('backorder_id', False)
         if 'invoice_state' not in default and picking_obj.invoice_state == 'invoiced':
             default['invoice_state'] = '2binvoiced'
         res = super(stock_picking, self).copy(cr, uid, id, default, context)
@@ -1281,20 +1280,21 @@ class stock_picking(osv.osv):
         for pick in self.browse(cr, uid, ids, context=context):
             new_picking = None
             complete, too_many, too_few = [], [], []
-            move_product_qty, prodlot_ids, product_avail, partial_qty, product_uoms = {}, {}, {}, {}, {}
+            move_product_qty, prodlot_ids, product_avail, partial_qty, uos_qty, product_uoms = {}, {}, {}, {}, {}, {}
             for move in pick.move_lines:
                 if move.state in ('done', 'cancel'):
                     continue
                 partial_data = partial_datas.get('move%s'%(move.id), {})
                 product_qty = partial_data.get('product_qty',0.0)
                 move_product_qty[move.id] = product_qty
-                product_uom = partial_data.get('product_uom',False)
+                product_uom = partial_data.get('product_uom', move.product_uom.id)
                 product_price = partial_data.get('product_price',0.0)
                 product_currency = partial_data.get('product_currency',False)
                 prodlot_id = partial_data.get('prodlot_id')
                 prodlot_ids[move.id] = prodlot_id
                 product_uoms[move.id] = product_uom
                 partial_qty[move.id] = uom_obj._compute_qty(cr, uid, product_uoms[move.id], product_qty, move.product_uom.id)
+                uos_qty[move.id] = move.product_id._compute_uos_qty(product_uom, product_qty, move.product_uos) if product_qty else 0.0
                 if move.product_qty == partial_qty[move.id]:
                     complete.append(move)
                 elif move.product_qty > partial_qty[move.id]:
@@ -1358,7 +1358,7 @@ class stock_picking(osv.osv):
                 if product_qty != 0:
                     defaults = {
                             'product_qty' : product_qty,
-                            'product_uos_qty': product_qty, #TODO: put correct uos_qty
+                            'product_uos_qty': uos_qty[move.id],
                             'picking_id' : new_picking,
                             'state': 'assigned',
                             'move_dest_id': move.move_dest_id.id,
@@ -1372,7 +1372,7 @@ class stock_picking(osv.osv):
                 move_obj.write(cr, uid, [move.id],
                         {
                             'product_qty': move.product_qty - partial_qty[move.id],
-                            'product_uos_qty': move.product_qty - partial_qty[move.id], #TODO: put correct uos_qty
+                            'product_uos_qty': move.product_uos_qty - uos_qty[move.id],
                             'prodlot_id': False,
                             'tracking_id': False,
                         })
@@ -1388,7 +1388,7 @@ class stock_picking(osv.osv):
                 product_qty = move_product_qty[move.id]
                 defaults = {
                     'product_qty' : product_qty,
-                    'product_uos_qty': product_qty, #TODO: put correct uos_qty
+                    'product_uos_qty': uos_qty[move.id],
                     'product_uom': product_uoms[move.id]
                 }
                 prodlot_id = prodlot_ids.get(move.id)
@@ -2400,6 +2400,9 @@ class stock_move(osv.osv):
                 context = {}
             src_company_ctx = dict(context,force_company=move.location_id.company_id.id)
             dest_company_ctx = dict(context,force_company=move.location_dest_id.company_id.id)
+            # do not take the company of the one of the user
+            # used to select the correct period
+            company_ctx = dict(context, company_id=move.company_id.id)
             account_moves = []
             # Outgoing moves (or cross-company output part)
             if move.location_id.company_id \
@@ -2431,7 +2434,8 @@ class stock_move(osv.osv):
                         {
                          'journal_id': j_id,
                          'line_id': move_lines,
-                         'ref': move.picking_id and move.picking_id.name}, context=context)
+                         'company_id': move.company_id.id,
+                         'ref': move.picking_id and move.picking_id.name}, context=company_ctx)
 
     def action_done(self, cr, uid, ids, context=None):
         """ Makes the move done and if all moves are done, it will finish the picking.

@@ -311,7 +311,7 @@ class mrp_bom(osv.osv):
                 max_prop = prop
         return result
 
-    def _bom_explode(self, cr, uid, bom, factor, properties=None, addthis=False, level=0, routing_id=False):
+    def _bom_explode(self, cr, uid, bom, factor, properties=None, addthis=False, level=0, routing_id=False, context=None):
         """ Finds Products and Work Centers for related BoM for manufacturing order.
         @param bom: BoM of particular product.
         @param factor: Factor of product UoM.
@@ -333,7 +333,7 @@ class mrp_bom(osv.osv):
             newbom = self._bom_find(cr, uid, bom.product_id.id, bom.product_uom.id, properties)
 
             if newbom:
-                res = self._bom_explode(cr, uid, self.browse(cr, uid, [newbom])[0], factor*bom.product_qty, properties, addthis=True, level=level+10)
+                res = self._bom_explode(cr, uid, self.browse(cr, uid, [newbom])[0], factor*bom.product_qty, properties, addthis=True, level=level+10, context=context)
                 result = result + res[0]
                 result2 = result2 + res[1]
                 phantom = True
@@ -365,7 +365,7 @@ class mrp_bom(osv.osv):
                         'hour': float(wc_use.hour_nbr*mult + ((wc.time_start or 0.0)+(wc.time_stop or 0.0)+cycle*(wc.time_cycle or 0.0)) * (wc.time_efficiency or 1.0)),
                     })
             for bom2 in bom.bom_lines:
-                res = self._bom_explode(cr, uid, bom2, factor, properties, addthis=True, level=level+10)
+                res = self._bom_explode(cr, uid, bom2, factor, properties, addthis=True, level=level+10, context=context)
                 result = result + res[0]
                 result2 = result2 + res[1]
         return result, result2
@@ -376,6 +376,13 @@ class mrp_bom(osv.osv):
         bom_data = self.read(cr, uid, id, [], context=context)
         default.update(name=_("%s (copy)") % (bom_data['name']), bom_id=False)
         return super(mrp_bom, self).copy_data(cr, uid, id, default, context=context)
+
+    def unlink(self, cr, uid, ids, context=None):
+        if self.pool['mrp.production'].search(cr, uid, [
+                ('bom_id', 'in', ids), ('state', 'not in', ['done', 'cancel'])
+            ], context=context):
+            raise osv.except_osv(_('Warning!'), _('You can not delete a Bill of Material with running manufacturing orders.\nPlease close or cancel it first.'))
+        return super(mrp_bom, self).unlink(cr, uid, ids, context=context)
 
 
 def rounding(f, r):
@@ -629,7 +636,7 @@ class mrp_production(osv.osv):
 
             # get components and workcenter_lines from BoM structure
             factor = uom_obj._compute_qty(cr, uid, production.product_uom.id, production.product_qty, bom_point.product_uom.id)
-            res = bom_obj._bom_explode(cr, uid, bom_point, factor / bom_point.product_qty, properties, routing_id=production.routing_id.id)
+            res = bom_obj._bom_explode(cr, uid, bom_point, factor / bom_point.product_qty, properties, routing_id=production.routing_id.id, context=context)
             results = res[0] # product_lines
             results2 = res[1] # workcenter_lines
 
@@ -991,6 +998,8 @@ class mrp_production(osv.osv):
             'state': 'waiting',
             'company_id': production.company_id.id,
         }
+        if production.move_prod_id:
+            production.move_prod_id.write({'location_id': destination_location_id})
         move_id = stock_move.create(cr, uid, data, context=context)
         production.write({'move_created_ids': [(6, 0, [move_id])]}, context=context)
         return move_id
