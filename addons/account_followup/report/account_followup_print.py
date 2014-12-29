@@ -64,8 +64,8 @@ class report_rappel(report_sxw.rml_parse):
         for line in moveline_obj.browse(self.cr, self.uid, moveline_ids):
             currency = line.currency_id or line.company_id.currency_id
             line_data = {
-                'name': line.move_id.name,
-                'ref': line.ref,
+                'name': line.journal_id.name,
+                'ref': line.move_id.name,
                 'date': line.date,
                 'date_maturity': line.date_maturity,
                 'balance': line.amount_currency if currency != line.company_id.currency_id else line.debit - line.credit,

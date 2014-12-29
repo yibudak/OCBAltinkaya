@@ -125,7 +125,7 @@
   <story>
     <para style="terp_default_8">[[ repeatIn(ids_to_objects(data['form']['partner_ids']),'o') ]] </para>
     <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
-    
+
     <blockTable colWidths="298.0,234.0" style="Tableau2">
       <tr>
         <td>
@@ -154,7 +154,7 @@
       <font color="white"> </font>
     </para>
     <section>
-    
+
     <blockTable colWidths="70.0,95.0,89.0,75.0,89.0,29.0" style="Table1">
 	<para style="terp_default_8">[[repeatIn(getLines(o), 'cur_lines') ]]</para>
       <tr>
@@ -233,6 +233,6 @@
     </para>
 
     </section>
-   
+
   </story>
 </document>
