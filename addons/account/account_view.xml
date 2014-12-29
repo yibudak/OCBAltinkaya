@@ -1209,11 +1209,11 @@
                     <field name="date"/>
                     <field name="move_id"/>
                     <field name="ref"/>
-                    <field name="name"/>
+                    <field name="name" invisible="True" />
                     <field name="partner_id"/>
                     <field name="account_id"/>
                     <field name="period_id" invisible="1"/>
-                    <field name="journal_id" invisible="1"/>
+                    <field name="journal_id" invisible="0"/>
                     <field name="reconcile_partial_id"/>
                     <field name="state" invisible="1"/>
                     <field name="debit" sum="Total debit"/>
@@ -1785,7 +1785,7 @@
             res_model="account.move.line"
             src_model="res.partner"/>
 
-        <act_window 
+        <act_window
             context="{'search_default_partner_id':[active_id], 'default_partner_id': active_id}"
             id="act_account_partner_account_move"
             name="Journal Items"

@@ -1,6 +1,6 @@
 <openerp>
     <data>
-        
+
         <record id="view_account_followup_followup_line_tree" model="ir.ui.view">
             <field name="name">account_followup.followup.line.tree</field>
             <field name="model">account_followup.followup.line</field>
@@ -78,9 +78,9 @@
                         overdue the customer is. These actions are bundled
                         into follow-up levels that are triggered when the due
                         date of an invoice has passed a certain
-                        number of days. If there are other overdue invoices for the 
-                        same customer, the actions of the most 
-                        overdue invoice will be executed. 
+                        number of days. If there are other overdue invoices for the
+                        same customer, the actions of the most
+                        overdue invoice will be executed.
                     </p>
                     <field name="followup_line"/>
                 </form>
@@ -143,7 +143,8 @@
                     <field name="date"/>
                     <field name="move_id"/>
                     <field name="ref"/>
-                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="name"  invisible="True" />
                     <field name="partner_id"/>
                     <field name="account_id"/>
                     <field name="followup_line_id"/>

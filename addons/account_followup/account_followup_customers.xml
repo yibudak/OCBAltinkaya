@@ -64,7 +64,7 @@
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('payment_amount_due', '>', 0.0)]</field> 
+            <field name="domain">[('payment_amount_due', '>', 0.0)]</field>
             <field name="context">{'Followupfirst':True, 'search_default_todo': True} </field>
             <field name="search_view_id" ref="customer_followup_search_view"/>
         </record>
@@ -79,7 +79,7 @@
                 <page string="Accounting" position="before" version="7.0">
                     <page string="Payment Follow-up" groups="account.group_account_invoice" name="followup_tab">
                         <div class="oe_right oe_button_box" name="followup_button">
-                            <button name="do_button_print" type="object" string="Print Overdue Payments" groups="account.group_account_user" 
+                            <button name="do_button_print" type="object" string="Print Overdue Payments" groups="account.group_account_user"
                                 help="Print overdue payments report independent of follow-up line" attrs="{'invisible':[('payment_amount_due', '&lt;=', 0.0)]}" />
                             <button name="do_partner_mail" type="object" string="Send Overdue Email" groups="account.group_account_user"
                                 help="If not specified by the latest follow-up level, it will send from the default email template" attrs="{'invisible':[('payment_amount_due', '&lt;=', 0.0)]}"/>
@@ -110,6 +110,7 @@
                         <field name="unreconciled_aml_ids">
                             <tree string="Account Move line" editable="bottom" create="false" delete="false" colors="red:(not date_maturity or date_maturity&lt;=current_date) and result&gt;0">
                                 <field name="date" readonly="True"/>
+                                <field name="journal_id" readonly="True"/>
                                 <field name="company_id" readonly="True" groups="base.group_multi_company" />
                                 <field name="move_id" readonly="True"/>
                                 <field name="blocked"/>
@@ -142,7 +143,7 @@
         </record>
 
         <!-- Menus about followup of customers -->
-        <menuitem id="account_followup_s" action="action_customer_followup" 
+        <menuitem id="account_followup_s" action="action_customer_followup"
             parent="menu_finance_followup" name="Do Manual Follow-Ups" sequence="3"/>
         <record id="action_customer_my_followup" model="ir.actions.act_window">
             <field name="name">My Follow-Ups</field>
@@ -155,7 +156,7 @@
             <field name="search_view_id" ref="customer_followup_search_view"/>
         </record>
         <menuitem id="base.menu_sales_followup" parent="base.menu_base_partner" name="Payment Follow-up" groups="account.group_account_invoice" sequence="2"/>
-        <menuitem id="menu_sale_followup" parent="base.menu_sales_followup" sequence="10" 
+        <menuitem id="menu_sale_followup" parent="base.menu_sales_followup" sequence="10"
                   action="action_customer_my_followup"  groups="account.group_account_invoice"/>
     </data>
 </openerp>
