@@ -179,7 +179,10 @@ class mail_mail(osv.Model):
             related_user = partner.user_ids[0]
             try:
                 self.pool.get(mail.model).check_access_rule(cr, related_user.id, [mail.res_id], 'read', context=context)
-                base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url')
+            except except_orm, e:
+                pass
+            else:
+                base_url = self.pool.get('ir.config_parameter').get_param(cr, SUPERUSER_ID, 'web.base.url')
                 # the parameters to encode for the query and fragment part of url
                 query = {'db': cr.dbname}
                 fragment = {
