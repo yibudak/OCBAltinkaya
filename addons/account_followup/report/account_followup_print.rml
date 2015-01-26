@@ -2,7 +2,7 @@
 <document filename="Account Follow-up.pdf">
   <template title="Account Follow-up" author="OpenERP S.A. (sales@openerp.com)" allowSplitting="20">
     <pageTemplate>
-      <frame id="first" x1="2.0cm" y1="2.5cm" height="22.5cm" width="18.0cm"/>
+      <frame id="first" x1="1.5cm" y1="2.5cm" height="23.25cm" width="18.5cm"/>
       <header>
        <stylesheet>
             <!-- Set here the default font to use for all <para> tags -->
@@ -58,8 +58,9 @@
             <lines>1.3cm 25.8cm 20cm 25.8cm</lines>
 
 
-            <lines>0.2cm 20.0cm 1.0cm 20.0cm</lines>
-            <lines>20.0cm 20.0cm 21.0cm 20.0cm</lines>
+            <lines>0.6cm 19.7cm 1.0cm 19.7cm</lines>
+            <lines>20.0cm 19.7cm 20.4cm 19.7cm</lines>
+            <lines>0.6cm 14.85cm 1.0cm 14.85cm</lines>
 
             <!-- left margin -->
             <rotate degrees="90"/>
@@ -72,7 +73,7 @@
             <lines>1.2cm 2.15cm 19.9cm 2.15cm</lines>
             <place x="1.3cm" y="0cm" height="2.0cm" width="19.0cm">
                 <para style="main_footer">[[ company.rml_footer ]]</para>
-                <para style="main_footer">Contact : [[ user.name ]] - Page: <pageNumber/></para>
+                <para style="main_footer">Hazırlayan : [[ user.name ]] - Sayfa: <pageNumber/></para>
             </place>
         </pageGraphics>
 </header>
@@ -199,14 +200,18 @@
   <story>
     <para style="terp_default_8">[[ repeatIn(ids_to_objects(data['form']['partner_ids']),'o') ]] </para>
     <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
-
-    <blockTable colWidths="100mm,20mm,60mm" style="Tableau2">
+     <para style="terp_default_8">
+      <font color="white"> </font>
+    </para>
+     <para style="terp_default_8">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="80mm,40mm,65mm" style="Tableau2">
       <tr>
         <td>
           <para style="terp_default_9">[[ o.partner_id.name or '' ]]</para>
           <para style="terp_default_9">[[ display_address(o.partner_id) or '']]</para>
           <para style="terp_default_9">Tel: [[ format(o.partner_id.phone, phone=True, phone_format='national') or '' ]]</para>
-
           <para style="terp_default_9">
             <font color="white"> </font>
           </para>
@@ -221,16 +226,17 @@
     <para style="terp_default_9">Document : Customer account statement</para>
     <para style="terp_default_9">Customer Ref : [[ o.partner_id.ref or '' ]]</para>
     <para style="terp_default_9">Tel: [[ format(o.partner_id.phone, phone=True, phone_format='national') or '' ]]</para>
-    <para style="terp_default_9">Fax: [[ format(o.partner_id.fax, phone=True, phone_format='national') or '' ]]</para>
+    <para style="terp_default_9">Faks: [[ format(o.partner_id.fax, phone=True, phone_format='national') or '' ]]</para>
     <para style="terp_default_9">[[ o.partner_id.x_vergidairesi or '' ]] VD: [[ o.partner_id.x_vergino or '' ]]</para>
-
-
         </td>
 
       </tr>
     </blockTable>
     <para style="terp_default_8">
       <font color="white"> </font>
+    </para>
+    <para style="terp_default_9">
+    <font color="white"> </font>
     </para>
     <para style="terp_default_9_followup_id">[[ format(get_text(o,data['form']['followup_id'])) ]]</para>
     <para style="terp_default_9">
