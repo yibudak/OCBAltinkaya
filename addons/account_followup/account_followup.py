@@ -36,7 +36,7 @@ class followup(osv.osv):
     _defaults = {
         'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(cr, uid, 'account_followup.followup', context=c),
     }
-    _sql_constraints = [('company_uniq', 'unique(company_id)', 'Only one follow-up per company is allowed')] 
+    _sql_constraints = [('company_uniq', 'unique(company_id)', 'Only one follow-up per company is allowed')]
 
 
 class followup_line(osv.osv):
@@ -105,10 +105,10 @@ class account_move_line(osv.osv):
 
     _inherit = 'account.move.line'
     _columns = {
-        'followup_line_id': fields.many2one('account_followup.followup.line', 'Follow-up Level', 
+        'followup_line_id': fields.many2one('account_followup.followup.line', 'Follow-up Level',
                                         ondelete='restrict'), #restrict deletion of the followup line
         'followup_date': fields.date('Latest Follow-up', select=True),
-        'result':fields.function(_get_result, type='float', method=True, 
+        'result':fields.function(_get_result, type='float', method=True,
                                 string="Balance") #'balance' field is not the same
     }
 
@@ -146,7 +146,7 @@ class res_partner(osv.osv):
                     latest_level = aml.followup_line_id.id
                 if (aml.company_id == company) and (not latest_date or latest_date < aml.followup_date):
                     latest_date = aml.followup_date
-                if (aml.company_id == company) and (aml.blocked == False) and (aml.followup_line_id != False and 
+                if (aml.company_id == company) and (aml.blocked == False) and (aml.followup_line_id != False and
                             (not latest_days_without_lit or latest_days_without_lit < aml.followup_line_id.delay)):
                     latest_days_without_lit =  aml.followup_line_id.delay
                     latest_level_without_lit = aml.followup_line_id.id
@@ -155,7 +155,7 @@ class res_partner(osv.osv):
                                'latest_followup_level_id_without_lit': latest_level_without_lit}
         return res
 
-    def do_partner_manual_action(self, cr, uid, partner_ids, context=None): 
+    def do_partner_manual_action(self, cr, uid, partner_ids, context=None):
         #partner_ids -> res.partner
         for partner in self.browse(cr, uid, partner_ids, context=context):
             #Check action: check if the action was not empty, if not add
@@ -210,7 +210,7 @@ class res_partner(osv.osv):
                 if level and level.send_email and level.email_template_id and level.email_template_id.id:
                     mtp.send_mail(cr, uid, level.email_template_id.id, partner.id, context=ctx)
                 else:
-                    mail_template_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 
+                    mail_template_id = self.pool.get('ir.model.data').get_object_reference(cr, uid,
                                                     'account_followup', 'email_template_account_followup_default')
                     mtp.send_mail(cr, uid, mail_template_id[1], partner.id, context=ctx)
             else:
@@ -262,7 +262,7 @@ class res_partner(osv.osv):
                     <td>''' + _("Amount") + " (%s)" % (currency.symbol) + '''</td>
                     <td>''' + _("Lit.") + '''</td>
                 </tr>
-                ''' 
+                '''
                 total = 0
                 for aml in currency_dict['line']:
                     block = aml['blocked'] and 'X' or ' '
@@ -286,20 +286,20 @@ class res_partner(osv.osv):
                 if part.payment_responsible_id <> vals["payment_responsible_id"]:
                     #Find partner_id of user put as responsible
                     responsible_partner_id = self.pool.get("res.users").browse(cr, uid, vals['payment_responsible_id'], context=context).partner_id.id
-                    self.pool.get("mail.thread").message_post(cr, uid, 0, 
+                    self.pool.get("mail.thread").message_post(cr, uid, 0,
                                       body = _("You became responsible to do the next action for the payment follow-up of") + " <b><a href='#id=" + str(part.id) + "&view_type=form&model=res.partner'> " + part.name + " </a></b>",
                                       type = 'comment',
                                       subtype = "mail.mt_comment", context = context,
-                                      model = 'res.partner', res_id = part.id, 
+                                      model = 'res.partner', res_id = part.id,
                                       partner_ids = [responsible_partner_id])
         return super(res_partner, self).write(cr, uid, ids, vals, context=context)
-    
+
     def copy(self, cr, uid, record_id, default=None, context=None):
         if default is None:
             default = {}
 
         default.update({'unreconciled_aml_ids': []})
-        return super(res_partner, self).copy(cr, uid, record_id, default, context) 
+        return super(res_partner, self).copy(cr, uid, record_id, default, context)
 
     def action_done(self, cr, uid, ids, context=None):
         return self.write(cr, uid, ids, {'payment_next_action_date': False, 'payment_next_action':'', 'payment_responsible_id': False}, context=context)
@@ -349,8 +349,8 @@ class res_partner(osv.osv):
                     amount_due += aml.result
                     if (date_maturity <= current_date):
                         amount_overdue += aml.result
-            res[partner.id] = {'payment_amount_due': amount_due, 
-                               'payment_amount_overdue': amount_overdue, 
+            res[partner.id] = {'payment_amount_due': amount_due,
+                               'payment_amount_overdue': amount_overdue,
                                'payment_earliest_due_date': worst_due_date}
         return res
 
@@ -433,39 +433,39 @@ class res_partner(osv.osv):
 
     _inherit = "res.partner"
     _columns = {
-        'payment_responsible_id':fields.many2one('res.users', ondelete='set null', string='Follow-up Responsible', 
-                                                 help="Optionally you can assign a user to this field, which will make him responsible for the action.", 
-                                                 track_visibility="onchange"), 
+        'payment_responsible_id':fields.many2one('res.users', ondelete='set null', string='Follow-up Responsible',
+                                                 help="Optionally you can assign a user to this field, which will make him responsible for the action.",
+                                                 track_visibility="onchange"),
         'payment_note':fields.text('Customer Payment Promise', help="Payment Note", track_visibility="onchange"),
-        'payment_next_action':fields.text('Next Action', 
-                                    help="This is the next action to be taken.  It will automatically be set when the partner gets a follow-up level that requires a manual action. ", 
-                                    track_visibility="onchange"), 
+        'payment_next_action':fields.text('Next Action',
+                                    help="This is the next action to be taken.  It will automatically be set when the partner gets a follow-up level that requires a manual action. ",
+                                    track_visibility="onchange"),
         'payment_next_action_date':fields.date('Next Action Date',
                                     help="This is when the manual follow-up is needed. " \
                                     "The date will be set to the current date when the partner gets a follow-up level that requires a manual action. "\
                                     "Can be practical to set manually e.g. to see if he keeps his promises."),
-        'unreconciled_aml_ids':fields.one2many('account.move.line', 'partner_id', domain=['&', ('reconcile_id', '=', False), '&', 
-                            ('account_id.active','=', True), '&', ('account_id.type', '=', 'receivable'), ('state', '!=', 'draft')]), 
-        'latest_followup_date':fields.function(_get_latest, method=True, type='date', string="Latest Follow-up Date", 
-                            help="Latest date that the follow-up level of the partner was changed", 
-                            store=False, multi="latest"), 
-        'latest_followup_level_id':fields.function(_get_latest, method=True, 
-            type='many2one', relation='account_followup.followup.line', string="Latest Follow-up Level", 
-            help="The maximum follow-up level", 
-            store=False, 
-            multi="latest"), 
-        'latest_followup_level_id_without_lit':fields.function(_get_latest, method=True, 
-            type='many2one', relation='account_followup.followup.line', string="Latest Follow-up Level without litigation", 
-            help="The maximum follow-up level without taking into account the account move lines with litigation", 
-            store=False, 
+        'unreconciled_aml_ids':fields.one2many('account.move.line', 'partner_id', domain=['&', ('reconcile_id', '=', False), '&',
+                            ('account_id.active','=', True), '&', ('account_id.type', '=', 'receivable'), ('state', '!=', 'draft')]),
+        'latest_followup_date':fields.function(_get_latest, method=True, type='date', string="Latest Follow-up Date",
+                            help="Latest date that the follow-up level of the partner was changed",
+                            store=False, multi="latest"),
+        'latest_followup_level_id':fields.function(_get_latest, method=True,
+            type='many2one', relation='account_followup.followup.line', string="Latest Follow-up Level",
+            help="The maximum follow-up level",
+            store=False,
             multi="latest"),
-        'payment_amount_due':fields.function(_get_amounts_and_date, 
+        'latest_followup_level_id_without_lit':fields.function(_get_latest, method=True,
+            type='many2one', relation='account_followup.followup.line', string="Latest Follow-up Level without litigation",
+            help="The maximum follow-up level without taking into account the account move lines with litigation",
+            store=False,
+            multi="latest"),
+        'payment_amount_due':fields.function(_get_amounts_and_date,
                                                  type='float', string="Amount Due",
-                                                 store = False, multi="followup", 
+                                                 store = False, multi="followup",
                                                  fnct_search=_payment_due_search),
         'payment_amount_overdue':fields.function(_get_amounts_and_date,
                                                  type='float', string="Amount Overdue",
-                                                 store = False, multi="followup", 
+                                                 store = False, multi="followup",
                                                  fnct_search = _payment_overdue_search),
         'payment_earliest_due_date':fields.function(_get_amounts_and_date,
                                                     type='date',
