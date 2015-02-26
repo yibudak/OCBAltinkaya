@@ -20,7 +20,7 @@
          so users can freely customize/delete them -->
     <data noupdate="1">
         <!--Email template -->
-        <record id="email_template_edi_invoice" model="email.template">
+        <record id="email_template_edi_invoice2" model="email.template">
             <field name="name">Invoice - Send by Email</field>
             <field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>
             <field name="subject">${object.company_id.name|safe} Invoice (Ref ${object.number or 'n/a'})</field>

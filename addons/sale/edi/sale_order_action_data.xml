@@ -18,7 +18,7 @@
     <data noupdate="1">
 
         <!--Email template -->
-        <record id="email_template_edi_sale" model="email.template">
+        <record id="email_template_edi_sale2" model="email.template">
             <field name="name">Sales Order - Send by Email</field>
             <field name="email_from">${(object.user_id.email or '')|safe}</field>
             <field name="subject">${object.company_id.name|safe} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>

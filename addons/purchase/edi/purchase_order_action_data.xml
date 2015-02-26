@@ -17,7 +17,7 @@
          so users can freely customize/delete them -->
     <data noupdate="1">
         <!--Email template -->
-        <record id="email_template_edi_purchase" model="email.template">
+        <record id="email_template_edi_purchase2" model="email.template">
             <field name="name">Purchase Order - Send by mail</field>
             <field name="email_from">${(object.validator.email or '')|safe}</field>
             <field name="subject">${object.company_id.name|safe} Order (Ref ${object.name or 'n/a' })</field>
