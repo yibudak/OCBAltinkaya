@@ -664,6 +664,9 @@ class stock_picking(osv.osv):
     _description = "Picking List"
     _order = "priority desc, date asc, id desc"
 
+    def onchange_partner_in(self, cr, uid, ids, partner_id=None, context=None):
+		return {}
+    
     def _set_min_date(self, cr, uid, id, field, value, arg, context=None):
         move_obj = self.pool.get("stock.move")
         if value:
