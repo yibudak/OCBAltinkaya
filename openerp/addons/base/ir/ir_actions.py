@@ -330,7 +330,7 @@ class ir_actions_act_window(osv.osv):
                 if model and self.pool.get(model):
                     ctx = dict(context or {})
                     res['help'] = self.pool[model].get_empty_list_help(cr, uid, res.get('help', ""), context=ctx)
-        if ids_int:
+        if ids_int and results:
             return results[0]
         return results
 
