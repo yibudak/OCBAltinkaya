@@ -927,7 +927,7 @@ class sale_order_line(osv.osv):
         'product_uos_qty': fields.float('Quantity (UoS)' ,digits_compute= dp.get_precision('Product UoS'), readonly=True, states={'draft': [('readonly', False)]}),
         'product_uos': fields.many2one('product.uom', 'Product UoS'),
         'discount': fields.float('Discount (%)', digits_compute= dp.get_precision('Discount'), readonly=True, states={'draft': [('readonly', False)]}),
-        'th_weight': fields.float('Weight', readonly=True, states={'draft': [('readonly', False)]}),
+        'th_weight': fields.float('Weight', readonly=True, states={'draft': [('readonly', False)]}, digits_compute=dp.get_precision('Stock Weight')),
         'state': fields.selection(
                 [('cancel', 'Cancelled'),('draft', 'Draft'),('confirmed', 'Confirmed'),('exception', 'Exception'),('done', 'Done')],
                 'Status', required=True, readonly=True, copy=False,
@@ -1141,15 +1141,12 @@ class sale_order_line(osv.osv):
             fpos = partner.property_account_position or False
         else:
             fpos = self.pool.get('account.fiscal.position').browse(cr, uid, fiscal_position)
-        if update_tax: #The quantity only have changed
-            # The superuser is used by website_sale in order to create a sale order. We need to make
-            # sure we only select the taxes related to the company of the partner. This should only
-            # apply if the partner is linked to a company.
-            if uid == SUPERUSER_ID and context.get('company_id'):
-                taxes = product_obj.taxes_id.filtered(lambda r: r.company_id.id == context['company_id'])
-            else:
-                taxes = product_obj.taxes_id
-            result['tax_id'] = self.pool.get('account.fiscal.position').map_tax(cr, uid, fpos, taxes)
+
+        if uid == SUPERUSER_ID and context.get('company_id'):
+            taxes = product_obj.taxes_id.filtered(lambda r: r.company_id.id == context['company_id'])
+        else:
+            taxes = product_obj.taxes_id
+        result['tax_id'] = self.pool.get('account.fiscal.position').map_tax(cr, uid, fpos, taxes)
 
         if not flag:
             result['name'] = self.pool.get('product.product').name_get(cr, uid, [product_obj.id], context=context_partner)[0][1]
@@ -1208,8 +1205,7 @@ class sale_order_line(osv.osv):
 
                 warning_msgs += _("No valid pricelist line found ! :") + warn_msg +"\n\n"
             else:
-                if update_tax:
-                    price = self.pool['account.tax']._fix_tax_included_price(cr, uid, price, taxes, result['tax_id'])
+                price = self.pool['account.tax']._fix_tax_included_price(cr, uid, price, taxes, result['tax_id'])
                 result.update({'price_unit': price})
                 if context.get('uom_qty_change', False):
                     values = {'price_unit': price}
