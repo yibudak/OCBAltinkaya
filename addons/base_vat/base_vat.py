@@ -70,7 +70,7 @@ _ref_vat = {
     'se': 'SE123456789701',
     'si': 'SI12345679',
     'sk': 'SK0012345675',
-    'tr': 'TR1234567890 (VERGINO) veya TR12345678901 (TCKIMLIKNO)' # Levent Karakas @ Eska Yazilim A.S.
+    'tr': '1234567890 (VERGINO) veya 12345678901 (TCKIMLIKNO)' # Levent Karakas @ Eska Yazilim A.S.
 }
 
 class res_partner(osv.osv):
