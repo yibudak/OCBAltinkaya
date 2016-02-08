@@ -2015,6 +2015,10 @@ class stock_move(osv.osv):
             propagated_changes_dict['product_uom_qty'] = vals['product_uom_qty']
         if vals.get('product_uom_id'):
             propagated_changes_dict['product_uom_id'] = vals['product_uom_id']
+        if vals.get('product_uos_qty'):
+            propagated_changes_dict['product_uos_qty'] = vals['product_uos_qty']
+        if vals.get('product_uos_id'):
+            propagated_changes_dict['product_uos_id'] = vals['product_uos_id']
         #propagation of expected date:
         propagated_date_field = False
         if vals.get('date_expected'):
@@ -2366,7 +2370,7 @@ class stock_move(osv.osv):
         """
         procurement_obj = self.pool.get('procurement.order')
         context = context or {}
-        procs_to_check = []
+        procs_to_check = set()
         for move in self.browse(cr, uid, ids, context=context):
             if move.state == 'done':
                 raise osv.except_osv(_('Operation Forbidden!'),
@@ -2386,11 +2390,11 @@ class stock_move(osv.osv):
                         self.write(cr, uid, [move.move_dest_id.id], {'state': 'confirmed'}, context=context)
                 if move.procurement_id:
                     # Does the same as procurement check, only eliminating a refresh
-                    procs_to_check.append(move.procurement_id.id)
+                    procs_to_check.add(move.procurement_id.id)
                     
         res = self.write(cr, uid, ids, {'state': 'cancel', 'move_dest_id': False}, context=context)
         if procs_to_check:
-            procurement_obj.check(cr, uid, procs_to_check, context=context)
+            procurement_obj.check(cr, uid, list(procs_to_check), context=context)
         return res
 
     def _check_package_from_moves(self, cr, uid, ids, context=None):
@@ -2946,6 +2950,18 @@ class stock_inventory_line(osv.osv):
         'product_qty': 0,
         'product_uom_id': lambda self, cr, uid, ctx=None: self.pool['ir.model.data'].get_object_reference(cr, uid, 'product', 'product_uom_unit')[1]
     }
+
+    def create(self, cr, uid, values, context=None):
+        product_obj = self.pool.get('product.product')
+        dom = [('product_id', '=', values.get('product_id')), ('inventory_id.state', '=', 'confirm'),
+               ('location_id', '=', values.get('location_id')), ('partner_id', '=', values.get('partner_id')),
+               ('package_id', '=', values.get('package_id')), ('prod_lot_id', '=', values.get('prod_lot_id'))]
+        res = self.search(cr, uid, dom, context=context)
+        if res:
+            location = self.pool['stock.location'].browse(cr, uid, values.get('location_id'), context=context)
+            product = product_obj.browse(cr, uid, values.get('product_id'), context=context)
+            raise Warning(_("You cannot have two inventory adjustements in state 'in Progess' with the same product(%s), same location(%s), same package, same owner and same lot. Please first validate the first inventory adjustement with this product before creating another one.") % (product.name, location.name))
+        return super(stock_inventory_line, self).create(cr, uid, values, context=context)
 
     def _get_quants(self, cr, uid, line, context=None):
         quant_obj = self.pool["stock.quant"]
@@ -3609,7 +3625,7 @@ class stock_warehouse(osv.osv):
             for pull in route.pull_ids:
                 pull_obj.write(cr, uid, pull.id, {'name': pull.name.replace(warehouse.name, name, 1)}, context=context)
             for push in route.push_ids:
-                push_obj.write(cr, uid, push.id, {'name': pull.name.replace(warehouse.name, name, 1)}, context=context)
+                push_obj.write(cr, uid, push.id, {'name': push.name.replace(warehouse.name, name, 1)}, context=context)
         #change the mto pull rule name
         if warehouse.mto_pull_id.id:
             pull_obj.write(cr, uid, warehouse.mto_pull_id.id, {'name': warehouse.mto_pull_id.name.replace(warehouse.name, name, 1)}, context=context)
