@@ -3,14 +3,15 @@
 # * sale
 # 
 # Translators:
+# Eric Antones <eantones@users.noreply.github.com>, 2016
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2016-02-12 21:39+0000\n"
-"Last-Translator: Martin Trigaux\n"
+"PO-Revision-Date: 2016-05-02 10:46+0000\n"
+"Last-Translator: Eric Antones <eantones@users.noreply.github.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/odoo/odoo-8/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -294,7 +295,7 @@ msgstr ""
 #. module: sale
 #: field:sale.config.settings,module_warning:0
 msgid "Allow configuring alerts by customer or products"
-msgstr ""
+msgstr "Permet configurar alertes per client o producte"
 
 #. module: sale
 #: field:sale.config.settings,module_website_quote:0
@@ -304,7 +305,7 @@ msgstr ""
 #. module: sale
 #: field:sale.config.settings,group_discount_per_so_line:0
 msgid "Allow setting a discount on the sales order lines"
-msgstr ""
+msgstr "Permet establir un descompte en les linies de les comandes de venda"
 
 #. module: sale
 #: help:sale.config.settings,module_warning:0
@@ -317,7 +318,7 @@ msgstr ""
 #. module: sale
 #: field:sale.config.settings,group_uom:0
 msgid "Allow using different units of measure"
-msgstr ""
+msgstr "Permet utilitzar diferents unitat de mesura"
 
 #. module: sale
 #: help:sale.config.settings,module_account_analytic_analysis:0
@@ -432,7 +433,7 @@ msgstr "Cancel·la"
 #. module: sale
 #: view:sale.order.line:sale.view_order_line_form2
 msgid "Cancel Line"
-msgstr ""
+msgstr "Cancel·la Línia"
 
 #. module: sale
 #: view:sale.order:sale.view_order_form
@@ -442,7 +443,7 @@ msgstr "Cancel·la comanda"
 #. module: sale
 #: view:sale.order:sale.view_order_form
 msgid "Cancel Quotation"
-msgstr ""
+msgstr "Cancel·la Pressupost"
 
 #. module: sale
 #: selection:sale.order,state:0 selection:sale.order.line,state:0
@@ -454,7 +455,7 @@ msgstr "Cancel·lada"
 #: code:addons/sale/sale.py:588
 #, python-format
 msgid "Cannot cancel this sales order!"
-msgstr ""
+msgstr "No es pot cancel·lar aquesta comanda de venda!"
 
 #. module: sale
 #: code:addons/sale/sale.py:1171
@@ -802,7 +803,7 @@ msgstr "Fals"
 #: code:addons/sale/sale.py:589
 #, python-format
 msgid "First cancel all invoices attached to this sales order."
-msgstr ""
+msgstr "Heu de cancel·lar primer totes les factures associades a aquesta comanda de venda."
 
 #. module: sale
 #: field:sale.order,fiscal_position:0
@@ -976,17 +977,17 @@ msgstr "Línies de factura"
 #. module: sale
 #: model:ir.actions.act_window,name:sale.action_view_sale_advance_payment_inv
 msgid "Invoice Order"
-msgstr ""
+msgstr "Facturació de Commanda"
 
 #. module: sale
 #: view:sale.advance.payment.inv:sale.view_sale_advance_payment_inv
 msgid "Invoice Sales Order"
-msgstr ""
+msgstr "Facturació "
 
 #. module: sale
 #: field:crm.case.section,invoiced_target:0
 msgid "Invoice Target"
-msgstr ""
+msgstr "Objectiu de la factura"
 
 #. module: sale
 #: help:sale.order,partner_invoice_id:0
@@ -1127,7 +1128,7 @@ msgstr "Les meves vendes"
 #: view:sale.order.line:sale.view_sales_order_line_filter
 #: view:sale.order.line:sale.view_sales_order_uninvoiced_line_filter
 msgid "My Sales Order Lines"
-msgstr ""
+msgstr "Les meves línies de comandes de venda"
 
 #. module: sale
 #: view:sale.order:sale.view_order_form
@@ -1162,7 +1163,7 @@ msgstr ""
 msgid ""
 "Number of days between the order confirmation and the shipping of the "
 "products to the customer"
-msgstr ""
+msgstr "Nombre de dies entre la confirmació de la comanda i l'enviament dels productes al client"
 
 #. module: sale
 #: model:ir.actions.act_window,name:sale.action_order_tree
@@ -1252,7 +1253,7 @@ msgstr ""
 #. module: sale
 #: view:sale.report:sale.view_order_product_search
 msgid "Ordered date of the sales order"
-msgstr ""
+msgstr "Data de comanda de les comandes de venda"
 
 #. module: sale
 #: view:sale.order:sale.view_order_form
@@ -1384,7 +1385,7 @@ msgstr "Projecte"
 #. module: sale
 #: model:res.groups,name:sale.group_mrp_properties
 msgid "Properties on lines"
-msgstr ""
+msgstr "Propietats a les línies"
 
 #. module: sale
 #: view:sale.order.line:sale.view_order_line_tree
@@ -1564,7 +1565,7 @@ msgstr "Anàlisi de vendes"
 #. module: sale
 #: model:ir.filters,name:sale.filter_sale_report_sales_funnel
 msgid "Sales Funnel"
-msgstr ""
+msgstr "Embut de vendes"
 
 #. module: sale
 #: model:ir.model,name:sale.model_sale_make_invoice
@@ -1603,7 +1604,7 @@ msgstr "Línies de la comanda de venda"
 #. module: sale
 #: view:sale.order.line:sale.view_sales_order_line_filter
 msgid "Sales Order Lines ready to be invoiced"
-msgstr ""
+msgstr "Línies de comandes de venda a punt per ser facturades"
 
 #. module: sale
 #: view:sale.order.line:sale.view_sales_order_line_filter
@@ -1640,7 +1641,7 @@ msgstr ""
 #. module: sale
 #: view:sale.order:sale.view_sales_order_filter
 msgid "Sales Order that haven't yet been confirmed"
-msgstr ""
+msgstr "Comandes de venda pendents de confirmar"
 
 #. module: sale
 #: view:crm.case.section:sale.crm_case_section_salesteams_view_kanban
@@ -1927,7 +1928,7 @@ msgid ""
 "product, etc.) Use this report to perform analysis on sales not having "
 "invoiced yet. If you want to analyse your turnover, you should use the "
 "Invoice Analysis report in the Accounting application."
-msgstr ""
+msgstr "Aquest informe realitza una anàlisi de les vostres comandes de venda. L'anàlisi verifica els ingressos de les vostres vendes i les ordena per diferents grups de criteris (comercial, empresa, producte, etc.). Utilitzeu aquest informe per realitzar un anàlisi sobre les vostres vendes encara no facturades. Si voleu analitzar els vostres ingressos, hauríeu d'utilitzar l'informe d'anàlisi de factures en l'aplicació de Comptabilitat."
 
 #. module: sale
 #: view:sale.order.line:sale.view_sales_order_uninvoiced_line_filter
@@ -2047,7 +2048,7 @@ msgstr ""
 #. module: sale
 #: field:sale.config.settings,group_sale_pricelist:0
 msgid "Use pricelists to adapt your price per customers"
-msgstr ""
+msgstr "Utilitza tarifes per adaptar els vostres preus per clients"
 
 #. module: sale
 #: view:website:sale.report_saleorder_document
@@ -2095,7 +2096,7 @@ msgstr "Pes"
 #. module: sale
 #: field:sale.advance.payment.inv,advance_payment_method:0
 msgid "What do you want to invoice?"
-msgstr ""
+msgstr "Què és el que voleu facturar?"
 
 #. module: sale
 #: code:addons/sale/sale.py:990
