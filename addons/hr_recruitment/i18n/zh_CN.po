@@ -4,15 +4,18 @@
 # 
 # Translators:
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012,2014
-# leangjia <liangjia@qq.com>, 2015
+# Jeffery Chenn <jeffery9@gmail.com>, 2016
+# liAnGjiA <liangjia@qq.com>, 2015
+# liAnGjiA <liangjia@qq.com>, 2015
 # mrshelly <mrshelly@hotmail.com>, 2015
+# liAnGjiA <liangjia@qq.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-08-20 10:58+0000\n"
-"Last-Translator: leangjia <liangjia@qq.com>\n"
+"PO-Revision-Date: 2016-06-07 04:38+0000\n"
+"Last-Translator: Jeffery Chenn <jeffery9@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/odoo/odoo-8/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +83,7 @@ msgid ""
 "                Define job position profile and manage recruitment in a context of a particular job: print interview survey, define number of expected new employees, and manage its recruitment pipe\n"
 "              </p>\n"
 "            "
-msgstr "<p class=\"oe_view_nocontent_create\">\n                 点此创建一个新的工作岗位，或移除过滤器中的\"正在招聘\"过滤项，从而为之前招聘过的岗位补充新人。 \n        </p>\n        <p>\n         定义职位简介，管理特殊工作的招聘:打印访谈调查，确定预期的新员工人数，并管理其招聘渠道.\n        </p>\n            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n                 点此创建一个新的工作岗位，或移除过滤器中的\"正在招聘\"过滤项，从而为之前招聘过的岗位补充新人。 \n        </p>\n        <p>\n         定义职位简介，管理特殊工作的招聘:打印访谈调查，确定预期的新员工人数，并管理其招聘管道.\n        </p>\n            "
 
 #. module: hr_recruitment
 #: model:ir.actions.act_window,help:hr_recruitment.hr_job_stage_act
@@ -409,12 +412,12 @@ msgstr "选择一个此岗位的面试表格，你可以把它打印出来让所
 #. module: hr_recruitment
 #: field:hr.recruitment.partner.create,close:0
 msgid "Close job request"
-msgstr "结束职位申请"
+msgstr "关闭职位申请"
 
 #. module: hr_recruitment
 #: field:hr.applicant,date_closed:0 field:hr.recruitment.report,date_closed:0
 msgid "Closed"
-msgstr "已结束"
+msgstr "已关闭"
 
 #. module: hr_recruitment
 #: field:hr.applicant,color:0 field:hr.job,color:0
@@ -993,7 +996,7 @@ msgstr "管理您的简历和求职信与所有申请人。\n         �
 #. module: hr_recruitment
 #: model:hr.applicant_category,name:hr_recruitment.tag_applicant_manager
 msgid "Manager"
-msgstr "经理"
+msgstr "管理者"
 
 #. module: hr_recruitment
 #: model:hr.recruitment.degree,name:hr_recruitment.degree_licenced

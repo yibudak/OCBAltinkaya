@@ -5,13 +5,14 @@
 # Translators:
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012,2014
 # Jeffery Chenn <jeffery9@gmail.com>, 2016
+# liAnGjiA <liangjia@qq.com>, 2016
 # mrshelly <mrshelly@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2016-04-04 15:04+0000\n"
+"PO-Revision-Date: 2016-06-06 13:46+0000\n"
 "Last-Translator: Jeffery Chenn <jeffery9@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/odoo/odoo-8/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -301,7 +302,7 @@ msgstr "外部标识"
 msgid ""
 "External ID,Name,Is a \n"
 "                        Company,Related Company/External ID"
-msgstr "External ID,Name, 是一个公司，关联公司/External ID"
+msgstr "External ID,Name,这里的Name指的是公司名字， \n                        相关的公司机构名称/或这里要导入的External ID指的是外部扩展ID号码"
 
 #. module: base_import
 #. openerp-web
@@ -436,7 +437,7 @@ msgid ""
 "                        configuration of product categories, we recommend you \n"
 "                        use make use of the external ID for this field \n"
 "                        'Category'."
-msgstr "但是，如果您不希望改变您的 \n                        产品分类配置，我们建议你 \n                        对此 'Category' 字段，使用 \n                        external ID。"
+msgstr "但是，如果您不希望改变您的 \n                        产品类别配置，我们建议你 \n                        对此 'Category' 字段，使用 \n                        external ID。"
 
 #. module: base_import
 #. openerp-web
