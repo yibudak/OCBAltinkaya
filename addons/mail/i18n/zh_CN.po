@@ -7,6 +7,7 @@
 # Jeffery Chenn <jeffery9@gmail.com>, 2015
 # Jeffery Chenn <jeffery9@gmail.com>, 2016
 # liAnGjiA <liangjia@qq.com>, 2015
+# liAnGjiA <liangjia@qq.com>, 2016
 # Michael Chong <michaelchong2005@gmail.com>, 2015
 # mrshelly <mrshelly@hotmail.com>, 2015
 # niulinlnc <admin@niulin.net>, 2015
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2016-06-17 12:41+0000\n"
-"Last-Translator: Jeffery Chenn <jeffery9@gmail.com>\n"
+"PO-Revision-Date: 2016-09-03 04:48+0000\n"
+"Last-Translator: liAnGjiA <liangjia@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/odoo/odoo-8/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,7 +95,7 @@ msgid ""
 "                    follow.\n"
 "                </p>\n"
 "            "
-msgstr "<p>\n                    <b>你的收件箱是空的。</b>\n                </p><p>\n                    你的收件箱包含了你的私人消息或者发给你的邮件 ，包括你关注的单据或者个人的信息。\n                </p>\n            "
+msgstr "<p>\n                                 <b>做得不错！</b>你的收件箱是空的.\n                          </p><p>\n                                    你的收件箱包含了你的私人消息或者发给你的邮件 ，\n                                    包括你关注的文档或者个人的信息。\n                          </p>\n            "
 
 #. module: mail
 #: model:ir.actions.client,help:mail.action_mail_to_me_feeds
@@ -1519,7 +1520,7 @@ msgstr "回复"
 msgid ""
 "Reply email address. Setting the reply_to bypasses the automatic thread "
 "creation."
-msgstr "回复邮件地址。设置回复到【 reply_to】旁路自动线程创建。"
+msgstr "回复邮件地址。设置回复到reply_to旁路自动线程创建。"
 
 #. module: mail
 #: field:mail.compose.message,reply_to:0 field:mail.message,reply_to:0
@@ -1952,7 +1953,7 @@ msgstr "你当前正在编辑一条消息，这个消息将被放弃。\n\n你�
 msgid ""
 "You cannot create a new user from here.\n"
 " To create new user please go to configuration panel."
-msgstr "你不能在这里创建一个新的用户。\n 要创建一个新用户，请转到设置面板。"
+msgstr "你不能在这里创建一个新的用户。\n 要创建一个新用户，请转到配置面板。"
 
 #. module: mail
 #: code:addons/mail/mail_group.py:174
@@ -2138,7 +2139,7 @@ msgstr "不喜欢"
 #: code:addons/mail/static/src/xml/mail.xml:286
 #, python-format
 msgid "updated document"
-msgstr "更新的单据"
+msgstr "更新单据"
 
 #. module: mail
 #. openerp-web

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-15 06:40+0000\n"
-"PO-Revision-Date: 2016-06-16 20:14+0000\n"
+"PO-Revision-Date: 2016-07-13 20:56+0000\n"
 "Last-Translator: Edgard Pimentel <pimentelrojas@gmail.com>\n"
 "Language-Team: Spanish (Peru) (http://www.transifex.com/odoo/odoo-8/language/es_PE/)\n"
 "MIME-Version: 1.0\n"
@@ -843,7 +843,7 @@ msgstr ""
 #: view:account.bank.statement:account.account_cash_statement_graph
 #: view:account.move.line:account.account_move_line_graph
 msgid "Account Statistics"
-msgstr ""
+msgstr "Estadísticas de cuenta"
 
 #. module: account
 #: view:account.subscription:account.view_subscription_search
@@ -1313,7 +1313,7 @@ msgstr "Permitir Cancelar Entradas"
 #: field:account.account,reconcile:0
 #: field:account.account.template,reconcile:0
 msgid "Allow Reconciliation"
-msgstr ""
+msgstr "Permitir Reconciliación"
 
 #. module: account
 #: field:account.config.settings,group_multi_currency:0
@@ -1348,7 +1348,7 @@ msgstr ""
 #. module: account
 #: selection:account.tax,applicable_type:0
 msgid "Always"
-msgstr ""
+msgstr "Siempre"
 
 #. module: account
 #. openerp-web
@@ -1419,7 +1419,7 @@ msgstr ""
 #: model:ir.ui.menu,name:account.next_id_40
 #: view:website:account.report_analyticjournal
 msgid "Analytic"
-msgstr ""
+msgstr "Analítico"
 
 #. module: account
 #. openerp-web
@@ -1427,7 +1427,7 @@ msgstr ""
 #: code:addons/account/static/src/js/account_widgets.js:123
 #, python-format
 msgid "Analytic Acc."
-msgstr ""
+msgstr "Cuenta Analítica"
 
 #. module: account
 #: view:account.analytic.account:account.view_account_analytic_account_search
@@ -1450,14 +1450,14 @@ msgstr ""
 #: view:account.config.settings:account.view_account_config_settings
 #: model:ir.ui.menu,name:account.menu_analytic_accounting
 msgid "Analytic Accounting"
-msgstr ""
+msgstr "Contabilidad Analítica"
 
 #. module: account
 #: view:account.analytic.account:account.view_account_analytic_account_list
 #: model:ir.actions.act_window,name:account.action_account_analytic_account_form
 #: model:ir.ui.menu,name:account.account_analytic_def_account
 msgid "Analytic Accounts"
-msgstr ""
+msgstr "Cuentas Analíticas"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_analytic_balance
@@ -1474,7 +1474,7 @@ msgstr ""
 #: view:account.analytic.line:account.view_account_analytic_line_tree
 #: model:ir.actions.act_window,name:account.action_account_analytic_line_form
 msgid "Analytic Entries"
-msgstr ""
+msgstr "Asientos Analíticos"
 
 #. module: account
 #: view:analytic.entries.report:account.view_account_analytic_entries_search
@@ -1499,7 +1499,7 @@ msgstr ""
 #. module: account
 #: view:account.analytic.line:account.view_account_analytic_line_form
 msgid "Analytic Entry"
-msgstr ""
+msgstr "Asiento Analítico"
 
 #. module: account
 #: model:ir.actions.act_window,name:account.action_account_tree1
@@ -1555,23 +1555,23 @@ msgstr "Línea Analítica"
 #: view:account.move.line:account.view_move_line_form
 #: view:account.move.line:account.view_move_line_form2
 msgid "Analytic Lines"
-msgstr ""
+msgstr "Líneas Analíticas"
 
 #. module: account
 #: view:account.analytic.account:account.view_account_analytic_account_tree
 #: field:account.invoice.tax,account_analytic_id:0
 msgid "Analytic account"
-msgstr ""
+msgstr "Cuenta Analítica"
 
 #. module: account
 #: field:account.config.settings,group_analytic_accounting:0
 msgid "Analytic accounting"
-msgstr ""
+msgstr "Contabilidad Analítica"
 
 #. module: account
 #: field:account.move.line,analytic_lines:0
 msgid "Analytic lines"
-msgstr ""
+msgstr "Lineas Analíticas"
 
 #. module: account
 #: field:account.tax,applicable_type:0
@@ -1613,7 +1613,7 @@ msgstr ""
 #. module: account
 #: help:account.fiscal.position,vat_required:0
 msgid "Apply only if partner has a VAT number."
-msgstr ""
+msgstr "Solo aplica si el partner tiene RUC o identificador fiscal."
 
 #. module: account
 #: help:account.fiscal.position,country_group_id:0
@@ -1697,7 +1697,7 @@ msgstr ""
 #. module: account
 #: view:account.analytic.account:account.view_account_analytic_account_search
 msgid "Associated Partner"
-msgstr ""
+msgstr "Partner Asociado"
 
 #. module: account
 #: selection:account.account,currency_mode:0
@@ -1770,7 +1770,7 @@ msgstr ""
 #: code:addons/account/account_move_line.py:1324
 #, python-format
 msgid "Bad Account!"
-msgstr ""
+msgstr "Cuenta errónea"
 
 #. module: account
 #: code:addons/account/account_invoice.py:819
@@ -5329,7 +5329,7 @@ msgstr ""
 #. module: account
 #: view:product.template:account.product_template_form_view
 msgid "Internal Category"
-msgstr ""
+msgstr "Categoría Interna"
 
 #. module: account
 #: field:account.tax.template,description:0
@@ -6517,7 +6517,7 @@ msgstr ""
 #: code:addons/account/static/src/js/account_widgets.js:1795
 #, python-format
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #. module: account
 #. openerp-web
@@ -8711,7 +8711,7 @@ msgstr ""
 #. module: account
 #: field:account.invoice,sent:0
 msgid "Sent"
-msgstr ""
+msgstr "Enviar"
 
 #. module: account
 #: selection:report.account.sales,month:0
@@ -9110,7 +9110,7 @@ msgstr "Suma de saldos de apertura y transacciones."
 #: field:account.bank.statement,message_summary:0
 #: field:account.invoice,message_summary:0
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
 #. module: account
 #: view:account.config.settings:account.view_account_config_settings
@@ -10385,7 +10385,7 @@ msgstr ""
 #: field:account.analytic.chart,to_date:0
 #: field:project.account.analytic.line,to_date:0
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #. module: account
 #: view:account.period:account.view_account_period_search

@@ -6,7 +6,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012,2014
 # Jeffery Chenn <jeffery9@gmail.com>, 2016
 # liAnGjiA <liangjia@qq.com>, 2015
-# liAnGjiA <liangjia@qq.com>, 2015
+# liAnGjiA <liangjia@qq.com>, 2015-2016
 # mrshelly <mrshelly@hotmail.com>, 2015
 # liAnGjiA <liangjia@qq.com>, 2015
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2016-06-17 12:41+0000\n"
+"PO-Revision-Date: 2016-07-08 12:41+0000\n"
 "Last-Translator: Jeffery Chenn <jeffery9@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/odoo/odoo-8/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "别名"
 #. module: hr_recruitment
 #: field:hr.config.settings,alias_domain:0
 msgid "Alias Domain"
-msgstr "别名网域"
+msgstr "别名域"
 
 #. module: hr_recruitment
 #: field:hr.config.settings,module_document:0
@@ -547,7 +547,7 @@ msgstr "开启天数"
 #. module: hr_recruitment
 #: field:hr.config.settings,alias_prefix:0
 msgid "Default Alias Name for Jobs"
-msgstr "默认的工作别名"
+msgstr "默认工作别名"
 
 #. module: hr_recruitment
 #: view:hr.config.settings:hr_recruitment.view_hr_apll_config_settings
@@ -728,7 +728,7 @@ msgstr "额外奖金或补贴..."
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.crm_case_form_view_job
 msgid "Feedback of interviews..."
-msgstr "面谈反馈..."
+msgstr "面试反馈..."
 
 #. module: hr_recruitment
 #: model:survey.label,value:hr_recruitment.recruitment_1_2_2
@@ -887,12 +887,12 @@ msgstr "初步评价"
 #: model:calendar.event.type,name:hr_recruitment.categ_meet_interview
 #: view:hr.applicant:hr_recruitment.crm_case_form_view_job
 msgid "Interview"
-msgstr "面谈"
+msgstr "面试"
 
 #. module: hr_recruitment
 #: field:hr.job,survey_id:0
 msgid "Interview Form"
-msgstr "面试表格"
+msgstr "面试表单"
 
 #. module: hr_recruitment
 #: field:hr.applicant,message_is_follower:0
@@ -933,7 +933,7 @@ msgstr "职位 - 招聘表"
 #. module: hr_recruitment
 #: model:survey.question,question:hr_recruitment.recruitment_2_1
 msgid "Knowledge"
-msgstr "知识管理"
+msgstr "知识"
 
 #. module: hr_recruitment
 #: field:hr.applicant,message_last_post:0
@@ -1080,17 +1080,17 @@ msgstr "来自%s的新申请"
 #. module: hr_recruitment
 #: field:hr.applicant,title_action:0
 msgid "Next Action"
-msgstr "下一操作"
+msgstr "下一行动"
 
 #. module: hr_recruitment
 #: field:hr.applicant,date_action:0
 msgid "Next Action Date"
-msgstr "下一操作日期"
+msgstr "下一行动日期"
 
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.view_crm_case_jobs_filter
 msgid "Next Actions"
-msgstr "下一操作"
+msgstr "下一行动"
 
 #. module: hr_recruitment
 #: code:addons/hr_recruitment/hr_recruitment.py:395
@@ -1157,7 +1157,7 @@ msgstr "打印面试结果"
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.crm_case_form_view_job
 msgid "Print interview report"
-msgstr "打印面谈报告"
+msgstr "打印面试报告"
 
 #. module: hr_recruitment
 #: field:hr.applicant,probability:0
@@ -1303,12 +1303,12 @@ msgstr "时间表"
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.hr_kanban_view_applicant
 msgid "Schedule Interview"
-msgstr "预约面谈"
+msgstr "预约面试"
 
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.crm_case_form_view_job
 msgid "Schedule interview with this applicant"
-msgstr "为这个申请人计划面谈"
+msgstr "为这个申请人安排面试"
 
 #. module: hr_recruitment
 #: view:hr.applicant:hr_recruitment.view_crm_case_jobs_filter
@@ -1318,7 +1318,7 @@ msgstr "搜索申请人"
 #. module: hr_recruitment
 #: model:hr.recruitment.stage,name:hr_recruitment.stage_job3
 msgid "Second Interview"
-msgstr "第二次面谈"
+msgstr "第二次面试"
 
 #. module: hr_recruitment
 #: field:hr.recruitment.degree,sequence:0
@@ -1612,4 +1612,4 @@ msgstr "oe_kanban_text_red"
 #. module: hr_recruitment
 #: view:hr.recruitment.partner.create:hr_recruitment.view_hr_recruitment_partner_create
 msgid "or"
-msgstr "or"
+msgstr "或"

@@ -372,7 +372,8 @@ class purchase_order(osv.osv):
                     cr, uid, line.id, po.pricelist_id.id, line.product_id.id, line.product_qty,
                     line.product_uom.id, po.partner_id.id, date_order=po.date_order, context=context
                 )
-                line.write({'date_planned': vals['value']['date_planned']})
+                if vals.get('value', {}).get('date_planned'):
+                    line.write({'date_planned': vals['value']['date_planned']})
         return new_id
 
     def set_order_line_status(self, cr, uid, ids, status, context=None):
@@ -785,7 +786,7 @@ class purchase_order(osv.osv):
             price_unit = self.pool.get('res.currency').compute(cr, uid, order.currency_id.id, order.company_id.currency_id.id, price_unit, round=False, context=context)
         res = []
         if order.location_id.usage == 'customer':
-            name = order_line.product_id.with_context(dict(context or {}, lang=order.dest_address_id.lang)).name
+            name = order_line.product_id.with_context(dict(context or {}, lang=order.dest_address_id.lang)).display_name
         else:
             name = order_line.name or ''
         move_template = {
@@ -1565,7 +1566,7 @@ class procurement_order(osv.osv):
                         po_line_id = po_line_obj.create(cr, SUPERUSER_ID, line_vals, context=context)
                         linked_po_ids.append(procurement.id)
                 else:
-                    name = seq_obj.get(cr, uid, 'purchase.order', context=context) or _('PO: %s') % procurement.name
+                    name = seq_obj.get(cr, uid, 'purchase.order', context=ctx_company) or _('PO: %s') % procurement.name
                     po_vals = {
                         'name': name,
                         'origin': procurement.origin,

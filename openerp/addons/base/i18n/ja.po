@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-19 06:31+0000\n"
-"PO-Revision-Date: 2016-06-12 23:31+0000\n"
+"PO-Revision-Date: 2016-09-03 04:54+0000\n"
 "Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>\n"
 "Language-Team: Japanese (http://www.transifex.com/odoo/odoo-8/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1858,7 +1858,7 @@ msgid ""
 "\n"
 "Online Events\n"
 "        "
-msgstr ""
+msgstr "\nオンラインイベント\n        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_blog
@@ -4072,22 +4072,22 @@ msgstr "・ アクション： そのモデルの１つのスロットに付随�
 #. module: base
 #: view:ir.module.module:base.module_form
 msgid "-This module does not create menu."
-msgstr ""
+msgstr "- このモジュールはメニューを追加しません。"
 
 #. module: base
 #: view:ir.module.module:base.module_form
 msgid "-This module does not create report."
-msgstr ""
+msgstr "- このモジュールはレポートを追加しません。"
 
 #. module: base
 #: view:ir.module.module:base.module_form
 msgid "-This module does not create views."
-msgstr ""
+msgstr "- このモジュールはビューを追加しません。"
 
 #. module: base
 #: view:ir.module.module:base.module_form
 msgid "-This module does not depends on any other module."
-msgstr ""
+msgstr "- このモジュールは他のモジュールに依存しません。"
 
 #. module: base
 #: view:res.lang:base.res_lang_form
@@ -4612,7 +4612,7 @@ msgstr "ビューに自動リフレッシュを追加"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Add in the 'More' menu"
-msgstr ""
+msgstr "「さらに」に追加"
 
 #. module: base
 #: help:ir.actions.report.xml,header:0
@@ -5042,7 +5042,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.server,link_new_record:0
 msgid "Attach the new record"
-msgstr ""
+msgstr "新規作成されたレコードをリンク"
 
 #. module: base
 #: view:ir.attachment:base.view_attachment_form
@@ -5146,7 +5146,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_automation
 msgid "Automation"
-msgstr ""
+msgstr "自動化"
 
 #. module: base
 #: model:res.country,name:base.az
@@ -5274,7 +5274,7 @@ msgstr "銀行"
 #. module: base
 #: help:res.partner,ean13:0 help:res.users,ean13:0
 msgid "BarCode"
-msgstr ""
+msgstr "バーコード"
 
 #. module: base
 #: model:res.country,name:base.bb
@@ -5313,7 +5313,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.server,model_id:0
 msgid "Base Model"
-msgstr ""
+msgstr "基本モデル"
 
 #. module: base
 #: selection:ir.model,state:0
@@ -5439,7 +5439,7 @@ msgstr "生年月日"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_blog
 msgid "Blogs"
-msgstr ""
+msgstr "ブログ"
 
 #. module: base
 #: model:res.country,name:base.bo
@@ -5847,7 +5847,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.server,child_ids:0
 msgid "Child Actions"
-msgstr ""
+msgstr "子アクション"
 
 #. module: base
 #: field:ir.module.category,child_ids:0
@@ -5914,7 +5914,7 @@ msgstr "中国語（台湾）/ 正體字"
 #. module: base
 #: selection:ir.actions.server,use_write:0
 msgid "Choose and Update a record in the database"
-msgstr ""
+msgstr "DBレコードを選択・更新"
 
 #. module: base
 #: selection:ir.actions.server,use_create:0
@@ -6053,7 +6053,7 @@ msgstr "コメント"
 #. module: base
 #: field:res.partner,commercial_partner_id:0
 msgid "Commercial Entity"
-msgstr ""
+msgstr "取引先"
 
 #. module: base
 #: view:res.bank:base.view_res_bank_form
@@ -6097,7 +6097,7 @@ msgstr "顧客銀行口座"
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_17
 msgid "Company Contact"
-msgstr ""
+msgstr "会社連絡先"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_inventory_form
@@ -6114,7 +6114,7 @@ msgstr "会社名"
 #: model:ir.actions.act_window,name:base.ir_property_form
 #: model:ir.ui.menu,name:base.menu_ir_property_form_all
 msgid "Company Properties"
-msgstr ""
+msgstr "会社プロパティ"
 
 #. module: base
 #: field:res.company,company_registry:0
@@ -6444,7 +6444,7 @@ msgstr "国別グループ"
 #. module: base
 #: field:res.country,country_group_ids:0
 msgid "Country Groups"
-msgstr ""
+msgstr "国グループ"
 
 #. module: base
 #: field:res.country,name:0
@@ -6542,7 +6542,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.server,crud_model_name:0
 msgid "Create/Write Target Model Name"
-msgstr ""
+msgstr "作成/更新対象モデル名"
 
 #. module: base
 #: view:ir.module.module:base.module_form
@@ -6667,7 +6667,7 @@ msgstr "作成月"
 #. module: base
 #: field:ir.actions.server,use_create:0
 msgid "Creation Policy"
-msgstr ""
+msgstr "作成方針"
 
 #. module: base
 #: field:res.partner,credit_limit:0
@@ -6951,12 +6951,12 @@ msgstr "日"
 #. module: base
 #: view:ir.sequence:base.sequence_view
 msgid "Day of the Week (0:Monday): %(weekday)s"
-msgstr ""
+msgstr "曜日 (0:月曜日): %(weekday)s"
 
 #. module: base
 #: view:ir.sequence:base.sequence_view
 msgid "Day of the Year: %(doy)s"
-msgstr ""
+msgstr "年の通算日: %(doy)s"
 
 #. module: base
 #: view:ir.sequence:base.sequence_view
@@ -7164,7 +7164,7 @@ msgstr "ディレクトリ"
 msgid ""
 "Disabling this option will also uninstall the following modules \n"
 "%s"
-msgstr ""
+msgstr "このオプションを無効化すると、次のモジュールがアンインストールされます。 \n%s"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_mail
@@ -7247,12 +7247,12 @@ msgstr "ドキュメント管理システム"
 #: code:addons/base/ir/ir_model.py:793 code:addons/base/ir/ir_model.py:796
 #, python-format
 msgid "Document model"
-msgstr ""
+msgstr "ドキュメントモデル"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_forum_doc
 msgid "Documentation"
-msgstr ""
+msgstr "ドキュメント"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_documentation_examples
@@ -7305,7 +7305,7 @@ msgstr ""
 #: model:ir.module.module,shortdesc:base.module_stock_dropshipping
 #: model:ir.module.module,summary:base.module_stock_dropshipping
 msgid "Drop Shipping"
-msgstr ""
+msgstr "直送"
 
 #. module: base
 #: selection:workflow.activity,kind:0
@@ -7337,7 +7337,7 @@ msgstr "オランダ語 / Nederlands"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Dynamic expression builder"
-msgstr ""
+msgstr "動的表現ビルダ"
 
 #. module: base
 #: field:res.partner,ean13:0 field:res.users,ean13:0
@@ -7568,7 +7568,7 @@ msgstr ""
 #. module: base
 #: field:ir.server.object.lines,type:0
 msgid "Evaluation Type"
-msgstr ""
+msgstr "評価タイプ"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_event
@@ -7589,7 +7589,7 @@ msgstr "全てのセットアップが適切に行われました。"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Example of condition expression using Python"
-msgstr ""
+msgstr "Pyehonでの条件表現例"
 
 #. module: base
 #: model:ir.module.module,description:base.module_gamification_sale_crm
@@ -7601,7 +7601,7 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Example of python code"
-msgstr ""
+msgstr "Pythonコード例"
 
 #. module: base
 #: view:ir.rule:base.view_rule_form
@@ -7628,7 +7628,7 @@ msgstr "実行"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hr_expense
 msgid "Expense Tracker"
-msgstr ""
+msgstr "経費精算"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_expense
@@ -7644,7 +7644,7 @@ msgstr "エクスポート"
 #. module: base
 #: view:base.language.export:base.wizard_lang_export
 msgid "Export Complete"
-msgstr ""
+msgstr "エクスポート完了"
 
 #. module: base
 #: field:ir.exports,export_fields:0
@@ -7879,7 +7879,7 @@ msgstr "フィルタ名"
 #. module: base
 #: sql_constraint:ir.filters:0
 msgid "Filter names must be unique"
-msgstr ""
+msgstr "フィルタ名は一意でなければなりません。"
 
 #. module: base
 #: view:ir.attachment:base.view_attachment_search
@@ -7926,7 +7926,7 @@ msgstr "財務会計、分析会計"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Find the ID of a record in the database"
-msgstr ""
+msgstr "DBレコードのID検索"
 
 #. module: base
 #: model:res.country,name:base.fi
@@ -7941,7 +7941,7 @@ msgstr "フィンランド語 / Suomi"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_fleet
 msgid "Fleet Management"
-msgstr ""
+msgstr "車両管理"
 
 #. module: base
 #: selection:ir.property,type:0
@@ -7974,7 +7974,7 @@ msgstr ""
 #. module: base
 #: field:res.font,name:0
 msgid "Font Name"
-msgstr ""
+msgstr "フォント名"
 
 #. module: base
 #: field:res.font,family:0
@@ -8065,12 +8065,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_forum
 msgid "Forum"
-msgstr ""
+msgstr "フォーラム"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_forum_doc
 msgid "Forum, Documentation"
-msgstr ""
+msgstr "フォーラム、ドキュメント"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_website_forum
@@ -8531,7 +8531,7 @@ msgstr "ヘルプ"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Help with Python expressions."
-msgstr ""
+msgstr "Python表現についてのヘルプ"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_crm_helpdesk
@@ -8774,7 +8774,7 @@ msgstr ""
 #. module: base
 #: field:base.language.import,code:0
 msgid "ISO Code"
-msgstr ""
+msgstr "ISOコード"
 
 #. module: base
 #: help:base.language.import,code:0
@@ -9147,7 +9147,7 @@ msgstr "インストール済"
 #. module: base
 #: view:ir.module.module:base.module_form
 msgid "Installed Features"
-msgstr ""
+msgstr "インストール済機能"
 
 #. module: base
 #: field:ir.module.module,latest_version:0
@@ -9370,7 +9370,7 @@ msgstr "タイムシートを基に請求"
 #. module: base
 #: model:ir.ui.menu,name:base.menu_invoiced
 msgid "Invoicing"
-msgstr ""
+msgstr "請求管理"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_account_voucher
@@ -9421,7 +9421,7 @@ msgstr "イスラエル"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_project_issue
 msgid "Issue Tracking"
-msgstr ""
+msgstr "課題追跡"
 
 #. module: base
 #: selection:base.language.install,lang:0
@@ -9496,7 +9496,7 @@ msgstr "職務、部署、従業員詳細"
 #. module: base
 #: model:ir.module.module,summary:base.module_hr_recruitment
 msgid "Jobs, Recruitment, Applications, Job Interviews, Surveys"
-msgstr ""
+msgstr "仕事、求人、応募、面接、調査"
 
 #. module: base
 #: field:workflow.activity,join_mode:0
@@ -9826,7 +9826,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_crm_config_lead
 msgid "Leads & Opportunities"
-msgstr ""
+msgstr "リード & 案件"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_crm
@@ -10011,7 +10011,7 @@ msgstr "ログ"
 #: model:ir.actions.act_window,name:base.ir_logging_all_act
 #: model:ir.ui.menu,name:base.ir_logging_all_menu
 msgid "Logging"
-msgstr ""
+msgstr "ロギング"
 
 #. module: base
 #: field:res.users,login:0
@@ -10301,7 +10301,7 @@ msgstr "マルティニーク（フランス語）"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mass_mailing
 msgid "Mass Mailing Campaigns"
-msgstr ""
+msgstr "メール一括配信キャンペーン"
 
 #. module: base
 #: model:res.country,name:base.mr
@@ -10378,7 +10378,7 @@ msgstr "メニュー"
 #. module: base
 #: view:res.users:base.view_users_form
 msgid "Menus Customization"
-msgstr ""
+msgstr "メニューカスタマイズ"
 
 #. module: base
 #: field:ir.logging,message:0
@@ -10388,7 +10388,7 @@ msgstr "メッセージ"
 #. module: base
 #: view:res.users:base.view_users_form
 msgid "Messaging and Social"
-msgstr ""
+msgstr "メッセージおよびソーシャル"
 
 #. module: base
 #: field:ir.cron,function:0
@@ -10462,7 +10462,7 @@ msgstr "携帯電話"
 #. module: base
 #: view:res.partner:base.view_partner_form
 msgid "Mobile:"
-msgstr ""
+msgstr "携帯電話:"
 
 #. module: base
 #: field:res.font,mode:0
@@ -10784,7 +10784,7 @@ msgstr "自分の取引先"
 #. module: base
 #: view:ir.filters:base.ir_filters_view_search
 msgid "My filters"
-msgstr ""
+msgstr "自分のフィルター"
 
 #. module: base
 #: model:res.country,name:base.mm
@@ -10871,7 +10871,7 @@ msgstr "新しい言語 (空の翻訳テンプレート)"
 #. module: base
 #: field:change.password.user,new_passwd:0
 msgid "New Password"
-msgstr ""
+msgstr "新しいパスワード"
 
 #. module: base
 #: selection:ir.actions.act_url,target:0
@@ -10894,7 +10894,7 @@ msgstr "それはカスタム項目であるため、新しいカラム名は x_
 #. module: base
 #: model:ir.module.module,summary:base.module_website_blog
 msgid "News, Blogs, Announces, Discussions"
-msgstr ""
+msgstr "ニュース、ブログ、広報、ディスカッション"
 
 #. module: base
 #: field:ir.cron,nextcall:0
@@ -11134,7 +11134,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_im_odoo_support
 msgid "Odoo Live Support"
-msgstr ""
+msgstr "Odooライブサポート"
 
 #. module: base
 #: help:ir.sequence,padding:0
@@ -11151,7 +11151,7 @@ msgstr "オフィス用品"
 #. module: base
 #: model:res.groups,name:base.group_hr_user
 msgid "Officer"
-msgstr ""
+msgstr "オフィサ"
 
 #. module: base
 #: model:ir.module.module,description:base.module_payment_ogone
@@ -11219,7 +11219,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event
 msgid "Online Events"
-msgstr ""
+msgstr "オンラインイベント"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_quote
@@ -11325,7 +11325,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_crm_config_opportunity
 msgid "Opportunities"
-msgstr ""
+msgstr "案件"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_sale_crm
@@ -11554,7 +11554,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.report.xml,parser:0
 msgid "Parser Class"
-msgstr ""
+msgstr "パーサークラス"
 
 #. module: base
 #: model:ir.model,name:base.model_res_partner field:res.company,partner_id:0
@@ -11736,7 +11736,7 @@ msgstr "個人および共有カレンダ"
 #. module: base
 #: view:res.partner:base.view_res_partner_filter
 msgid "Persons"
-msgstr ""
+msgstr "個人"
 
 #. module: base
 #: model:res.country,name:base.pe
@@ -11804,7 +11804,7 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Please set the Base Model before setting the action details."
-msgstr ""
+msgstr "アクション詳細を設定する前に、基本モデルを指定してください。"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
@@ -11836,7 +11836,7 @@ msgstr "POS"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_discount
 msgid "Point of Sale Discounts"
-msgstr ""
+msgstr "POS値引"
 
 #. module: base
 #: model:res.country,name:base.pl
@@ -11873,7 +11873,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_portal_gamification
 msgid "Portal Gamification"
-msgstr ""
+msgstr "ゲーミフィケーションポータル"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_portal_project_issue
@@ -12013,7 +12013,7 @@ msgstr ""
 #. module: base
 #: model:ir.ui.menu,name:base.menu_product
 msgid "Products"
-msgstr ""
+msgstr "メニュー"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_product
@@ -12134,7 +12134,7 @@ msgstr "プエルトリコ"
 #. module: base
 #: model:ir.ui.menu,name:base.next_id_73
 msgid "Purchase"
-msgstr ""
+msgstr "購買"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_purchase_analytic_plans
@@ -12181,7 +12181,7 @@ msgstr "Pythonコード"
 #. module: base
 #: selection:ir.server.object.lines,type:0
 msgid "Python expression"
-msgstr ""
+msgstr "Python表現"
 
 #. module: base
 #: view:ir.ui.view:base.view_view_search selection:ir.ui.view,type:0
@@ -12222,7 +12222,7 @@ msgstr ""
 #: field:ir.actions.report.xml,report_rml_content:0
 #: field:ir.actions.report.xml,report_rml_content_data:0
 msgid "RML Content"
-msgstr ""
+msgstr "RML内容"
 
 #. module: base
 #: field:res.company,rml_header:0
@@ -12285,7 +12285,7 @@ msgstr "リードオンリー"
 #. module: base
 #: field:ir.actions.server,id_object:0
 msgid "Record"
-msgstr ""
+msgstr "レコード"
 
 #. module: base
 #: code:addons/models.py:4769
@@ -12303,7 +12303,7 @@ msgstr "レコードID"
 #. module: base
 #: view:ir.rule:base.view_rule_search
 msgid "Record Rule"
-msgstr ""
+msgstr "レコード規則"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_rule
@@ -12375,7 +12375,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:base.res_request_link-act
 #: model:ir.ui.menu,name:base.menu_res_request_link_act
 msgid "Referenceable Models"
-msgstr ""
+msgstr "参照可能モデル"
 
 #. module: base
 #: code:addons/base/res/res_company.py:168
@@ -12417,7 +12417,7 @@ msgstr "添付ファイルからリロード"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Remove from the 'More' menu"
-msgstr ""
+msgstr "「さらに」から削除"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
@@ -12456,7 +12456,7 @@ msgstr "レポート"
 #. module: base
 #: view:res.company:base.view_company_form
 msgid "Report Configuration"
-msgstr ""
+msgstr "レポート設定"
 
 #. module: base
 #: field:ir.actions.report.xml,report_file:0
@@ -12570,7 +12570,7 @@ msgstr "リソースオブジェクト"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_pos_restaurant
 msgid "Restaurant"
-msgstr ""
+msgstr "レストラン"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_pos_restaurant
@@ -12585,7 +12585,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.act_window,multi:0
 msgid "Restrict to lists"
-msgstr ""
+msgstr "リストビューに制限"
 
 #. module: base
 #: model:res.partner.category,name:base.res_partner_category_16
@@ -12713,7 +12713,7 @@ msgstr "SSL/TLS"
 #: field:ir.actions.report.xml,report_sxw_content:0
 #: field:ir.actions.report.xml,report_sxw_content_data:0
 msgid "SXW Content"
-msgstr ""
+msgstr "SXW内容"
 
 #. module: base
 #: field:ir.actions.report.xml,report_sxw:0
@@ -12915,7 +12915,7 @@ msgstr "検索可能"
 #. module: base
 #: view:ir.sequence:base.sequence_view
 msgid "Second: %(sec)s"
-msgstr ""
+msgstr "秒: %(sec)s"
 
 #. module: base
 #: view:ir.actions.act_window:base.view_window_action_form
@@ -12932,12 +12932,12 @@ msgstr "セキュリティと認証"
 #. module: base
 #: model:res.groups,name:base.group_sale_salesman
 msgid "See Own Leads"
-msgstr ""
+msgstr "自分のリード参照可"
 
 #. module: base
 #: model:res.groups,name:base.group_sale_salesman_all_leads
 msgid "See all Leads"
-msgstr ""
+msgstr "全てのリード参照可"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:306
@@ -13098,7 +13098,7 @@ msgstr ""
 #. module: base
 #: selection:ir.logging,type:0
 msgid "Server"
-msgstr ""
+msgstr "サーバ"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
@@ -13178,7 +13178,7 @@ msgstr ""
 #. module: base
 #: selection:res.partner,type:0
 msgid "Shipping"
-msgstr ""
+msgstr "配送"
 
 #. module: base
 #. openerp-web
@@ -13205,7 +13205,7 @@ msgstr "シグナル（サブフロー.*）"
 #. module: base
 #: field:ir.actions.server,wkf_transition_id:0
 msgid "Signal to Trigger"
-msgstr ""
+msgstr "トリガする信号"
 
 #. module: base
 #: field:res.users,signature:0
@@ -13272,7 +13272,7 @@ msgstr "スロバキア語 / Slovenský jazyk"
 #. module: base
 #: model:res.country,name:base.sk
 msgid "Slovakia"
-msgstr ""
+msgstr "スロバキア"
 
 #. module: base
 #: model:res.country,name:base.si
@@ -13404,7 +13404,7 @@ msgstr "韓国"
 #. module: base
 #: model:res.country,name:base.ss
 msgid "South Sudan"
-msgstr ""
+msgstr "南スーダン"
 
 #. module: base
 #: model:res.country,name:base.es
@@ -13533,7 +13533,7 @@ msgstr "スリランカ"
 #. module: base
 #: model:ir.ui.menu,name:base.menu_project_config_project
 msgid "Stages"
-msgstr ""
+msgstr "ステージ"
 
 #. module: base
 #: selection:ir.sequence,implementation:0
@@ -14501,7 +14501,7 @@ msgstr "ToDo"
 #. module: base
 #: selection:ir.translation,state:0
 msgid "To Translate"
-msgstr ""
+msgstr "未翻訳"
 
 #. module: base
 #: selection:ir.module.module,state:0
@@ -14592,7 +14592,7 @@ msgstr "翻訳"
 #. module: base
 #: selection:ir.translation,state:0
 msgid "Translated"
-msgstr ""
+msgstr "翻訳済"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.action_translation
@@ -14618,7 +14618,7 @@ msgstr "変換値"
 #. module: base
 #: field:ir.translation,comments:0
 msgid "Translation comments"
-msgstr ""
+msgstr "翻訳コメント"
 
 #. module: base
 #: code:addons/base/ir/ir_translation.py:418
@@ -14952,7 +14952,7 @@ msgstr "モジュールリスト更新"
 #. module: base
 #: field:ir.actions.server,use_write:0
 msgid "Update Policy"
-msgstr ""
+msgstr "更新方針"
 
 #. module: base
 #: view:res.lang:base.res_lang_tree
@@ -14962,12 +14962,12 @@ msgstr "規約の更新"
 #. module: base
 #: selection:ir.actions.server,use_write:0
 msgid "Update a record linked to the current record using python"
-msgstr ""
+msgstr "現在のレコードにリンクされたレコードをPythonで更新"
 
 #. module: base
 #: selection:ir.actions.server,use_write:0
 msgid "Update the current record"
-msgstr ""
+msgstr "現在のレコードを更新"
 
 #. module: base
 #: model:ir.actions.client,name:base.modules_updates_act_cl
@@ -15015,7 +15015,7 @@ msgstr ""
 #. module: base
 #: selection:ir.actions.server,use_relational_model:0
 msgid "Use a relation field on the base model"
-msgstr ""
+msgstr "基本モデルの関連項目を使用"
 
 #. module: base
 #: model:ir.module.module,description:base.module_hr_gamification
@@ -15030,7 +15030,7 @@ msgstr ""
 #. module: base
 #: selection:ir.actions.server,use_relational_model:0
 msgid "Use the base model of the action"
-msgstr ""
+msgstr "アクションの基本モデルを使用"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:209 code:addons/base/ir/ir_fields.py:242
@@ -15160,7 +15160,7 @@ msgstr ""
 #. module: base
 #: field:ir.actions.server,fields_lines:0
 msgid "Value Mapping"
-msgstr ""
+msgstr "値マッピング"
 
 #. module: base
 #: model:res.country,name:base.vu
@@ -15172,7 +15172,7 @@ msgstr "バヌアツ"
 msgid ""
 "Various fields may use Python code or Python expressions. The following "
 "variables can be used:"
-msgstr ""
+msgstr "Pythonコードでは次の変数が利用可能です:"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_fleet
@@ -15406,7 +15406,7 @@ msgstr "Webアイコンイメージ（立体表現）"
 #. module: base
 #: view:ir.translation:base.view_translation_search
 msgid "Web-only translations"
-msgstr ""
+msgstr "ウェブ関連翻訳"
 
 #. module: base
 #: selection:ir.actions.report.xml,report_type:0
@@ -15455,7 +15455,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_livechat
 msgid "Website Live Support"
-msgstr ""
+msgstr "ウェブサイトライブサポート"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_mail
@@ -15485,7 +15485,7 @@ msgstr "取引先または会社のWebサイト"
 #. module: base
 #: view:ir.sequence:base.sequence_view
 msgid "Week of the Year: %(woy)s"
-msgstr ""
+msgstr "年の通算週: %(woy)s"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -15594,7 +15594,7 @@ msgstr "ウィザードの開始"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "Worflow Signal"
-msgstr ""
+msgstr "ワークフロー信号"
 
 #. module: base
 #: selection:ir.cron,interval_type:0
@@ -15686,7 +15686,7 @@ msgstr ""
 msgid ""
 "Write a python expression, beginning with object, that gives the record to "
 "update. An expression builder is available in the help tab. Examples:"
-msgstr ""
+msgstr "「object」で始まり、更新対象レコードを特定するPythonコードを書いてください。ヘルプタブの表現ビルダをご利用ください。例:"
 
 #. module: base
 #: field:ir.actions.report.xml,report_xml:0
@@ -15853,7 +15853,7 @@ msgstr "ユーゴスラビア"
 #: view:res.partner.bank:base.view_partner_bank_form
 #, python-format
 msgid "ZIP"
-msgstr ""
+msgstr "郵便番号"
 
 #. module: base
 #: model:res.country,name:base.zr
@@ -15914,12 +15914,12 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "context: current context"
-msgstr ""
+msgstr "context: 現在のコンテクスト"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "cr: database cursor"
-msgstr ""
+msgstr "cr: DBカーソル"
 
 #. module: base
 #: code:addons/models.py:4299
@@ -15968,7 +15968,7 @@ msgstr "[例] 営業部長"
 #. module: base
 #: view:base.language.import:base.view_base_import_language
 msgid "e.g. en_US"
-msgstr ""
+msgstr "例: en_US"
 
 #. module: base
 #: view:res.company:base.view_company_form
@@ -16005,7 +16005,7 @@ msgstr ""
 #: code:addons/base/ir/ir_fields.py:329
 #, python-format
 msgid "external id"
-msgstr ""
+msgstr "外部ID"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:145
@@ -16054,7 +16054,7 @@ msgstr "ir.actions.report.xml"
 #. module: base
 #: selection:ir.ui.menu,action:0
 msgid "ir.actions.server"
-msgstr ""
+msgstr "ir.actions.server"
 
 #. module: base
 #: selection:ir.ui.menu,action:0
@@ -16100,17 +16100,17 @@ msgstr ""
 #: view:ir.actions.server:base.view_server_action_form
 msgid ""
 "object or obj: browse_record of the record on which the action is triggered"
-msgstr ""
+msgstr "object または obj: アクションをトリガするレコードのbrowse_record"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "object.partner_id"
-msgstr ""
+msgstr "object.partner_id"
 
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "object.partner_id.currency_id"
-msgstr ""
+msgstr "object.partner_id.currency_id"
 
 #. module: base
 #: view:ir.attachment:base.view_attachment_form
@@ -16143,7 +16143,7 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "pool: ORM model pool (i.e. self.pool)"
-msgstr ""
+msgstr "pool: ORMモデルプール (self.pool)"
 
 #. module: base
 #: code:addons/mail.py:285
@@ -16159,7 +16159,7 @@ msgstr "res_config_contents"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "self: ORM model of the record on which the action is triggered"
-msgstr ""
+msgstr "self: アクションをトリガするレコードのORMモデル"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_access_rights
@@ -16174,12 +16174,12 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_converter
 msgid "test-field-converter"
-msgstr ""
+msgstr "test-field-converter"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_impex
 msgid "test-import-export"
-msgstr ""
+msgstr "test-import-export"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_test_inherit
@@ -16252,7 +16252,7 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "time: Python time module"
-msgstr ""
+msgstr "time: Pythonのtimeモジュール"
 
 #. module: base
 #: view:res.config.installer:base.res_config_installer
@@ -16268,7 +16268,7 @@ msgstr ""
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "uid: current user id"
-msgstr ""
+msgstr "uid: 現在のユーザID"
 
 #. module: base
 #: code:addons/fields.py:242
@@ -16286,7 +16286,7 @@ msgstr "不明"
 #. module: base
 #: view:ir.actions.server:base.view_server_action_form
 msgid "workflow: Workflow engine"
-msgstr ""
+msgstr "workflow: ワークフローエンジン"
 
 #. module: base
 #: code:addons/base/ir/ir_fields.py:145
