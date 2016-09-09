@@ -13,6 +13,7 @@ _build/
 *~
 # hg stuff
 *.orig
+*.dump
 status
 # odoo filestore
 openerp/filestore
