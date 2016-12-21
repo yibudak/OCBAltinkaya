@@ -1317,7 +1317,7 @@ class stock_picking(osv.osv):
 
                         #check if the quant is matching the operation details
                         if ops.package_id:
-                            flag = quant.package_id and bool(package_obj.search(cr, uid, [('id', 'child_of', [ops.package_id.id])], context=context)) or False
+                            flag = quant.package_id == ops.package_id
                         else:
                             flag = not quant.package_id.id
                         flag = flag and ((ops.lot_id and ops.lot_id.id == quant.lot_id.id) or not ops.lot_id)
@@ -1699,7 +1699,6 @@ class stock_move(osv.osv):
         return res
 
     def _get_string_qty_information(self, cr, uid, ids, field_name, args, context=None):
-        settings_obj = self.pool.get('stock.config.settings')
         uom_obj = self.pool.get('product.uom')
         res = dict.fromkeys(ids, '')
         precision = self.pool['decimal.precision'].precision_get(cr, uid, 'Product Unit of Measure')
@@ -1712,11 +1711,8 @@ class stock_move(osv.osv):
             total_available = float_round(total_available, precision_digits=precision)
             info = str(total_available)
             #look in the settings if we need to display the UoM name or not
-            config_ids = settings_obj.search(cr, uid, [], limit=1, order='id DESC', context=context)
-            if config_ids:
-                stock_settings = settings_obj.browse(cr, uid, config_ids[0], context=context)
-                if stock_settings.group_uom:
-                    info += ' ' + move.product_uom.name
+            if self.pool.get('res.users').has_group(cr, uid, 'product.group_uom'):
+                info += ' ' + move.product_uom.name
             if move.reserved_availability:
                 if move.reserved_availability != total_available:
                     #some of the available quantity is assigned and some are available but not reserved
@@ -2693,19 +2689,12 @@ class stock_inventory(osv.osv):
         """
         #default available choices
         res_filter = [('none', _('All products')), ('partial', _('Manual Selection of Products')), ('product', _('One product only'))]
-        settings_obj = self.pool.get('stock.config.settings')
-        config_ids = settings_obj.search(cr, uid, [], limit=1, order='id DESC', context=context)
-        #If we don't have updated config until now, all fields are by default false and so should be not dipslayed
-        if not config_ids:
-            return res_filter
-
-        stock_settings = settings_obj.browse(cr, uid, config_ids[0], context=context)
-        if stock_settings.group_stock_tracking_owner:
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_owner'):
             res_filter.append(('owner', _('One owner only')))
             res_filter.append(('product_owner', _('One product for a specific owner')))
-        if stock_settings.group_stock_production_lot:
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_production_lot'):
             res_filter.append(('lot', _('One Lot/Serial Number')))
-        if stock_settings.group_stock_tracking_lot:
+        if self.pool.get('res.users').has_group(cr, uid, 'stock.group_tracking_lot'):
             res_filter.append(('pack', _('A Pack')))
         return res_filter
 
@@ -3984,7 +3973,6 @@ class stock_package(osv.osv):
         context = dict(context or {}, active_ids=ids)
         return self.pool.get("report").get_action(cr, uid, ids, 'stock.report_package_barcode_small', context=context)
     
-    
     def unpack(self, cr, uid, ids, context=None):
         quant_obj = self.pool.get('stock.quant')
         for package in self.browse(cr, uid, ids, context=context):
@@ -3992,8 +3980,6 @@ class stock_package(osv.osv):
             quant_obj.write(cr, SUPERUSER_ID, quant_ids, {'package_id': package.parent_id.id or False}, context=context)
             children_package_ids = [child_package.id for child_package in package.children_ids]
             self.write(cr, uid, children_package_ids, {'parent_id': package.parent_id.id or False}, context=context)
-        #delete current package since it contains nothing anymore
-        self.unlink(cr, uid, ids, context=context)
         return self.pool.get('ir.actions.act_window').for_xml_id(cr, uid, 'stock', 'action_package_view', context=context)
 
     def get_content(self, cr, uid, ids, context=None):
