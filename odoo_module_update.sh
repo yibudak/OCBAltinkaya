@@ -10,12 +10,12 @@ echo "You should update module listing before this step"
 read -e -p "Enter comma separated name of modules to instal:" MODULES
 
 while true; do
-    read -p "Would you like to install modules, odoo server will stop during process  (y/n)?" yn
+    read -p "Would you like to update modules, odoo server will stop during process  (y/n)?" yn
     case $yn in
         [Yy]* ) 
         sudo /etc/init.d/odoo-server stop
-        echo -e "Installing Modules"
-        ./odoo.py -d $ODOODB -i $MODULES  --without-demo=all --stop-after-init --config=/etc/odoo-server.conf --workers=0 --max-cron-threads=0
+        echo -e "Updating Modules"
+        ./openerp-server -d $ODOODB -u $MODULES --stop-after-init --config=/etc/odoo-server.conf --workers=0 --max-cron-threads=0
         sudo /etc/init.d/odoo-server start
         break;;
         [Nn]* ) break;;
