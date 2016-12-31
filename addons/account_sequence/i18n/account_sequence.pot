@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-01-21 14:07+0000\n"
+"POT-Creation-Date: 2016-12-30 18:10+0000\n"
+"PO-Revision-Date: 2016-12-30 18:10+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,11 @@ msgid "Created on"
 msgstr ""
 
 #. module: account_sequence
+#: field:account.sequence.installer,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: account_sequence
 #: field:account.sequence.installer,id:0
 msgid "ID"
 msgstr ""
@@ -86,6 +91,11 @@ msgstr ""
 #. module: account_sequence
 #: model:ir.model,name:account_sequence.model_account_move_line
 msgid "Journal Items"
+msgstr ""
+
+#. module: account_sequence
+#: field:account.sequence.installer,__last_update:0
+msgid "Last Modified on"
 msgstr ""
 
 #. module: account_sequence
