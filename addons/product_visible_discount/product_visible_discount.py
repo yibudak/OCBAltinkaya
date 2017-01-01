@@ -43,20 +43,31 @@ class sale_order_line(osv.osv):
             lang=False, update_tax=True, date_order=False, packaging=False,
             fiscal_position=False, flag=False, context=None):
 
-        def get_real_price_curency(res_dict, product_id, qty, uom, pricelist):
+        def get_real_price_curency(res_dict, product_id, qty, uom, pricelist,partner_id,pricelist_context,product):
             """Retrieve the price before applying the pricelist"""
             item_obj = self.pool.get('product.pricelist.item')
             price_type_obj = self.pool.get('product.price.type')
             product_obj = self.pool.get('product.product')
+
             field_name = 'list_price'
             rule_id = res_dict.get(pricelist) and res_dict[pricelist][1] or False
             currency_id = None
+            Ahmet = False
             if rule_id:
                 item_base = item_obj.read(cr, uid, [rule_id], ['base'])[0]['base']
-                if item_base > 0:
-                    price_type = price_type_obj.browse(cr, uid, item_base)
-                    field_name = price_type.field
-                    currency_id = price_type.currency_id
+
+            if rule_id and item_base ==-1:
+                base_pricelist_id = item_obj.read(cr, uid, [rule_id], ['base_pricelist_id'])[0]['base_pricelist_id'][0]
+                pricelist_obj = self.pool.get('product.pricelist')
+                list_price_dict = pricelist_obj.price_rule_get(cr, uid, [base_pricelist_id],
+                                                          product.id, qty or 1.0, partner_id, context=pricelist_context)
+                int_list_price, curren = get_real_price_curency(list_price_dict, product_id, qty, uom, base_pricelist_id,partner_id,pricelist_context,product)
+                return int_list_price, curren
+
+            elif rule_id and item_base > 0:
+                price_type = price_type_obj.browse(cr, uid, item_base)
+                field_name = price_type.field
+                currency_id = price_type.currency_id
 
             product = product_obj.browse(cr, uid, product_id, context)
             product_read = product_obj.read(cr, uid, [product_id], [field_name], context=context)[0]
@@ -67,7 +78,7 @@ class sale_order_line(osv.osv):
             if uom and uom != product.uom_id.id:
                 # the unit price is in a different uom
                 factor = self.pool['product.uom']._compute_qty(cr, uid, uom, 1.0, product.uom_id.id)
-            return product_read[field_name] * factor, currency_id
+            return product_read[field_name] * factor, currency_id,
 
         def get_real_price(res_dict, product_id, qty, uom, pricelist):
             return get_real_price_curency(res_dict, product_id, qty, uom, pricelist)[0]
@@ -95,7 +106,8 @@ class sale_order_line(osv.osv):
 
             so_pricelist = pricelist_obj.browse(cr, uid, pricelist, context=context)
 
-            new_list_price, currency_id = get_real_price_curency(list_price, product.id, qty, uom, pricelist)
+
+            new_list_price, currency_id = get_real_price_curency(list_price, product.id, qty, uom, pricelist,partner_id,pricelist_context,product)
 
             # The superuser is used by website_sale in order to create a sale order. We need to make
             # sure we only select the taxes related to the company of the partner. This should only
@@ -107,7 +119,7 @@ class sale_order_line(osv.osv):
             new_list_price = account_tax_obj._fix_tax_included_price(cr, uid, new_list_price, taxes, result.get('tax_id', []))
 
             if so_pricelist.visible_discount and list_price[pricelist][0] != 0 and new_list_price != 0:
-                if product.company_id and so_pricelist.currency_id.id != product.company_id.currency_id.id:
+                if product.company_id and so_pricelist.currency_id.id != currency_id.id:
                     # new_list_price is in company's currency while price in pricelist currency
                     ctx = context.copy()
                     ctx['date'] = date_order
@@ -117,7 +129,7 @@ class sale_order_line(osv.osv):
                 discount = (new_list_price - price) / new_list_price * 100
                 if discount > 0:
                     result['price_unit'] = new_list_price
-                    result['discount'] = discount
+                    result['discount'] = round(discount,1)
                 else:
                     result['discount'] = 0.0
             else:
