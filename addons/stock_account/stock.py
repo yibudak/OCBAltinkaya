@@ -264,7 +264,8 @@ class stock_picking(osv.osv):
         context = context or {}
         todo = {}
         for picking in self.browse(cr, uid, ids, context=context):
-            partner = self._get_partner_to_invoice(cr, uid, picking, dict(context, type=type))
+            #partner = self._get_partner_to_invoice(cr, uid, picking, dict(context, type=type))
+            partner = picking.partner_id
             #grouping is based on the invoiced partner
             if group:
                 key = partner
