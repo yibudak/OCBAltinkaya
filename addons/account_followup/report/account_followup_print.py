@@ -53,9 +53,9 @@ class report_rappel(report_sxw.rml_parse):
                             ('partner_id', '=', partner.id),
                             ('account_id.type', '=', 'receivable'),
                             ('reconcile_id', '=', False),
-                            ('state', '!=', 'draft'),
+                             ('state', '!=', 'draft'),
                             ('company_id', '=', company_id),
-                            '|', ('date_maturity', '=', False), ('date_maturity', '<=', fields.date.context_today(self, self.cr, self.uid)),
+                           # '|', ('date_maturity', '=', False), ('date_maturity', '<=', fields.date.context_today(self, self.cr, self.uid)),
                         ])
 
         # lines_per_currency = {currency: [line data, ...], ...}
@@ -63,7 +63,7 @@ class report_rappel(report_sxw.rml_parse):
         for line in moveline_obj.browse(self.cr, self.uid, moveline_ids):
             currency = line.currency_id or line.company_id.currency_id
             line_data = {
-                'name': line.move_id.name,
+                'name': line.move_id.journal_id.name,
                 'ref': line.ref,
                 'date': line.date,
                 'date_maturity': line.date_maturity,
