@@ -2368,9 +2368,10 @@ class stock_move(osv.osv):
         context = context or {}
         procs_to_check = set()
         for move in self.browse(cr, uid, ids, context=context):
-            if move.state == 'done':
-                raise osv.except_osv(_('Operation Forbidden!'),
-                        _('You cannot cancel a stock move that has been set to \'Done\'.'))
+#            if move.state == 'done':
+                #cr.execute("update stock_move set state = 'cancel' where id = %s"%(move.id))
+                # raise osv.except_osv(_('Operation Forbidden!'),
+                #         _('You cannot cancel a stock move that has been set to \'Done\'.'))
             if move.reserved_quant_ids:
                 self.pool.get("stock.quant").quants_unreserve(cr, uid, move, context=context)
             if context.get('cancel_procurement'):
