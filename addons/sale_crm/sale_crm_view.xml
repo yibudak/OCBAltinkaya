@@ -32,6 +32,9 @@
                 <field name="origin" position="after">
                     <field name="campaign_id" />
                     <field name="medium_id" />
+
+                </field>
+                <field name="client_order_ref" position="after">
                     <field name="source_id" />
                 </field>
 
