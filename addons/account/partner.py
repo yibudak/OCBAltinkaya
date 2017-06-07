@@ -324,7 +324,7 @@ class res_partner(osv.osv):
         return self.write(cr, SUPERUSER_ID, ids, {'last_reconciliation_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
 
     _columns = {
-        'vat_subjected': fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement.",default=True),
+        'vat_subjected': fields.boolean('VAT Legal Statement', help="Check this box if the partner is subjected to the VAT. It will be used for the VAT legal statement."),
         'credit': fields.function(_credit_debit_get,
             fnct_search=_credit_search, string='Total Receivable', multi='dc', help="Total amount this customer owes you."),
         'debit': fields.function(_credit_debit_get, fnct_search=_debit_search, string='Total Payable', multi='dc', help="Total amount you have to pay to this supplier."),
