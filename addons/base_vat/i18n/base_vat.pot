@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-21 14:07+0000\n"
-"PO-Revision-Date: 2015-01-21 14:07+0000\n"
+"POT-Creation-Date: 2017-06-07 09:41+0000\n"
+"PO-Revision-Date: 2017-06-07 09:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "Companies"
 msgstr ""
 
 #. module: base_vat
-#: code:addons/base_vat/base_vat.py:114
+#: code:addons/base_vat/base_vat.py:121
 #, python-format
 msgid "Error!"
 msgstr ""
@@ -37,7 +37,7 @@ msgid "If checked, Partners VAT numbers will be fully validated against EU's VIE
 msgstr ""
 
 #. module: base_vat
-#: code:addons/base_vat/base_vat.py:130
+#: code:addons/base_vat/base_vat.py:137
 #, python-format
 msgid "Importing VAT Number [%s] is not valid !"
 msgstr ""
@@ -48,14 +48,14 @@ msgid "Partner"
 msgstr ""
 
 #. module: base_vat
-#: code:addons/base_vat/base_vat.py:153
+#: code:addons/base_vat/base_vat.py:160
 #, python-format
 msgid "The VAT number [%s] for partner [%s] does not seem to be valid. \n"
 "Note: the expected format is %s"
 msgstr ""
 
 #. module: base_vat
-#: code:addons/base_vat/base_vat.py:152
+#: code:addons/base_vat/base_vat.py:159
 #, python-format
 msgid "The VAT number [%s] for partner [%s] either failed the VIES VAT validation check or did not respect the expected format %s."
 msgstr ""

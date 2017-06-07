@@ -70,13 +70,15 @@ _ref_vat = {
     'se': 'SE123456789701',
     'si': 'SI12345679',
     'sk': 'SK0012345675',
-    'tr': '1234567890 (VERGINO) veya 12345678901 (TCKIMLIKNO)' # Levent Karakas @ Eska Yazilim A.S.
+    'tr': '1234567890 (VERGI NO) OR 12345678901 (TCKIMLIKNO)' # Levent Karakas @ Eska Yazilim A.S.
 }
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
 
     def _split_vat(self, vat):
+        if vat.replace(' ','').isdigit():
+            vat = 'TR'+vat
         vat_country, vat_number = vat[:2].lower(), vat[2:].replace(' ', '')
         return vat_country, vat_number
 
@@ -128,7 +130,7 @@ class res_partner(osv.osv):
             # quick and partial off-line checksum validation
             check_func = self.simple_vat_check
         for partner in self.browse(cr, uid, ids, context=context):
-            if not partner.vat:
+            if not partner.vat or not partner.vat_subjected:
                 continue
             vat_country, vat_number = self._split_vat(partner.vat)
             if not check_func(cr, uid, vat_country, vat_number, context=context):
@@ -344,6 +346,8 @@ class res_partner(osv.osv):
 
         # check personal id (tc kimlik no)
         if len(vat) == 11:
+            if vat == '11111111111':
+                return True
             c1a = 0
             c1b = 0
             c2 = 0
