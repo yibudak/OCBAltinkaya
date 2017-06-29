@@ -102,6 +102,7 @@ class account_invoice_report(osv.osv):
         'residual': fields.float('Total Residual', readonly=True),
         'user_currency_residual': fields.function(_compute_amounts_in_user_currency, string="Total Residual", type='float', digits_compute=dp.get_precision('Account'), multi="_compute_amounts"),
         'country_id': fields.many2one('res.country', 'Country of the Partner Company'),
+        'state_id': fields.many2one('res.country.state', 'State of the Partner Company'),
     }
     _order = 'date desc'
 
@@ -120,12 +121,12 @@ class account_invoice_report(osv.osv):
         'product.template': ['categ_id'],
         'product.uom': ['category_id', 'factor', 'name', 'uom_type'],
         'res.currency.rate': ['currency_id', 'name'],
-        'res.partner': ['country_id'],
+        'res.partner': ['country_id','state_id',],
     }
 
     def _select(self):
         select_str = """
-            SELECT sub.id, sub.date, sub.product_id, sub.partner_id, sub.country_id,
+            SELECT sub.id, sub.date, sub.product_id, sub.partner_id, sub.country_id,sub.state_id,
                 sub.payment_term, sub.period_id, sub.uom_name, sub.currency_id, sub.journal_id,
                 sub.fiscal_position, sub.user_id, sub.company_id, sub.nbr, sub.type, sub.state,
                 sub.categ_id, sub.date_due, sub.account_id, sub.account_line_id, sub.partner_bank_id,
@@ -174,7 +175,7 @@ class account_invoice_report(osv.osv):
                     END / (SELECT count(*) FROM account_invoice_line l where invoice_id = ai.id) *
                     count(*) AS residual,
                     ai.commercial_partner_id as commercial_partner_id,
-                    partner.country_id
+                    partner.country_id, partner.state_id
         """
         return select_str
 
@@ -196,7 +197,7 @@ class account_invoice_report(osv.osv):
                     ai.partner_id, ai.payment_term, ai.period_id, u2.name, u2.id, ai.currency_id, ai.journal_id,
                     ai.fiscal_position, ai.user_id, ai.company_id, ai.type, ai.state, pt.categ_id,
                     ai.date_due, ai.account_id, ail.account_id, ai.partner_bank_id, ai.residual,
-                    ai.amount_total, ai.commercial_partner_id, partner.country_id
+                    ai.amount_total, ai.commercial_partner_id, partner.country_id, partner.state_id
         """
         return group_by_str
 
