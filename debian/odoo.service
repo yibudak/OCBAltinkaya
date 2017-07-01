@@ -1,0 +1,17 @@
+[Unit]
+Description=Odoo Open Source ERP
+Requires=postgresql.service
+After=network.target postgresql.service
+    
+[Service]
+Type=simple
+PermissionsStartOnly=true
+SyslogIdentifier=odoo-server
+User=odoo
+Group=odoo
+ExecStart=/opt/odoo/odoo-server/openerp-server --config=/etc/odoo-server.conf
+WorkingDirectory=/opt/odoo/
+StandardOutput=journal+console
+    
+[Install]
+WantedBy=multi-user.target
