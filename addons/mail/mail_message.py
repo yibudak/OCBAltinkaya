@@ -618,7 +618,7 @@ class mail_message(osv.Model):
             - otherwise: remove the id
         """
         # Rules do not apply to administrator
-        if uid == SUPERUSER_ID:
+        if SUPERUSER_ID in (uid, access_rights_uid):
             return super(mail_message, self)._search(
                 cr, uid, args, offset=offset, limit=limit, order=order,
                 context=context, count=count, access_rights_uid=access_rights_uid)
@@ -795,7 +795,7 @@ class mail_message(osv.Model):
     def _invalidate_documents(self):
         """ Invalidate the cache of the documents followed by ``self``. """
         for record in self:
-            if record.res_id:
+            if record.model and record.res_id:
                 self.env[record.model].invalidate_cache(ids=[record.res_id])
 
     def create(self, cr, uid, values, context=None):
