@@ -29,7 +29,8 @@ Partners geolocalization
 ========================
     """,
     'author': 'OpenERP SA',
-    'depends': ['base'],
+    'depends': ['base','turkey_address'],
+    'external_dependencies': {'python': ['googlemaps']},
     'demo': [
     ],
     'data': [

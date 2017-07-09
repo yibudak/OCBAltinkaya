@@ -20,32 +20,48 @@
 ##############################################################################
 
 try:
-    import simplejson as json
+    import googlemaps
 except ImportError:
-    import json     # noqa
-import urllib2
+    pass
 
 from openerp.osv import osv, fields
 from openerp import tools
 from openerp.tools.translate import _
 
 
-def geo_find(addr):
-    if not addr:
-        return None
-    url = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address='
-    url += urllib2.quote(addr.encode('utf8'))
+def geo_find_components(addr,components=None,key=None):
+
+    gmaps = googlemaps.Client(key=key)
 
     try:
-        result = json.load(urllib2.urlopen(url))
+        result = gmaps.geocode(addr,components=components)
     except Exception, e:
         raise osv.except_osv(_('Network error'),
                              _('Cannot contact geolocation servers. Please make sure that your internet connection is up and running (%s).') % e)
-    if result['status'] != 'OK':
+    if len(result) is 0:
         return None
 
     try:
-        geo = result['results'][0]['geometry']['location']
+        geo = result[0]['geometry']['location']
+        return float(geo['lat']), float(geo['lng'])
+    except (KeyError, ValueError):
+        return None
+
+
+def geo_find(addr):
+
+    gmaps = googlemaps.Client()
+
+    try:
+        result = gmaps.geocode(addr)
+    except Exception, e:
+        raise osv.except_osv(_('Network error'),
+                             _('Cannot contact geolocation servers. Please make sure that your internet connection is up and running (%s).') % e)
+    if len(result) is 0:
+        return None
+
+    try:
+        geo = result[0]['geometry']['location']
         return float(geo['lat']), float(geo['lng'])
     except (KeyError, ValueError):
         return None
@@ -73,14 +89,43 @@ class res_partner(osv.osv):
 
     def geo_localize(self, cr, uid, ids, context=None):
         # Don't pass context to browse()! We need country names in english below
+        components={}
+        google_key = self.pool['ir.config_parameter'].get_param(cr, uid, 'google.geocode.key')
         for partner in self.browse(cr, uid, ids):
             if not partner:
                 continue
-            result = geo_find(geo_query_address(street=partner.street,
+            components={}
+            if partner.country_id:
+                if partner.country_id.name and ',' in partner.country_id.name and (partner.country_id.name.endswith(' of') or partner.country_id.name.endswith(' of the')):
+                    # put country qualifier in front, otherwise GMap gives wrong results,
+                    # e.g. 'Congo, Democratic Republic of the' => 'Democratic Republic of the Congo'
+                    components["country"] = '{1} {0}'.format(*country.split(',', 1))
+                components["country"] = partner.country_id.name
+
+            if partner.state_id:
+                components["administrative_area_level_1"]=partner.state_id.name
+            if partner.district_id:
+                components["administrative_area_level_2"] = partner.district_id.name
+                cityname = partner.district_id.name
+                if partner.region_id:
+                    cityname = partner.region_id.name+','+cityname
+            else:
+                cityname = partner.city
+
+            if partner.neighbour_id:
+                components["administrative_area_level_4"] = partner.neighbour_id.name
+            if partner.zip:
+                components["postal_code"] = partner.zip
+            if partner.street2:
+                streetname = partner.street + ' ' + partner.street2
+            else:
+                streetname = partner.street
+            result = geo_find_components(geo_query_address(street=streetname,
                                                 zip=partner.zip,
-                                                city=partner.city,
+                                                city=cityname,
                                                 state=partner.state_id.name,
-                                                country=partner.country_id.name))
+                                                country=partner.country_id.name),
+                                         components=components,key=google_key)
             if result:
                 self.write(cr, uid, [partner.id], {
                     'partner_latitude': result[0],
@@ -88,3 +133,4 @@ class res_partner(osv.osv):
                     'date_localization': fields.date.context_today(self, cr, uid, context=context)
                 }, context=context)
         return True
+
