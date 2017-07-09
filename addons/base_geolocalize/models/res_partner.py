@@ -112,14 +112,16 @@ class res_partner(osv.osv):
             else:
                 cityname = partner.city
 
-            if partner.neighbour_id:
-                components["administrative_area_level_4"] = partner.neighbour_id.name
             if partner.zip:
                 components["postal_code"] = partner.zip
             if partner.street2:
                 streetname = partner.street + ' ' + partner.street2
             else:
                 streetname = partner.street
+            if partner.neighbour_id:
+                components["administrative_area_level_4"] = partner.neighbour_id.name
+                streetname = streetname + ',' + partner.neighbour_id.name
+
             result = geo_find_components(geo_query_address(street=streetname,
                                                 zip=partner.zip,
                                                 city=cityname,
