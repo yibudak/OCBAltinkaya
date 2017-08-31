@@ -373,8 +373,8 @@ class ir_model_fields(osv.osv):
             self._check_selection(cr, user, vals['selection'], context=context)
         res = super(ir_model_fields,self).create(cr, user, vals, context)
         if vals.get('state','manual') == 'manual':
-            if not vals['name'].startswith('x_'):
-                raise except_orm(_('Error'), _("Custom fields must have a name that starts with 'x_' !"))
+#            if not vals['name'].startswith('x_'):
+#                raise except_orm(_('Error'), _("Custom fields must have a name that starts with 'x_' !"))
 
             if vals.get('relation',False) and not self.pool['ir.model'].search(cr, user, [('model','=',vals['relation'])]):
                 raise except_orm(_('Error'), _("Model %s does not exist!") % vals['relation'])
