@@ -14,9 +14,11 @@ while true; do
     case $yn in
         [Yy]* ) 
         sudo /etc/init.d/odoo-server stop
+        sudo service odoo stop
         echo -e "Installing Modules"
         ./odoo.py -d $ODOODB -i $MODULES  --without-demo=all --stop-after-init --config=/etc/odoo-server.conf --workers=0 --max-cron-threads=0
         sudo /etc/init.d/odoo-server start
+        sudo service odoo start
         break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;

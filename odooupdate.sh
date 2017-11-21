@@ -12,9 +12,11 @@ while true; do
     case $yn in
         [Yy]* ) 
         sudo /etc/init.d/odoo-server stop
+        sudo service odoo stop
         echo -e "Updating Database"
-        ./openerp-server -d $ODOODB -u all --stop-after-init --config=/etc/odoo-server.conf
+        ./openerp-server -d $ODOODB -u all --stop-after-init --config=/etc/odoo-server.conf --workers=0 --max-cron-threads=0
         sudo /etc/init.d/odoo-server start
+        sudo service odoo start
         break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no.";;
