@@ -624,7 +624,12 @@ class product_template(osv.osv):
             # Thus, in order to compute the sale price from the cost price for users not in this group
             # We fetch the standard price as the superuser
             if ptype != 'standard_price':
-                res[product.id] = product[ptype] or 0.0
+                try:
+                    res[product.id] = product[ptype] or 0.0
+                except KeyError:
+                    if product._name == 'product.template':
+                        ptype = 'list_price'
+                    res[product.id] = product[ptype] or 0.0
             else:
                 company_id = context.get('force_company') or product.env.user.company_id.id
                 product = product.with_context(force_company=company_id)
