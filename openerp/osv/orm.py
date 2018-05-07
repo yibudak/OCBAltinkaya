@@ -1,4 +1,7 @@
-import simplejson
+try:
+    import simplejson
+except ImportError:
+    import json as simplejson
 from lxml import etree
 
 from ..exceptions import except_orm
