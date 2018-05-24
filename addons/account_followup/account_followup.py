@@ -204,7 +204,7 @@ class res_partner(osv.osv):
         mtp = self.pool.get('email.template')
         unknown_mails = 0
         for partner in self.browse(cr, uid, partner_ids, context=ctx):
-            partners_to_email = [child for child in partner.child_ids if child.type == 'invoice' and child.email]
+            partners_to_email = [partner.commercial_partner_id]
             if not partners_to_email and partner.email:
                 partners_to_email = [partner]
             if partners_to_email:
@@ -260,7 +260,7 @@ class res_partner(osv.osv):
                 followup_table += '''
                 <table border="2" width=100%%>
                 <tr>
-                    <td>''' + _("Invoice Date") + '''</td>
+                    <td>''' + _("Date") + '''</td>
                     <td>''' + _("Description") + '''</td>
                     <td>''' + _("Reference") + '''</td>
                     <td>''' + _("Due Date") + '''</td>
