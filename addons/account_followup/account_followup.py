@@ -276,9 +276,9 @@ class res_partner(osv.osv):
                     strend = "</TD>"
                     date = aml['date_maturity'] or aml['date']
                     if date <= current_date and aml['balance'] > 0:
-                        strbegin = "<TD><B>"
-                        strend = "</B></TD>"
-                    followup_table +="<TR>" + strbegin + str(aml['date']) + strend + strbegin + aml['name'] + strend + strbegin + (aml['ref'] or '') + strend + strbegin + str(date) + strend + strbegin + str(aml['balance']) + strend + strbegin + block + strend + "</TR>"
+                        strbegin = "<TD><font color='red'><B>"
+                        strend = "</B></font></TD>"
+                    followup_table +="<TR>" + strbegin + str(aml['date'][8:10]+'-'+aml['date'][5:7]+'-'+aml['date'][0:4]) + strend + strbegin + aml['name'] + strend + strbegin + (aml['ref'] or '') + strend + strbegin + str(date[8:10]+'-'+date[5:7]+'-'+date[0:4]) + strend + strbegin + str(aml['balance']) + strend + strbegin + block + strend + "</TR>"
 
                 total = reduce(lambda x, y: x+y['balance'], currency_dict['line'], 0.00)
 
