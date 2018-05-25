@@ -90,6 +90,7 @@ class sale_order(osv.Model):
                 'product_uom_qty': 1,
                 'product_uom': grid.carrier_id.product_id.uom_id.id,
                 'product_id': grid.carrier_id.product_id.id,
+                'product_tmpl_id': grid.carrier_id.product_id.product_tmpl_id.id,
                 'price_unit': price_unit,
                 'tax_id': [(6, 0, taxes_ids)],
                 'is_delivery': True,
