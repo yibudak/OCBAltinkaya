@@ -1039,7 +1039,7 @@ function openerp_picking_widgets(instance){
                     return;
                 }
 
-                if(timeStamp + 50 < new Date().getTime()){
+                if(timeStamp + 100 < new Date().getTime()){
                     code = "";
                 }
 

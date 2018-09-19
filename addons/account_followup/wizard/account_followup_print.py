@@ -170,7 +170,7 @@ class account_followup_print(osv.osv_memory):
                     manuals[key]= 1
                 else:
                     manuals[key] = manuals[key] + 1
-            if partner.max_followup_id.send_email:
+            if partner.max_followup_id.send_email and partner.followup_use_email:
                 nbunknownmails += partner_obj.do_partner_mail(cr, uid, [partner.partner_id.id], context=context)
                 nbmails += 1
             if partner.max_followup_id.send_letter:

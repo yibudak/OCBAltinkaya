@@ -210,6 +210,8 @@ class res_partner(osv.osv):
             if partners_to_email:
                 level = partner.latest_followup_level_id_without_lit
                 for partner_to_email in partners_to_email:
+                    if not partner_to_email.followup_use_email:
+                        continue
                     if level and level.send_email and level.email_template_id and level.email_template_id.id:
                         mtp.send_mail(cr, uid, level.email_template_id.id, partner_to_email.id, context=ctx)
                     else:
@@ -265,7 +267,7 @@ class res_partner(osv.osv):
                     <td>''' + _("Reference") + '''</td>
                     <td>''' + _("Due Date") + '''</td>
                     <td>''' + _("Amount") + " (%s)" % (currency.symbol) + '''</td>
-                    <td>''' + _("Lit.") + '''</td>
+                    <td>''' + '''</td>
                 </tr>
                 ''' 
                 total = 0
@@ -276,16 +278,16 @@ class res_partner(osv.osv):
                     strend = "</TD>"
                     date = aml['date_maturity'] or aml['date']
                     if date <= current_date and aml['balance'] > 0:
-                        strbegin = "<TD><font color='red'><B>"
-                        strend = "</B></font></TD>"
-                    followup_table +="<TR>" + strbegin + str(aml['date'][8:10]+'-'+aml['date'][5:7]+'-'+aml['date'][0:4]) + strend + strbegin + aml['name'] + strend + strbegin + (aml['ref'] or '') + strend + strbegin + str(date[8:10]+'-'+date[5:7]+'-'+date[0:4]) + strend + strbegin + str(aml['balance']) + strend + strbegin + block + strend + "</TR>"
+                        strbegin = "<TD><B>"
+                        strend = "</B></TD>"
+                        followup_table +="<TR>" + strbegin + str(aml['date'][8:10]+'-'+aml['date'][5:7]+'-'+aml['date'][0:4]) + strend + strbegin + aml['name'] + strend + strbegin + (aml['ref'] or '') + strend + strbegin + str(date[8:10]+'-'+date[5:7]+'-'+date[0:4]) + strend + strbegin + str(aml['balance']) + strend + strbegin + block + strend + "</TR>"
+                    else:
+                        continue
 
                 total = reduce(lambda x, y: x+y['balance'], currency_dict['line'], 0.00)
 
                 total = rml_parse.formatLang(total, dp='Account', currency_obj=currency)
-                followup_table += '''<tr> </tr>
-                                </table>
-                                <center>''' + _("Amount due") + ''' : %s </center>''' % (total)
+                followup_table += '''<tr> </tr></table>'''
         return followup_table
 
     def write(self, cr, uid, ids, vals, context=None):

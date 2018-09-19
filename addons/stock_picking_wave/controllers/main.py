@@ -13,4 +13,4 @@ class picking_wave_report(http.Controller):
         docargs = {
             'docs': wave.picking_ids,
         }
-        return request.registry['report'].render(self.cr, self.uid, [], 'stock.report_picking', docargs)
+        return request.registry['report'].render(self.cr, self.uid, [], 'altinkaya_packing.report_picking_altinkayaB', docargs)

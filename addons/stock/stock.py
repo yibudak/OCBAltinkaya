@@ -881,7 +881,7 @@ class stock_picking(osv.osv):
     def do_print_picking(self, cr, uid, ids, context=None):
         '''This function prints the picking list'''
         context = dict(context or {}, active_ids=ids)
-        return self.pool.get("report").get_action(cr, uid, ids, 'stock.report_picking', context=context)
+        return self.pool.get("report").get_action(cr, uid, ids, 'altinkaya_packing.report_picking_altinkayaB', context=context)
 
 
     def action_confirm(self, cr, uid, ids, context=None):
