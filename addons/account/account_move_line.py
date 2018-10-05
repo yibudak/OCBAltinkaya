@@ -686,7 +686,7 @@ class account_move_line(osv.osv):
         (_check_no_view, 'You cannot create journal items on an account of type view or consolidation.', ['account_id']),
         (_check_no_closed, 'You cannot create journal items on closed account.', ['account_id']),
         (_check_company_id, 'Account and Period must belong to the same company.', ['company_id']),
-        (_check_date, 'The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal.', ['date']),
+        (_check_date, 'The date of your Journal Entry is not in the defined period! You should change the date or remove this constraint from the journal.', ['date', 'period_id']),
         (_check_currency, 'The selected account of your Journal Entry forces to provide a secondary currency. You should remove the secondary currency on the account or select a multi-currency view on the journal.', ['currency_id']),
         (_check_currency_and_amount, "You cannot create journal items with a secondary currency without recording both 'currency' and 'amount currency' field.", ['currency_id','amount_currency']),
         (_check_currency_amount, 'The amount expressed in the secondary currency must be positive when account is debited and negative when account is credited.', ['amount_currency']),
