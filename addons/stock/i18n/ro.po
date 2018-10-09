@@ -3,9 +3,9 @@
 # * stock
 # 
 # Translators:
-# Martin Trigaux, 2017
 # Dorin Hongu <dhongu@gmail.com>, 2017
 # Cozmin Candea <office@terrabit.ro>, 2017
+# Martin Trigaux, 2017
 # Iulian Cutui <iulian.cutui@gmail.com>, 2017
 # Sergiu Baltariu <s_baltariu@yahoo.com>, 2017
 msgid ""
@@ -247,6 +247,11 @@ msgid ""
 "                                        <span class=\"small\">Recommended if &gt;100 products</span>\n"
 "                                    </span>"
 msgstr ""
+"<span class=\"panel-title\">\n"
+"                                        <span class=\"fa\" data-icon=\"\"/>\n"
+"                                        <strong>Importă un fișier</strong><br/>\n"
+"                                        <span class=\"small\">Recomandat pentru &gt;100 produse</span>\n"
+"                                    </span>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -502,12 +507,12 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_warehouse_orderpoint_kanban
 msgid "<strong>Max qty :</strong>"
-msgstr ""
+msgstr "<strong>Cant Max :</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_warehouse_orderpoint_kanban
 msgid "<strong>Min qty :</strong>"
-msgstr ""
+msgstr "<strong>Cant Min:</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.inventory_planner
@@ -621,7 +626,7 @@ msgstr ""
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.message_head
 msgid "<strong>The initial demand has been updated.</strong>"
-msgstr ""
+msgstr "<strong>Cantitatea cerută inițial a fost actualizată.</strong>"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.report_inventory
@@ -923,7 +928,7 @@ msgstr "Mișcare automată"
 #. module: stock
 #: selection:stock.location.path,auto:0
 msgid "Automatic No Step Added"
-msgstr "Automat Fără adăugare de paşi"
+msgstr "Automat fără adăugare de pași"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_string_availability_info
@@ -2685,7 +2690,7 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_move_propagate
 msgid "If checked, when this move is cancelled, cancel the linked move too"
 msgstr ""
-"Dacă este bifat, atunci când această mişcare este anulată, anulează de "
+"Dacă este bifat, atunci când această mișcare este anulată, anulează de "
 "asemenea mișcarea asociată"
 
 #. module: stock
@@ -3246,6 +3251,7 @@ msgstr ""
 msgid ""
 "It is not possible to reserve more products of %s than you have in stock."
 msgstr ""
+"Nu este posibil să rezervați mai multe produse de  %s decât sunt în stoc."
 
 #. module: stock
 #: code:addons/stock/models/stock_quant.py:256
@@ -3674,6 +3680,8 @@ msgid ""
 "Make packages into a dedicated location, then bring them to the output "
 "location for shipping (Pick + Pack + Ship)"
 msgstr ""
+"Faceți pachetele într-o locație dedicată, apoi le aduceți la locația de "
+"ieșire pentru expediere (Pick + Pack + Ship)"
 
 #. module: stock
 #: model:res.groups,name:stock.group_tracking_owner
@@ -3987,6 +3995,8 @@ msgstr "Nicio operație facută la acest lot."
 msgid ""
 "No procurement rule found. Please verify the configuration of your routes"
 msgstr ""
+"Nu a fost găsită o regulă de aprovizionare. Vă rog să verificați "
+"configurarea rutelor."
 
 #. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:55
@@ -4194,7 +4204,7 @@ msgstr "Tip operație"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type_name
 msgid "Operation Types Name"
-msgstr ""
+msgstr "Nume tip operație"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_move_line_ids
@@ -4216,7 +4226,7 @@ msgid ""
 "Optional address where goods are to be delivered, specifically used for "
 "allotment"
 msgstr ""
-"Adresa opționala unde bunurile urmează a fi livrate, folosită in mod "
+"Adresa opționala unde bunurile urmează a fi livrate, folosită în mod "
 "specific pentru alocare"
 
 #. module: stock
@@ -4649,7 +4659,7 @@ msgstr "Pivot"
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 msgid "Planned Transfer"
-msgstr ""
+msgstr "Transfer planificat"
 
 #. module: stock
 #: model:ir.model,name:stock.model_web_planner
@@ -5421,7 +5431,7 @@ msgstr "Rute reapovizionare"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_resupply_wh_ids
 msgid "Resupply Warehouses"
-msgstr "Depozite de reaprovizionare"
+msgstr "Reaprovizionare din"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_stock_quantity_history
@@ -5585,7 +5595,7 @@ msgstr "Mișcare rebuturi"
 #. module: stock
 #: model:ir.actions.act_window,name:stock.action_stock_scrap
 msgid "Scrap Orders"
-msgstr ""
+msgstr "Declarare rebut"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_scrapped
@@ -5599,6 +5609,9 @@ msgid ""
 "Scrapping a product will remove it from your stock. The product will\n"
 "                end up in a scrap location that can be used for reporting purpose."
 msgstr ""
+"Prin declararea de rebut a unui produs acesta sa va elimina din stoc. "
+"Produsul va ajunge la final într-o locație de rebuturi care poate fi "
+"utilizată în scopuri de raportare."
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -6244,6 +6257,8 @@ msgid ""
 "The backorder <a href=# data-oe-model=stock.picking data-oe-id=%d>%s</a> has"
 " been created."
 msgstr ""
+"Restanța <a href=# data-oe-model=stock.picking data-oe-id=%d>%s</a>a fost "
+"creată."
 
 #. module: stock
 #: sql_constraint:stock.location:0
@@ -6298,6 +6313,8 @@ msgid ""
 "The following routes will apply to the products in this category taking into"
 " account parent categories:"
 msgstr ""
+"Următoarele rute se vor aplica produselor din această categorie, luând în "
+"considerare categoriile părinte:"
 
 #. module: stock
 #: sql_constraint:stock.warehouse:0
@@ -6540,6 +6557,10 @@ msgid ""
 "returned picking in order to avoid logistic rules to be applied again (which"
 " would create duplicated operations)"
 msgstr ""
+"Această preluare pare să fie înlănțuită cu o altă operație. Mai târziu, dacă"
+" primiți mărfurile pe care le returnați acum, asigurați-vă că ați <b> "
+"inversat </b> preluarea returnată, pentru a evita aplicarea din nou a "
+"regulilor logisticii (ceea ce ar crea operațiuni duplicate)"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty_new_quantity
@@ -6568,7 +6589,7 @@ msgid ""
 "This stock location will be used, instead of the default one, as the "
 "destination location for goods you send to this partner"
 msgstr ""
-"Locația stocului va fi folosita, in locul celei predefinita, drept locația "
+"Locația stocului va fi folosita, în locul celei predefinita, drept locația "
 "destinatie pentru bunurile pe care le trimiteti acestui partener"
 
 #. module: stock
@@ -6778,7 +6799,7 @@ msgstr "Tip operație"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_module_delivery_ups
 msgid "UPS"
-msgstr ""
+msgstr "UPS"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings_module_delivery_usps
@@ -6857,7 +6878,7 @@ msgstr ""
 #. module: stock
 #: selection:stock.warehouse,reception_steps:0
 msgid "Unload in input location then go to stock (2 steps)"
-msgstr ""
+msgstr "Descărcați în locația de intrare apoi transferați în stoc (2 pași)"
 
 #. module: stock
 #: selection:stock.warehouse,reception_steps:0
@@ -6865,6 +6886,8 @@ msgid ""
 "Unload in input location, go through a quality control before being admitted"
 " in stock (3 steps)"
 msgstr ""
+"Descărcați în locația de intrare, treceți printr-un control al calității "
+"înainte de a fi admis în stoc (3 pași)"
 
 #. module: stock
 #: model:ir.ui.view,arch_db:stock.view_picking_form
@@ -7291,6 +7314,11 @@ msgid ""
 "valuate your stock or change its rounding precision to a smaller value "
 "(example: 0.00001)."
 msgstr ""
+"Utilizați o unitate de măsură mai mică decât cea utilizată pentru stocarea "
+"produsului. Acest lucru poate duce la o problemă de rotunjire a cantității "
+"rezervate! Ar trebui să utilizați o unitate de măsură mai mică posibilă "
+"pentru stocare sau a schimba precizia de rotunjire la o valoare mai mică "
+"(exemplu: 0.00001)."
 
 #. module: stock
 #: model:ir.actions.act_window,help:stock.action_routes_form
@@ -7469,6 +7497,7 @@ msgid ""
 "You cannot validate a transfer if you have not processed any quantity for "
 "%s."
 msgstr ""
+"Nu puteți valida un transfer dacă nu ați procesat nicio cantitate pentru %s."
 
 #. module: stock
 #: code:addons/stock/models/stock_picking.py:656

@@ -478,7 +478,7 @@ msgid ""
 "                            </span>"
 msgstr ""
 "<span class=\"panel-title\"><span class=\"fa fa-shopping-cart\"/><strong>按成本價</strong>（客戶支付您需要支付的款項）<br/>\n"
-"                            <span class=\"small\">如果您的包裝在尺寸/重量上有所不同並且/或者您在全球範圍內運送，則建議此方式</span>\n"
+"                            <span class=\"small\">如果您的包裝在尺寸/重量上有所不同並且/或者您在整體範圍內運送，則建議此方式</span>\n"
 "                            </span>"
 
 #. module: website_sale
@@ -1887,7 +1887,7 @@ msgstr "發票"
 #: model:ir.model.fields,field_description:website_sale.field_res_config_settings_module_account_invoicing
 #: model:ir.ui.view,arch_db:website_sale.res_config_settings_view_form
 msgid "Invoicing"
-msgstr "開立發票"
+msgstr "會計"
 
 #. module: website_sale
 #: model:ir.ui.view,arch_db:website_sale.res_config_settings_view_form

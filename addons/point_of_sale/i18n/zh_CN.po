@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Martin Trigaux, 2017
-# Talway <9010446@qq.com>, 2017
+# v2exerer <9010446@qq.com>, 2017
 # Jeffery CHEN Fan <jeffery9@gmail.com>, 2017
 # e2f_cn r14 <e2f_cn_r14@outlook.com>, 2017
 # e2f_cn c7 <e2f_cn_c7@outlook.com>, 2017
 # 卓忆科技 <zhanghao@jointd.com>, 2017
 # Gary Wei <Gary.wei@elico-corp.com>, 2017
-# liAnGjiA <liangjia@qq.com>, 2017
+# 珠海-杜哥 <liangjia@qq.com>, 2017
 # 訾明华 <565209960@qq.com>, 2017
 # xiaobin wu <bd5dml@gmail.com>, 2017
 # 钟小华 <mackz@sina.com>, 2017
@@ -19,6 +19,7 @@
 # 菜小蛇 <lttlsnk@gmail.com>, 2017
 # Seven Floor <my7floor@gmail.com>, 2017
 # Alex Duan <alex.duan@elico-corp.com>, 2017
+# e2f_cn c5 <jarvisn@ecinnovations.com>, 2017
 # waveyeung <waveyeung@qq.com>, 2017
 # Xu Lei <xulei8@qq.com>, 2017
 # 老窦 北京 <2662059195@qq.com>, 2017
@@ -31,7 +32,6 @@
 # Jeff Yu - Elico Corp <jeff.yu@elico-corp.com>, 2017
 # 苏州远鼎 <tiexinliu@126.com>, 2017
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2018
-# e2f_cn c5 <jarvisn@ecinnovations.com>, 2018
 # e2f <projects@e2f.com>, 2018
 msgid ""
 msgstr ""
@@ -427,7 +427,7 @@ msgstr "所有可用的价目表必须在相同的货币作为公司或销售日
 msgid ""
 "All payment methods must be in the same currency as the Sales Journal or the"
 " company currency if that is not set."
-msgstr "所有付款方式必须与销售日记账或公司货币相同，如果没有设置的话。"
+msgstr "如果未在销售日记账中设置货币，则所有付款方式必须与销售日记账或公司货币相同。"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_all_sales_lines
@@ -936,7 +936,7 @@ msgstr "公司"
 #: model:product.product,name:point_of_sale.poire_conference
 #: model:product.template,name:point_of_sale.poire_conference_product_template
 msgid "Conference pears"
-msgstr "会议"
+msgstr "荷兰绿啤梨"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_config_product
@@ -1676,9 +1676,7 @@ msgid ""
 "If you put a photo on the category, the layout of the\n"
 "                touchscreen interface will automatically. We suggest not to put\n"
 "                a photo on categories for small (1024x768) screens."
-msgstr ""
-"如果你对类别设置了图片，触摸屏界面就会自动显示布局。\n"
-"对于小屏幕(1024x768)我们不建议给类别设置图片。"
+msgstr "如果你对类别设置了图片，则会自动调整触摸屏界面布局。对于小屏幕 (1024x768) 我们不建议给类别设置图片。"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_category_image
@@ -2248,7 +2246,7 @@ msgstr "开业管理"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_session_start_at
 msgid "Opening Date"
-msgstr "开业日期"
+msgstr "开张日期"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.account_cashbox_line_action
@@ -3031,7 +3029,7 @@ msgstr "报告"
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config_module_pos_reprint
 msgid "Reprint Receipt"
-msgstr "重新打印收条"
+msgstr "重新打印小票"
 
 #. module: point_of_sale
 #. openerp-web
@@ -3491,7 +3489,7 @@ msgstr "小计总计"
 #. module: point_of_sale
 #: model:ir.ui.view,arch_db:point_of_sale.view_pos_session_form
 msgid "Summary by Payment Methods"
-msgstr "汇总，按付款方式"
+msgstr "按付款方式汇总"
 
 #. module: point_of_sale
 #. openerp-web
@@ -4205,7 +4203,7 @@ msgid ""
 "You can define another list of available currencies on the\n"
 "                                <i>Cash Registers</i> tab of the"
 msgstr ""
-"您可以在以下\n"
+"您可以在 <name> 付款方式的\n"
 "                                <i>收银机</i>选项卡上定义其他可用货币列表 "
 
 #. module: point_of_sale

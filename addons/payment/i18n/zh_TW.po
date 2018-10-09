@@ -205,7 +205,7 @@ msgstr "收單方列表"
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.acquirer_kanban
 msgid "Activate"
-msgstr "激活"
+msgstr "啟用"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token_active
@@ -343,13 +343,13 @@ msgstr "點選以創建收單銀行。"
 #. module: payment
 #: model:ir.actions.act_window,help:payment.action_payment_icon
 msgid "Click to create a payment icon."
-msgstr "點選以創建支付圖標。"
+msgstr "點選以創建支付圖示"
 
 #. module: payment
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
 msgid "Communication"
-msgstr "溝通"
+msgstr "備註"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_company_id
@@ -660,12 +660,12 @@ msgstr "讓客戶決定"
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_icon_acquirer_ids
 msgid "List of Acquirers supporting this payment icon."
-msgstr "支援此支付圖標的受讓人列表。"
+msgstr "支援此支付圖示的受讓人列表。"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_website_published
 msgid "Make this payment acquirer available (Customer invoices, etc.)"
-msgstr "使此付款收單可用(客戶發票等)"
+msgstr "使此付款收單可用(客戶應收憑單等)"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.pay_methods
@@ -862,13 +862,13 @@ msgstr ""
 #: model:ir.model,name:payment.model_payment_icon
 #: model:ir.ui.view,arch_db:payment.payment_icon_form_view
 msgid "Payment Icon"
-msgstr "支付圖標"
+msgstr "支付圖示"
 
 #. module: payment
 #: model:ir.actions.act_window,name:payment.action_payment_icon
 #: model:ir.ui.menu,name:payment.payment_icon_menu
 msgid "Payment Icons"
-msgstr "支付圖標"
+msgstr "支付圖示"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_journal_id
@@ -992,7 +992,7 @@ msgstr "請使用以下轉帳詳細信息"
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_custom
 #: model:payment.acquirer,post_msg:payment.payment_acquirer_transfer
 msgid "Please use the order name as communication reference."
-msgstr "請使用訂單名稱作為通信參考。"
+msgstr "請使用訂單名稱作為備註參考。"
 
 #. module: payment
 #: model:ir.ui.view,arch_db:payment.confirm
@@ -1148,7 +1148,7 @@ msgstr "條帶"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_payment_icon_ids
 msgid "Supported Payment Icons"
-msgstr "支援的支付圖標"
+msgstr "支援的支付圖示"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_registration_view_template_id
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid ""
 "This field holds the image used for this payment icon, limited to "
 "1024x1024px"
-msgstr "此字段可控制用於此支付圖標的圖像的大小，上限為 1024x1024px"
+msgstr "此字段可控制用於此支付圖示的圖像的大小，上限為 1024x1024px"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_acquirer_image

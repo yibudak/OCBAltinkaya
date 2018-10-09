@@ -157,7 +157,7 @@ var History = function History($editable) {
 
         if (aUndo[pos]) {
             pos = Math.min(pos, aUndo.length);
-            aUndo.splice(Math.max(pos,1), aUndo.length);
+            aUndo.splice(pos, aUndo.length);
         }
 
         // => make a snap when the user change editable zone (because: don't make snap for each keydown)
@@ -290,9 +290,12 @@ var RTEWidget = Widget.extend({
         });
 
         // start element observation
-        $(document).on('content_changed', '.o_editable', function (event) {
-            self.trigger_up('rte_change', {target: event.target});
-            $(this).addClass('o_dirty');
+        $(document).on('content_changed', '.o_editable', function (ev) {
+            self.trigger_up('rte_change', {target: ev.target});
+            if (!ev.__isDirtyHandled) {
+                $(this).addClass('o_dirty');
+                ev.__isDirtyHandled = true;
+            }
         });
 
         $('#wrapwrap, .o_editable').on('click.rte', '*', this, this._onClick.bind(this));
@@ -407,6 +410,10 @@ var RTEWidget = Widget.extend({
      */
     save: function (context) {
         var self = this;
+
+        $('.o_editable')
+            .destroy()
+            .removeClass('o_editable o_is_inline_editable');
 
         var $dirty = $('.o_dirty');
         $dirty

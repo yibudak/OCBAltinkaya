@@ -63,7 +63,7 @@ def format_amount(env, amount, currency):
     lang = env['res.lang']._lang_get(env.context.get('lang') or 'en_US')
 
     formatted_amount = lang.format(fmt, currency.round(amount), grouping=True, monetary=True)\
-        .replace(r' ', u'\N{NO-BREAK SPACE}').replace(r'-', u'\u2011')
+        .replace(r' ', u'\N{NO-BREAK SPACE}').replace(r'-', u'-\N{ZERO WIDTH NO-BREAK SPACE}')
 
     pre = post = u''
     if currency.position == 'before':
@@ -252,17 +252,17 @@ class MailTemplate(models.Model):
     def unlink_action(self):
         for template in self:
             if template.ref_ir_act_window:
-                template.ref_ir_act_window.sudo().unlink()
+                template.ref_ir_act_window.unlink()
         return True
 
     @api.multi
     def create_action(self):
-        ActWindowSudo = self.env['ir.actions.act_window'].sudo()
+        ActWindow = self.env['ir.actions.act_window']
         view = self.env.ref('mail.email_compose_message_wizard_form')
 
         for template in self:
             button_name = _('Send Mail (%s)') % template.name
-            action = ActWindowSudo.create({
+            action = ActWindow.create({
                 'name': button_name,
                 'type': 'ir.actions.act_window',
                 'res_model': 'mail.compose.message',
@@ -300,7 +300,7 @@ class MailTemplate(models.Model):
 
         def _process_link(url):
             new_url = urls.url_parse(url)
-            if new_url.scheme and (new_url.netloc or new_url.scheme == 'mailto'):
+            if new_url.scheme and (new_url.netloc or new_url.scheme in ['mailto', 'tel']):
                 return url
             return new_url.replace(scheme=base.scheme, netloc=base.netloc).to_url()
 
@@ -461,10 +461,11 @@ class MailTemplate(models.Model):
         # templates: res_id -> template; template -> res_ids
         templates_to_res_ids = {}
         for res_id, template in res_ids_to_templates.items():
-            templates_to_res_ids.setdefault(template, []).append(res_id)
+            templates_to_res_ids.setdefault((template, template.env.context.get('lang')), []).append(res_id)
 
         results = dict()
         for template, template_res_ids in templates_to_res_ids.items():
+            template = template[0]
             Template = self.env['mail.template']
             # generate fields value for all res_ids linked to the current template
             if template.lang:

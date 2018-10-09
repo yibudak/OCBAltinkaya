@@ -340,8 +340,8 @@ var FieldMany2One = AbstractField.extend({
     _renderReadonly: function () {
         var value = _.escape((this.m2o_value || "").trim()).split("\n").join("<br/>");
         this.$el.html(value);
-        if (!this.nodeOptions.no_open) {
-            this.$el.attr('href', '#');
+        if (!this.nodeOptions.no_open && this.value) {
+            this.$el.attr('href', _.str.sprintf('#id=%s&model=%s', this.value.res_id, this.field.relation));
             this.$el.addClass('o_form_uri');
         }
     },
@@ -578,10 +578,11 @@ var FieldMany2One = AbstractField.extend({
      * @param {OdooEvent} ev
      */
     _onInputKeyup: function (ev) {
-        if (ev.which === $.ui.keyCode.ENTER) {
-            // If we pressed enter, we want to prevent _onInputFocusout from
+        if (ev.which === $.ui.keyCode.ENTER || ev.which === $.ui.keyCode.TAB) {
+            // If we pressed enter or tab, we want to prevent _onInputFocusout from
             // executing since it would open a M2O dialog to request
             // confirmation that the many2one is not properly set.
+            // It's a case that is already handled by the autocomplete lib.
             return;
         }
         this.isDirty = true;
@@ -1293,10 +1294,7 @@ var FieldOne2Many = FieldX2Many.extend({
 
         var self = this;
         var id = ev.data.id;
-        var onSaved = function (record, hasChanged) {
-            if (!hasChanged) {
-                return;
-            }
+        var onSaved = function (record) {
             if (_.some(self.value.data, {id: record.id})) {
                 // the record already exists in the relation, so trigger an
                 // empty 'UPDATE' operation when the user clicks on 'Save' in
@@ -1566,6 +1564,7 @@ var FieldMany2ManyBinaryMultiFiles = AbstractField.extend({
 
         this.$('form.o_form_binary_form').submit();
         this.$('.oe_fileupload').hide();
+        ev.target.value = "";
     },
     /**
      * @private

@@ -10,11 +10,11 @@
 # Martin Trigaux, 2017
 # Gary Wei <Gary.wei@elico-corp.com>, 2017
 # Rona Lin <ssauapw@qq.com>, 2017
-# liAnGjiA <liangjia@qq.com>, 2017
+# 珠海-杜哥 <liangjia@qq.com>, 2017
 # waveyeung <waveyeung@qq.com>, 2017
 # Luke <cialuo@qq.com>, 2017
 # Yaorong Li <55yaorong.li@gmail.com>, 2017
-# Talway <9010446@qq.com>, 2017
+# v2exerer <9010446@qq.com>, 2017
 # liulixia <liu.lixia@elico-corp.com>, 2017
 # Xu Lei <xulei8@qq.com>, 2017
 # 卓忆科技 <zhanghao@jointd.com>, 2017
@@ -276,7 +276,9 @@ msgstr "<strong>总计</strong>"
 msgid ""
 "<strong>Travel with Personal Car</strong><br/>\n"
 "                                    Cost: 0.30 <i>(the price per mile reimbursed by the company is fixed)</i>"
-msgstr "<strong>出差用私家车 \\</strong><br/>n 费用：0.30<i>（公司已经确定了每英里报销的价格）</i>"
+msgstr ""
+"<strong>出差用私家车</strong><br/>\n"
+"                                    费用：0.30 <i>（公司已经确定了每英里报销的价格）</i>"
 
 #. module: hr_expense
 #: model:ir.ui.view,arch_db:hr_expense.report_expense_sheet
@@ -289,7 +291,7 @@ msgstr "<strong>验证人:</strong>"
 msgid ""
 "A payment of %s %s with the reference <a href='/mail/view?%s'>%s</a> related"
 " to your expense %s has been made."
-msgstr "已完成含有与费用 % 相关的参考 <a href=\"/mail/view?%s\">% 的</a> %s %s 支付 。"
+msgstr "金额为 %s %s 的付款单 <a href='/mail/view?%s'>%s</a> (相关费用申请单： %s  ) 已支付。"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_account_id
@@ -1785,7 +1787,7 @@ msgstr "您无法在同一个报告中为不同的员工报告费用！"
 #: code:addons/hr_expense/models/hr_expense.py:602
 #, python-format
 msgid "You cannot report expenses with different payment modes."
-msgstr ""
+msgstr "你不可用不同的支付方式报告费用。"
 
 #. module: hr_expense
 #: code:addons/hr_expense/models/hr_expense.py:109

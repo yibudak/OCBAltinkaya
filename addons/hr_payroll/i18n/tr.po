@@ -11,14 +11,16 @@
 # Ediz Duman <neps1192@gmail.com>, 2017
 # Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2017
 # Gökhan Erdoğdu <gokhan.erdogdu@mechsoft.com.tr>, 2017
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2018
 # Umur Akın <umura@projetgrup.com>, 2018
+# Buket Şeker <buket_skr@hotmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 15:45+0000\n"
-"PO-Revision-Date: 2018-03-16 15:45+0000\n"
-"Last-Translator: Umur Akın <umura@projetgrup.com>, 2018\n"
+"POT-Creation-Date: 2018-06-27 15:42+0000\n"
+"PO-Revision-Date: 2018-06-27 15:42+0000\n"
+"Last-Translator: Buket Şeker <buket_skr@hotmail.com>, 2018\n"
 "Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,9 +46,9 @@ msgid ""
 "* When user cancel payslip the status is 'Rejected'."
 msgstr ""
 "* Bordro oluşturulduğunda durum 'Taslak' dır. \n"
-"* Eğer bordro onaylanmadıysa, durum 'Bekliyor' dur.\n"
-"* Eğer bordro doğrulandıysa, durum 'Yapıldı' olarak ayarlanır.\n"
-"* Kullanıcı bordroyu iptal ederse durum 'İptal Edildi' olur."
+"* Eğer bordro onaylanmadıysa, durum 'Beklemede' dur.\n"
+"* Eğer bordro doğrulandıysa, durum 'Biten' olarak ayarlanır.\n"
+"* Kullanıcı bordroyu iptal ederse durum 'İptal' olur."
 
 #. module: hr_payroll
 #: model:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -430,7 +432,7 @@ msgstr "Sevk Ödeneği"
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_ca_gravie
 msgid "Conveyance Allowance For Gravie"
-msgstr ""
+msgstr "Gravie için Taşıma Ödeneği"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_advantage_template_create_uid
@@ -635,6 +637,19 @@ msgstr "Personeller"
 #, python-format
 msgid "Error ! You cannot create a recursive Salary Structure."
 msgstr "Hata! Bir özyinelemeli Maaş Yapısı oluşturamazsınız."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_salary_rule.py:91
+#, python-format
+msgid "Error! You cannot create recursive hierarchy of Salary Rule Category."
+msgstr ""
+"Hata! Maaş Kuralı Kategorisi'nin yinelemeli hiyerarşisini oluşturamazsınız."
+
+#. module: hr_payroll
+#: code:addons/hr_payroll/models/hr_salary_rule.py:176
+#, python-format
+msgid "Error! You cannot create recursive hierarchy of Salary Rules."
+msgstr "Hata! Maaş Kuralı'nın yinelemeli hiyerarşisini oluşturamazsınız."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line_register_id

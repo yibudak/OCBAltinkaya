@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from collections import defaultdict
+from collections import OrderedDict
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tools.misc import split_every
@@ -77,7 +77,7 @@ class ProcurementRule(models.Model):
 
         data = self._get_stock_move_values(product_id, product_qty, product_uom, location_id, name, origin, values, group_id)
         # Since action_confirm launch following procurement_group we should activate it.
-        move = self.env['stock.move'].sudo().create(data)
+        move = self.env['stock.move'].sudo().with_context(force_company=data.get('company_id', False)).create(data)
         move._action_confirm()
         return True
 
@@ -328,9 +328,19 @@ class ProcurementGroup(models.Model):
             orderpoints_noprefetch = orderpoints_noprefetch[1000:]
 
             # Calculate groups that can be executed together
-            location_data = defaultdict(lambda: dict(products=self.env['product.product'], orderpoints=self.env['stock.warehouse.orderpoint'], groups=list()))
+            location_data = OrderedDict()
+
+            def makedefault():
+                return {
+                    'products': self.env['product.product'],
+                    'orderpoints': self.env['stock.warehouse.orderpoint'],
+                    'groups': []
+                }
+
             for orderpoint in orderpoints:
                 key = self._procurement_from_orderpoint_get_grouping_key([orderpoint.id])
+                if not location_data.get(key):
+                    location_data[key] = makedefault()
                 location_data[key]['products'] += orderpoint.product_id
                 location_data[key]['orderpoints'] += orderpoint
                 location_data[key]['groups'] = self._procurement_from_orderpoint_get_groups([orderpoint.id])

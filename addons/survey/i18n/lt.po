@@ -4,12 +4,13 @@
 # 
 # Translators:
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2017
-# Rolandas <info@paninfo.lt>, 2017
+# Linas Versada <paulius.sladkevicius@gmail.com>, 2017
 # Martin Trigaux, 2017
 # Antanas Muliuolis <an.muliuolis@gmail.com>, 2017
 # Arminas Grigonis <arminas@versada.lt>, 2017
 # Monika Raciunaite <monika.raciunaite@gmail.com>, 2017
 # Šarūnas Ažna <sarunas.azna@gmail.com>, 2017
+# Rolandas <info@paninfo.lt>, 2017
 # Audrius Palenskis <audrius.palenskis@gmail.com>, 2017
 # UAB "Draugiški sprendimai" <transifex@draugiskisprendimai.lt>, 2017
 # Anatolij, 2017
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #. module: survey
 #: model:mail.template,body_html:survey.email_template_survey
@@ -332,6 +333,8 @@ msgid ""
 "Attachments are linked to a document through model / res_id and to the "
 "message through this field."
 msgstr ""
+"Prisegtukai yra susieti su dokumentu per model / res_id ir su žinute per šį "
+"lauką."
 
 #. module: survey
 #: model:ir.ui.view,arch_db:survey.back
@@ -561,7 +564,7 @@ msgstr "Nesutikti"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_question_display_mode
 msgid "Display Mode"
-msgstr ""
+msgstr "Rodymo režimas"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_label_display_name
@@ -1043,7 +1046,7 @@ msgstr "Pavadinimas"
 #. module: survey
 #: model:ir.ui.view,arch_db:survey.survey_user_input_search
 msgid "New"
-msgstr "Nauja"
+msgstr "Naujas"
 
 #. module: survey
 #: model:ir.ui.view,arch_db:survey.page
@@ -1457,6 +1460,7 @@ msgstr "Rodyti komentarų lauką"
 #: model:ir.ui.view,arch_db:survey.survey_survey_view_search
 msgid "Show all records which has next action date is before today"
 msgstr ""
+"Rodyti visus įrašus, kurių sekančio veiksmo data yra ankstesnė nei šiandiena"
 
 #. module: survey
 #: selection:survey.question,type:0

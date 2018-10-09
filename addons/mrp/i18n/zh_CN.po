@@ -7,7 +7,7 @@
 # e2f_cn c7 <e2f_cn_c7@outlook.com>, 2017
 # 卓忆科技 <zhanghao@jointd.com>, 2017
 # Gary Wei <Gary.wei@elico-corp.com>, 2017
-# liAnGjiA <liangjia@qq.com>, 2017
+# 珠海-杜哥 <liangjia@qq.com>, 2017
 # Martin Trigaux, 2017
 # fausthuang, 2017
 # 苏州远鼎 <tiexinliu@126.com>, 2017
@@ -21,13 +21,14 @@
 # Jeff Yu - Elico Corp <jeff.yu@elico-corp.com>, 2017
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2018
 # e2f_cn c5 <jarvisn@ecinnovations.com>, 2018
+# Shane Tsoi <sso@odoo.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-19 13:42+0000\n"
 "PO-Revision-Date: 2018-02-19 13:42+0000\n"
-"Last-Translator: e2f_cn c5 <jarvisn@ecinnovations.com>, 2018\n"
+"Last-Translator: Shane Tsoi <sso@odoo.com>, 2018\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -113,9 +114,9 @@ msgid ""
 "['|',('availability', 'in', ('assigned', 'none')), ('state', 'not in', "
 "('confirmed','progress'))]}\">Raw materials not available!</span>"
 msgstr ""
-"<span class=“label label-danger” attrs=“{‘invisible’: [‘|’,(‘availability’, "
-"‘in’, (‘assigned’, ‘none’)), (‘state’, ‘not in’, "
-"(‘confirmed’,’progress’))]}”>原材料不可用！</span>"
+"<span class=\"label label-danger\" attrs=\"{'invisible': "
+"['|',('availability', 'in', ('assigned', 'none')), ('state', 'not in', "
+"('confirmed','progress'))]}\">原材料不可用！</span>"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_workcenter_view
@@ -189,8 +190,8 @@ msgid ""
 "<strong attrs=\"{'invisible': [('date_planned_finished', '=', False)]}\" class=\"mr8\">to</strong>\n"
 "                                    <strong class=\"oe_edit_only mr8\" attrs=\"{'invisible': [('date_planned_finished', '!=', False)]}\">to</strong>"
 msgstr ""
-"<strong attrs=“{‘invisible’: [(‘date_planned_finished’, ‘=‘, False)]}” class=“mr8”>至</strong>\n"
-"                                    <strong class=“oe_edit_only mr8” attrs=“{‘invisible’: [(‘date_planned_finished’, ‘!=‘, False)]}”>至</strong>"
+"<strong attrs=\"{'invisible': [('date_planned_finished', '=', False)]}\" class=\"mr8\">至</strong>\n"
+"                                    <strong class=\"oe_edit_only mr8\" attrs=\"{'invisible': [('date_planned_finished', '!=', False)]}\">至</strong>"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_form_view_inherit
@@ -1361,7 +1362,7 @@ msgid ""
 "Keep empty if you produce at the location where you find the raw materials. "
 "Set a location if you produce at a fixed location. This can be a partner "
 "location if you subcontract the manufacturing operations."
-msgstr ""
+msgstr "如果您在找到原材料的地方生产，请保持空白。如果您在固定位置生产，请设置位置。 如果您转包制造业务，这可以是合作伙伴的位置。"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.view_mrp_bom_filter selection:mrp.bom,type:0
@@ -2993,7 +2994,7 @@ msgid ""
 "The routing contains all the Work Centers used and for how long. This will "
 "create work orders afterwards which alters the execution of the "
 "manufacturing order."
-msgstr ""
+msgstr "工艺路线包含所有使用的工作中心以及使用的时间。 这将在之后创建工作订单，这会改变制造订单的执行。"
 
 #. module: mrp
 #: code:addons/mrp/models/procurement.py:20
@@ -3167,7 +3168,7 @@ msgstr "运行的订单合计"
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_production_workcenter_form_view_inherit
 msgid "Total duration"
-msgstr ""
+msgstr "总时长"
 
 #. module: mrp
 #: model:ir.ui.menu,name:mrp.menu_mrp_traceability
@@ -3262,7 +3263,7 @@ msgstr "解锁"
 msgid ""
 "Unlock the manufacturing order to correct what has been consumed or "
 "produced."
-msgstr ""
+msgstr "解锁制造订单以纠正已消耗或生产的产品。"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_production_form_view
@@ -3329,7 +3330,7 @@ msgid ""
 "Using a MPS report to schedule your reordering and manufacturing operations "
 "is useful if you have long lead time and if you produce based on sales "
 "forecasts."
-msgstr "如果您的交货时间很长，而且你是根据销售预测进行生产，那么使用MPS报告来安排你的重新下单排序和制造操作是非常有用的。"
+msgstr "如果您的交货时间很长，而且你是根据销售预测进行生产，那么使用 MPS 报告来安排你的重新下单排序和制造操作是非常有用的。"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_message_valid_until
@@ -3711,13 +3712,13 @@ msgstr "您不能使用相同的序列号两次。 请更正编码的序列号�
 #: code:addons/mrp/wizard/mrp_product_produce.py:129
 #, python-format
 msgid "You cannot produce the same serial number twice."
-msgstr ""
+msgstr "不能重覆生产相同的序列号。"
 
 #. module: mrp
 #: code:addons/mrp/models/mrp_unbuild.py:93
 #, python-format
 msgid "You cannot unbuild a undone manufacturing order."
-msgstr ""
+msgstr "您无法取消未完成的制造订单。"
 
 #. module: mrp
 #: code:addons/mrp/wizard/change_production_qty.py:46
@@ -3856,7 +3857,7 @@ msgstr "stock.warn.insufficient.qty.unbuild"
 #. module: mrp
 #: model:ir.actions.act_window,help:mrp.mrp_workcenter_kanban_action
 msgid "to create a new Work Center."
-msgstr "要创建新的工作中心。"
+msgstr "点击此处创建新的工作中心。"
 
 #. module: mrp
 #: model:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view

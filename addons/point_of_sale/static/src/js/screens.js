@@ -394,10 +394,14 @@ var NumpadWidget = PosBaseWidget.extend({
         this.$el.find('.mode-button').click(_.bind(this.clickChangeMode, this));
     },
     applyAccessRights: function() {
-        var has_price_control_rights = !this.pos.config.restrict_price_control || this.pos.get_cashier().role == 'manager';
+        var cashier = this.pos.get('cashier') || this.pos.get_cashier();
+        var has_price_control_rights = !this.pos.config.restrict_price_control || cashier.role == 'manager';
         this.$el.find('.mode-button[data-mode="price"]')
             .toggleClass('disabled-mode', !has_price_control_rights)
             .prop('disabled', !has_price_control_rights);
+        if (!has_price_control_rights && this.state.get('mode')=='price'){
+            this.state.changeMode('quantity');
+        }
     },
     clickDeleteLastChar: function() {
         return this.state.deleteLastChar();
@@ -1172,9 +1176,11 @@ var ClientListScreenWidget = ScreenWidget.extend({
         var order = this.pos.get_order();
         if( this.has_client_changed() ){
             var default_fiscal_position_id = _.findWhere(this.pos.fiscal_positions, {'id': this.pos.config.default_fiscal_position_id[0]});
-            if ( this.new_client && this.new_client.property_account_position_id ) {
-                var client_fiscal_position_id = _.findWhere(this.pos.fiscal_positions, {'id': this.new_client.property_account_position_id[0]});
-                order.fiscal_position = client_fiscal_position_id || default_fiscal_position_id;
+            if ( this.new_client ) {
+                if (this.new_client.property_account_position_id ){
+                  var client_fiscal_position_id = _.findWhere(this.pos.fiscal_positions, {'id': this.new_client.property_account_position_id[0]});
+                  order.fiscal_position = client_fiscal_position_id || default_fiscal_position_id;
+                }
                 order.set_pricelist(_.findWhere(this.pos.pricelists, {'id': this.new_client.property_product_pricelist[0]}) || this.pos.default_pricelist);
             } else {
                 order.fiscal_position = default_fiscal_position_id;
@@ -1279,7 +1285,8 @@ var ClientListScreenWidget = ScreenWidget.extend({
             })
             .then(function(partner_id){
                 self.saved_client_details(partner_id);
-            },function(type,err){
+            },function(err,ev){
+                ev.preventDefault();
                 var error_body = _t('Your Internet connection is probably down.');
                 if (err.data) {
                     var except = err.data;
@@ -1369,6 +1376,9 @@ var ClientListScreenWidget = ScreenWidget.extend({
     reload_partners: function(){
         var self = this;
         return this.pos.load_new_partners().then(function(){
+            // partners may have changed in the backend
+            self.partner_cache = new DomCache();
+
             self.render_list(self.pos.db.get_partners_sorted(1000));
             
             // update the currently assigned client if it has been changed in db.
@@ -1541,7 +1551,12 @@ var ReceiptScreenWidget = ScreenWidget.extend({
         };
     },
     print_web: function() {
-        window.print();
+        if($.browser.safari){
+            document.execCommand('print', false, null);
+        }
+        else{
+            window.print();
+        }
         this.pos.get_order()._printed = true;
     },
     print_xml: function() {
