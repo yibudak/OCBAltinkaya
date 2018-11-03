@@ -4311,7 +4311,7 @@ class stock_warehouse_orderpoint(osv.osv):
         '''
         qty = 0
         uom_obj = self.pool.get("product.uom")
-        for procurement in orderpoint.procurement_ids:
+        for procurement in orderpoint.procurement_ids.filtered(lambda p: p.location_id.id == orderpoint.location_id.id):
             if procurement.state in ('cancel', 'done'):
                 continue
             procurement_qty = uom_obj._compute_qty_obj(cr, uid, procurement.product_uom, procurement.product_qty, procurement.product_id.uom_id, context=context)
