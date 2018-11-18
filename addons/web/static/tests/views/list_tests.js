@@ -307,6 +307,7 @@ QUnit.module('Views', {
         assert.strictEqual(list.$('th:contains(Bar)').length, 1, "should contain Bar");
         assert.strictEqual(list.$('tr.o_group_header').length, 2, "should have 2 .o_group_header");
         assert.strictEqual(list.$('th.o_group_name').length, 2, "should have 2 .o_group_name");
+        list.destroy();
     });
 
     QUnit.test('basic grouped list rendering 1 col without selector', function (assert) {
@@ -1053,9 +1054,6 @@ QUnit.module('Views', {
             viewOptions: {hasSidebar: true},
             arch: '<tree><field name="foo"/></tree>',
             mockRPC: function (route) {
-                if (route === '/web/dataset/call_kw/ir.attachment/search_read') {
-                    return $.when([]);
-                }
                 assert.step(route);
                 return this._super.apply(this, arguments);
             },
@@ -2851,72 +2849,6 @@ QUnit.module('Views', {
         list.destroy();
     });
 
-    QUnit.skip('navigation: moving left/right with keydown', function (assert) {
-        assert.expect(8);
-
-        this.data.foo.fields.foo.type = 'text';
-        var list = createView({
-            View: ListView,
-            model: 'foo',
-            data: this.data,
-            arch:
-                '<tree editable="bottom">' +
-                    '<field name="m2m" widget="many2many_tags"/>' +
-                    '<field name="foo"/>' +
-                    '<field name="bar"/>' +
-                    '<field name="m2o"/>' +
-                    '<field name="qux"/>' +
-                '</tree>',
-        });
-
-        list.$('td:contains(13)').click();
-        var $m2m = list.$('[name="m2m"] input');
-        var $foo = list.$('textarea[name="foo"]');
-        var $bar = list.$('[name="bar"] input');
-        var $m2o = list.$('[name="m2o"] input');
-        var $qux = list.$('input[name="qux"]');
-
-        assert.strictEqual(document.activeElement, $qux[0],
-            "'qux' input should be focused");
-
-        $qux[0].selectionEnd = 0; // Simulate browser keyboard left behavior (unselect)
-        $qux.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $m2o[0],
-            "'m2o' input should be focused");
-
-        // forget unselecting and try leaving
-        $m2o.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $m2o[0],
-            "'m2o' input should still be focused");
-
-        $m2o[0].selectionEnd = 0; // Simulate browser keyboard left behavior (unselect)
-        $m2o.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $bar[0],
-            "'bar' input should be focused");
-
-        // no unselect here as it is a checkbox
-        $bar.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $foo[0],
-            "'foo' input should be focused");
-
-        // forget unselecting and try leaving
-        $foo.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $foo[0],
-            "'foo' input should still be focused");
-
-        $foo[0].selectionEnd = 0; // Simulate browser keyboard left behavior (unselect)
-        $foo.trigger({type: 'keydown', which: $.ui.keyCode.LEFT});
-        assert.strictEqual(document.activeElement, $m2m[0],
-            "'m2m' input should be focused");
-
-        $m2m[0].selectionStart = $m2m[0].value.length; // Simulate browser keyboard right behavior (unselect)
-        $m2m.trigger({type: 'keydown', which: $.ui.keyCode.RIGHT});
-        assert.strictEqual(document.activeElement, $foo[0],
-            "'foo' input should be focused");
-
-        list.destroy();
-    });
-
     QUnit.test('discarding changes in a row properly updates the rendering', function (assert) {
         assert.expect(3);
 
@@ -3223,10 +3155,10 @@ QUnit.module('Views', {
             foo: {
                 fields: {int_field: {string: "int_field", type: "integer", sortable: true}},
                 records: [
-                    {id: 1, int_field: 0},
-                    {id: 2, int_field: 1},
-                    {id: 3, int_field: 2},
-                    {id: 4, int_field: 3},
+                    {id: 1, int_field: 11},
+                    {id: 2, int_field: 12},
+                    {id: 3, int_field: 13},
+                    {id: 4, int_field: 14},
                 ]
             }
         };
@@ -3245,14 +3177,15 @@ QUnit.module('Views', {
                         assert.deepEqual(args, {
                             model: "foo",
                             ids: [4, 3],
-                            offset: 2,
+                            offset: 13,
                             field: "int_field",
                         });
                     }
                     if (moves === 1) {
                         assert.deepEqual(args, {
                             model: "foo",
-                            ids: [1, 4, 2, 3],
+                            ids: [4, 2],
+                            offset: 12,
                             field: "int_field",
                         });
                     }
@@ -3260,14 +3193,15 @@ QUnit.module('Views', {
                         assert.deepEqual(args, {
                             model: "foo",
                             ids: [2, 4],
-                            offset: 1,
+                            offset: 12,
                             field: "int_field",
                         });
                     }
                     if (moves === 3) {
                         assert.deepEqual(args, {
                             model: "foo",
-                            ids: [1, 4, 2, 3],
+                            ids: [4, 2],
+                            offset: 12,
                             field: "int_field",
                         });
                     }
@@ -3334,7 +3268,6 @@ QUnit.module('Views', {
                         "should write the right field as sequence");
                     assert.deepEqual(args.ids, [4, 2, 3],
                         "should write the sequence in correct order");
-                    return $.when();
                 }
                 return this._super.apply(this, arguments);
             },
@@ -3464,13 +3397,16 @@ QUnit.module('Views', {
                   '</tree>',
             mockRPC: function (route, args) {
                 if (route === '/web/dataset/resequence') {
+                    var _super = this._super.bind(this);
                     assert.strictEqual(args.offset, 1,
                         "should write the sequence starting from the lowest current one");
                     assert.strictEqual(args.field, 'int_field',
                         "should write the right field as sequence");
                     assert.deepEqual(args.ids, [4, 2, 3],
                         "should write the sequence in correct order");
-                    return $.when(def);
+                    return $.when(def).then(function () {
+                        return _super(route, args);
+                    });
                 }
                 return this._super.apply(this, arguments);
             },

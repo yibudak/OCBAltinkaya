@@ -276,9 +276,12 @@ class MailActivity(models.Model):
         activity_user = activity.sudo(self.env.user)
         activity_user._check_access('create')
 
-        # check target user has rights on document otherwise we have to prevent activity creation
+        # send a notification to assigned user; in case of manually done activity also check
+        # target has rights on document otherwise we prevent its creation. Automated activities
+        # are checked since they are integrated into business flows that should not crash.
         if activity_user.user_id != self.env.user:
-            activity_user._check_access_assignation()
+            if not activity_user.automated:
+                activity_user._check_access_assignation()
             if not self.env.context.get('mail_activity_quick_update', False):
                 activity_user.action_notify()
 
@@ -298,7 +301,8 @@ class MailActivity(models.Model):
 
         if values.get('user_id'):
             if values['user_id'] != self.env.uid:
-                self._check_access_assignation()
+                to_check = self.filtered(lambda act: not act.automated)
+                to_check._check_access_assignation()
                 if not self.env.context.get('mail_activity_quick_update', False):
                     self.action_notify()
             for activity in self:
@@ -418,8 +422,10 @@ class MailActivity(models.Model):
 
     @api.model
     def get_activity_data(self, res_model, domain):
-        res = self.env[res_model].search(domain)
-        activity_domain = [('res_id', 'in', res.ids), ('res_model', '=', res_model)]
+        activity_domain = [('res_model', '=', res_model)]
+        if domain:
+            res = self.env[res_model].search(domain)
+            activity_domain.append(('res_id', 'in', res.ids))
         grouped_activities = self.env['mail.activity'].read_group(
             activity_domain,
             ['res_id', 'activity_type_id', 'res_name:max(res_name)', 'ids:array_agg(id)', 'date_deadline:min(date_deadline)'],
@@ -439,7 +445,6 @@ class MailActivity(models.Model):
             state = self._compute_state_from_date(group['date_deadline'], self.user_id.sudo().tz)
             activity_data[res_id][activity_type_id] = {
                 'count': group['__count'],
-                'domain': group['__domain'],
                 'ids': group['ids'],
                 'state': state,
                 'o_closest_deadline': group['date_deadline'],

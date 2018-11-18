@@ -355,7 +355,7 @@ class HolidaysRequest(models.Model):
     @api.depends('number_of_days')
     def _compute_number_of_hours_display(self):
         for holiday in self:
-            calendar = self.employee_id.resource_calendar_id or self.env.user.company_id.resource_calendar_id
+            calendar = holiday.employee_id.resource_calendar_id or self.env.user.company_id.resource_calendar_id
             holiday.number_of_hours_display = holiday.number_of_days * (calendar.hours_per_day or HOURS_PER_DAY)
 
     @api.multi
@@ -649,7 +649,7 @@ class HolidaysRequest(models.Model):
                 elif holiday.holiday_type == 'company':
                     employees = self.env['hr.employee'].search([('company_id', '=', self.mode_company_id.id)])
                 else:
-                    holiday.department_id.member_ids
+                    employees = holiday.department_id.member_ids
                 for employee in employees:
                     values = holiday._prepare_holiday_values(employee)
                     leaves += self.with_context(
