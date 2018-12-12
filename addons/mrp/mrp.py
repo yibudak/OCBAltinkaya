@@ -236,7 +236,7 @@ class mrp_bom(osv.osv):
         domain = domain + [ '|', ('date_start', '=', False), ('date_start', '<=', time.strftime(DEFAULT_SERVER_DATE_FORMAT)),
                             '|', ('date_stop', '=', False), ('date_stop', '>=', time.strftime(DEFAULT_SERVER_DATE_FORMAT))]
         # order to prioritize bom with product_id over the one without
-        ids = self.search(cr, uid, domain, order='sequence, product_id', context=context)
+        ids = self.search(cr, uid, domain, order='product_id, sequence', context=context)
         # Search a BoM which has all properties specified, or if you can not find one, you could
         # pass a BoM without any properties with the smallest sequence
         bom_empty_prop = False
