@@ -579,7 +579,7 @@ class document_storage(osv.osv):
             # a hack: /assume/ that the calling write operation will not try
             # to write the fname and size, and update them in the db concurrently.
             # We cannot use a write() here, because we are already in one.
-            cr.execute('UPDATE ir_attachment SET file_size = %s, index_content = %s, file_type = %s WHERE id = %s', (filesize, icont_u, mime, file_node.file_id))
+            cr.execute('UPDATE ir_attachment SET file_size = %s, file_type = %s WHERE id = %s', (filesize, mime, file_node.file_id))
             self.pool.get('ir.attachment').invalidate_cache(cr, uid, ['file_size', 'index_content', 'file_type'], [file_node.file_id], context=context)
             file_node.content_length = filesize
             file_node.content_type = mime
