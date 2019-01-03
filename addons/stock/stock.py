@@ -2627,7 +2627,7 @@ class stock_move(osv.osv):
         defaults = {
             'product_uom_qty': uom_qty,
             'product_uos_qty': uos_qty,
-            'procure_method': 'make_to_stock',
+            'procure_method': move.procure_method,
             'restrict_lot_id': restrict_lot_id,
             'split_from': move.id,
             'procurement_id': move.procurement_id.id,
