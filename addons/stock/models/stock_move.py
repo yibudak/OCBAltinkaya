@@ -512,7 +512,7 @@ class StockMove(models.Model):
             rules = self.env['procurement.group']._search_rule(move.route_ids, move.product_id, warehouse_id, domain)
 
             # Make sure it is not returning the return
-            if rules and (not move.origin_returned_move_id or move.origin_returned_move_id.location_dest_id.id != rules.location_dest_id.id):
+            if rules and (not move.origin_returned_move_id or move.origin_returned_move_id.location_dest_id.id != rules.location_id.id):
                 rules._run_push(move)
 
     def _merge_moves_fields(self):
@@ -570,6 +570,7 @@ class StockMove(models.Model):
         moves_to_merge = []
         for candidate_moves in candidate_moves_list:
             # First step find move to merge.
+            candidate_moves = candidate_moves.with_context(prefetch_fields=False)
             for k, g in groupby(sorted(candidate_moves, key=self._prepare_merge_move_sort_method), key=itemgetter(*distinct_fields)):
                 moves = self.env['stock.move'].concat(*g).filtered(lambda m: m.state not in ('done', 'cancel', 'draft'))
                 # If we have multiple records we will merge then in a single one.

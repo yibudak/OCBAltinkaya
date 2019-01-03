@@ -43,8 +43,8 @@ msgstr ""
 "                    Vastleggen urenstaten\n"
 "                </p><p>\n"
 "                    U kunt uw uren registreren en iedere dag volgen per project.\n"
-"                    Alle tijd die aan een project wordt besteed, wordt een kostenpost en kan opnieuw worden gefactureerd aan\n"
-"                     klanten indien nodig.\n"
+"Alle tijd die aan een project wordt besteed, wordt een kostenpost en kan opnieuw worden gefactureerd aan\n"
+"klanten indien nodig.\n"
 "                </p>\n"
 "            "
 
@@ -54,7 +54,7 @@ msgid ""
 "* At Project Rate: All timesheets on the project will be billed at the same rate\n"
 "* At Employee Rate: Timesheets will be billed at a rate defined at employee level"
 msgstr ""
-"* Op projecttarief: alle urenstaten van het project worden gefactureerd tegen hetzelfde tarief\n"
+"* Per projecttarief: alle urenstaten van het project worden gefactureerd tegen hetzelfde tarief\n"
 "* Op werknemerstarief: urenstaten worden gefactureerd volgens een tarief dat op werknemersniveau is gedefinieerd"
 
 #. module: sale_timesheet
@@ -103,10 +103,10 @@ msgid ""
 "  - Stock Moves: the quantity comes from confirmed pickings\n"
 msgstr ""
 "Afhankelijk van de productinstellingen, kan de geleverde hoeveelheid automatisch worden berekend met behulp van het mechanisme:\n"
-"   - Handmatig: het aantal wordt handmatig op de regel ingesteld\n"
-"   - Kostenplaats van declaratie: de hoeveelheid is de som van de geboekte declaraties\n"
-"   - Urenstaat: de hoeveelheid is de som van de uren die zijn vastgelegd voor taken die aan deze verkoopregel zijn gekoppeld\n"
-"   - Voorraadmutaties: de hoeveelheid komt van bevestigde pickings\n"
+"- Handmatig: het aantal wordt handmatig op de regel ingesteld\n"
+"- Kostenplaats van declaratie: de hoeveelheid is de som van de geboekte declaraties\n"
+"- Urenstaat: de hoeveelheid is de som van de uren die zijn vastgelegd voor taken die aan deze verkoopregel zijn gekoppeld\n"
+"- Voorraadmutaties: de hoeveelheid komt van bevestigde pickings\n"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_project_create_invoice__amount_to_invoice
@@ -173,7 +173,7 @@ msgstr "Op werknemertarief"
 #. module: sale_timesheet
 #: selection:project.create.sale.order,billable_type:0
 msgid "At Project Rate"
-msgstr "Op projecttarief"
+msgstr "Per projecttarief"
 
 #. module: sale_timesheet
 #: selection:project.project,billable_type:0
@@ -191,7 +191,7 @@ msgstr "Minimaal één lijn moet ingevuld zijn."
 #: code:addons/sale_timesheet/controllers/main.py:249
 #, python-format
 msgid "Before"
-msgstr "Voor"
+msgstr "Eerder"
 
 #. module: sale_timesheet
 #: selection:account.analytic.line,timesheet_invoice_type:0
@@ -585,7 +585,7 @@ msgid ""
 "Create a task and track hours: Create a task on the sales order validation and track the work hours."
 msgstr ""
 "Bepaal handmatig de hoeveelheden voor de order: Factuur op basis van de handmatig ingevoerde hoeveelheid, zonder het aanmaken van een kostenplaats.\n"
-"Urenstaten op projecten: Factuur op basis van de geschreven uren op gerelateerde urenstaten.\n"
+"Urenstaten op project: Factuur op basis van de geschreven uren op gerelateerde urenstaten.\n"
 "Maak een taak aan en volg de uren ervan op: Een taak maken bij verkoop order bevestiging en volg werkuren via taken."
 
 #. module: sale_timesheet
@@ -797,7 +797,7 @@ msgstr "Project verkoopregel/Werknemer mapping"
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_product_template__project_template_id
 msgid "Project Template"
-msgstr "Project sjabloon"
+msgstr "Projectsjabloon"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,help:sale_timesheet.field_project_create_sale_order__project_id
@@ -1094,7 +1094,7 @@ msgid ""
 "The product %s should not have a project nor a project template since it "
 "will not generate project."
 msgstr ""
-"Het product %s hoort geen project of project sjabloon te hebben omdat het "
+"Het product %s hoort geen project of projectsjabloon te hebben omdat het "
 "geen project genereert."
 
 #. module: sale_timesheet
@@ -1247,7 +1247,7 @@ msgstr "Urenstaten op taken"
 #. module: sale_timesheet
 #: model_terms:ir.ui.view,arch_db:sale_timesheet.timesheet_plan
 msgid "To invoice"
-msgstr "Naar factuur"
+msgstr "Te factureren"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,help:sale_timesheet.field_project_create_invoice__amount_to_invoice

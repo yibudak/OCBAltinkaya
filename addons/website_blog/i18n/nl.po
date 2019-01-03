@@ -167,7 +167,7 @@ msgstr "9 berichten"
 #: code:addons/website_blog/static/src/js/website.tour.blog.js:53
 #, python-format
 msgid "<b>Click on Save</b> to record your changes."
-msgstr "<b>Klik op opslaan</b>om uw wijzingen op te slaan."
+msgstr "<b>Klik op opslaan</b> om uw wijzingen op te slaan."
 
 #. module: website_blog
 #. openerp-web
@@ -815,7 +815,7 @@ msgstr "Gemiddeld"
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_has_error
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_has_error
 msgid "Message Delivery error"
-msgstr "Bericht aflever fout"
+msgstr "Bericht afleverfout"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_ids

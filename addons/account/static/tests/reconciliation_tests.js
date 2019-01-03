@@ -113,7 +113,9 @@ var db = {
             display_name: {string: "Displayed name", type: 'char'},
             company_id: {string: "Company", type: 'many2one', relation: 'res.company'},
         },
-        records: []
+        records: [
+            {id: 8, display_name: "company 1 journal", company_id: 1}
+        ]
     },
     'account.analytic.account': {
         fields: {
@@ -474,12 +476,12 @@ var auto_reconciliation = {
 var data_for_manual_reconciliation_widget = {
     '[null,null]': {
         'customers': [
-            {'account_id': 287, 'partner_name': "Agrolait", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-14 12:30:31", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 8, 'account_name': "101200 Account Receivable"},
-            {'account_id': 7, 'partner_name': "Camptocamp", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-13 14:24:55", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 12, 'account_name': "101200 Account Receivable"}
+            {'account_id': 287, 'partner_name': "Agrolait", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-14 12:30:31", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 8, 'account_name': "101200 Account Receivable", 'mode': "customers"},
+            {'account_id': 7, 'partner_name': "Camptocamp", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-13 14:24:55", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 12, 'account_name': "101200 Account Receivable", 'mode': "customers"}
         ],
         'accounts': [
             {
-                'account_id': 283, 'account_name': "101000 Current Assets", 'currency_id': 3, 'max_date': "2017-02-16 14:32:04", 'last_time_entries_checked': "2017-02-16", 'account_code': "101000",
+                'account_id': 283, 'account_name': "101000 Current Assets", 'currency_id': 3, 'max_date': "2017-02-16 14:32:04", 'last_time_entries_checked': "2017-02-16", 'account_code': "101000", 'mode': "accounts",
                 'reconciliation_proposition': [
                     {'account_id': 283, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-02-16", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 8, 'account_name': "101000 Current Assets", 'name': "BNK1/2017/0006: Customer Payment", 'partner_name': "Agrolait", 'total_amount_currency_str': "", 'id': 399, 'credit': 1000.0, 'journal_id': [3, "Bank"], 'amount_str': "$ 1,000.00", 'debit': 0.0, 'account_code': "101000", 'ref': "", 'already_paid': false},
                     {'account_id': 283, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-03-18", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 8, 'account_name': "101000 Current Assets", 'name': "INV/2017/0006", 'partner_name': "Agrolait", 'total_amount_currency_str': "", 'id': 402, 'credit': 0.0, 'journal_id': [1, "Customer Invoices"], 'amount_str': "$ 1,000.00", 'debit': 1000.0, 'account_code': "101000", 'ref': "", 'already_paid': false}
@@ -493,20 +495,20 @@ var data_for_manual_reconciliation_widget = {
                     {'account_id': 284, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-02-16", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 8, 'account_name': "101000 Current Assets", 'name': "BNK1/999: Customer Payment", 'partner_name': "Agrolait", 'total_amount_currency_str': "", 'id': 999, 'credit': 1000.0, 'journal_id': [3, "Bank"], 'amount_str': "$ 1,000.00", 'debit': 0.0, 'account_code': "111100", 'ref': "", 'already_paid': false},
                     {'account_id': 284, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-03-18", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 8, 'account_name': "101000 Current Assets", 'name': "INV/998", 'partner_name': "Agrolait", 'total_amount_currency_str': "", 'id': 998, 'credit': 0.0, 'journal_id': [1, "Customer Invoices"], 'amount_str': "$ 1,000.00", 'debit': 1000.0, 'account_code': "111100", 'ref': "", 'already_paid': false}
                 ],
-                'currency_id': 3, 'max_date': "2017-02-14 12:36:05", 'last_time_entries_checked': null, 'account_code': "111100", 'partner_id': 8, 'account_name': "Account Payable"
+                'currency_id': 3, 'max_date': "2017-02-14 12:36:05", 'last_time_entries_checked': null, 'account_code': "111100", 'partner_id': 8, 'account_name': "Account Payable", 'mode': "suppliers"
             }, {
                 'account_id': 284, 'partner_name': "Camptocamp",
                 'reconciliation_proposition': [
                     {'account_id': 284, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-02-16", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 12, 'account_name': "101000 Current Assets", 'name': "BNK1/1999: Customer Payment", 'partner_name': "Camptocamp", 'total_amount_currency_str': "", 'id': 1999, 'credit': 1000.0, 'journal_id': [3, "Bank"], 'amount_str': "$ 1,000.00", 'debit': 0.0, 'account_code': "111100", 'ref': "", 'already_paid': false},
                     {'account_id': 284, 'account_type': "other", 'amount_currency_str': "", 'currency_id': false, 'date_maturity': "2017-03-18", 'date': "2017-02-16", 'total_amount_str': "$ 1,000.00", 'partner_id': 12, 'account_name': "101000 Current Assets", 'name': "INV/1998", 'partner_name': "Camptocamp", 'total_amount_currency_str': "", 'id': 1998, 'credit': 0.0, 'journal_id': [1, "Customer Invoices"], 'amount_str': "$ 1,000.00", 'debit': 1000.0, 'account_code': "111100", 'ref': "", 'already_paid': false}
                 ],
-                'currency_id': 3, 'max_date': "2017-02-14 12:36:05", 'last_time_entries_checked': null, 'account_code': "111100", 'partner_id': 12, 'account_name': "Account Payable"
+                'currency_id': 3, 'max_date': "2017-02-14 12:36:05", 'last_time_entries_checked': null, 'account_code': "111100", 'partner_id': 12, 'account_name': "Account Payable", 'mode': "suppliers"
             }
         ]
     },
     '["partner",null,"receivable"]': [
-        {'account_id': 287, 'partner_name': "Agrolait", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-14 12:30:31", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 8, 'account_name': "101200 Account Receivable"},
-        {'account_id': 287, 'partner_name': "Camptocamp", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-13 14:24:55", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 12, 'account_name': "101200 Account Receivable"}
+        {'account_id': 287, 'partner_name': "Agrolait", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-14 12:30:31", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 8, 'account_name': "101200 Account Receivable", 'mode': "customers"},
+        {'account_id': 287, 'partner_name': "Camptocamp", 'reconciliation_proposition': [], 'currency_id': 3, 'max_date': "2017-02-13 14:24:55", 'last_time_entries_checked': null, 'account_code': "101200", 'partner_id': 12, 'account_name': "101200 Account Receivable", 'mode': "customers"}
     ]
 };
 
@@ -1617,6 +1619,136 @@ QUnit.module('account', {
 
         assert.equal(writeOffCreate.length, 1,
             'A write-off creation should be present');
+
+        clientAction.destroy();
+    });
+
+    QUnit.test('Tax on account receivable', function(assert){
+        assert.expect(21);
+
+        this.params.data_for_manual_reconciliation_widget['[null,null]'].accounts = [];
+        var clientAction = new ReconciliationClientAction.ManualAction(null, this.params.options);
+        testUtils.addMockEnvironment(clientAction, {
+            data: this.params.data,
+            session: {},
+            mockRPC: function(route, args) {
+                if (args.method === "name_search") {
+                    switch (args.model) {
+                        // mock the default mock to do the minimal processing required
+                        // to get the available values for the droplists.
+                        case 'account.account':
+                            assert.step("Account");
+                            return $.when(
+                                _.map(this.data[args.model].records, function (record) {
+                                    return [record.id, record.name];
+                                })
+                            );
+                        case 'account.tax':
+                            assert.step("Tax");
+                            return $.when(
+                                _.map(this.data[args.model].records, function (record) {
+                                    return [record.id, record.display_name];
+                                })
+                            );
+                        case 'account.journal':
+                            assert.step("Journal");
+                            return $.when(
+                                _.map(this.data[args.model].records, function (record) {
+                                    return [record.id, record.display_name];
+                                })
+                            );
+                    }
+                }
+                if (args.method === 'process_move_lines') {
+                    var mv_line_ids = args.args[0][0].mv_line_ids.slice(0);
+                    mv_line_ids.sort(function(a, b) {return a - b});
+                    assert.deepEqual(mv_line_ids, [6, 19, 21],
+                        "Reconciliation rpc payload, mv_line_ids are correct");
+
+                    // Index aiming at the correct object in the list
+                    var idx = _.has(args.args[0][0].new_mv_line_dicts[0], 'journal_id') ? 0 : 1;
+                    assert.deepEqual(
+                        _.pick(args.args[0][0].new_mv_line_dicts[idx],
+                               'account_id', 'name', 'credit', 'debit', 'journal_id'),
+                        {account_id: 287, name: "dummy text", credit: 0, debit: 180, journal_id: 8},
+                        "Reconciliation rpc payload, new_mv_line_dicts.gift is correct"
+                    );
+                    assert.deepEqual(
+                        _.pick(args.args[0][0].new_mv_line_dicts[1 - idx],
+                               'account_id', 'name', 'credit', 'debit', 'tax_line_id'),
+                        {account_id: 287, name: "Tax 20.00%", credit: 0, debit: 36, tax_line_id: 6},
+                        "Reconciliation rpc payload, new_mv_line_dicts.tax is correct"
+                    );
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+        
+        clientAction.appendTo($('#qunit-fixture'));
+
+        var widget = clientAction.widgets[0];
+
+        // Select invoice of 1k$, payment of 1k$ and payment of 180$
+        var $tableToReconcile = widget.$('.match');
+        _.each([6, 19, 21], function(id) {
+            $tableToReconcile.find('tr.mv_line[data-line-id='+id+']:first td:first-child').click();
+        });
+        
+        assert.verifySteps([], "No rpc done");
+
+        // Store the money in excess to the "account receivable" account with 20% taxes
+        widget.$("table tfoot tr td:first").click();
+        var $reconcileForm = widget.$(".create");
+        $reconcileForm.find('.create_account_id input').click();
+        $('.ui-autocomplete .ui-menu-item a:contains(101200 Account Receivable)')
+            .trigger('mouseover')
+            .trigger('click');
+        assert.verifySteps(["Account"], "Account rpc done");
+
+        $reconcileForm.find('.create_tax_id input').click();
+        $('.ui-autocomplete .ui-menu-item a:contains(Tax 20.00%)')
+            .trigger('mouseover')
+            .trigger('click');
+        assert.verifySteps(["Account", "Tax"], "Tax rpc done");
+
+        $reconcileForm.find('.create_journal_id input').click();
+        $('.ui-autocomplete .ui-menu-item a:contains(company 1 journal)')
+            .trigger('mouseover')
+            .trigger('click');
+        $reconcileForm.find('.create_label input').val('dummy text').trigger('input');
+        assert.verifySteps(["Account", "Tax", "Journal"], "Journal rpc done");
+        
+        // Verify the two (gift + tax) lines were added to the list
+        var $newLines = widget.$('tr.mv_line[data-line-id^=createLine]');
+        var idx = ($($($newLines[0]).find("td")[3]).text().trim() === "dummy text") ? 0 : 1;
+
+        var $newLineGiftTds = $($newLines[idx]).find("td");
+        assert.equal($($newLineGiftTds[1]).text().trim(), "101200",
+            "Gift line account number is valid");
+        assert.equal($($newLineGiftTds[2]).text().trim(), "New",
+            "Gift line is flagged as new");
+        assert.equal($($newLineGiftTds[3]).text().trim(), "dummy text",
+            "Gift line has the correct label");
+        assert.equal($($newLineGiftTds[4]).text().trim(), "180.00",
+            "Gift line has the correct left amount");
+        assert.equal($($newLineGiftTds[5]).text().trim(), "",
+            "Gift line has the correct right amount");
+
+        var $newLineTaxeTds = $($newLines[1 - idx]).find("td");
+        assert.equal($($newLineTaxeTds[1]).text().trim(), "101200",
+            "Tax line account number is valid");
+        assert.equal($($newLineTaxeTds[2]).text().trim(), "New",
+            "Tax line is flagged as new");
+        assert.equal($($newLineTaxeTds[3]).text().trim(), "Tax 20.00%",
+            "Tax line has the correct label");
+        assert.equal($($newLineTaxeTds[4]).text().trim(), "36.00",
+            "Tax line has the correct left amount");
+        assert.equal($($newLineTaxeTds[5]).text().trim(), "",
+            "Tax line has the correct right amount");
+
+        // Reconcile
+        widget.$("button.o_reconcile.btn.btn-primary:first").click();
+        assert.ok(true, "No error in reconciliation");
 
         clientAction.destroy();
     });

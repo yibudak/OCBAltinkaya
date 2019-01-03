@@ -4,6 +4,7 @@ import hashlib
 import hmac
 import logging
 from datetime import datetime
+from dateutil import relativedelta
 import pprint
 
 from odoo import api, exceptions, fields, models, _
@@ -229,7 +230,7 @@ class PaymentAcquirer(models.Model):
         :return: a dictionary to create a account.journal record.
         '''
         self.ensure_one()
-        account_vals = self.env['account.chart.template']._prepare_transfer_account_for_direct_creation(self.name, self.company_id)
+        account_vals = self.company_id.chart_template_id._prepare_transfer_account_for_direct_creation(self.name, self.company_id)
         account = self.env['account.account'].create(account_vals)
         inbound_payment_method_ids = []
         if self.token_implemented and self.payment_flow == 's2s':
@@ -623,13 +624,6 @@ class PaymentTransaction(models.Model):
     @api.multi
     def _prepare_account_payment_vals(self):
         self.ensure_one()
-
-        communication = []
-        for invoice in self.invoice_ids:
-            inv_communication = invoice.type in ('in_invoice', 'in_refund') and invoice.reference or invoice.number
-            if invoice.origin:
-                communication.append('%s (%s)' % (inv_communication, invoice.origin))
-
         return {
             'amount': self.amount,
             'payment_type': 'inbound' if self.amount > 0 else 'outbound',
@@ -642,7 +636,7 @@ class PaymentTransaction(models.Model):
             'payment_method_id': self.env.ref('payment.account_payment_method_electronic_in').id,
             'payment_token_id': self.payment_token_id and self.payment_token_id.id or None,
             'payment_transaction_id': self.id,
-            'communication': ' / '.join(communication),
+            'communication': self.reference,
         }
 
     @api.multi
@@ -790,16 +784,19 @@ class PaymentTransaction(models.Model):
     @api.multi
     def _cron_post_process_after_done(self):
         if not self:
+            ten_minutes_ago = datetime.now() - relativedelta.relativedelta(minutes=10)
             # we retrieve all the payment tx that need to be post processed
             self = self.search([('state', '=', 'done'),
-                                ('is_processed', '=', False)
+                                ('is_processed', '=', False),
+                                ('date', '<=', ten_minutes_ago),
                             ])
         for tx in self:
             try:
                 tx._post_process_after_done()
                 self.env.cr.commit()
             except Exception as e:
-                _logger.error("Transaction post processing failed, reason \"%s\"", e)
+                _logger.exception("Transaction post processing failed")
+                self.env.cr.rollback()
 
     @api.model
     def _compute_reference_prefix(self, values):

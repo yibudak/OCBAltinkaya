@@ -1596,6 +1596,11 @@ var BasicModel = AbstractModel.extend({
                 record._rawChanges[name] = val;
                 return;
             }
+            if (record._rawChanges[name]) {
+                // if previous _rawChanges exists, clear them since the field is now knwon
+                // and restoring outdated onchange over posterious change is wrong
+                delete record._rawChanges[name];
+            }
             var oldValue = name in record._changes ? record._changes[name] : record.data[name];
             var id;
             if (field.type === 'many2one') {
@@ -1932,7 +1937,7 @@ var BasicModel = AbstractModel.extend({
                     addDef = this._applyX2ManyChange(record, fieldName, {
                         operation: 'ADD_M2M',
                         ids: values
-                    });
+                    }, viewType);
                 }
                 if (removedIds.length) {
                     var listData = _.map(list.data, function (localId) {
@@ -1946,7 +1951,7 @@ var BasicModel = AbstractModel.extend({
                             }
                             return _.findWhere(listData, {res_id: resID}).id;
                         }),
-                    });
+                    }, viewType);
                 }
                 return $.when(addDef, removedDef);
         }
@@ -2733,11 +2738,6 @@ var BasicModel = AbstractModel.extend({
                     relationField: field.relation_field,
                     viewType: view ? view.type : fieldInfo.viewType,
                 });
-                // set existing changes to the list
-                if (record._changes && record._changes[fieldName]) {
-                    list._changes = self.localData[record._changes[fieldName]]._changes;
-                    record._changes[fieldName] = list.id;
-                }
                 record.data[fieldName] = list.id;
                 if (!fieldInfo.__no_fetch) {
                     var def = self._readUngroupedList(list).then(function () {
@@ -3404,6 +3404,7 @@ var BasicModel = AbstractModel.extend({
         _.each(element._changes, function (command) {
             if (command.operation === 'DELETE' ||
                     command.operation === 'FORGET' ||
+                    (command.operation === 'ADD' &&  !command.isNew)||
                     command.operation === 'REMOVE_ALL') {
                 return;
             }
@@ -4230,6 +4231,7 @@ var BasicModel = AbstractModel.extend({
 
         if (options.context !== undefined) {
             element.context = options.context;
+            element.orderedBy =  options.context.orderedBy || element.orderedBy;
         }
         if (options.domain !== undefined) {
             element.domain = options.domain;
@@ -4455,7 +4457,7 @@ var BasicModel = AbstractModel.extend({
                 if (orderData1 > orderData2) {
                     return order.asc ? 1 : -1;
                 }
-                return compareRecords(record1ID, record2ID, level + 1);
+                return compareRecords(resId1, resId2, level + 1);
             };
             utils.stableSort(list.res_ids, compareRecords);
         }

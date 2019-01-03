@@ -72,7 +72,7 @@ msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
 msgid "&amp;times;"
-msgstr "&amp;vegade;"
+msgstr "&amp;times;"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.brand_promotion
@@ -123,6 +123,30 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        % set doc_name = 'pressupost' if object.state in ('draft', 'sent') else 'comanda'\n"
+"        Apreciat ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Aquí trobarà\n"
+"        % if ctx.get('proforma')\n"
+"            en el document adjunt la factura proforma\n"
+"        % else\n"
+"            el document de ${doc_name} <strong>${object.name}</strong>\n"
+"        % endif\n"
+"        % if object.origin:\n"
+"            (amb referència: ${object.origin} )\n"
+"        % endif\n"
+"        amb un import de <strong>${format_amount(object.amount_total, object.pricelist_id.currency_id)}</strong>\n"
+"        de ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        No dubti en contactar amb nosaltres si té qualsevol dubte.\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
@@ -152,7 +176,7 @@ msgstr ""
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
 msgid "<i class=\"fa fa-download\"/> Download"
-msgstr ""
+msgstr "<i class=\"fa fa-download\"/> Descarregar"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_orders
