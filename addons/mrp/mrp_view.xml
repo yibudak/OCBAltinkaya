@@ -1075,8 +1075,7 @@
             <field name="groups_id" eval="[(4, ref('mrp.group_mrp_user'))]"/>
             <field name="arch" type="xml">
                 <div name="buttons" position="inside">
-                    <button class="oe_inline oe_stat_button" name="action_view_bom" type="object" 
-                        attrs="{'invisible':[('type', '=', 'service')]}" icon="fa-flask">
+                    <button class="oe_inline oe_stat_button" name="action_view_bom" type="object" icon="fa-flask">
                         <field string="Bill of Materials" name="bom_count" widget="statinfo" />
                     </button>
                     <button class="oe_inline oe_stat_button" name="%(act_product_mrp_production)d" type="action" 
