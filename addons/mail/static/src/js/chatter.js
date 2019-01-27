@@ -266,6 +266,7 @@ var Chatter = Widget.extend({
             recordName: this.recordName,
             defaultBody: oldComposer && oldComposer.$input && oldComposer.$input.val(),
             defaultMentionSelections: oldComposer && oldComposer.getMentionListenerSelections(),
+            attachmentIds: (oldComposer && oldComposer.get('attachment_ids')) || [],
         });
         this._composer.on('input_focused', this, function () {
             this._composer.mentionSetPrefetchedPartners(this._mentionSuggestions || []);
@@ -275,9 +276,7 @@ var Chatter = Widget.extend({
             if (oldComposer) {
                 oldComposer.destroy();
             }
-            if (!config.device.isMobile) {
-                self._composer.focus();
-            }
+            self._composer.focus();
             self._composer.on('post_message', self, function (messageData) {
                 self._discardOnReload(messageData).then(function () {
                     self._disableComposer();
