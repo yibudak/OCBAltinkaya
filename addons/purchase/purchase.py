@@ -1631,7 +1631,7 @@ class product_template(osv.Model):
 
     _defaults = {
         'purchase_ok': 1,
-        'route_ids': _get_buy_route,
+#        'route_ids': _get_buy_route,    #default buy route creates problems on multi warehouse setup
     }
 
     def action_view_purchases(self, cr, uid, ids, context=None):
