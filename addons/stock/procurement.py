@@ -58,7 +58,7 @@ class procurement_rule(osv.osv):
             help="Source location is action=move"),
         'route_id': fields.many2one('stock.location.route', 'Route',
             help="If route_id is False, the rule is global"),
-        'procure_method': fields.selection([('make_to_stock', 'Take From Stock'), ('make_to_order', 'Create Procurement')], 'Move Supply Method', required=True, 
+        'procure_method': fields.selection([('make_to_stock', 'Take From Stock'), ('make_to_order', 'Create Procurement')], 'Move Supply Method', required=True,
                                            help="""Determines the procurement method of the stock move that will be generated: whether it will need to 'take from the available stock' in its source location or needs to ignore its stock and create a procurement over there."""),
         'route_sequence': fields.related('route_id', 'sequence', string='Route Sequence',
             store={
@@ -178,7 +178,7 @@ class procurement_order(osv.osv):
             'product_uom_qty': qty_left,
             'product_uos_qty': (procurement.product_uos and qty_uos_left) or qty_left,
             'product_uos': (procurement.product_uos and procurement.product_uos.id) or procurement.product_uom.id,
-            'partner_id': procurement.rule_id.partner_address_id.id or (procurement.group_id and procurement.group_id.partner_id.id) or False,
+            'partner_id': procurement.partner_dest_id.id or procurement.rule_id.partner_address_id.id or (procurement.group_id and procurement.group_id.partner_id.id) or False,
             'location_id': procurement.rule_id.location_src_id.id,
             'location_dest_id': procurement.location_id.id,
             'move_dest_id': procurement.move_dest_id and procurement.move_dest_id.id or False,
