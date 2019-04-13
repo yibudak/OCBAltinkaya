@@ -289,7 +289,6 @@ class procurement_order(osv.osv):
 
             #Minimum stock rules
             self._procure_orderpoint_confirm(cr, SUPERUSER_ID, use_new_cursor=use_new_cursor, company_id=company_id, context=context)
-
             #Search all confirmed stock_moves and try to assign them
             confirmed_ids = move_obj.search(cr, uid, [('state', '=', 'confirmed')], limit=None, order='priority desc, date_expected asc', context=context)
             for x in xrange(0, len(confirmed_ids), 100):
@@ -299,6 +298,8 @@ class procurement_order(osv.osv):
 
             if use_new_cursor:
                 cr.commit()
+        except Exception, e:
+            _logger.exception("Scheduler failed")
         finally:
             if use_new_cursor:
                 try:
