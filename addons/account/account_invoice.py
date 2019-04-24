@@ -28,6 +28,7 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 from openerp.tools import float_compare
 import openerp.addons.decimal_precision as dp
 
+
 # mapping invoice type to journal type
 TYPE2JOURNAL = {
     'out_invoice': 'sale',
@@ -315,6 +316,28 @@ class account_invoice(models.Model):
         ('number_uniq', 'unique(number, company_id, journal_id, type)',
             'Invoice Number must be unique per Company!'),
     ]
+
+
+    # begin ALTINKAYA
+    currency_rate = fields.Float('Currency Rate', compute='_compute_currency_rate', store=True, default=1.0)
+    usd_rate = fields.Float('USD Rate', compute='_compute_currency_rate', store=True, default=1.0)
+    
+    @api.multi
+    @api.depends('date_invoice','currency_id')
+    def _compute_currency_rate(self):
+        currency_usd = self.env['res.currency'].search([('name','=','USD')],limit=1)
+        for ai in self:
+            date_invoice = ai.date_invoice
+            try:
+                ai.currency_rate = ai.currency_id.with_context(date=date_invoice).rate or 1.0
+                ai.usd_rate = currency_usd.with_context(date=date_invoice).rate or 1.0
+            except Exception:
+                pass
+            
+            
+        
+    
+    # eng ALTINKAYA
 
     @api.model
     def fields_view_get(self, view_id=None, view_type=False, toolbar=False, submenu=False):
@@ -1320,6 +1343,9 @@ class account_invoice_line(models.Model):
         related='invoice_id.company_id', store=True, readonly=True)
     partner_id = fields.Many2one('res.partner', string='Partner',
         related='invoice_id.partner_id', store=True, readonly=True)
+
+
+    
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):

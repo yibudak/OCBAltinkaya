@@ -83,8 +83,7 @@ class account_invoice_report(osv.osv):
         'price_average_usd': fields.float('Average Price(USD)', readonly=True, group_operator="avg"),
         
         'user_currency_price_average': fields.function(_compute_amounts_in_user_currency, string="Average Price", type='float', digits_compute=dp.get_precision('Account'), multi="_compute_amounts"),
-        'currency_rate': fields.float('Currency Rate', readonly=True),
-        'usd_rate': fields.float('USD Rate', readonly=True),
+        
         
         'nbr': fields.integer('# of Invoices', readonly=True),  # TDE FIXME master: rename into nbr_lines
         'type': fields.selection([
@@ -139,17 +138,14 @@ class account_invoice_report(osv.osv):
                 sub.fiscal_position, sub.user_id, sub.company_id, sub.nbr, sub.type, sub.state,
                 sub.categ_id, sub.date_due, sub.account_id, sub.account_line_id, sub.partner_bank_id,
                 sub.product_qty, 
-                sub.price_total / cr.rate as price_total, 
-                sub.price_total / cr.rate * ur.rate as price_total_usd, 
+                sub.price_total, 
+                sub.price_total_usd, 
                 
-                sub.price_average /cr.rate as price_average,
-                sub.price_average /cr.rate * ur.rate as price_average_usd,
+                sub.price_average,
+                sub.price_average_usd,
                 
-                cr.rate as currency_rate, 
-                ur.rate as usd_rate,
-                
-                sub.residual / cr.rate as residual, 
-                sub.residual / cr.rate * ur.rate as residual_usd, 
+                sub.residual, 
+                sub.residual_usd, 
                 
                 sub.commercial_partner_id as commercial_partner_id
         """
@@ -172,9 +168,14 @@ class account_invoice_report(osv.osv):
                         END) AS product_qty,
                     SUM(CASE
                          WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
-                            THEN - ail.price_subtotal
-                            ELSE ail.price_subtotal
+                            THEN - ail.price_subtotal / ai.currency_rate
+                            ELSE ail.price_subtotal / ai.currency_rate
                         END) AS price_total,
+                    SUM(CASE
+                         WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
+                            THEN - ail.price_subtotal / ai.currency_rate * ai.usd_rate
+                            ELSE ail.price_subtotal / ai.currency_rate * ai.usd_rate
+                        END) AS price_total_usd,
                     CASE
                      WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
                         THEN SUM(- ail.price_subtotal)
@@ -190,10 +191,29 @@ class account_invoice_report(osv.osv):
                           END AS price_average,
                     CASE
                      WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
+                        THEN SUM(- ail.price_subtotal / ai.currency_rate * ai.usd_rate)
+                        ELSE SUM(ail.price_subtotal / ai.currency_rate * ai.usd_rate)
+                    END / CASE
+                           WHEN SUM(ail.quantity / u.factor * u2.factor) <> 0::numeric
+                               THEN CASE
+                                     WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
+                                        THEN SUM((- ail.quantity) / u.factor * u2.factor)
+                                        ELSE SUM(ail.quantity / u.factor * u2.factor)
+                                    END
+                               ELSE 1::numeric
+                          END AS price_average_usd,
+                    CASE
+                     WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
                         THEN - ai.residual
                         ELSE ai.residual
                     END / (SELECT count(*) FROM account_invoice_line l where invoice_id = ai.id) *
                     count(*) AS residual,
+                    CASE
+                     WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
+                        THEN - ai.residual / ai.currency_rate * ai.usd_rate
+                        ELSE ai.residual / ai.currency_rate * ai.usd_rate
+                    END / (SELECT count(*) FROM account_invoice_line l where invoice_id = ai.id) *
+                    count(*) AS residual_usd,
                     ai.commercial_partner_id as commercial_partner_id,
                     partner.country_id, partner.state_id
         """
@@ -225,37 +245,11 @@ class account_invoice_report(osv.osv):
         # self._table = account_invoice_report
         tools.drop_view_if_exists(cr, self._table)
         cr.execute("""CREATE or REPLACE VIEW %s as (
-            WITH currency_rate (currency_id, rate, date_start, date_end) AS (
-                SELECT r.currency_id, r.rate, r.name AS date_start,
-                    (SELECT name FROM res_currency_rate r2
-                     WHERE r2.name > r.name AND
-                           r2.currency_id = r.currency_id
-                     ORDER BY r2.name ASC
-                     LIMIT 1) AS date_end
-                FROM res_currency_rate r
-            ),
-            usd_rate(rate, date_start, date_end) AS (
-             SELECT 
-                r.rate,
-                r.name AS date_start,
-                ( SELECT r2.name
-                       FROM res_currency_rate r2
-                      WHERE r2.name > r.name AND r2.currency_id = r.currency_id
-                      ORDER BY r2.name
-                     LIMIT 1) AS date_end
-               FROM res_currency_rate r where r.currency_id = 2
-            )
             %s
             FROM (
                 %s %s %s
             ) AS sub
-            JOIN currency_rate cr ON
-                (cr.currency_id = sub.currency_id AND
-                 cr.date_start <= COALESCE(sub.date, NOW()) AND
-                 (cr.date_end IS NULL OR cr.date_end > COALESCE(sub.date, NOW())))
-            JOIN usd_rate ur ON 
-                (ur.date_start <= COALESCE(sub.date::timestamp with time zone, now()) AND 
-                (ur.date_end IS NULL OR ur.date_end > COALESCE(sub.date::timestamp with time zone, now())))
+            
         )""" % (
                     self._table,
                     self._select(), self._sub_select(), self._from(), self._group_by()))
