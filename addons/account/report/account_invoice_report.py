@@ -139,13 +139,8 @@ class account_invoice_report(osv.osv):
                 sub.product_qty, 
                 sub.price_total, 
                 sub.price_total_usd, 
-                
                 sub.price_average,
                 sub.price_average_usd,
-                
-                sub.residual, 
-                sub.residual_usd, 
-                
                 sub.commercial_partner_id as commercial_partner_id
         """
         return select_str
