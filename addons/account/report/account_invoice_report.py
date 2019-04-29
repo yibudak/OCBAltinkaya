@@ -104,10 +104,9 @@ class account_invoice_report(osv.osv):
         'account_id': fields.many2one('account.account', 'Account',readonly=True),
         'account_line_id': fields.many2one('account.account', 'Account Line',readonly=True),
         'partner_bank_id': fields.many2one('res.partner.bank', 'Bank Account',readonly=True),
-        'residual': fields.float('Total Residual', readonly=True),
-        'residual_usd': fields.float('Total Residual(USD)', readonly=True),
-        
-        'user_currency_residual': fields.function(_compute_amounts_in_user_currency, string="Total Residual", type='float', digits_compute=dp.get_precision('Account'), multi="_compute_amounts"),
+#        'residual': fields.float('Total Residual', readonly=True),
+#        'residual_usd': fields.float('Total Residual(USD)', readonly=True),
+#      'user_currency_residual': fields.function(_compute_amounts_in_user_currency, string="Total Residual", type='float', digits_compute=dp.get_precision('Account'), multi="_compute_amounts"),
         'country_id': fields.many2one('res.country', 'Country of the Partner Company'),
         'state_id': fields.many2one('res.country.state', 'State of the Partner Company'),
     }
@@ -202,18 +201,6 @@ class account_invoice_report(osv.osv):
                                     END
                                ELSE 1::numeric
                           END AS price_average_usd,
-                    CASE
-                     WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
-                        THEN - ai.residual
-                        ELSE ai.residual
-                    END / (SELECT count(*) FROM account_invoice_line l where invoice_id = ai.id) *
-                    count(*) AS residual,
-                    CASE
-                     WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
-                        THEN - ai.residual / ai.currency_rate * ai.usd_rate
-                        ELSE ai.residual / ai.currency_rate * ai.usd_rate
-                    END / (SELECT count(*) FROM account_invoice_line l where invoice_id = ai.id) *
-                    count(*) AS residual_usd,
                     ai.commercial_partner_id as commercial_partner_id,
                     partner.country_id, partner.state_id
         """
