@@ -33,7 +33,7 @@ odoo.define('website_form.animation', function (require) {
             var l10n = _t.database.parameters;
             var datepickers_options = {
                 minDate: moment({ y: 1900 }),
-                maxDate: moment().add(200, "y"),
+                maxDate: moment({ y: 9999, M: 11, d: 31 }),
                 calendarWeeks: true,
                 icons : {
                     time: 'fa fa-clock-o',
@@ -74,12 +74,12 @@ odoo.define('website_form.animation', function (require) {
 
             // Prepare form inputs
             this.form_fields = this.$target.serializeArray();
-            _.each(this.$target.find('input[type=file]'), function (input) {
+            $.each(this.$target.find('input[type=file]'), function (outer_index, input) {
                 $.each($(input).prop('files'), function (index, file) {
                     // Index field name as ajax won't accept arrays of files
                     // when aggregating multiple files into a single field value
                     self.form_fields.push({
-                        name: input.name + '[' + index + ']',
+                        name: input.name + '[' + outer_index + '][' + index + ']',
                         value: file
                     });
                 });
@@ -183,9 +183,9 @@ odoo.define('website_form.animation', function (require) {
                 });
 
                 // Update field color if invalid or erroneous
-                $field.removeClass('o_has_error').find('.form-control, .custom-select').removeClass('is-invalid');
+                $field.removeClass('o_has_error').find('.form-control, .custom-select, .form-check-input').removeClass('is-invalid');
                 if (invalid_inputs.length || error_fields[field_name]){
-                    $field.addClass('o_has_error').find('.form-control, .custom-select').addClass('is-invalid')
+                    $field.addClass('o_has_error').find('.form-control, .custom-select, .form-check-input').addClass('is-invalid')
                     if (_.isString(error_fields[field_name])){
                         $field.popover({content: error_fields[field_name], trigger: 'hover', container: 'body', placement: 'top'});
                         // update error message and show it.

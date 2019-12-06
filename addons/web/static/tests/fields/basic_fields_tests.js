@@ -10,7 +10,9 @@ var KanbanView = require('web.KanbanView');
 var ListView = require('web.ListView');
 var session = require('web.session');
 var testUtils = require('web.test_utils');
+var testUtilsDom = require('web.test_utils_dom');
 var field_registry = require('web.field_registry');
+var testUtilsDom = require('web.test_utils_dom');
 
 var createView = testUtils.createView;
 var createAsyncView = testUtils.createAsyncView;
@@ -529,6 +531,42 @@ QUnit.module('basic_fields', {
         });
         assert.strictEqual(form.$('span.o_field_number:contains(0.4)').length, 1,
                             "should contain a number rounded to 1 decimal");
+        form.destroy();
+    });
+
+    QUnit.test('float field in list view no widget', function (assert) {
+        assert.expect(5);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch:'<form string="Partners">' +
+                    '<sheet>' +
+                        '<field name="qux" digits="[5,3]"/>' +
+                    '</sheet>' +
+                '</form>',
+            res_id: 2,
+        });
+
+        assert.ok(!form.$('.o_field_widget').hasClass('o_field_empty'),
+            'Float field should be considered set for value 0.');
+        assert.strictEqual(form.$('.o_field_widget').first().text(), '0.000',
+            'The value should be displayed properly.');
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_edit'));
+        assert.strictEqual(form.$('input').val(), '0.000',
+            'The value should be rendered with correct precision.');
+
+        form.$('input').val('108.2458938598598').trigger('input');
+        assert.strictEqual(form.$('input').val(), '108.2458938598598',
+            'The value should not be formated yet.');
+
+        form.$('input').val('18.8958938598598').trigger('input');
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+        assert.strictEqual(form.$('.o_field_widget').first().text(), '18.896',
+            'The new value should be rounded properly.');
+
         form.destroy();
     });
 
@@ -1412,45 +1450,79 @@ QUnit.module('basic_fields', {
         list.destroy();
     });
 
-    QUnit.module('copy_clipboard', {
-        beforeEach: function () {
-            this.data = {
-                partner: {
-                    fields: {
-                        script_external: {string: "Script External", type: "text"},
-                        web_page: {string: "Web page link", type: "char"}
-                    },
-                    records: [{
-                        id: 1,
-                        script_external:'Random Text',
-                        web_page: 'web page links'
-                    },],
-                },
-            };
-        }
-    });
+    QUnit.module('CopyClipboard');
 
     QUnit.test('Char & Text Fields: Copy to clipboard button', function (assert) {
         assert.expect(2);
-        var done = assert.async();
-        testUtils.createAsyncView({
+
+        var form = createView({
             View: FormView,
             model: 'partner',
             data: this.data,
             arch: '<form string="Partners">' +
                     '<sheet>' +
                             '<div>' +
-                                '<field name="script_external" widget="CopyClipboardText"/>' +
-                                '<field name="web_page" widget="CopyClipboardChar"/>' +
+                                '<field name="txt" widget="CopyClipboardText"/>' +
+                                '<field name="foo" widget="CopyClipboardChar"/>' +
                             '</div>' +
                     '</sheet>' +
                 '</form>',
-        }).then(function (form) {
-            assert.strictEqual(form.$('.o_clipboard_button.o_btn_text_copy').length, 1,"Should have copy button on text type field");
-            assert.strictEqual(form.$('.o_clipboard_button.o_btn_char_copy').length, 1,"Should have copy button on char type field");
-            form.destroy();
-            done();
+            res_id: 1,
         });
+
+        assert.strictEqual(form.$('.o_clipboard_button.o_btn_text_copy').length, 1,"Should have copy button on text type field");
+        assert.strictEqual(form.$('.o_clipboard_button.o_btn_char_copy').length, 1,"Should have copy button on char type field");
+
+        form.destroy();
+    });
+
+    QUnit.test('CopyClipboard widget on unset field', function (assert) {
+        assert.expect(1);
+
+        this.data.partner.records[0].foo = false;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<sheet>' +
+                        '<group>' +
+                            '<field name="foo" widget="CopyClipboardChar" />' +
+                        '</group>' +
+                    '</sheet>' +
+                '</form>',
+            res_id: 1,
+        });
+
+        assert.containsNone(form, '.o_field_copy[name="foo"] .o_clipboard_button',
+            "foo (unset) should not contain a button");
+
+        form.destroy();
+    });
+
+    QUnit.test('CopyClipboard widget on readonly unset fields in create mode', function (assert) {
+        assert.expect(1);
+
+        this.data.partner.fields.display_name.readonly = true;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<sheet>' +
+                        '<group>' +
+                            '<field name="display_name" widget="CopyClipboardChar" />' +
+                        '</group>' +
+                    '</sheet>' +
+                '</form>',
+        });
+
+        assert.containsNone(form, '.o_field_copy[name="display_name"] .o_clipboard_button',
+            "the readonly unset field should not contain a button");
+
+        form.destroy();
     });
 
     QUnit.module('FieldText');
@@ -1967,6 +2039,35 @@ QUnit.module('basic_fields', {
         assert.strictEqual(list.$('tbody td.o_list_text:contains(some text)').length, 1,
             "should have a td with the .o_list_text class");
         list.destroy();
+    });
+
+    QUnit.test("binary fields input value is empty whean clearing after uploading", function (assert) {
+        assert.expect(2);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form string="Partners">' +
+                '<field name="document" filename="foo"/>' +
+                '<field name="foo"/>' +
+                '</form>',
+            res_id: 1,
+        });
+
+        form.$buttons.find('.btn:contains("Edit")').click();
+        // // We need to convert the input type since we can't programmatically set the value of a file input
+        form.$('.o_input_file').attr('type', 'text').val('coucou.txt');
+
+        assert.strictEqual(form.$('.o_input_file').val(), 'coucou.txt',
+            "input value should be changed to \"coucou.txt\"");
+
+        form.$('.o_field_binary_file > .o_clear_file_button').click();
+
+        assert.strictEqual(form.$('.o_input_file').val(), '',
+            "input value should be empty");
+
+        form.destroy();
     });
 
     QUnit.test('field text in editable list view', function (assert) {
@@ -2617,6 +2718,46 @@ QUnit.module('basic_fields', {
         form.destroy();
     });
 
+    QUnit.test('date field: toggle datepicker far in the future', function (assert) {
+        assert.expect(3);
+
+        this.data.partner.records = [{
+            id: 1,
+            date: "9999-12-30",
+            foo: "yop",
+        }]
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch:'<form><field name="foo"/><field name="date"/></form>',
+            translateParameters: {  // Avoid issues due to localization formats
+                date_format: '%m/%d/%Y',
+            },
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+        });
+
+        assert.strictEqual($('.bootstrap-datetimepicker-widget:visible').length, 0,
+            "datepicker should be closed initially");
+
+        testUtils.openDatepicker(form.$('.o_datepicker'));
+
+        assert.strictEqual($('.bootstrap-datetimepicker-widget:visible').length, 1,
+            "datepicker should be opened");
+
+        // focus another field
+        form.$('.o_field_widget[name=foo]').click().focus();
+
+        assert.strictEqual($('.bootstrap-datetimepicker-widget:visible').length, 0,
+            "datepicker should close itself when the user clicks outside");
+
+        form.destroy();
+    });
+
     QUnit.test('date field is empty if no date is set', function (assert) {
         assert.expect(2);
 
@@ -2630,6 +2771,54 @@ QUnit.module('basic_fields', {
         var $span = form.$('span.o_field_widget');
         assert.strictEqual($span.length, 1, "should have one span in the form view");
         assert.strictEqual($span.text(), "", "and it should be empty");
+        form.destroy();
+    });
+
+    QUnit.test('date field: set an invalid date when the field is already set', function (assert) {
+        assert.expect(2);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form string="Partners"><field name="date"/></form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+        });
+
+        var $input = form.$('.o_field_widget[name=date] input');
+
+        assert.strictEqual($input.val(), "02/03/2017");
+
+        $input.val('mmmh').trigger('change');
+        assert.strictEqual($input.val(), "02/03/2017", "should have reset the original value");
+
+        form.destroy();
+    });
+
+    QUnit.test('date field: set an invalid date when the field is not set yet', function (assert) {
+        assert.expect(2);
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form string="Partners"><field name="date"/></form>',
+            res_id: 4,
+            viewOptions: {
+                mode: 'edit',
+            },
+        });
+
+        var $input = form.$('.o_field_widget[name=date] input');
+
+        assert.strictEqual($input.text(), "");
+
+        $input.val('mmmh').trigger('change');
+        assert.strictEqual($input.text(), "", "The date field should be empty");
+
         form.destroy();
     });
 
@@ -2965,6 +3154,47 @@ QUnit.module('basic_fields', {
             }
         });
         form.$('.o_input[name="date"]').mouseenter().trigger('focus');
+
+        form.destroy();
+    });
+
+    QUnit.test('date field support internalization', function (assert) {
+        assert.expect(2);
+
+        var originalLocale = moment.locale();
+        var originalParameters = _.clone(core._t.database.parameters);
+
+        _.extend(core._t.database.parameters, {date_format: '%d. %b %Y', time_format: '%H:%M:%S'});
+        moment.defineLocale('norvegianForTest', {
+            monthsShort: 'jan._feb._mars_april_mai_juni_juli_aug._sep._okt._nov._des.'.split('_'),
+            monthsParseExact: true,
+            dayOfMonthOrdinalParse: /\d{1,2}\./,
+            ordinal: '%d.',
+        });
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch:'<form string="Partners"><field name="date"/></form>',
+            res_id: 1,
+        });
+
+        var dateViewForm = form.$('.o_field_date').text();
+        testUtils.dom.click(form.$buttons.find('.o_form_button_edit'));
+        testUtils.openDatepicker(form.$('.o_datepicker'));
+        assert.strictEqual(form.$('.o_datepicker_input').val(), dateViewForm,
+            "input date field should be the same as it was in the view form");
+
+        testUtils.dom.click($('.day:contains(30)'));
+        var dateEditForm = form.$('.o_datepicker_input').val()
+        testUtils.dom.click(form.$buttons.find('.o_form_button_save'));
+        assert.strictEqual(form.$('.o_field_date').text(), dateEditForm,
+            "date field should be the same as the one selected in the view form");
+
+        moment.locale(originalLocale);
+        moment.updateLocale('norvegianForTest', null);
+        core._t.database.parameters = originalParameters;
 
         form.destroy();
     });
@@ -5147,7 +5377,7 @@ QUnit.module('basic_fields', {
     });
 
     QUnit.test('basic domain field usage is ok', function (assert) {
-        assert.expect(6);
+        assert.expect(7);
 
         this.data.partner.records[0].foo = "[]";
 
@@ -5187,6 +5417,9 @@ QUnit.module('basic_fields', {
         var $fieldSelectorPopover = $fieldSelector.find(".o_field_selector_popover");
         assert.ok($fieldSelectorPopover.is(":visible"),
             "field selector popover should be visible");
+
+        assert.containsOnce($fieldSelectorPopover, '.o_field_selector_search input',
+            "field selector popover should contain a search input");
 
         // The popover should contain the list of partner_type fields and so
         // there should be the "Color index" field
@@ -5415,7 +5648,7 @@ QUnit.module('basic_fields', {
     QUnit.module('FieldProgressBar');
 
     QUnit.test('Field ProgressBar: max_value should update', function (assert) {
-        assert.expect(2);
+        assert.expect(3);
 
         this.data.partner.records = this.data.partner.records.slice(0,1);
         this.data.partner.records[0].qux = 2;
@@ -5440,6 +5673,15 @@ QUnit.module('basic_fields', {
             viewOptions: {
                 mode: 'edit',
             },
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.deepEqual(
+                        args.args[1],
+                        {int_field: 999, qux: 5, display_name: 'new name'},
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
         });
 
         assert.strictEqual(form.$('.o_progressbar_value').text(), '10 / 2',
@@ -5450,6 +5692,448 @@ QUnit.module('basic_fields', {
 
         assert.strictEqual(form.$('.o_progressbar_value').text(), '999 / 5',
             'The value of the progress bar should be correct after the update');
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: value should not update in readonly mode when sliding the bar', function (assert) {
+        assert.expect(4);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true}" />' +
+                '</form>',
+            res_id: 1,
+            mockRPC: function (route, args) {
+                assert.step(route);
+                return this._super.apply(this, arguments);
+            }
+        });
+        var $view = $('#qunit-fixture').contents();
+        $view.prependTo('body'); // => select with click position
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct')
+
+        var $progressBarEl = form.$('.o_progress');
+        var top = $progressBarEl.offset().top + 5;
+        var left = $progressBarEl.offset().left + 5;
+        try {
+            testUtils.triggerPositionalMouseEvent(left, top, "click");
+        } catch (e) {
+            form.destroy();
+            $view.remove();
+            throw new Error('The test fails to simulate a click in the screen. Your screen is probably too small or your dev tools is open.');
+        }
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'New value should be different than initial after click');
+
+        assert.verifySteps(["/web/dataset/call_kw/partner/read"]);
+
+        form.destroy();
+        $view.remove();
+    });
+
+    QUnit.test('Field ProgressBar: value should not update in edit mode when sliding the bar', function (assert) {
+        assert.expect(6);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            mockRPC: function (route, args) {
+                assert.step(route);
+                return this._super.apply(this, arguments);
+            }
+        });
+        var $view = $('#qunit-fixture').contents();
+        $view.prependTo('body'); // => select with click position
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct')
+
+        var $progressBarEl = form.$('.o_progress');
+        var top = $progressBarEl.offset().top + 5;
+        var left = $progressBarEl.offset().left + 5;
+        try {
+            testUtils.triggerPositionalMouseEvent(left, top, "click");
+        } catch (e) {
+            form.destroy();
+            $view.remove();
+            throw new Error('The test fails to simulate a click in the screen. Your screen is probably too small or your dev tools is open.');
+        }
+        assert.strictEqual(form.$('.o_progressbar_value.o_input').val(), "99",
+            'Value of input is not changed');
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'New value should be different than initial after click');
+
+        assert.verifySteps(["/web/dataset/call_kw/partner/read"]);
+
+        form.destroy();
+        $view.remove();
+    });
+
+    QUnit.test('Field ProgressBar: value should update in edit mode when typing in input', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].int_field, 69,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), '99', 'Initial value in input is correct');
+
+        $valInput.val('69').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '69%',
+            'New value should be different than initial after click');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: value should update in edit mode when typing in input with field max value', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="qux" invisible="1" />' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true, \'max_value\': \'qux\'}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].int_field, 69,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 0',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), '99', 'Initial value in input is correct');
+
+        $valInput.val('69').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '69 / 0',
+            'New value should be different than initial after click');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: max value should update in edit mode when typing in input with field max value', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="qux" invisible="1" />' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true, \'max_value\': \'qux\', \'edit_max_value\': true}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].qux, 69,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 0',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), "0.44444", 'Initial value in input is correct');
+
+        $valInput.val('69').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 69',
+            'New value should be different than initial after click');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: Standard readonly mode is readonly', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="qux" invisible="1" />' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true, \'max_value\': \'qux\', \'edit_max_value\': true}" />' +
+                '</form>',
+            res_id: 1,
+            mockRPC: function (route, args) {
+                assert.step(route);
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_readonly'), 'Form in readonly mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 0',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.length, 0, 'no input in readonly mode');
+
+        assert.verifySteps(["/web/dataset/call_kw/partner/read"]);
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: max value should update in readonly mode with right parameter when typing in input with field max value', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="qux" invisible="1" />' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true, \'max_value\': \'qux\', \'edit_max_value\': true, \'editable_readonly\': true}" />' +
+                '</form>',
+            res_id: 1,
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].qux, 69,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_readonly'), 'Form in readonly mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 0',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), "0.44444", 'Initial value in input is correct');
+
+        $valInput.val('69').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99 / 69',
+            'New value should be different than initial after changing it');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: value should update in readonly mode with right parameter when typing in input with field value', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true, \'editable_readonly\': true}" />' +
+                '</form>',
+            res_id: 1,
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].int_field, 69,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_readonly'), 'Form in readonly mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), "99", 'Initial value in input is correct');
+
+        $valInput.val('69.6').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '69%',
+            'New value should be different than initial after changing it');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: write float instead of int works, in locale', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            translateParameters: {
+                thousands_sep: "#",
+                decimal_point: ":",
+            },
+            mockRPC: function (route, args) {
+                if (args.method === 'write') {
+                    assert.strictEqual(args.args[1].int_field, 1037,
+                        'New value of progress bar saved');
+                }
+                return this._super.apply(this, arguments);
+            }
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), '99', 'Initial value in input is correct');
+
+        $valInput.val('1#037:9').trigger('input');
+        // make the input loose focus
+        $valInput.blur();
+
+        testUtilsDom.click(form.$buttons.find('.o_form_button_save'));
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '1k%',
+            'New value should be different than initial after click');
+
+        form.destroy();
+    });
+
+    QUnit.test('Field ProgressBar: write gibbrish instead of int throws warning', function (assert) {
+        assert.expect(5);
+        this.data.partner.records[0].int_field = 99;
+
+        var form = createView({
+            View: FormView,
+            model: 'partner',
+            data: this.data,
+            arch: '<form>' +
+                    '<field name="int_field" widget="progressbar" options="{\'editable\': true}" />' +
+                '</form>',
+            res_id: 1,
+            viewOptions: {
+                mode: 'edit',
+            },
+            interceptsPropagate: {
+                call_service: function (ev) {
+                    if (ev.data.service === 'notification') {
+                        assert.strictEqual(ev.data.method, 'notify');
+                        assert.strictEqual(ev.data.args[0].title, 'Wrong value entered!');
+                    }
+                }
+            },
+        });
+
+        assert.ok(form.$('.o_form_view').hasClass('o_form_editable'), 'Form in edit mode');
+
+        assert.strictEqual(form.$('.o_progressbar_value').text(), '99%',
+            'Initial value should be correct');
+
+        testUtilsDom.click(form.$('.o_progress'));
+
+        var $valInput = form.$('.o_progressbar_value.o_input');
+        assert.strictEqual($valInput.val(), '99', 'Initial value in input is correct');
+
+        $valInput.val('trente sept virgule neuf').trigger('input');
 
         form.destroy();
     });

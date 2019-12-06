@@ -3,23 +3,22 @@
 # * website_blog
 # 
 # Translators:
-# Sergio Zanchetta <primes2h@gmail.com>, 2018
 # Francesco Garganese <francesco.garganese@aeromnia.aero>, 2018
 # Giovanni Perteghella <giovanni@perteghella.org>, 2018
-# Lorenzo Battistini <lorenzo.battistini@agilebg.com>, 2018
+# Lorenzo Battistini <lb@takobi.online>, 2018
 # Luigi Di Naro <gigidn@gmail.com>, 2018
 # Simone Bernini <simone@aperturelabs.it>, 2018
 # Giacomo Grasso <giacomo.grasso.82@gmail.com>, 2018
-# Sebastiano Pistore <SebastianoPistore.info@protonmail.ch>, 2018
+# SebastianoPistore <SebastianoPistore.info@protonmail.ch>, 2018
 # ginfriz <ginfriz84@hotmail.it>, 2018
 # Christian <chris@effeci.info>, 2018
-# Cécile Collart <cco@odoo.com>, 2018
 # Pietro Della Notte <pdellanotte@gmail.com>, 2018
 # Manuela Feliciani <mfeliciani@alice.it>, 2018
 # David Minneci <david@numeko.it>, 2018
 # Martin Trigaux, 2018
 # Paolo Valier, 2018
-# Léonie Bouchat <lbo@odoo.com>, 2018
+# Léonie Bouchat <lbo@odoo.com>, 2019
+# Sergio Zanchetta <primes2h@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
@@ -27,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-09 10:32+0000\n"
 "PO-Revision-Date: 2018-08-24 09:33+0000\n"
-"Last-Translator: Léonie Bouchat <lbo@odoo.com>, 2018\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>, 2019\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,8 +121,8 @@ msgid ""
 "(Un)archiving a blog automatically (un)archives its posts. Do you want to "
 "proceed?"
 msgstr ""
-"Ripristinare un blog dall'archivio ripristina anche tutti i suoi post.\n"
-"Sei sicuro di voler procedere?"
+"Ripristinare un blog archiviato ripristina anche tutti i suoi post.\n"
+"Procedere veramente?"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.s_latest_posts_options
@@ -218,6 +217,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_view_kanban
 msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Post date\" title=\"Post date\"/>"
 msgstr ""
+"<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Post date\" "
+"title=\"Post date\"/>"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.tag_category
@@ -225,6 +226,8 @@ msgid ""
 "<i class=\"fa fa-tag\" role=\"img\" aria-label=\"Tag category\" title=\"Tag "
 "category\"/>"
 msgstr ""
+"<i class=\"fa fa-tag\" role=\"img\" aria-label=\"Tag category\" title=\"Tag "
+"category\"/>"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.latest_blogs
@@ -232,6 +235,8 @@ msgid ""
 "<span class=\"fa fa-calendar mr8\" role=\"img\" aria-label=\"Post date\" "
 "title=\"Post date\"/>"
 msgstr ""
+"<span class=\"fa fa-calendar mr8\" role=\"img\" aria-label=\"Post date\" "
+"title=\"Post date\"/>"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.latest_blogs
@@ -239,6 +244,8 @@ msgid ""
 "<span class=\"fa fa-exclamation-triangle ml8\" title=\"Unpublished\" "
 "role=\"img\" aria-label=\"Unpublished\"/>"
 msgstr ""
+"<span class=\"fa fa-exclamation-triangle ml8\" title=\"Unpublished\" "
+"role=\"img\" aria-label=\"Non pubblicato\"/>"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.latest_blogs
@@ -249,7 +256,7 @@ msgstr "<span class=\"fa fa-folder-open\"/> In"
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_complete
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_short
 msgid "<span class=\"fa fa-tags\" role=\"img\" aria-label=\"Tags\" title=\"Tags\"/>"
-msgstr ""
+msgstr "<span class=\"fa fa-tags\" role=\"img\" aria-label=\"Tags\" title=\"Tags\"/>"
 
 #. module: website_blog
 #: model_terms:blog.post,content:website_blog.blog_post_1
@@ -266,7 +273,7 @@ msgstr ""
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_template_new_post
 msgid "A new post"
-msgstr "Un nuovo articolo"
+msgstr "Pubblicato un nuovo articolo '"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.opt_blog_rc_about_us
@@ -276,13 +283,13 @@ msgstr "Chi siamo"
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_template_new_post
 msgid "Access post"
-msgstr "Accedi articolo"
+msgstr "Accedi all'articolo"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_needaction
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_needaction
 msgid "Action Needed"
-msgstr "Azione Necessaria"
+msgstr "Azione richiesta"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__active
@@ -315,7 +322,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_blog_view_search
 #: model_terms:ir.ui.view,arch_db:website_blog.view_blog_post_search
 msgid "Archived"
-msgstr "Contatti Archiviati"
+msgstr "Archiviati"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.opt_blog_rc_history
@@ -331,10 +338,10 @@ msgid ""
 "                    integrated with many web tools and works across all devices\n"
 "                    by default."
 msgstr ""
-"Uno dei siti Web utilizza per impostazione predefinita Bootstrap\n"
-"                    3, l'ultimo standard industriale per lo sviluppo efficace di siti Web\n"
+"Uno dei siti web utilizza per impostazione predefinita Bootstrap\n"
+"                    3, l'ultimo standard industriale per lo sviluppo efficace di siti web\n"
 "                    adattati a più dispositivi e supportati da Twitter. In questo modo può essere\n"
-"                    integrato direttamente con molti strumenti Web e funziona su tutti i dispositivi\n"
+"                    integrato direttamente con molti strumenti web e funziona su tutti i dispositivi\n"
 "                    per impostazione predefinita. "
 
 #. module: website_blog
@@ -359,7 +366,7 @@ msgstr "Flusso Atom"
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_attachment_count
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_attachment_count
 msgid "Attachment Count"
-msgstr "Numero di allegati"
+msgstr "Numero allegati"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__author_id
@@ -389,7 +396,7 @@ msgstr "Blog"
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__name
 msgid "Blog Name"
-msgstr "Nome del Blog"
+msgstr "Nome blog"
 
 #. module: website_blog
 #: code:addons/website_blog/models/website.py:22
@@ -427,13 +434,13 @@ msgstr "Titolo Articolo"
 #: model_terms:ir.ui.view,arch_db:website_blog.view_blog_post_list
 #, python-format
 msgid "Blog Posts"
-msgstr "Articoli"
+msgstr "Articoli blog"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__subtitle
 #: model_terms:ir.ui.view,arch_db:website_blog.view_blog_post_form
 msgid "Blog Subtitle"
-msgstr "Sottotitolo Blog"
+msgstr "Sottotitolo blog"
 
 #. module: website_blog
 #: model:ir.model,name:website_blog.model_blog_tag
@@ -443,7 +450,7 @@ msgstr "Tag Blog"
 #. module: website_blog
 #: model:ir.model,name:website_blog.model_blog_tag_category
 msgid "Blog Tag Category"
-msgstr "Categoria di tag blog"
+msgstr "Categoria etichetta blog"
 
 #. module: website_blog
 #: model:ir.actions.act_window,name:website_blog.action_tags
@@ -632,7 +639,7 @@ msgstr ""
 "Le directory e le mailing list sono strumenti fantastici, però troppo\n"
 "                        complessi nei software di posta elettronica tradizionali. In Odoo,\n"
 "                        un gruppo di contatti che condividono una discussione \n"
-"                        può essere creato con un click. Ogni gruppo deve avere\n"
+"                        può essere creato con un clic. Ogni gruppo deve avere\n"
 "                        il proprio indirizzo email. "
 
 #. module: website_blog
@@ -743,19 +750,19 @@ msgstr "Le idee su cui si basano gli strumenti di comunicazione di Odoo. "
 #: model:ir.model.fields,help:website_blog.field_blog_blog__message_unread
 #: model:ir.model.fields,help:website_blog.field_blog_post__message_unread
 msgid "If checked new messages require your attention."
-msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione"
+msgstr "Se selezionato, nuovi messaggi richiedono attenzione."
 
 #. module: website_blog
 #: model:ir.model.fields,help:website_blog.field_blog_blog__message_needaction
 #: model:ir.model.fields,help:website_blog.field_blog_post__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Se selezionato, nuovi messaggi richiedono la tua attenzione"
+msgstr "Se selezionato, nuovi messaggi richiedono attenzione."
 
 #. module: website_blog
 #: model:ir.model.fields,help:website_blog.field_blog_blog__message_has_error
 #: model:ir.model.fields,help:website_blog.field_blog_post__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Se attivo, alcuni messaggi presentano un errore di consegna. "
+msgstr "Se selezionato, alcuni messaggi presentano un errore di consegna."
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.opt_blog_rc_follow_us
@@ -789,13 +796,13 @@ msgstr ""
 "Decidi cosa vuoi o non vuoi ricevere.\n"
 "                        Nessuno vuole ricevere spam. Devi essere in grado di\n"
 "                        tracciare/non più tracciare tutti i tipi di informazioni con un solo\n"
-"                        click."
+"                        clic."
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__write_uid
 #: model_terms:ir.ui.view,arch_db:website_blog.view_blog_post_search
 msgid "Last Contributor"
-msgstr "Ultimo collaboratore"
+msgstr "Ultimo contributo di"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog____last_update
@@ -803,14 +810,14 @@ msgstr "Ultimo collaboratore"
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag____last_update
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag_category____last_update
 msgid "Last Modified on"
-msgstr "Data di ultima modifica"
+msgstr "Ultima modifica il"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__write_uid
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag__write_uid
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag_category__write_uid
 msgid "Last Updated by"
-msgstr "Ultima modifica di"
+msgstr "Ultimo aggiornamento di"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__write_date
@@ -818,14 +825,14 @@ msgstr "Ultima modifica di"
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag__write_date
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag_category__write_date
 msgid "Last Updated on"
-msgstr "Ultima modifica il"
+msgstr "Ultimo aggiornamento il"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.latest_blogs
 #: model_terms:ir.ui.view,arch_db:website_blog.s_latest_posts
 #: model_terms:ir.ui.view,arch_db:website_blog.s_latest_posts_big_picture
 msgid "Latest Posts"
-msgstr "Ultimi Articoli"
+msgstr "Ultimi articoli"
 
 #. module: website_blog
 #: model_terms:blog.post,content:website_blog.blog_post_2
@@ -865,7 +872,7 @@ msgstr "Mezzo"
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_has_error
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_has_error
 msgid "Message Delivery error"
-msgstr "Errore nell'invio del messaggio"
+msgstr "Errore di consegna messaggio"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_ids
@@ -926,7 +933,7 @@ msgstr "Stretto"
 #: code:addons/website_blog/static/src/js/website_blog.editor.js:37
 #, python-format
 msgid "New Blog Post"
-msgstr "Nuovo Articolo"
+msgstr "Nuovo articolo del blog"
 
 #. module: website_blog
 #: model_terms:blog.post,content:website_blog.blog_post_2
@@ -964,7 +971,7 @@ msgstr "Numero di Visualizzazioni"
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.latest_blogs
 msgid "No tags defined!"
-msgstr "Nessun tag definito "
+msgstr "Nessuna etichetta definita"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.website_blog
@@ -975,7 +982,7 @@ msgstr "Nessuna"
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_needaction_counter
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Numero di Azioni"
+msgstr "Numero di azioni"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_has_error_counter
@@ -993,7 +1000,7 @@ msgstr "Numero di messaggi che richiedono un'azione"
 #: model:ir.model.fields,help:website_blog.field_blog_blog__message_has_error_counter
 #: model:ir.model.fields,help:website_blog.field_blog_post__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Numero di messaggio con errori di invio"
+msgstr "Numero di messaggi con errore di consegna"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.s_latest_posts_options
@@ -1020,7 +1027,7 @@ msgstr ""
 #. module: website_blog
 #: model:blog.post,website_meta_keywords:website_blog.blog_post_1
 msgid "Odoo, email"
-msgstr "Odoo, email"
+msgstr "Odoo, e-mail"
 
 #. module: website_blog
 #. openerp-web
@@ -1064,8 +1071,8 @@ msgid ""
 msgstr ""
 "La produttività è la chiave: grazie alla nostra interfaccia utente\n"
 "                        intelligente, non è necessario cliccare su ogni email\n"
-"                        per leggere una cronologia messaggi (thread discussion). Puoi leggere\n"
-"                        rapidamente una cronologia messaggi completa, inviare risposte ed allegare documenti."
+"                        per leggere una conversazione. Puoi leggere\n"
+"                        rapidamente una conversazione completa, inviare risposte ed allegare documenti."
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.opt_blog_rc_status
@@ -1075,23 +1082,23 @@ msgstr "Pubblicato"
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__published_date
 msgid "Published Date"
-msgstr "Data Pubblicazione"
+msgstr "Data pubblicazione"
 
 #. module: website_blog
 #: model:mail.message.subtype,description:website_blog.mt_blog_blog_published
 #: model:mail.message.subtype,name:website_blog.mt_blog_blog_published
 msgid "Published Post"
-msgstr "Articolo Pubblicato"
+msgstr "Articolo pubblicato"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.view_blog_post_form
 msgid "Publishing Options"
-msgstr "Opzioni Pubblicazione"
+msgstr "Opzioni di pubblicazione"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__post_date
 msgid "Publishing date"
-msgstr "Data di pubblicazione"
+msgstr "Data pubblicazione"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.website_blog
@@ -1131,9 +1138,9 @@ msgid ""
 "                    answer from me. With a good tool, I could have done\n"
 "                    my job in 10 minutes!"
 msgstr ""
-"Leggere i messaggi della mia casella di posta in arrivo è il compito meno\n"
-"                    produttivo che faccio ogni giorno. Trascorro un'ora intera al\n"
-"                    giorno per elaborare le mie email. Tutto viene inviato\n"
+"Leggere i messaggi della mia casella di posta in arrivo è l'attività meno\n"
+"                    produttiva che faccio ogni giorno. Trascorro un'ora intera al\n"
+"                    giorno per gestire le mie email. Tutto viene inviato\n"
 "                    alla stessa casella di posta elettronica: spam, informazioni,\n"
 "                    non importanti, risposte di risposta, ecc. Alla fine\n"
 "                    dell'ora, solo 10 email hanno richiesto una risposta.\n"
@@ -1149,7 +1156,7 @@ msgstr "Rosso"
 #: model:ir.model.fields,help:website_blog.field_blog_blog__website_id
 #: model:ir.model.fields,help:website_blog.field_blog_post__website_id
 msgid "Restrict publishing to this website."
-msgstr "Limitare la pubblicazione su questo sito Web."
+msgstr "Limitare la pubblicazione su questo sito web."
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__is_seo_optimized
@@ -1228,22 +1235,22 @@ msgstr "Sottotitolo"
 #: model:ir.ui.menu,name:website_blog.menu_website_blog_tag_category_global
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_tag_category_tree
 msgid "Tag Categories"
-msgstr "Categorie di tag"
+msgstr "Categorie etichetta"
 
 #. module: website_blog
 #: model:ir.actions.act_window,name:website_blog.action_tag_category
 msgid "Tag Category"
-msgstr "Categoria di tag"
+msgstr "Categoria etichetta"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_tag_category_form
 msgid "Tag Category Form"
-msgstr "Modulo di categoria di tag"
+msgstr "Modulo categoria etichetta"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_tag_form
 msgid "Tag Form"
-msgstr "Tag Form"
+msgstr "Modulo etichetta"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_tag_tree
@@ -1253,12 +1260,12 @@ msgstr "Lista Tag"
 #. module: website_blog
 #: sql_constraint:blog.tag.category:0
 msgid "Tag category already exists !"
-msgstr "La categoria di tag esiste già!"
+msgstr "La categoria di etichetta esiste già!"
 
 #. module: website_blog
 #: sql_constraint:blog.tag:0
 msgid "Tag name already exists !"
-msgstr "Il nome del Tag esiste già !"
+msgstr "Nome etichetta già esistente."
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__tag_ids
@@ -1292,7 +1299,7 @@ msgstr "Il meccanismo di comunicazione di Odoo"
 #. module: website_blog
 #: model:blog.post,name:website_blog.blog_post_1
 msgid "The Future of Emails"
-msgstr "Il futuro delle Email"
+msgstr "Il futuro delle e-mail"
 
 #. module: website_blog
 #: model:ir.model.fields,help:website_blog.field_blog_post__post_date
@@ -1301,7 +1308,7 @@ msgid ""
 "website if it is set as published."
 msgstr ""
 "Se il post del blog è definito come pubblicato, i visitatori potranno "
-"visualizzarlo sul sito Web a partire da questa data di pubblicazione."
+"visualizzarlo sul sito web a partire da questa data di pubblicazione."
 
 #. module: website_blog
 #: model:ir.model.fields,help:website_blog.field_blog_post__website_url
@@ -1326,7 +1333,7 @@ msgid ""
 msgstr ""
 "Ottieni un'unica fonte di dati per la tua azienda\n"
 "                    e non è più necessaria la sincronizzazione offline tra\n"
-"                    il sito Web e il database dei prodotti. "
+"                    il sito web e il database dei prodotti. "
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__name
@@ -1374,13 +1381,13 @@ msgstr "Non pubblicato"
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_unread
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_unread
 msgid "Unread Messages"
-msgstr "Messaggi Non Letti"
+msgstr "Messaggi non letti"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__message_unread_counter
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr "Contatore di messaggi non letti"
+msgstr "Contatore messaggi non letti"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_short
@@ -1404,19 +1411,19 @@ msgstr "Usato in:"
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__website_published
 msgid "Visible on current website"
-msgstr "Visibile sul sito Web attuale"
+msgstr "Visibile nel sito web corrente"
 
 #. module: website_blog
 #: model:ir.model,name:website_blog.model_website
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__website_id
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__website_id
 msgid "Website"
-msgstr "Sito Web"
+msgstr "Sito web"
 
 #. module: website_blog
 #: model:ir.actions.act_url,name:website_blog.action_open_website
 msgid "Website Blogs"
-msgstr "Blog del Sito Web"
+msgstr "Blog del sito web"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__website_message_ids
@@ -1433,7 +1440,7 @@ msgstr "URL sito web"
 #: model:ir.model.fields,help:website_blog.field_blog_blog__website_message_ids
 #: model:ir.model.fields,help:website_blog.field_blog_post__website_message_ids
 msgid "Website communication history"
-msgstr "Storico comunicazione sito"
+msgstr "Cronologia comunicazioni sito web"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__website_meta_description
@@ -1454,7 +1461,7 @@ msgstr "Meta parole chiave del sito"
 #: model:ir.model.fields,field_description:website_blog.field_blog_post__website_meta_title
 #: model:ir.model.fields,field_description:website_blog.field_blog_tag__website_meta_title
 msgid "Website meta title"
-msgstr "Meta titolo Sito web"
+msgstr "Meta titolo sito web"
 
 #. module: website_blog
 #: model:ir.model.fields,field_description:website_blog.field_blog_blog__website_meta_og_img
@@ -1474,7 +1481,7 @@ msgid ""
 "Write a small text here for when <b>new visitors</b> find your website\n"
 "            through your <b>blog entries</b>, referenced in Google."
 msgstr ""
-"Scrivi qui un breve testo per i <b>nuovi visitatori</b> che trovano il tuo sito Web\n"
+"Scrivi qui un breve testo per i <b>nuovi visitatori</b> che trovano il tuo sito web\n"
 "            grazie ai tuoi <b>post di blog</b> indicizzati su Google."
 
 #. module: website_blog
@@ -1506,7 +1513,7 @@ msgstr "Youtube"
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_template_new_post
 msgid "blog. Click here to access the blog :"
-msgstr "Clicca qui per accedere al blog:"
+msgstr "'. Fare clic per accedere:"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_short
@@ -1534,7 +1541,7 @@ msgstr "funzionale"
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_template_new_post
 msgid "has been published on the"
-msgstr "è stato pubblicato sul"
+msgstr "' sul blog '"
 
 #. module: website_blog
 #: model_terms:ir.ui.view,arch_db:website_blog.blog_post_short

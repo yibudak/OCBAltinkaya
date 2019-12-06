@@ -3,16 +3,16 @@
 # * event_sale
 # 
 # Translators:
-# Sergio Zanchetta <primes2h@gmail.com>, 2018
 # Giovanni Perteghella <giovanni@perteghella.org>, 2018
 # p_amoruso <p.amoruso@elvenstudio.it>, 2018
 # Paolo Valier, 2018
 # Maurizio Schiavo <inactive+MaurizioSchiavo@transifex.com>, 2018
-# Léonie Bouchat <lbo@odoo.com>, 2018
 # Paolo Caruccio <paolo.caruccio66@gmail.com>, 2018
 # Francesco Garganese <francesco.garganese@aeromnia.aero>, 2018
 # Martin Trigaux, 2018
 # mymage <stefano.consolaro@mymage.it>, 2018
+# Léonie Bouchat <lbo@odoo.com>, 2019
+# Sergio Zanchetta <primes2h@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-08 06:49+0000\n"
 "PO-Revision-Date: 2018-08-24 09:17+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>, 2018\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>, 2019\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,12 +101,12 @@ msgstr "Nome visualizzato"
 #. module: event_sale
 #: model:ir.model,name:event_sale.model_registration_editor
 msgid "Edit Attendee Details on Sales Confirmation"
-msgstr ""
+msgstr "Modificare dettagli del partecipante sulla conferma di vendita"
 
 #. module: event_sale
 #: model:ir.model,name:event_sale.model_registration_editor_line
 msgid "Edit Attendee Line on Sales Confirmation"
-msgstr ""
+msgstr "Modificare riga del partecipante sulla conferma di vendita"
 
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line__editor_id
@@ -116,7 +116,7 @@ msgstr "Editor"
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line__email
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: event_sale
 #: model:ir.model,name:event_sale.model_event_event
@@ -194,6 +194,8 @@ msgid ""
 "If checked this product automatically creates an event registration at the "
 "sales order confirmation."
 msgstr ""
+"Se questa opzione è selezionata, questo prodotto crea automaticamente una "
+"iscrizione all'evento alla conferma dell'ordine di vendita."
 
 #. module: event_sale
 #: model:ir.model,name:event_sale.model_account_invoice
@@ -216,21 +218,21 @@ msgstr "È un Biglietto Evento"
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor____last_update
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line____last_update
 msgid "Last Modified on"
-msgstr "Data di ultima modifica"
+msgstr "Ultima modifica il"
 
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_event_event_ticket__write_uid
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor__write_uid
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line__write_uid
 msgid "Last Updated by"
-msgstr "Ultima modifica di"
+msgstr "Ultimo aggiornamento di"
 
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_event_event_ticket__write_date
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor__write_date
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line__write_date
 msgid "Last Updated on"
-msgstr "Ultima modifica il"
+msgstr "Ultimo aggiornamento il"
 
 #. module: event_sale
 #: selection:event.event.ticket,seats_availability:0
@@ -260,7 +262,7 @@ msgstr "Non ci sono posti disponibili per questo biglietto"
 #: code:addons/event_sale/models/event.py:152
 #, python-format
 msgid "No more available seats for this ticket type."
-msgstr ""
+msgstr "Non ci sono posti disponibili per questo tipo di biglietto."
 
 #. module: event_sale
 #: code:addons/event_sale/models/event.py:250
@@ -422,6 +424,8 @@ msgstr "Tipo di Biglietto"
 #, python-format
 msgid "Ticket cannot belong to both the event category and the event itself."
 msgstr ""
+"Il biglietto non può appartenere sia alla categoria dell'evento che "
+"all'evento stesso."
 
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_event_type__use_ticketing
@@ -477,9 +481,9 @@ msgstr "inserire i dettagli dell'iscrizione"
 #. module: event_sale
 #: model_terms:ir.ui.view,arch_db:event_sale.view_event_form_inherit_ticket
 msgid "reserved +"
-msgstr ""
+msgstr "riservato +"
 
 #. module: event_sale
 #: model_terms:ir.ui.view,arch_db:event_sale.view_event_form_inherit_ticket
 msgid "unconfirmed"
-msgstr ""
+msgstr "non confermato"

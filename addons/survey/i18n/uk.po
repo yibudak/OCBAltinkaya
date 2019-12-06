@@ -5,17 +5,17 @@
 # Translators:
 # Yaroslav Molochko <onorua@gmail.com>, 2018
 # Taras Kovaliuk <tratatuta123@gmail.com>, 2018
-# ТАрас <tratatuta@i.ua>, 2018
 # Martin Trigaux, 2018
-# Bohdan Lisnenko, 2018
-# Olga Lugova <trolka.olug@gmail.com>, 2018
+# trolka <trolka.olug@gmail.com>, 2018
+# Bohdan Lisnenko, 2019
+# ТАрас <tratatuta@i.ua>, 2019
 # Alina Lisnenko <alinasemeniuk1@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-09 10:32+0000\n"
+"POT-Creation-Date: 2019-03-29 10:10+0000\n"
 "PO-Revision-Date: 2018-08-24 09:25+0000\n"
 "Last-Translator: Alina Lisnenko <alinasemeniuk1@gmail.com>, 2019\n"
 "Language-Team: Ukrainian (https://www.transifex.com/odoo/teams/41243/uk/)\n"
@@ -73,6 +73,19 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Вітаємо<br/><br/>\n"
+"        Ми проводимо опитування, і ваша відповідь буде оцінена.\n"
+"        <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"            <a href=\"__URL__\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                Розпочніть опитування\n"
+"            </a>\n"
+"        </div>\n"
+"        Дякуємо за вашу участь!\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_question_form
@@ -198,6 +211,9 @@ msgid ""
 "surveys</span><span class=\"badge badge-secondary only_right_radius filter-"
 "finished\">Finished surveys</span>"
 msgstr ""
+"<span class=\"badge badge-primary only_left_radius filter-all\">Усі "
+"опитування</span><span class=\"badge badge-secondary only_right_radius "
+"filter-finished\">Завершені опитування</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result
@@ -215,26 +231,29 @@ msgid ""
 "surveys</span><span class=\"badge badge-primary only_right_radius filter-"
 "finished\">Finished surveys</span>"
 msgstr ""
+"<span class=\"badge badge-secondary only_left_radius filter-all\">Усі "
+"опитування</span><span class=\"badge badge-primary only_right_radius filter-"
+"finished\">Завершені опитування</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_number
 msgid "<span class=\"badge badge-secondary only_left_radius\">Average </span>"
-msgstr ""
+msgstr "<span class=\"badge badge-secondary only_left_radius\">Середній </span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_number
 msgid "<span class=\"badge badge-secondary only_left_radius\">Maximum </span>"
-msgstr ""
+msgstr "<span class=\"badge badge-secondary only_left_radius\">Максимум </span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_number
 msgid "<span class=\"badge badge-secondary only_left_radius\">Minimum </span>"
-msgstr ""
+msgstr "<span class=\"badge badge-secondary only_left_radius\">Мінімум </span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_number
 msgid "<span class=\"badge badge-secondary only_left_radius\">Sum </span>"
-msgstr ""
+msgstr "<span class=\"badge badge-secondary only_left_radius\">Сума </span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result
@@ -258,12 +277,16 @@ msgid ""
 "                        </span>\n"
 "                        Sorry, No one answered this survey yet"
 msgstr ""
+"<span>\n"
+"                            <i style=\"font-size:1.8em\" class=\"fa fa-users float-right\" role=\"img\" aria-label=\"No answer\" title=\"No answer\"/>\n"
+"                        </span>\n"
+"                        На жаль, ще ніхто не відповів на це опитування"
 
 #. module: survey
 #: code:addons/survey/models/survey.py:688
 #, python-format
 msgid "A label must be attached to only one question."
-msgstr ""
+msgstr "Мітка повинна бути додана тільки до одного питання."
 
 #. module: survey
 #: sql_constraint:survey.question:0
@@ -351,7 +374,7 @@ msgstr ""
 #. module: survey
 #: model_terms:ir.actions.act_window,help:survey.action_survey_form
 msgid "Add a new survey"
-msgstr ""
+msgstr "Додати нове опитування"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_email_compose_message
@@ -434,7 +457,7 @@ msgstr "Підрахунок прикріплення"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__attachment_ids
 msgid "Attachments"
-msgstr "Долучення"
+msgstr "Прикріплення"
 
 #. module: survey
 #: model:ir.model.fields,help:survey.field_survey_mail_compose_message__attachment_ids
@@ -717,6 +740,7 @@ msgid "Delete sent emails (mass mailing only)"
 msgstr "Видалити відправлені електронні листи (лише для масової розсилки)"
 
 #. module: survey
+#: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__description
 #: model:ir.model.fields,field_description:survey.field_survey_page__description
 #: model:ir.model.fields,field_description:survey.field_survey_question__description
 #: model:ir.model.fields,field_description:survey.field_survey_survey__description
@@ -869,7 +893,7 @@ msgstr "В закладках у"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_choice
 msgid "Filter question"
-msgstr ""
+msgstr "Фільтрувати запитання"
 
 #. module: survey
 #: model:survey.label,value:survey.choice_1_2_3
@@ -928,7 +952,7 @@ msgstr "Групувати за"
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__has_error
 #: model:ir.model.fields,help:survey.field_survey_mail_compose_message__has_error
 msgid "Has error"
-msgstr ""
+msgstr "Має помилку"
 
 #. module: survey
 #: model:survey.question,question:survey.feedback_3_1
@@ -1297,7 +1321,7 @@ msgstr "Максимальне значення"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.403
 msgid "Maybe you were looking for"
-msgstr ""
+msgstr "Можливо ви шукали"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_survey__message_has_error
@@ -1308,6 +1332,11 @@ msgstr "Помилка доставлення повідомлення"
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__record_name
 msgid "Message Record Name"
 msgstr "Назва запису повідомлення"
+
+#. module: survey
+#: model:ir.model.fields,help:survey.field_survey_mail_compose_message__description
+msgid "Message description: either the subject, or the beginning of the body"
+msgstr "Опис повідомлення: тема або початок тіла листа"
 
 #. module: survey
 #: model:ir.model.fields,help:survey.field_survey_mail_compose_message__message_type
@@ -1352,12 +1381,12 @@ msgstr "Мінімальне значення"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__moderator_id
 msgid "Moderated By"
-msgstr ""
+msgstr "Модерував"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__moderation_status
 msgid "Moderation Status"
-msgstr ""
+msgstr "Статус модерації"
 
 #. module: survey
 #: selection:survey.question,type:0
@@ -1367,12 +1396,12 @@ msgstr "Текстовий блок кількох рядків"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_question_form
 msgid "Multiple choice with multiple answers"
-msgstr ""
+msgstr "Кілька вибору з кількома відповідями"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_question_form
 msgid "Multiple choice with one answer"
-msgstr ""
+msgstr "Кілька вибору з однією відповіддю"
 
 #. module: survey
 #: selection:survey.question,type:0
@@ -1413,7 +1442,7 @@ msgstr "Необхідна дія"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__need_moderation
 msgid "Need moderation"
-msgstr ""
+msgstr "Необхідна модерація"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_user_input_search
@@ -1443,17 +1472,17 @@ msgstr "Наступна сторінка"
 #. module: survey
 #: model_terms:ir.actions.act_window,help:survey.action_survey_page_form
 msgid "No pages found"
-msgstr ""
+msgstr "Не знайдено жодної сторінки"
 
 #. module: survey
 #: model_terms:ir.actions.act_window,help:survey.action_survey_question_form
 msgid "No questions found"
-msgstr ""
+msgstr "Не знайдено жодного запитання"
 
 #. module: survey
 #: model_terms:ir.actions.act_window,help:survey.action_survey_label_form
 msgid "No survey labels found"
-msgstr ""
+msgstr "Не знайдено жодної мітки опитування"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__no_auto_thread
@@ -1463,7 +1492,7 @@ msgstr "Немає ланцюжків для відповіді"
 #. module: survey
 #: model_terms:ir.actions.act_window,help:survey.action_survey_user_input_line
 msgid "No user input lines found"
-msgstr ""
+msgstr "Вхідних рядків користувача не знайдено"
 
 #. module: survey
 #: model:survey.label,value:survey.choice_1_1_4
@@ -1474,7 +1503,7 @@ msgstr "Ні, я просто протестував це"
 #: model_terms:ir.actions.act_window,help:survey.action_selected_survey_user_input
 #: model_terms:ir.actions.act_window,help:survey.action_survey_user_input
 msgid "Nobody has replied to your surveys yet"
-msgstr ""
+msgstr "Ще ніхто не відповів на ваші опитування"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.notopen
@@ -1633,7 +1662,7 @@ msgstr "Батьківське повідомленя"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_user_input_search
 msgid "Partially Completed"
-msgstr ""
+msgstr "Частково завершено"
 
 #. module: survey
 #: selection:survey.user_input,state:0
@@ -1654,7 +1683,7 @@ msgstr "Партнер, що потребує дії"
 #. module: survey
 #: selection:survey.mail.compose.message,moderation_status:0
 msgid "Pending Moderation"
-msgstr ""
+msgstr "Очікує модерацію"
 
 #. module: survey
 #: model:survey.stage,name:survey.stage_permanent
@@ -1726,6 +1755,11 @@ msgstr "Публічне посилання на результати опиту
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__public_url
 msgid "Public url"
 msgstr "Публічна url-адреса"
+
+#. module: survey
+#: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__website_published
+msgid "Published"
+msgstr "Опубліковано"
 
 #. module: survey
 #: model:survey.label,value:survey.choice_1_2_2
@@ -2080,7 +2114,7 @@ msgstr "Тема..."
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.page
 msgid "Submit survey"
-msgstr "Додати опитування"
+msgstr "Завершити опитування"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__subtype_id
@@ -2388,8 +2422,8 @@ msgid ""
 "Emails must be separated by commas, semicolons or newline."
 msgstr ""
 "Цей список електронних листів одержувачів не буде перетворений в контакти. "
-"Електронні листи повинні бути розділені комами, комами-крапками або новою "
-"лінією."
+"Електронні листи повинні бути розділені комами, комами-крапками або новим "
+"рядком."
 
 #. module: survey
 #: model:ir.model.fields,help:survey.field_survey_survey__thank_you_message
@@ -2535,7 +2569,7 @@ msgstr "Майбутні види діяльності"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__use_active_domain
 msgid "Use active domain"
-msgstr "Використовувати активний домкен"
+msgstr "Використовуйте активний домен"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_mail_compose_message__template_id
@@ -2626,6 +2660,11 @@ msgstr "Перегляньте результати"
 #: model_terms:ir.ui.view,arch_db:survey.survey_form
 msgid "View results"
 msgstr "Перегляньте результати"
+
+#. module: survey
+#: model:ir.model.fields,help:survey.field_survey_mail_compose_message__website_published
+msgid "Visible on the website as a comment"
+msgstr "Показано на сайті як коментар"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.result_choice

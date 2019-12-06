@@ -26,6 +26,10 @@ return AbstractModel.extend({
     init: function () {
         this._super.apply(this, arguments);
         this.end_date = null;
+        var week_start = _t.database.parameters.week_start;
+        // calendar uses index 0 for Sunday but Odoo stores it as 7
+        this.week_start = week_start !== undefined && week_start !== false ? week_start % 7 : moment().startOf('week').day();
+        this.week_stop = this.week_start + 6;
     },
 
     //--------------------------------------------------------------------------
@@ -60,10 +64,11 @@ return AbstractModel.extend({
             end.add(-1, 'days');
         }
 
+        var isDateEvent = this.fields[this.mapping.date_start].type === 'date';
         // An "allDay" event without the "all_day" option is not considered
         // as a 24h day. It's just a part of the day (by default: 7h-19h).
         if (event.allDay) {
-            if (!this.mapping.all_day) {
+            if (!this.mapping.all_day && !isDateEvent) {
                 if (event.r_start) {
                     start.hours(event.r_start.hours())
                          .minutes(event.r_start.minutes())
@@ -75,9 +80,11 @@ return AbstractModel.extend({
                        .utc();
                 } else {
                     // default hours in the user's timezone
-                    start.hours(7).add(-this.getSession().getTZOffset(start), 'minutes');
-                    end.hours(19).add(-this.getSession().getTZOffset(end), 'minutes');
+                    start.hours(7);
+                    end.hours(19);
                 }
+                start.add(-this.getSession().getTZOffset(start), 'minutes');
+                end.add(-this.getSession().getTZOffset(end), 'minutes');
             }
         } else {
             start.add(-this.getSession().getTZOffset(start), 'minutes');
@@ -102,7 +109,9 @@ return AbstractModel.extend({
         }
 
         if (this.mapping.date_delay) {
-            data[this.mapping.date_delay] = (end.diff(start) <= 0 ? end.endOf('day').diff(start) : end.diff(start)) / 1000 / 3600;
+            if (this.data.scale !== 'month' || (this.data.scale === 'month' && !event.drop)) {
+                data[this.mapping.date_delay] = (end.diff(start) <= 0 ? end.endOf('day').diff(start) : end.diff(start)) / 1000 / 3600;
+            }
         }
 
         return data;
@@ -259,28 +268,57 @@ return AbstractModel.extend({
         return this._loadCalendar();
     },
     /**
-     * @param {Moment} start
+     * @param {Moment} start. in local TZ
      */
     setDate: function (start) {
         // keep highlight/target_date in localtime
         this.data.highlight_date = this.data.target_date = start.clone();
-        // set dates in UTC with timezone applied manually
         this.data.start_date = this.data.end_date = start;
-        this.data.start_date.utc().add(this.getSession().getTZOffset(this.data.start_date), 'minutes');
-
         switch (this.data.scale) {
             case 'month':
-                this.data.start_date = this.data.start_date.clone().startOf('month').startOf('week');
-                this.data.end_date = this.data.start_date.clone().add(5, 'week').endOf('week');
+                var monthStart = this.data.start_date.clone().startOf('month');
+
+                var monthStartDay;
+                if (monthStart.day() >= this.week_start) {
+                    // the month's first day is after our week start
+                    // Then we are in the right week
+                    monthStartDay = this.week_start;
+                } else {
+                    // The month's first day is before our week start
+                    // Then we should go back to the the previous week
+                    monthStartDay = this.week_start - 7;
+                }
+
+                this.data.start_date = monthStart.day(monthStartDay).startOf('day');
+                this.data.end_date = this.data.start_date.clone().add(5, 'week').day(this.week_stop).endOf('day');
                 break;
             case 'week':
-                this.data.start_date = this.data.start_date.clone().startOf('week');
-                this.data.end_date = this.data.end_date.clone().endOf('week');
+                var weekStart = this.data.start_date.clone().startOf('week');
+                var weekStartDay = this.week_start;
+                if (this.data.start_date.day() < this.week_start) {
+                    // The week's first day is after our current day
+                    // Then we should go back to the previous week
+                    weekStartDay -= 7;
+                }
+                this.data.start_date = this.data.start_date.clone().day(weekStartDay).startOf('day');
+                this.data.end_date = this.data.end_date.clone().day(weekStartDay + 6).endOf('day');
                 break;
             default:
                 this.data.start_date = this.data.start_date.clone().startOf('day');
                 this.data.end_date = this.data.end_date.clone().endOf('day');
         }
+        // We have set start/stop datetime as definite begin/end boundaries of a period (month, week, day)
+        // in local TZ (what is the begining of the week *I am* in ?)
+        // The following code:
+        // - converts those to UTC using our homemade method (testable)
+        // - sets the moment UTC flag to true, to ensure compatibility with third party libs
+        var manualUtcDateStart = this.data.start_date.clone().add(-this.getSession().getTZOffset(this.data.start_date), 'minutes');
+        var formattedUtcDateStart = manualUtcDateStart.format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+        this.data.start_date = moment.utc(formattedUtcDateStart);
+
+        var manualUtcDateEnd = this.data.end_date.clone().add(-this.getSession().getTZOffset(this.data.start_date), 'minutes');
+        var formattedUtcDateEnd = manualUtcDateEnd.format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+        this.data.end_date = moment.utc(formattedUtcDateEnd);
     },
     /**
      * @param {string} scale the scale to set
@@ -302,7 +340,7 @@ return AbstractModel.extend({
      * Toggle the sidebar (containing the mini calendar)
      */
     toggleFullWidth: function () {
-        var fullWidth = this.call('local_storage', 'getItem', 'calendar_fullWidth') !== 'true';
+        var fullWidth = this.call('local_storage', 'getItem', 'calendar_fullWidth') !== true;
         this.call('local_storage', 'setItem', 'calendar_fullWidth', fullWidth);
     },
     /**
@@ -385,9 +423,6 @@ return AbstractModel.extend({
      * @returns {Object}
      */
     _getFullCalendarOptions: function () {
-        var week_start = _t.database.parameters.week_start || 0;
-        // calendar uses index 0 for Sunday but Odoo stores it as 7
-        week_start = week_start % 7;
         return {
             defaultView: (this.mode === "month")? "month" : ((this.mode === "week")? "agendaWeek" : ((this.mode === "day")? "agendaDay" : "agendaWeek")),
             header: false,
@@ -407,7 +442,7 @@ return AbstractModel.extend({
             monthNamesShort: moment.monthsShort(),
             dayNames: moment.weekdays(),
             dayNamesShort: moment.weekdaysShort(),
-            firstDay: week_start,
+            firstDay: this.week_start,
             slotLabelFormat: _t.database.parameters.time_format.search("%H") != -1 ? 'H:mm': 'h(:mm)a',
         };
     },
@@ -415,7 +450,8 @@ return AbstractModel.extend({
      * Return a domain from the date range
      *
      * @private
-     * @returns {Array}
+     * @returns {Array} A domain containing datetimes start and stop in UTC
+     *  those datetimes are formatted according to server's standards
      */
     _getRangeDomain: function () {
         // Build OpenERP Domain to filter object by this.mapping.date_start field
@@ -434,7 +470,7 @@ return AbstractModel.extend({
      */
     _loadCalendar: function () {
         var self = this;
-        this.data.fullWidth = this.call('local_storage', 'getItem', 'calendar_fullWidth') === 'true';
+        this.data.fullWidth = this.call('local_storage', 'getItem', 'calendar_fullWidth') === true;
         this.data.fc_options = this._getFullCalendarOptions();
 
         var defs = _.map(this.data.filters, this._loadFilter.bind(this));

@@ -11,14 +11,15 @@
 # Katharina Moritz <kmo@e2f.com>, 2018
 # David Vidal <david.vidal@trespinos.es>, 2018
 # Martin Trigaux, 2018
+# Chris Egal <sodaswed@web.de>, 2019
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-09 10:32+0000\n"
+"POT-Creation-Date: 2019-11-14 07:35+0000\n"
 "PO-Revision-Date: 2018-08-24 09:34+0000\n"
-"Last-Translator: Martin Trigaux, 2018\n"
+"Last-Translator: Chris Egal <sodaswed@web.de>, 2019\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -316,6 +317,7 @@ msgid "Click to publish your event."
 msgstr "Klicken Sie zur Veröffentlichung der Veranstaltung."
 
 #. module: website_event
+#: model_terms:ir.ui.view,arch_db:website_event.layout
 #: model_terms:ir.ui.view,arch_db:website_event.registration_attendee_details
 msgid "Close"
 msgstr "Schließen"
@@ -461,6 +463,11 @@ msgstr ""
 "                      berichten und verfolgen Sie die Konversation."
 
 #. module: website_event
+#: model_terms:ir.ui.view,arch_db:website_event.layout
+msgid "Following content will appear on all events"
+msgstr ""
+
+#. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.event_description_full
 msgid "Google Maps"
 msgstr "Google Maps"
@@ -479,7 +486,7 @@ msgstr "Nimmt teil"
 #. module: website_event
 #: model:ir.model.fields,field_description:website_event.field_event_event__is_published
 msgid "Is published"
-msgstr ""
+msgstr "Ist veröffentlicht"
 
 #. module: website_event
 #: code:addons/website_event/models/event.py:71
@@ -598,7 +605,7 @@ msgstr "Fotos der vorherigen Veranstaltungen"
 #: code:addons/website_event/static/src/js/website_event.js:55
 #, python-format
 msgid "Please select at least one ticket."
-msgstr ""
+msgstr "Bitte wählen Sie mindestens ein Ticket aus."
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.brand_promotion
@@ -608,7 +615,7 @@ msgstr "Ein System von"
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.event_event_view_form_inherit_website
 msgid "Preview Badges"
-msgstr ""
+msgstr "Vorschau der Abzeichen"
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.ticket

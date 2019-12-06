@@ -94,15 +94,25 @@ MailManager.include({
      *   is not open yet, and do nothing otherwise.
      * @param {boolean} [options.keepFoldState=false] if set to true, keep the
      *   fold state of the thread
+     * @param {boolean} [options.skipCrossTabSync=false] if set, thread
+     *   should not notify other tabs from new document thread chat window state.
      */
     openThreadWindow: function (threadID, options) {
         var self = this;
         options = options || {};
         // valid threadID, therefore no check
         var thread = this.getThread(threadID);
+        if (thread.isCreatingWindow) {
+            // abort creating a chat window, to prevent open chat window twice.
+            // This may happen due to concurrent calls to this method from
+            // messaging menu preview click and handling of longpolling chat
+            // window state.
+            return;
+        }
         var threadWindow = this._getThreadWindow(threadID);
         var def = $.when();
         if (!threadWindow) {
+            thread.isCreatingWindow = true;
             def = thread.fetchMessages().then(function () {
                 threadWindow = self._makeNewThreadWindow(thread, options);
                 self._placeNewThreadWindow(threadWindow, options.passively);
@@ -122,12 +132,12 @@ MailManager.include({
                 // thread window could not be open, which may happen due to
                 // access error while fetching messages to the document.
                 // abort opening the thread window in this case.
-                thread.close();
+                thread.close({
+                    skipCrossTabSync: true,
+                });
+            }).always(function () {
+                thread.isCreatingWindow = false;
             });
-        } else if (!options.passively) {
-            if (threadWindow.isHidden()) {
-                this._makeThreadWindowVisible(threadWindow);
-            }
         }
         def.then(function () {
             threadWindow.updateVisualFoldState();

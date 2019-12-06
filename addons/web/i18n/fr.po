@@ -3,15 +3,13 @@
 # * web
 # 
 # Translators:
-# Benoît Fontaine <benoitfontaine.ba@gmail.com>, 2018
 # Florian Hatat, 2018
 # Melanie Bernard <mbe@odoo.com>, 2018
-# Micky Jault <micky037@hotmail.fr>, 2018
 # Jérémy Donas <LeDistordu@users.noreply.github.com>, 2018
 # Jerther, 2018
 # Matillon Samantha <smatillon@gmail.com>, 2018
 # e2f <projects@e2f.com>, 2018
-# fr rev <e2ffr02@hotmail.com>, 2018
+# bb76cd9ac0cb7e20167a14728edb858b, 2018
 # Olivier Dony <odo@odoo.com>, 2018
 # Frédéric LIETART <stuff@tifred.fr>, 2018
 # Olivier Lenoir <olivier.lenoir@free.fr>, 2018
@@ -19,15 +17,23 @@
 # Fabien Bourgeois <fabien@yaltik.com>, 2018
 # Xavier Belmere <Info@cartmeleon.com>, 2018
 # Eloïse Stilmant <est@odoo.com>, 2018
+# Benoît Fontaine <benoitfontaine.ba@gmail.com>, 2018
+# William Olhasque <william.olhasque@scopea.fr>, 2019
+# nle_odoo, 2019
+# fah_odoo <fah@odoo.com>, 2019
+# Aurélien Pillevesse <aurelienpillevesse@hotmail.fr>, 2019
+# Moka Tourisme <hello@mokatourisme.fr>, 2019
+# Cécile Collart <cco@odoo.com>, 2019
 # Martin Trigaux, 2019
+# Sébastien BÜHL <buhlsebastien@gmail.com>, 2019
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-09 10:32+0000\n"
+"POT-Creation-Date: 2019-02-13 07:03+0000\n"
 "PO-Revision-Date: 2018-08-24 09:33+0000\n"
-"Last-Translator: Martin Trigaux, 2019\n"
+"Last-Translator: Sébastien BÜHL <buhlsebastien@gmail.com>, 2019\n"
 "Language-Team: French (https://www.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +53,7 @@ msgstr " [Moi]"
 #: code:addons/web/static/src/js/views/search/search_filters.js:231
 #, python-format
 msgid " and "
-msgstr "et"
+msgstr " et "
 
 #. module: web
 #. openerp-web
@@ -55,7 +61,7 @@ msgstr "et"
 #: code:addons/web/static/src/js/views/search/search_view.js:226
 #, python-format
 msgid " or "
-msgstr "ou"
+msgstr " ou "
 
 #. module: web
 #. openerp-web
@@ -194,7 +200,7 @@ msgstr "\"%s\" n'est convertible ni en date, ni en horodatage ni en heure"
 #: code:addons/web/static/src/xml/base.xml:298
 #, python-format
 msgid "(change)"
-msgstr ""
+msgstr "(modifier)"
 
 #. module: web
 #. openerp-web
@@ -202,7 +208,7 @@ msgstr ""
 #: code:addons/web/static/src/xml/base.xml:537
 #, python-format
 msgid "(count)"
-msgstr ""
+msgstr "(total)"
 
 #. module: web
 #. openerp-web
@@ -228,22 +234,22 @@ msgstr "1 enregistrement"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_background
 msgid "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_background
 msgid "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Fiscal number\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Numéro fiscal\"/>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_background
 msgid "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Website\" title=\"Website\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Site Web\" title=\"Site Web\"/>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_background
 msgid "<i class=\"fa fa-phone\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-phone\" role=\"img\" aria-label=\"Téléphone\" title=\"Téléphone\"/>"
 
 #. module: web
 #. openerp-web
@@ -281,7 +287,7 @@ msgstr "TOUT"
 #: code:addons/web/static/src/xml/base.xml:633
 #, python-format
 msgid "ANY"
-msgstr "TOUS"
+msgstr "AU MOINS UN"
 
 #. module: web
 #. openerp-web
@@ -370,7 +376,7 @@ msgstr "Ajouter un filtre personnalisé"
 #: code:addons/web/static/src/xml/base.xml:1111
 #, python-format
 msgid "Add Custom Group"
-msgstr ""
+msgstr "Ajouter un groupe personnalisé"
 
 #. module: web
 #. openerp-web
@@ -426,14 +432,14 @@ msgstr "Ajouter une nouvelle valeur"
 #: code:addons/web/static/src/xml/base.xml:615
 #, python-format
 msgid "Add node"
-msgstr ""
+msgstr "Ajouter: "
 
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:701
 #, python-format
 msgid "Add tag"
-msgstr ""
+msgstr "Ajouter une étiquette"
 
 #. module: web
 #. openerp-web
@@ -531,6 +537,9 @@ msgid ""
 "JavaScript file served from a different origin. (Opening your browser "
 "console might give you a hint on the error.)"
 msgstr ""
+"Une erreur CORS inconnue est survenue. L'erreur est probablement due à un "
+"fichier JavaScript provenant d'une source externe. (Ouvrir votre la console "
+"de votre navigateur, vous donnera certainement une indication)"
 
 #. module: web
 #. openerp-web
@@ -622,7 +631,7 @@ msgstr "Voulez-vous réellement supprimer cet enregistrement?"
 #: code:addons/web/static/src/xml/base.xml:1028
 #, python-format
 msgid "Attach"
-msgstr ""
+msgstr "Joindre"
 
 #. module: web
 #. openerp-web
@@ -672,7 +681,7 @@ msgstr "Basé sur"
 #: code:addons/web/static/src/xml/base.xml:250
 #, python-format
 msgid "Become Superuser"
-msgstr ""
+msgstr "Devenez un superuilisateur"
 
 #. module: web
 #: code:addons/web/controllers/main.py:1538
@@ -849,7 +858,7 @@ msgstr "Titre de la colonne"
 #: code:addons/web/static/src/xml/base.xml:1185
 #, python-format
 msgid "Compare To"
-msgstr ""
+msgstr "Comparer à"
 
 #. module: web
 #. openerp-web
@@ -983,7 +992,7 @@ msgstr "Créer"
 #: code:addons/web/static/src/js/views/form/form_controller.js:616
 #, python-format
 msgid "Create "
-msgstr "Créer"
+msgstr "Créer "
 
 #. module: web
 #. openerp-web
@@ -1143,7 +1152,7 @@ msgstr "Supprimer"
 #: code:addons/web/static/src/xml/base.xml:614
 #, python-format
 msgid "Delete node"
-msgstr ""
+msgstr "Supprimer le noeud"
 
 #. module: web
 #. openerp-web
@@ -1401,7 +1410,7 @@ msgstr "Tout déplier"
 #: code:addons/web/static/src/xml/base.xml:1433
 #, python-format
 msgid "Expand parents"
-msgstr ""
+msgstr "Déplier les parents"
 
 #. module: web
 #. openerp-web
@@ -1667,7 +1676,7 @@ msgstr "Groupé"
 #. module: web
 #: model:ir.model,name:web.model_ir_http
 msgid "HTTP Routing"
-msgstr ""
+msgstr "Routage HTTP"
 
 #. module: web
 #. openerp-web
@@ -1990,7 +1999,7 @@ msgstr "Connexion"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login
 msgid "Log in as superuser"
-msgstr ""
+msgstr "Connexion en tant que superutilisateur"
 
 #. module: web
 #. openerp-web
@@ -2035,7 +2044,7 @@ msgstr "Courriel:"
 #: code:addons/web/static/src/xml/base.xml:271
 #, python-format
 msgid "Manage Attachments"
-msgstr ""
+msgstr "Gestion des pièces jointes"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login_layout
@@ -2240,7 +2249,7 @@ msgstr "Pas de mise à jour :"
 #: code:addons/web/static/src/js/tools/debug_manager.js:359
 #, python-format
 msgid "No attachment available"
-msgstr ""
+msgstr "Pas de pièces jointes"
 
 #. module: web
 #. openerp-web
@@ -2409,6 +2418,12 @@ msgid "Only Integer Value should be valid."
 msgstr "Un entier est attendu."
 
 #. module: web
+#: code:addons/web/static/src/js/fields/basic_fields.js:1982
+#, python-format
+msgid "Only Integer or Float Value should be valid."
+msgstr "Un nombre est attendu."
+
+#. module: web
 #: code:addons/web/controllers/main.py:502
 #, python-format
 msgid ""
@@ -2429,7 +2444,7 @@ msgstr "Uniquement vous-même"
 #: code:addons/web/static/src/xml/colorpicker.xml:55
 #, python-format
 msgid "Opacity %"
-msgstr ""
+msgstr "Opacité %"
 
 #. module: web
 #. openerp-web
@@ -2651,6 +2666,7 @@ msgstr "Aperçu src pdf"
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/xml/base.xml:741
+#: code:addons/web/static/src/xml/base.xml:1505
 #: code:addons/web/static/src/xml/web_calendar.xml:75
 #, python-format
 msgid "Previous"
@@ -2700,12 +2716,12 @@ msgstr "Trimestre"
 #: code:addons/web/static/src/xml/kanban.xml:32
 #, python-format
 msgid "Quick add"
-msgstr ""
+msgstr "Ajout rapide"
 
 #. module: web
 #: model:ir.model,name:web.model_ir_qweb_field_image
 msgid "Qweb Field Image"
-msgstr ""
+msgstr "Champ Qweb image"
 
 #. module: web
 #. openerp-web
@@ -2799,7 +2815,7 @@ msgstr "Rapport"
 #. module: web
 #: model:ir.model,name:web.model_report_layout
 msgid "Report Layout"
-msgstr ""
+msgstr "Mise en page des rapports"
 
 #. module: web
 #. openerp-web
@@ -3002,6 +3018,8 @@ msgid ""
 "Select <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" "
 "title=\"Database\"/>"
 msgstr ""
+"Sélectionner <i class=\"fa fa-database\" role=\"img\" aria-label=\"Base de "
+"données\" title=\"Base de données\"/>"
 
 #. module: web
 #. openerp-web
@@ -3098,7 +3116,7 @@ msgstr "Spécial :"
 #: code:addons/web/static/src/js/views/graph/graph_renderer.js:215
 #, python-format
 msgid "Stacked"
-msgstr ""
+msgstr "Empilé"
 
 #. module: web
 #. openerp-web
@@ -3169,7 +3187,7 @@ msgstr "Appuyez sur la liste pour modifier l'entreprise"
 #: code:addons/web/static/src/xml/base.xml:260
 #, python-format
 msgid "Technical Translation"
-msgstr "Traduction spécialisée"
+msgstr "Traduction technique"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_boxed
@@ -3611,6 +3629,14 @@ msgstr "Erreur de validation"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/views/pivot/pivot_model.js:240
+#: code:addons/web/static/src/js/views/pivot/pivot_renderer.js:174
+#, python-format
+msgid "Variation"
+msgstr "Variation"
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/js/tools/debug_manager.js:287
 #: code:addons/web/static/src/xml/base.xml:258
 #, python-format
@@ -3803,6 +3829,8 @@ msgid ""
 "You need to start Odoo with at least two workers to print a pdf version of "
 "the reports."
 msgstr ""
+"Vous devez démarrer Odoo avec au moins deux workers pour imprimer une "
+"version pdf des reports."
 
 #. module: web
 #. openerp-web
@@ -3955,10 +3983,24 @@ msgstr "est après"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/js/views/search/search_filters.js:190
+#, python-format
+msgid "is after or equal to"
+msgstr "est après ou égal à"
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/js/views/search/search_filters.js:189
 #, python-format
 msgid "is before"
 msgstr "est avant"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/js/views/search/search_filters.js:191
+#, python-format
+msgid "is before or equal to"
+msgstr "est avant ou égal à"
 
 #. module: web
 #. openerp-web

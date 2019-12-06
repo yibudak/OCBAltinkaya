@@ -83,7 +83,8 @@ class View(models.Model):
                     # original tree. Indeed, the order of children 'id' fields
                     # must remain the same so that the inheritance is applied
                     # in the same order in the copied tree.
-                    inherit_child.copy({'inherit_id': website_specific_view.id, 'key': inherit_child.key})
+                    child = inherit_child.copy({'inherit_id': website_specific_view.id, 'key': inherit_child.key})
+                    inherit_child.inherit_children_ids.write({'inherit_id': child.id})
                     inherit_child.unlink()
                 else:
                     # Trigger COW on inheriting views
@@ -133,12 +134,8 @@ class View(models.Model):
                     ('website_id', '!=', None),
                 ])
                 for specific_parent_view in specific_parent_views:
-                    record.copy({
-                        # Set key to avoid copy() to generate an unique key as
-                        # we want the specific view to have the same key
-                        'key': record.key,
+                    record.with_context(website_id=specific_parent_view.website_id.id).write({
                         'inherit_id': specific_parent_view.id,
-                        'website_id': specific_parent_view.website_id.id,
                     })
         return records
 
@@ -158,7 +155,12 @@ class View(models.Model):
                     # care of creating pages and menus.
                     view.with_context(website_id=website.id).write({'name': view.name})
 
-        result = super(View, self).unlink()
+        specific_views = self.env['ir.ui.view']
+        if self and self.pool._init:
+            for view in self:
+                specific_views += view._get_specific_views()
+
+        result = super(View, self + specific_views).unlink()
         self.clear_caches()
         return result
 
@@ -279,6 +281,16 @@ class View(models.Model):
         return super(View, self).get_view_id(xml_id)
 
     @api.multi
+    def _get_original_view(self):
+        """Given a view, retrieve the original view it was COW'd from.
+        The given view might already be the original one. In that case it will
+        (and should) return itself.
+        """
+        self.ensure_one()
+        domain = [('key', '=', self.key), ('model_data_id', '!=', None)]
+        return self.with_context(active_test=False).search(domain, limit=1)  # Useless limit has multiple xmlid should not be possible
+
+    @api.multi
     def render(self, values=None, engine='ir.qweb', minimal_qcontext=False):
         """ Render the template. If website is enabled on request, then extend rendering context with website values. """
         new_context = dict(self._context)
@@ -319,18 +331,19 @@ class View(models.Model):
                 qcontext['main_object'] = self
 
             cur = Website.get_current_website()
-            qcontext['multi_website_websites_current'] = {'website_id': cur.id, 'name': cur.name, 'domain': cur.domain}
-            qcontext['multi_website_websites'] = [
-                {'website_id': website.id, 'name': website.name, 'domain': website.domain}
-                for website in Website.search([]) if website != cur
-            ]
+            if self.env.user.has_group('website.group_website_publisher') and self.env.user.has_group('website.group_multi_website'):
+                qcontext['multi_website_websites_current'] = {'website_id': cur.id, 'name': cur.name, 'domain': cur._get_http_domain()}
+                qcontext['multi_website_websites'] = [
+                    {'website_id': website.id, 'name': website.name, 'domain': website._get_http_domain()}
+                    for website in Website.search([]) if website != cur
+                ]
 
-            cur_company = self.env.user.company_id
-            qcontext['multi_website_companies_current'] = {'company_id': cur_company.id, 'name': cur_company.name}
-            qcontext['multi_website_companies'] = [
-                {'company_id': comp.id, 'name': comp.name}
-                for comp in self.env.user.company_ids if comp != cur_company
-            ]
+                cur_company = self.env.user.company_id
+                qcontext['multi_website_companies_current'] = {'company_id': cur_company.id, 'name': cur_company.name}
+                qcontext['multi_website_companies'] = [
+                    {'company_id': comp.id, 'name': comp.name}
+                    for comp in self.env.user.company_ids if comp != cur_company
+                ]
 
             qcontext.update(dict(
                 self._context.copy(),
@@ -371,6 +384,15 @@ class View(models.Model):
         res = super(View, self)._save_oe_structure_hook()
         res['website_id'] = self.env['website'].get_current_website().id
         return res
+
+    @api.model
+    def _set_noupdate(self):
+        '''If website is installed, any call to `save` from the frontend will
+        actually write on the specific view (or create it if not exist yet).
+        In that case, we don't want to flag the generic view as noupdate.
+        '''
+        if not self._context.get('website_id'):
+            super(View, self)._set_noupdate()
 
     @api.multi
     def save(self, value, xpath=None):

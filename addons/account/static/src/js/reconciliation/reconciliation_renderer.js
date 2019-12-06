@@ -255,7 +255,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
         'click .accounting_view thead td': '_onTogglePanel',
         'click .accounting_view tfoot td:not(.cell_left,.cell_right)': '_onShowPanel',
         'click tfoot .cell_left, tfoot .cell_right': '_onSearchBalanceAmount',
-        'input input.filter': '_onFilterChange',
+        'change input.filter': '_onFilterChange',
         'click .match .load-more a': '_onLoadMore',
         'click .match .mv_line td': '_onSelectMoveLine',
         'click .accounting_view tbody .mv_line td': '_onSelectProposition',
@@ -271,6 +271,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
         'field_changed': '_onFieldChanged',
     }),
     _avoidFieldUpdate: {},
+    MV_LINE_DEBOUNCE: 200,
 
     /**
      * create partner_id field in editable mode
@@ -283,6 +284,11 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
 
         this.model = model;
         this._initialState = state;
+        if (this.MV_LINE_DEBOUNCE) {
+            this._onSelectMoveLine = _.debounce(this._onSelectMoveLine, this.MV_LINE_DEBOUNCE, true);
+        } else {
+            this._onSelectMoveLine = this._onSelectMoveLine;
+        }
     },
 
     /**
@@ -304,6 +310,12 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
             };
             self.fields.partner_id.appendTo(self.$('.accounting_view caption'));
         });
+        var def3 = session.user_has_group('analytic.group_analytic_tags').then(function(has_group) {
+                self.group_tags = has_group;
+            });
+        var def4 = session.user_has_group('analytic.group_analytic_accounting').then(function(has_group) {
+                self.group_acc = has_group;
+            });
         $('<span class="line_info_button fa fa-info-circle"/>')
             .appendTo(this.$('thead .cell_info_popover'))
             .attr("data-content", qweb.render('reconciliation.line.statement_line.details', {'state': this._initialState}));
@@ -317,7 +329,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
             'toggle': 'popover'
         });
         var def2 = this._super.apply(this, arguments);
-        return $.when(def1, def2);
+        return $.when(def1, def2, def3, def4);
     },
 
     //--------------------------------------------------------------------------
@@ -508,7 +520,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
         }
         return this.model.makeRecord('account.bank.statement.line', [field], {
             partner_id: {
-                domain: [["parent_id", "=", false], "|", ["customer", "=", true], ["supplier", "=", true]],
+                domain: ["|", ["is_company", "=", true], ["parent_id", "=", false], "|", ["customer", "=", true], ["supplier", "=", true]],
                 options: {
                     no_open: true
                 }
@@ -528,7 +540,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
             relation: 'account.account',
             type: 'many2one',
             name: 'account_id',
-            domain: [['company_id', '=', state.st_line.company_id]],
+            domain: [['company_id', '=', state.st_line.company_id], ['deprecated', '=', false]],
         }, {
             relation: 'account.journal',
             type: 'many2one',
@@ -556,10 +568,15 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
         }, {
             type: 'float',
             name: 'amount',
+        }, {
+            type: 'char', //TODO is it a bug or a feature when type date exists ?
+            name: 'date',
         }], {
-            account_id: {string: _t("Account")},
+            account_id: {
+                string: _t("Account"),
+            },
             label: {string: _t("Label")},
-            amount: {string: _t("Account")}
+            amount: {string: _t("Account")},
         }).then(function (recordID) {
             self.handleCreateRecord = recordID;
             var record = self.model.get(self.handleCreateRecord);
@@ -587,8 +604,11 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
 
             self.fields.amount = new basic_fields.FieldFloat(self,
                 'amount', record, {mode: 'edit'});
+            
+            self.fields.date = new basic_fields.FieldDate(self,
+                'date', record, {mode: 'edit'});
 
-            var $create = $(qweb.render("reconciliation.line.create", {'state': state}));
+            var $create = $(qweb.render("reconciliation.line.create", {'state': state, 'group_tags': self.group_tags, 'group_acc': self.group_acc}));
             self.fields.account_id.appendTo($create.find('.create_account_id .o_td_field'))
                 .then(addRequiredStyle.bind(self, self.fields.account_id));
             self.fields.journal_id.appendTo($create.find('.create_journal_id .o_td_field'));
@@ -600,6 +620,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
                 .then(addRequiredStyle.bind(self, self.fields.label));
             self.fields.amount.appendTo($create.find('.create_amount .o_td_field'))
                 .then(addRequiredStyle.bind(self, self.fields.amount));
+            self.fields.date.appendTo($create.find('.create_date .o_td_field'))
             self.$('.create').append($create);
 
             function addRequiredStyle(widget) {
@@ -728,6 +749,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
      */
     _onSelectMoveLine: function (event) {
         var $el = $(event.target);
+        $el.prop('disabled', true);
         this._destroyPopover($el);
         var moveLineId = $el.closest('.mv_line').data('line-id');
         this.trigger_up('add_proposition', {'data': moveLineId});
@@ -888,6 +910,7 @@ var ManualLineRenderer = LineRenderer.extend({
     _renderCreate: function (state) {
         this._super(state);
         this.$('.create .create_journal_id').show();
+        this.$('.create .create_date').removeClass('d-none')
         this.$('.create .create_journal_id .o_input').addClass('o_required_modifier');
     },
 

@@ -92,6 +92,8 @@ var PivotModel = AbstractModel.extend({
                         model: self.modelName,
                         method: 'read_group',
                         context: self.data.context,
+                        // by now, header.domain should be always set here.
+                        // We let the line below as it is by precaution.
                         domain: header.domain ||
                                     self.data.domain.concat(self.data.timeRange),
                         fields: measures,
@@ -108,6 +110,7 @@ var PivotModel = AbstractModel.extend({
                         model: self.modelName,
                         method: 'read_group',
                         context: self.data.context,
+                        // by now, header.comparisonDomain should be always set here.
                         domain: header.comparisonDomain ||
                                     self.data.domain.concat(self.data.comparisonTimeRange),
                         fields: measures,
@@ -237,7 +240,7 @@ var PivotModel = AbstractModel.extend({
                             [
                                 this.data.timeRangeDescription.toString(),
                                 this.data.comparisonTimeRangeDescription.toString(),
-                                'Variation'
+                                _t('Variation')
                             ],
                             makeMeasure
                         )
@@ -440,11 +443,11 @@ var PivotModel = AbstractModel.extend({
                 // if we don't have the key 'groupBy' in params.  In that case,
                 // we want to have the full open state for the groupbys.
                 self._updateTree(old_row.root, self.data.main_row.root);
-                self._updateMainGroupBys(old_row, self.data.main_row);
             }
 
-            self._updateTree(old_col.root, self.data.main_col.root);
-            self._updateMainGroupBys(old_col, self.data.main_col);
+            if (!('pivot_column_groupby' in (params.context || {}))) {
+                self._updateTree(old_col.root, self.data.main_col.root);
+            }
         });
     },
     /**
@@ -883,6 +886,12 @@ var PivotModel = AbstractModel.extend({
                         comparisonData: 0,
                         variation: computeVariation(dataPoint.__count, 0)
                     };
+                    // The current dataPoint might not have a counterpart in 'comparisonData'
+                    // This is why dataPoint.__comparisonDomain is set to [[0, '=', 1]].
+                    // This is as if a corresponding dataPoint representing an empty group had been provided
+                    // by the read_groups. The default value will be eventually replaced if there really is
+                    // a counterpart to the current dataPoint.
+                    dataPoint.__comparisonDomain = [[0, '=', 1]];
                     dataPoints[groupIdentifier] = dataPoint;
                 }
             }
@@ -927,11 +936,17 @@ var PivotModel = AbstractModel.extend({
                         };
                         dataPoint.__comparisonCount = dataPoint.__count;
                         dataPoint.__comparisonDomain = dataPoint.__domain;
-                        dataPoints[groupIdentifier] = _.omit(dataPoint, '__domain');
+                        // Here we are sure that the dataPoint has no counterpart in 'data'.
+                        // this means that dataPoint.__domain won't be modified.
+                        // The same remark applies for the other default values attributed to 'data'
+                        // (e.g. dataPoint.__count.data).
+                        dataPoint.__domain = [[0, '=', 1]];
+                        dataPoints[groupIdentifier] = dataPoint;
                     } else {
                         // Here we know that the group is represented in 'data'.
                         // Therefore we modify the corresonding dataPoint:
-                        // we modify the key 'comparisonData' and recompute 'variation'.
+                        // we modify the key 'comparisonData', recompute 'variation', and set correctly
+                        // the key comparisonDomain.
                         for (m=0; m < this.data.measures.length; m++) {
                             measureName = this.data.measures[m];
                             measureComparisonValue = dataPoint[measureName];
@@ -950,8 +965,8 @@ var PivotModel = AbstractModel.extend({
                             }
                             if (measureComparisonValue instanceof Array) {
                                 dataPoints[groupIdentifier][measureName + 'Aggregate'].comparisonData = 1;
-                                dataPoints[groupIdentifier][measureName].variation = computeVariation(
-                                    dataPoints[groupIdentifier][measureName].data,
+                                dataPoints[groupIdentifier][measureName + 'Aggregate'].variation = computeVariation(
+                                    dataPoints[groupIdentifier][measureName + 'Aggregate'].data,
                                     1
                                 );
 
@@ -984,13 +999,13 @@ var PivotModel = AbstractModel.extend({
         });
 
         var index = 0;
-        var rowGroupBys = !_.isEmpty(this.data.groupedBy) ? this.data.groupedBy : this.initialRowGroupBys;
+        var rowGroupBys = !_.isEmpty(this.data.groupedBy) ? this.data.groupedBy : this.initialRowGroupBys.slice();
+        this.data.groupedBy = rowGroupBys;
         var colGroupBys = this.data.colGroupBys;
         var dataPoint, row, col, attrs, cell_value;
         var main_row_header, main_col_header;
         var groupBys;
         var m;
-
 
         for (var i = 0; i < rowGroupBys.length + 1; i++) {
             for (var j = 0; j < colGroupBys.length + 1; j++) {
@@ -1020,6 +1035,8 @@ var PivotModel = AbstractModel.extend({
                     }
                     if (i + j === 0) {
                         this.data.has_data = attrs.length > 0 || attrs.comparisonLength > 0;
+                        row.domain = col.domain = this.data.domain.concat(this.data.timeRange);
+                        row.comparisonDomain = col.comparisonDomain = this.data.domain.concat(this.data.comparisonTimeRange);
                         main_row_header = row;
                         main_col_header = col;
                     }
@@ -1116,19 +1133,6 @@ var PivotModel = AbstractModel.extend({
         for (var i = 0; i < root.children.length; i++) {
             this._traverseTree(root.children[i], f, arg1, arg2, arg3);
         }
-    },
-    /**
-     * Updates the groupBys that the main[row | col] holds
-     *
-     * @private
-     * @param {Object} old: The main abstract header before reload
-     * @param {Object} main: The main abstract header after reload
-     *
-     */
-    _updateMainGroupBys: function (old, main) {
-        var new_groupby_length = this._getHeaderDepth(main.root) - 1;
-        var new_groupby_list = old.root.groupbys.slice(0, new_groupby_length);
-        main.root.groupbys = new_groupby_list;
     },
     /**
      * @param {Object} old_tree

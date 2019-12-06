@@ -302,6 +302,119 @@ QUnit.module('Views', {
         pivot.destroy();
     });
 
+    QUnit.test('clicking on the "Total" Cell with time range activated gives the right action domain', function (assert) {
+        assert.expect(2);
+
+        var unpatchDate = patchDate(2016, 11, 20, 1, 0, 0);
+        var context = {
+            timeRangeMenuData: {
+                timeRange: ["&",["date",">=","2016-12-01"],["date","<","2017-01-01"]],
+                timeRangeDescription: 'This Month',
+                comparisonTimeRange: [],
+            }
+        };
+        var pivot = createView({
+            View: PivotView,
+            model: "partner",
+            data: this.data,
+            arch: '<pivot/>',
+            intercepts: {
+                do_action: function (ev) {
+                    assert.deepEqual(
+                        ev.data.action.domain,
+                        // There is some redundancy in the generated domain but
+                        // I think this is ok for a fix (actually there is already redundancy elsewhere).
+                        [
+                            "&",["date",">=","2016-12-01"],["date","<","2017-01-01"],
+                            "&",["date",">=","2016-12-01"],["date","<","2017-01-01"]
+                        ],
+                        "should trigger do_action with the correct action domain"
+                    );
+                },
+            },
+            viewOptions: {
+                context: context,
+                title: 'Partners',
+            }
+        });
+
+        assert.ok(pivot.$el.hasClass('o_enable_linking'),
+            "root node should have classname 'o_enable_linking'");
+        pivot.$('.o_pivot_cell_value').click();
+
+        unpatchDate();
+        pivot.destroy();
+    });
+
+    QUnit.test('clicking on a fake cell value ("empty group") in comparison mode gives an action domain equivalent to [[0,"=",1]]', function (assert) {
+        assert.expect(3);
+
+        var unpatchDate = patchDate(2016, 11, 20, 1, 0, 0);
+
+        this.data.partner.records[0].date = '2016-11-15';
+        this.data.partner.records[1].date = '2016-11-17';
+        this.data.partner.records[2].date = '2016-11-22';
+        this.data.partner.records[3].date = '2016-11-03';
+
+        var context = {
+            timeRangeMenuData: {
+                timeRange: ["&",["date",">=","2016-12-01"],["date","<","2017-01-01"]],
+                timeRangeDescription: 'This Month',
+                comparisonTimeRange: ["&",["date",">=","2016-11-01"],["date","<","2017-12-01"]],
+                comparisonTimeRangeDescription: 'Previous Period'
+            }
+        };
+
+        var first_do_action = true;
+        var pivot = createView({
+            View: PivotView,
+            model: "partner",
+            data: this.data,
+            arch: '<pivot>' +
+                        '<field name="product_id" type="row"/>' +
+                    '</pivot>',
+            intercepts: {
+                do_action: function (ev) {
+                    if (first_do_action) {
+                        assert.deepEqual(
+                            ev.data.action.domain,
+                            // There is some redundancy in the generated domain but
+                            // I think this is ok for a fix (actually there is already redundancy elsewhere).
+                            [
+                                "&",["date",">=","2016-12-01"],["date","<","2017-01-01"],
+                                "&",["date",">=","2016-12-01"],["date","<","2017-01-01"]
+                            ],
+                            "should trigger do_action with the correct action domain"
+                        );
+                    } else {
+                        assert.deepEqual(
+                            ev.data.action.domain,
+                            [
+                                [0, "=", 1],
+                                "&",["date",">=","2016-12-01"],["date","<","2017-01-01"]
+                            ],
+                            "should trigger do_action with the correct action domain"
+                        );
+                    }
+                    first_do_action = false;
+                },
+            },
+            viewOptions: {
+                context: context,
+                title: 'Partners',
+            }
+        });
+        assert.ok(pivot.$el.hasClass('o_enable_linking'),
+            "root node should have classname 'o_enable_linking'");
+        // here we click on the group corresponding to Total/Total/This Month
+        pivot.$('.o_pivot_cell_value').eq(0).click(); // should trigger a do_action with appropriate domain
+        // here we click on the group corresponding to xphone/Total/This Month
+        pivot.$('.o_pivot_cell_value').eq(3).click(); // should trigger a do_action with appropriate domain
+
+        unpatchDate();
+        pivot.destroy();
+    });
+
     QUnit.test('pivot view grouped by date field', function (assert) {
         assert.expect(2);
 
@@ -987,6 +1100,169 @@ QUnit.module('Views', {
         pivot.destroy();
     });
 
+    QUnit.test('Unload Filter, reset display, load another filter', function (assert) {
+        assert.expect(18);
+
+        var pivot = createView({
+            View: PivotView,
+            model: "partner",
+            data: this.data,
+            arch: '<pivot>' +
+                        '<field name="foo" type="measure"/>' +
+                '</pivot>',
+            viewOptions: {
+                context: {
+                    pivot_measures: ['foo'],
+                    pivot_column_groupby: ['customer'],
+                    pivot_row_groupby: ['product_id'],
+                },
+            },
+        });
+
+        // Check Columns
+        assert.strictEqual(pivot.$('thead .o_pivot_header_cell_opened').length, 1,
+            'The column should be grouped');
+        assert.strictEqual(pivot.$('thead tr:contains("First")').length, 1,
+            'There should be a column "First"');
+        assert.strictEqual(pivot.$('thead tr:contains("Second")').length, 1,
+            'There should be a column "Second"');
+
+        // Check Rows
+        assert.strictEqual(pivot.$('tbody .o_pivot_header_cell_opened').length, 1,
+            'The row should be grouped');
+        assert.strictEqual(pivot.$('tbody tr:contains("xphone")').length, 1,
+            'There should be a row "xphone"');
+        assert.strictEqual(pivot.$('tbody tr:contains("xpad")').length, 1,
+            'There should be a row "xpad"');
+
+        // Equivalent to unload the filter
+        var reloadParams = {
+            context: {},
+        };
+        pivot.reload(reloadParams);
+        // collapse all headers
+        pivot.$('.o_pivot_header_cell_opened').click();
+        pivot.$('.o_pivot_header_cell_opened').click();
+
+        // Check Columns
+        assert.strictEqual(pivot.$('thead .o_pivot_header_cell_closed').length, 1,
+            'The column should not be grouped');
+        assert.strictEqual(pivot.$('thead tr:contains("First")').length, 0,
+            'There should not be a column "First"');
+        assert.strictEqual(pivot.$('thead tr:contains("Second")').length, 0,
+            'There should not be a column "Second"');
+
+        // Check Rows
+        assert.strictEqual(pivot.$('tbody .o_pivot_header_cell_closed').length, 1,
+            'The row should not be grouped');
+        assert.strictEqual(pivot.$('tbody tr:contains("xphone")').length, 0,
+            'There should not be a row "xphone"');
+        assert.strictEqual(pivot.$('tbody tr:contains("xpad")').length, 0,
+            'There should not be a row "xpad"');
+
+        // Equivalent to load another filter
+        reloadParams = {
+            context: {
+                pivot_measures: ['foo'],
+                pivot_column_groupby: ['customer'],
+                pivot_row_groupby: ['product_id'],
+            },
+        };
+        pivot.reload(reloadParams);
+
+        // Check Columns
+        assert.strictEqual(pivot.$('thead .o_pivot_header_cell_opened').length, 1,
+            'The column should be grouped');
+        assert.strictEqual(pivot.$('thead tr:contains("First")').length, 1,
+            'There should be a column "First"');
+        assert.strictEqual(pivot.$('thead tr:contains("Second")').length, 1,
+            'There should be a column "Second"');
+
+        // Check Rows
+        assert.strictEqual(pivot.$('tbody .o_pivot_header_cell_opened').length, 1,
+            'The row should be grouped');
+        assert.strictEqual(pivot.$('tbody tr:contains("xphone")').length, 1,
+            'There should be a row "xphone"');
+        assert.strictEqual(pivot.$('tbody tr:contains("xpad")').length, 1,
+            'There should be a row "xpad"');
+
+        pivot.destroy();
+    });
+
+    QUnit.test('Reload, group by columns, reload', function (assert) {
+        assert.expect(2);
+
+        var pivot = createView({
+            View: PivotView,
+            model: "partner",
+            data: this.data,
+            arch: '<pivot/>',
+        });
+
+        // Set a column groupby
+        pivot.$('thead .o_pivot_header_cell_closed').click();
+        pivot.$('.o_field_selection .dropdown-item[data-field=customer]').click();
+
+        // Set a domain
+        pivot.update({domain: [['product_id', '=', 41]]});
+
+        var expectedContext = {pivot_column_groupby: ['customer'],
+                               pivot_measures: ['__count'],
+                               pivot_row_groupby: []};
+
+        // Check that column groupbys were not lost
+        assert.deepEqual(pivot.getContext(), expectedContext,
+            'Column groupby not lost after first reload');
+
+        // Set a column groupby
+        pivot.$('thead .o_pivot_header_cell_closed').click();
+        pivot.$('.o_field_selection .dropdown-item[data-field=product_id]').click();
+
+        // Set a domain
+        pivot.update({domain: [['product_id', '=', 37]]});
+
+        var expectedContext = {pivot_column_groupby: ['customer', 'product_id'],
+                               pivot_measures: ['__count'],
+                               pivot_row_groupby: []};
+
+        assert.deepEqual(pivot.getContext(), expectedContext,
+            'Column groupby not lost after second reload');
+
+        pivot.destroy();
+    });
+
+    QUnit.test('Empty results keep groupbys', function (assert) {
+        assert.expect(2);
+
+        var pivot = createView({
+            View: PivotView,
+            model: "partner",
+            data: this.data,
+            arch: '<pivot/>',
+        });
+
+        // Set a column groupby
+        pivot.$('thead .o_pivot_header_cell_closed').click();
+        pivot.$('.o_field_selection .dropdown-item[data-field=customer]').click();
+
+        // Set a domain for empty results
+        pivot.update({domain: [['id', '=', false]]});
+
+        var expectedContext = {pivot_column_groupby: ['customer'],
+                               pivot_measures: ['__count'],
+                               pivot_row_groupby: []};
+        assert.deepEqual(pivot.getContext(), expectedContext,
+            'Column groupby not lost after empty results');
+
+        // Set a domain for not empty results
+        pivot.update({domain: [['product_id', '=', 37]]});
+
+        assert.deepEqual(pivot.getContext(), expectedContext,
+            'Column groupby not lost after reload after empty results');
+
+        pivot.destroy();
+    });
+
     QUnit.test('correctly uses pivot_ keys from the context', function (assert) {
         assert.expect(7);
 
@@ -1379,7 +1655,7 @@ QUnit.module('Views', {
     });
 
     QUnit.test('rendering of pivot view with comparison', function (assert) {
-        assert.expect(91);
+        assert.expect(92);
 
         this.data.partner.records[0].date = '2016-12-15';
         this.data.partner.records[1].date = '2016-12-17';
@@ -1416,6 +1692,17 @@ QUnit.module('Views', {
                   '</pivot>',
                 'partner,false,search': '<search></search>',
             },
+            intercepts: {
+                create_filter: function (ev) {
+                    var data = ev.data;
+                    assert.deepEqual(data.filter.context.timeRangeMenuData, {
+                        timeRange: ["&",["date",">=","2016-12-01"],["date","<","2017-01-01"]],
+                        timeRangeDescription: 'This Month',
+                        comparisonTimeRange: ["&",["date",">=","2016-11-01"],["date","<","2016-12-01"]],
+                        comparisonTimeRangeDescription: 'Previous Period',
+                    });
+                }
+            }
         });
 
         actionManager.doAction({
@@ -1465,7 +1752,7 @@ QUnit.module('Views', {
         results = [
             "2", "0", "100%", "0", "1", "-100%", "2", "1", "100%" ,
             "1", "0", "100%",                     "1", "0" , "100%"    ,
-            "1" , "0", "100%", "0", "1", "-100%", "1" , "1" , "100%"
+            "1" , "0", "100%", "0", "1", "-100%", "1" , "1" , "0%"
         ];
         checkCellValues(results);
 
@@ -1486,6 +1773,12 @@ QUnit.module('Views', {
             "1", "2", "-50%"
         ];
         checkCellValues(results);
+
+        $('.o_search_options button:contains("Favorites")').click();
+        var $favorites = $('.dropdown-menu.o_favorites_menu');
+        $favorites.find('a.o_save_search').click();
+        $favorites.find('.o_input').val('Fav').trigger('input');
+        $favorites.find('button').click();
 
         unpatchDate();
         actionManager.destroy();

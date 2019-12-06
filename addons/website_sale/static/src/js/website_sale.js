@@ -12,8 +12,16 @@ sAnimations.registry.websiteSaleCartLink = sAnimations.Class.extend({
     read_events: {
         'mouseenter': '_onMouseEnter',
         'mouseleave': '_onMouseLeave',
+        'click': '_onClick',
     },
 
+    /**
+     * @constructor
+     */
+    init: function () {
+        this._super.apply(this, arguments);
+        this._popoverRPC = null;
+    },
     /**
      * @override
      */
@@ -53,7 +61,7 @@ sAnimations.registry.websiteSaleCartLink = sAnimations.Class.extend({
             if (!self.$el.is(':hover') || $('.mycart-popover:visible').length) {
                 return;
             }
-            $.get("/shop/cart", {
+            self._popoverRPC = $.get("/shop/cart", {
                 type: 'popover',
             }).then(function (data) {
                 self.$el.data("bs.popover").config.content = data;
@@ -62,7 +70,7 @@ sAnimations.registry.websiteSaleCartLink = sAnimations.Class.extend({
                     self.$el.trigger('mouseleave');
                 });
             });
-        }, 100);
+        }, 300);
     },
     /**
      * @private
@@ -78,6 +86,25 @@ sAnimations.registry.websiteSaleCartLink = sAnimations.Class.extend({
                self.$el.popover('hide');
             }
         }, 1000);
+    },
+    /**
+     * @private
+     * @param {Event} ev
+     */
+    _onClick: function (ev) {
+        // When clicking on the cart link, prevent any popover to show up (by
+        // clearing the related setTimeout) and, if a popover rpc is ongoing,
+        // wait for it to be completed before going to the link's href. Indeed,
+        // going to that page may perform the same computation the popover rpc
+        // is already doing.
+        clearTimeout(timeout);
+        if (this._popoverRPC && this._popoverRPC.state() === 'pending') {
+            ev.preventDefault();
+            var href = ev.currentTarget.href;
+            this._popoverRPC.then(function () {
+                window.location.href = href;
+            });
+        }
     },
 });
 });
@@ -145,13 +172,13 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
         'change form.js_attributes input, form.js_attributes select': '_onChangeAttribute',
         'mouseup form.js_add_cart_json label': '_onMouseupAddCartLabel',
         'touchend form.js_add_cart_json label': '_onMouseupAddCartLabel',
-        'change .css_attribute_color input': '_onChangeColorAttribute',
         'click .show_coupon': '_onClickShowCoupon',
         'submit .o_website_sale_search': '_onSubmitSaleSearch',
         'change select[name="country_id"]': '_onChangeCountry',
         'change #shipping_use_same': '_onChangeShippingUseSame',
         'click .toggle_summary': '_onToggleSummary',
         'click input.js_product_change': 'onChangeVariant',
+        'change .js_main_product [data-attribute_exclusions]': 'onChangeVariant',
     },
 
     /**
@@ -164,6 +191,9 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
         this._changeCountry = _.debounce(this._changeCountry.bind(this), 500);
 
         this.isWebsite = true;
+
+        delete this.events['change .main_product:not(.in_cart) input.js_quantity'];
+        delete this.events['change [data-attribute_exclusions]'];
     },
     /**
      * @override
@@ -205,7 +235,7 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
             .data('combination');
 
         if (combination) {
-            return JSON.parse(combination);
+            return combination;
         }
         return ProductConfiguratorMixin.getSelectedVariantValues.apply(this, arguments);
     },
@@ -386,9 +416,13 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
      * @override
      * @private
      */
-    _updateProductImage: function ($productContainer, productId, productTemplateId, new_carousel) {
+    _updateProductImage: function ($productContainer, productId, productTemplateId, new_carousel, isCombinationPossible) {
         var $img;
         var $carousel = $productContainer.find('#o-carousel-product');
+
+        if (isCombinationPossible === undefined) {
+            isCombinationPossible = this.isSelectedVariantAllowed;
+        }
 
         if (new_carousel) {
             // When using the web editor, don't reload this or the images won't
@@ -432,7 +466,7 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
             }
         }
 
-        $carousel.toggleClass('css_not_available', !this.isSelectedVariantAllowed);
+        $carousel.toggleClass('css_not_available', !isCombinationPossible);
     },
 
     //--------------------------------------------------------------------------
@@ -542,15 +576,6 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
      * @private
      * @param {Event} ev
      */
-    _onChangeColorAttribute: function (ev) { // highlight selected color
-        $('.css_attribute_color').removeClass("active")
-                                 .filter(':has(input:checked)')
-                                 .addClass("active");
-    },
-    /**
-     * @private
-     * @param {Event} ev
-     */
     _onClickShowCoupon: function (ev) {
         $(ev.currentTarget).hide();
         $('.coupon_form').removeClass('d-none');
@@ -588,6 +613,16 @@ sAnimations.registry.WebsiteSale = sAnimations.Class.extend(ProductConfiguratorM
      */
     _onChangeShippingUseSame: function (ev) {
         $('.ship_to_other').toggle(!$(ev.currentTarget).prop('checked'));
+    },
+    /**
+     * Toggles the add to cart button depending on the possibility of the
+     * current combination.
+     *
+     * @override
+     */
+    _toggleDisable: function ($parent, isCombinationPossible) {
+        ProductConfiguratorMixin._toggleDisable.apply(this, arguments);
+        $parent.find("#add_to_cart").toggleClass('disabled', !isCombinationPossible);
     },
     /**
      * @private

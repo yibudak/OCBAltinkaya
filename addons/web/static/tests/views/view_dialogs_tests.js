@@ -408,8 +408,10 @@ QUnit.module('Views', {
                             'The correct _view_ref should have been sent to the server, first time');
                     }
                     if (ev.data.modelName === 'badassery') {
-                        assert.deepEqual(evaluatedContext, {tree_view_ref: 'some_other_tree_view'},
-                            'The correct _view_ref should have been sent to the server for the subview');
+                        assert.deepEqual(evaluatedContext, {
+                            base_model_name: 'instrument',
+                            tree_view_ref: 'some_other_tree_view',
+                        }, 'The correct _view_ref should have been sent to the server for the subview');
                     }
                 },
             },
@@ -446,7 +448,7 @@ QUnit.module('Views', {
             intercepts: {
                 create_filter: function (event) {
                     var filter = event.data.filter;
-                    assert.deepEqual(filter.domain, "[('bar', '=', True)]",
+                    assert.deepEqual(filter.domain, `[("bar", "=", True)]`,
                         "should save the correct domain");
                     assert.deepEqual(filter.context, {shouldBeInFilterContext: true},
                         "should save the correct context");

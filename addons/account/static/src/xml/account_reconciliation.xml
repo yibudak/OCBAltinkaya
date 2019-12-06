@@ -58,7 +58,7 @@
         </t>
     </p>
     <t t-if="context &amp;&amp; context.active_model">
-        <p t-if="context['active_model'] === 'account.journal' || context['active_model'] === 'account.bank.statement'" class="actions_buttons">
+        <p t-if="context['active_model'] === 'account.journal' || context['active_model'] === 'account.bank.statement' || context['active_model'] === 'account.bank.statement.import'" class="actions_buttons">
             <t t-if="context.journal_id">
                 <button class="button_back_to_statement btn btn-secondary" t-att-data_journal_id='context.journal_id'>Go to bank statement(s)</button>
             </t>
@@ -144,7 +144,8 @@
 
 <div t-name="reconciliation.line.match">
     <div class="match_controls">
-        <input class="filter" placeholder="Filter..." type="text" value=""/>
+        <input class="filter o_input" placeholder="Filter..." type="text" value=""/>
+        <button class="btn btn-secondary btn-sm fa fa-search" type="button"></button>
     </div>
     <table>
         <tbody>
@@ -161,7 +162,7 @@
         <div class="btn-group o_reconcile_models" t-if="state.reconcileModels">
             <t t-foreach="state.reconcileModels" t-as="reconcileModel">
                 <button class="btn btn-primary"
-                        t-if="reconcileModel.rule_type === 'writeoff_button' &amp;&amp; (reconcileModel.match_journal_ids.length == 0 || reconcileModel.match_journal_ids.includes(state.st_line.journal_id))"
+                        t-if="reconcileModel.rule_type === 'writeoff_button' &amp;&amp; (reconcileModel.match_journal_ids.length == 0 || reconcileModel.match_journal_ids.includes(state.st_line.journal_id) || state.st_line.journal_id === undefined)"
                         t-att-data-reconcile-model-id="reconcileModel.id">
                     <t t-esc="reconcileModel.name"/>
                 </button>
@@ -185,11 +186,11 @@
             <td class="o_td_label">Tax</td>
             <td class="o_td_field"></td>
         </tr>
-        <tr class="create_analytic_account_id" groups="analytic.group_analytic_accounting">
+        <tr class="create_analytic_account_id" t-if="group_acc">
             <td class="o_td_label">Analytic Acc.</td>
             <td class="o_td_field"></td>
         </tr>
-        <tr class="create_analytic_tag_ids" groups="analytic.group_analytic_tags">
+        <tr class="create_analytic_tag_ids" t-if="group_tags">
             <td class="o_td_label">Analytic Tags.</td>
             <td class="o_td_field"></td>
         </tr>
@@ -210,6 +211,10 @@
             </tr>
             <tr class="create_force_tax_included d-none">
                 <td class="o_td_label">Tax Included in Price</td>
+                <td class="o_td_field"></td>
+            </tr>
+            <tr class="create_date d-none">
+                <td class="o_td_label">Writeoff Date</td>
                 <td class="o_td_field"></td>
             </tr>
         </tbody>

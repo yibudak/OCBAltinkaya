@@ -382,16 +382,11 @@ var StatementModel = BasicModel.extend({
             domainReconcile.push(['company_id', 'in', context.company_ids]);
         }
         if (context && context.active_model === 'account.journal' && context.active_ids) {
-            domainReconcile.push(['journal_id', 'in', [false].concat(context.active_ids)]);
+            domainReconcile.push('|');
+            domainReconcile.push(['match_journal_ids', '=', false]);
+            domainReconcile.push(['match_journal_ids', 'in', context.active_ids]);
         }
-        var def_reconcileModel = this._rpc({
-                model: 'account.reconcile.model',
-                method: 'search_read',
-                domain: domainReconcile,
-            })
-            .then(function (reconcileModels) {
-                self.reconcileModels = reconcileModels;
-            });
+        var def_reconcileModel = this._loadReconciliationModel({domainReconcile: domainReconcile});
         var def_account = this._rpc({
                 model: 'account.account',
                 method: 'search_read',
@@ -411,7 +406,59 @@ var StatementModel = BasicModel.extend({
             return self._formatLine(self.statement.lines);
         });
     },
-
+    _readAnalyticTags: function (params) {
+        var self = this;
+        this.analyticTags = {};
+        if (!params || !params.res_ids || !params.res_ids.length) {
+            return $.when();
+        }
+        var fields = (params && params.fields || []).concat(['id', 'display_name']);
+        return this._rpc({
+                model: 'account.analytic.tag',
+                method: 'read',
+                args: [
+                    params.res_ids,
+                    fields,
+                ],
+            }).then(function (tags) {
+                for (var i=0; i<tags.length; i++) {
+                    var tag = tags[i];
+                    self.analyticTags[tag.id] = tag;
+                }
+            });
+    },
+    _loadReconciliationModel: function (params) {
+        var self = this;
+        return this._rpc({
+                model: 'account.reconcile.model',
+                method: 'search_read',
+                domain: params.domainReconcile || [],
+            })
+            .then(function (reconcileModels) {
+               var analyticTagIds = [];
+                for (var i=0; i<reconcileModels.length; i++) {
+                    var modelTags = reconcileModels[i].analytic_tag_ids || [];
+                    for (var j=0; j<modelTags.length; j++) {
+                        if (analyticTagIds.indexOf(modelTags[j]) === -1) {
+                            analyticTagIds.push(modelTags[j]);
+                        }
+                    }
+                }
+                return self._readAnalyticTags({res_ids: analyticTagIds}).then(function () {
+                    for (var i=0; i<reconcileModels.length; i++) {
+                        var recModel = reconcileModels[i];
+                        var analyticTagData = [];
+                        var modelTags = reconcileModels[i].analytic_tag_ids || [];
+                        for (var j=0; j<modelTags.length; j++) {
+                            var tagId = modelTags[j];
+                            analyticTagData.push([tagId, self.analyticTags[tagId].display_name])
+                        }
+                        recModel.analytic_tag_ids = analyticTagData;
+                    }
+                    self.reconcileModels = reconcileModels;
+                });
+            });
+    },
     _loadTaxes: function(){
         var self = this;
         self.taxes = {};
@@ -853,7 +900,8 @@ var StatementModel = BasicModel.extend({
                                 'link': prop.id,
                                 'tax_id': [tax.id, null],
                                 'amount': tax.amount,
-                                'label': tax.name,
+                                'label': prop.label ? prop.label + " " + tax.name : tax.name,
+                                'date': prop.date,
                                 'account_id': tax.account_id ? [tax.account_id, null] : prop.account_id,
                                 'analytic': tax.analytic,
                                 'is_tax': true,
@@ -899,11 +947,11 @@ var StatementModel = BasicModel.extend({
             });
             var company_currency = session.get_currency(line.st_line.currency_id);
             var company_precision = company_currency && company_currency.digits[1] || 2;
-            total = utils.round_decimals(total*1000, company_precision)/1000 || 0;
+            total = utils.round_decimals(total, company_precision) || 0;
             if(isOtherCurrencyId){
                 var other_currency = session.get_currency(isOtherCurrencyId);
                 var other_precision = other_currency && other_currency.digits[1] || 2;
-                amount_currency = utils.round_decimals(amount_currency, other_precision)
+                amount_currency = utils.round_decimals(amount_currency, other_precision);
             }
             line.balance = {
                 amount: total,
@@ -948,7 +996,7 @@ var StatementModel = BasicModel.extend({
     _formatMany2ManyTags: function (value) {
         var res = [];
         for (var i=0, len=value.length; i<len; i++) {
-            res[i] = {data: {'id': value[i][0], 'display_name': value[i][1]}};
+            res[i] = {'id': value[i][0], 'display_name': value[i][1]};
         }
         return res;
     },
@@ -1067,6 +1115,7 @@ var StatementModel = BasicModel.extend({
      */
     _formatQuickCreate: function (line, values) {
         values = values || {};
+        var today = new moment().utc().format();
         var account = this._formatNameGet(values.account_id);
         var formatOptions = {
             currency_id: line.st_line.currency_id,
@@ -1083,6 +1132,7 @@ var StatementModel = BasicModel.extend({
             'tax_id': this._formatNameGet(values.tax_id),
             'debit': 0,
             'credit': 0,
+            'date': values.date ? values.date : field_utils.parse.date(today, {}, {isUTC: true}),
             'base_amount': values.amount_type !== "percentage" ?
                 (amount) : line.balance.amount * values.amount / 100,
             'percent': values.amount_type === "percentage" ? values.amount : null,
@@ -1233,7 +1283,7 @@ var StatementModel = BasicModel.extend({
  * datas allowing manual reconciliation
  */
 var ManualModel = StatementModel.extend({
-    quickCreateFields: ['account_id', 'journal_id', 'amount', 'analytic_account_id', 'label', 'tax_id', 'force_tax_included', 'analytic_tag_ids'],
+    quickCreateFields: ['account_id', 'journal_id', 'amount', 'analytic_account_id', 'label', 'tax_id', 'force_tax_included', 'analytic_tag_ids', 'date'],
 
     //--------------------------------------------------------------------------
     // Public
@@ -1287,15 +1337,7 @@ var ManualModel = StatementModel.extend({
         if (company_ids) {
             domainReconcile.push(['company_id', 'in', company_ids]);
         }
-        var def_reconcileModel = this._rpc({
-                model: 'account.reconcile.model',
-                method: 'search_read',
-                domain: domainReconcile,
-            })
-            .then(function (reconcileModels) {
-                self.reconcileModels = reconcileModels;
-            });
-
+        var def_reconcileModel = this._loadReconciliationModel({domainReconcile: domainReconcile});
         var def_taxes = this._loadTaxes();
 
         return $.when(def_reconcileModel, def_account, def_taxes).then(function () {
@@ -1627,6 +1669,12 @@ var ManualModel = StatementModel.extend({
                 context: this.context,
             })
             .then(this._formatMoveLine.bind(this, handle));
+    },
+    
+    _formatToProcessReconciliation: function (line, prop) {
+        var result = this._super(line, prop);
+        result['date'] = prop.date;
+        return result;
     },
 });
 

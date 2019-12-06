@@ -251,7 +251,7 @@ actual arch.
         for view in self:
             arch_fs = None
             xml_id = view.xml_id or view.key
-            if 'xml' in config['dev_mode'] and view.arch_fs and xml_id:
+            if (self._context.get('read_arch_from_file') or 'xml' in config['dev_mode']) and view.arch_fs and xml_id:
                 # It is safe to split on / herebelow because arch_fs is explicitely stored with '/'
                 fullpath = get_resource_path(*view.arch_fs.split('/'))
                 if fullpath:
@@ -646,9 +646,19 @@ actual arch.
                     if node.getparent() is None:
                         source = copy.deepcopy(spec[0])
                     else:
+                        replaced_node_tag = None
                         for child in spec:
                             if child.get('position') == 'move':
                                 child = extract(child)
+
+                            if self._context.get('inherit_branding') and not replaced_node_tag and child.tag is not etree.Comment:
+                                # To make a correct branding, we need to
+                                # - know exactly which node has been replaced
+                                # - store it before anything else has altered the Tree
+                                # Do it exactly here :D
+                                child.set('meta-oe-xpath-replacing', node.tag)
+                                replaced_node_tag = node.tag  # We just store the replaced node tag on the first child of the xpath replacing it
+
                             node.addprevious(child)
                         node.getparent().remove(node)
                 elif pos == 'attributes':
@@ -766,18 +776,19 @@ actual arch.
         [view_data] = root.read(fields=fields)
         view_arch = etree.fromstring(view_data['arch'].encode('utf-8'))
         if not root.inherit_id:
+            if self._context.get('inherit_branding'):
+                view_arch.attrib.update({
+                    'data-oe-model': 'ir.ui.view',
+                    'data-oe-id': str(root.id),
+                    'data-oe-field': 'arch',
+                })
             arch_tree = view_arch
         else:
+            if self._context.get('inherit_branding'):
+                self.inherit_branding(view_arch, root.id, root.id)
             parent_view = root.inherit_id.read_combined(fields=fields)
             arch_tree = etree.fromstring(parent_view['arch'])
             arch_tree = self.apply_inheritance_specs(arch_tree, view_arch, parent_view['id'])
-
-        if self._context.get('inherit_branding'):
-            arch_tree.attrib.update({
-                'data-oe-model': 'ir.ui.view',
-                'data-oe-id': str(root.id),
-                'data-oe-field': 'arch',
-            })
 
         # and apply inheritance
         arch = self.apply_view_inheritance(arch_tree, root.id, self.model)
@@ -796,11 +807,16 @@ actual arch.
         """
         Model = self.env[model]
 
-        if node.tag == 'field' and node.get('name') in Model._fields:
-            field = Model._fields[node.get('name')]
+        field_name = None
+        if node.tag == "field":
+            field_name = node.get("name")
+        elif node.tag == "label":
+            field_name = node.get("for")
+        if field_name and field_name in Model._fields:
+            field = Model._fields[field_name]
             if field.groups and not self.user_has_groups(groups=field.groups):
                 node.getparent().remove(node)
-                fields.pop(node.get('name'), None)
+                fields.pop(field_name, None)
                 # no point processing view-level ``groups`` anymore, return
                 return False
         if node.get('groups'):
@@ -1196,6 +1212,7 @@ actual arch.
     def _contains_branded(self, node):
         return node.tag == 't'\
             or 't-raw' in node.attrib\
+            or 't-call' in node.attrib\
             or any(self.is_node_branded(child) for child in node.iterdescendants())
 
     def _pop_view_branding(self, element):
@@ -1244,6 +1261,11 @@ actual arch.
                     if child.get('data-oe-xpath'):
                         # injected by view inheritance, skip otherwise
                         # generated xpath is incorrect
+                        # Also, if a node is known to have been replaced during applying xpath
+                        # increment its index to compute an accurate xpath for susequent nodes
+                        replaced_node_tag = child.attrib.pop('meta-oe-xpath-replacing', None)
+                        if replaced_node_tag:
+                            indexes[replaced_node_tag] += 1
                         self.distribute_branding(child)
                     else:
                         indexes[child.tag] += 1

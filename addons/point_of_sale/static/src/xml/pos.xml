@@ -712,6 +712,9 @@
                     </span>
                 </div>
                 <div class="centered-content touch-scrollable">
+                    <div class="button print_invoice">
+                        <i class='fa fa-print'></i> Print Invoice
+                    </div>
                     <div class="button print">
                         <i class='fa fa-print'></i> Print Receipt
                     </div>
@@ -815,11 +818,11 @@
             <t t-set='taxincluded' t-value='Math.abs(receipt.subtotal - receipt.total_with_tax) &lt;= 0.000001' />
             <t t-if='!taxincluded'>
                 <line><right>--------</right></line>
-                <line><left>Subtotal</left><right><value t-att-value-decimals='pos.currency.decimals'><t t-esc="receipt.subtotal" /></value></right></line>
+                <line><left>Subtotal</left><right><t t-esc="widget.format_currency(receipt.subtotal)" /></right></line>
                 <t t-foreach='receipt.tax_details' t-as='tax'>
                     <line>
                         <left><t t-esc='tax.name' /></left>
-                        <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='tax.amount' /></value></right>
+                        <right><t t-esc='tax.amount' /></right>
                     </line>
                 </t>
             </t>
@@ -829,7 +832,7 @@
             <line><right>--------</right></line>
             <line class='total' size='double-height'>
                 <left><pre>        TOTAL</pre></left>
-                <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_with_tax' /></value></right>
+                <right><t t-esc='widget.format_currency(receipt.total_with_tax)' /></right>
             </line>
             <br/><br/>
 
@@ -845,7 +848,7 @@
 
             <line size='double-height'>
                 <left><pre>        CHANGE</pre></left>
-                <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.change' /></value></right>
+                <right><t t-esc='widget.format_currency(receipt.change)' /></right>
             </line>
             <br/>
 
@@ -854,19 +857,19 @@
             <t t-if='receipt.total_discount'>
                 <line>
                     <left>Discounts</left>
-                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_discount'/></value></right>
+                    <right><t t-esc='widget.format_currency(receipt.total_discount)'/></right>
                 </line>
             </t>
             <t t-if='taxincluded'>
                 <t t-foreach='receipt.tax_details' t-as='tax'>
                     <line>
                         <left><t t-esc='tax.name' /></left>
-                        <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='tax.amount' /></value></right>
+                        <right><t t-esc='widget.format_currency(tax.amount)' /></right>
                     </line>
                 </t>
                 <line>
                     <left>Total Taxes</left>
-                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_tax'/></value></right>
+                    <right><t t-esc='widget.format_currency(receipt.total_tax)'/></right>
                 </line>
             </t>
 
@@ -955,7 +958,7 @@
             <line t-foreach='taxes' t-as='taxe'>
                 <left><t t-esc='taxe.name' /></left>
                 <right>
-                    <t t-esc='widget.format_currency_no_symbol(taxe.total)'/>
+                    <t t-esc='widget.format_currency_no_symbol(taxe.tax_amount)'/>
                 </right>
             </line>
 

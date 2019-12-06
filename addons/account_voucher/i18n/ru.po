@@ -3,15 +3,18 @@
 # * account_voucher
 # 
 # Translators:
-# Martin Trigaux, 2018
 # Gennady Marchenko <gennadym@gmail.com>, 2018
+# Vasiliy Korobatov <korobatov@gmail.com>, 2019
+# Андрей Гусев <gaussgss@gmail.com>, 2019
+# Martin Trigaux, 2019
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~11.5\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-21 13:17+0000\n"
-"PO-Revision-Date: 2018-09-21 13:17+0000\n"
-"Last-Translator: Gennady Marchenko <gennadym@gmail.com>, 2018\n"
+"POT-Creation-Date: 2019-11-14 07:33+0000\n"
+"PO-Revision-Date: 2018-08-24 09:15+0000\n"
+"Last-Translator: Martin Trigaux, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +90,7 @@ msgstr "Вы уверены, что хотите отменить это пол�
 #. module: account_voucher
 #: model:ir.model.fields,field_description:account_voucher.field_account_voucher__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Количество вложений"
 
 #. module: account_voucher
 #: model:ir.model.fields,field_description:account_voucher.field_account_voucher__date
@@ -418,13 +421,18 @@ msgid "Payment Method"
 msgstr "Метод Оплаты"
 
 #. module: account_voucher
-#: code:addons/account_voucher/models/account_voucher.py:208
+#: model:ir.model,name:account_voucher.model_account_payment
+msgid "Payments"
+msgstr "Платежи"
+
+#. module: account_voucher
+#: code:addons/account_voucher/models/account_voucher.py:226
 #, python-format
 msgid "Please activate the sequence of selected journal !"
 msgstr "Пожалуйста, включите нумерацию выбранного журнала!"
 
 #. module: account_voucher
-#: code:addons/account_voucher/models/account_voucher.py:211
+#: code:addons/account_voucher/models/account_voucher.py:229
 #, python-format
 msgid "Please define a sequence on the journal."
 msgstr "Пожалуйста, определите нумерацию журнала."
@@ -551,7 +559,7 @@ msgstr "Сумма налога"
 #. module: account_voucher
 #: model:ir.model.fields,field_description:account_voucher.field_account_voucher__tax_correction
 msgid "Tax Correction"
-msgstr ""
+msgstr "Налоговая коррекция"
 
 #. module: account_voucher
 #: model:ir.model.fields,help:account_voucher.field_account_voucher__paid

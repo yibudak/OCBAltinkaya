@@ -341,7 +341,7 @@
                     <t t-raw="item.label"/>
                 </a>
             </t>
-            <div class="dropdown-menu" role="menu">
+            <div class="dropdown-menu o_dropdown_menu" role="menu">
                 <t t-foreach="widget.items[section.name]" t-as="item">
                     <t t-if="section.name == 'files'">
                         <t t-set="item.title">
@@ -741,12 +741,15 @@
             <i class="fa fa-arrow-left o_field_selector_popover_option o_field_selector_prev_page" title="Previous" role="img" aria-label="Previous"/>
             <div class="o_field_selector_title"/>
             <i class="fa fa-times o_field_selector_popover_option o_field_selector_close" title="Close" role="img" aria-label="Close"/>
+            <div t-if="widget.options.showSearchInput" class="o_field_selector_search">
+                <input type="text" class="o_input"/>
+            </div>
         </div>
         <div class="o_field_selector_popover_body">
             <ul class="o_field_selector_page"/>
         </div>
         <div t-if="widget.options.debugMode" class="o_field_selector_popover_footer">
-            <input type="text" class="o_input"/>
+            <input type="text" class="o_input o_field_selector_debug"/>
         </div>
     </div>
 </div>
@@ -838,11 +841,11 @@
     <t t-foreach="elements" t-as="el">
         <t t-set="color" t-value="el[colorField] || 0"/>
         <t t-set="colornames" t-value="['No color', 'Red', 'Orange', 'Yellow', 'Light blue', 'Dark purple', 'Salmon pink', 'Medium blue', 'Dark blue', 'Fushia', 'Green', 'Purple']"/>
-        <div t-attf-class="badge badge-pill dropdown o_tag_color_#{color}" t-att-data-color="color" t-att-data-index="el_index" t-att-data-id="el.id" t-attf-title="Tag color: #{colornames[color]}">
+        <div t-attf-class="badge badge-pill #{hasDropdown ? 'dropdown' : ''} o_tag_color_#{color}" t-att-data-color="color" t-att-data-index="el_index" t-att-data-id="el.id" t-attf-title="Tag color: #{colornames[color]}">
             <t t-set="_badge_text">
                 <span class="o_badge_text" t-att-title="el.display_name"><span role="img" t-attf-aria-label="Tag color: #{colornames[color]}"/><t t-esc="el.display_name"/></span>
             </t>
-            <t t-if="colorField">
+            <t t-if="hasDropdown">
                 <a role="button" href="#" class="dropdown-toggle o-no-caret" data-toggle="dropdown" aria-expanded="false">
                     <t t-raw="_badge_text"/>
                 </a>
@@ -1098,7 +1101,7 @@
 </t>
 
 <div t-name="web.DropdownMenu" t-att-class="widget.dropdownStyle.el.class" t-att="widget.dropdownStyle.el.attrs">
-    <button t-att-class="widget.dropdownStyle.mainButton.class" data-toggle="dropdown" aria-expanded="false" tabindex="-1">
+    <button t-att-class="widget.dropdownStyle.mainButton.class" data-toggle="dropdown" aria-expanded="false" tabindex="-1" data-flip="false" data-boundary="viewport">
         <span t-att-class="widget.dropdownIcon"/> <t t-esc="widget.dropdownTitle"/> <span t-if="widget.dropdownSymbol" t-att-class="widget.dropdownSymbol"/>
     </button>
     <div class="dropdown-menu o_dropdown_menu" role="menu">
@@ -1117,7 +1120,7 @@
         </select>
     </div>
     <div t-if="widget.generatorMenuIsOpen" class="dropdown-item-text o_generator_menu">
-        <button type="button" class="btn btn-primary o_apply_group o_add_group" tabindex="-1">Apply</button>
+        <button type="button" class="btn btn-primary o_apply_group o_add_group">Apply</button>
     </div>
 </t>
 
@@ -1359,16 +1362,17 @@
         <div role="menuitem" class="dropdown-item-text o_save_name">
             <input type="text" class="o_input"></input>
         </div>
+        <t t-set="favId" t-value="_.uniqueId('_checkbox_')" />
         <div role="menuitem" class="dropdown-item-text o_save_name">
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="o_fav_menu_use_by_default" class="custom-control-input"/>
-                <label for="o_fav_menu_use_by_default" class="custom-control-label">Use by default</label>
+                <input type="checkbox" t-attf-id="o_fav_menu_use_by_default#{favId}" class="custom-control-input"/>
+                <label t-attf-for="o_fav_menu_use_by_default#{favId}" class="custom-control-label">Use by default</label>
             </div>
         </div>
         <div role="menuitem" class="dropdown-item-text o_save_name">
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="o_fav_menu_share_all_users" class="custom-control-input"/>
-                <label for="o_fav_menu_share_all_users" class="custom-control-label">Share with all users <span class="fa fa-users" role="img" aria-label="Users" title="Users"/></label>
+                <input type="checkbox" t-attf-id="o_fav_menu_share_all_users#{favId}" class="custom-control-input"/>
+                <label t-attf-for="o_fav_menu_share_all_users#{favId}" class="custom-control-label">Share with all users <span class="fa fa-users" role="img" aria-label="Users" title="Users"/></label>
             </div>
         </div>
         <div class="dropdown-item-text o_save_name">
@@ -1502,7 +1506,7 @@
             <t t-set="att_prev" t-value="{'accesskey': 'p'}" />
             <t t-set="att_next" t-value="{'accesskey': 'n'}" />
         </t>
-        <button type="button" class="fa fa-chevron-left btn btn-secondary o_pager_previous" t-att="att_prev" aria-label="Previous" title="Next" tabindex="-1"/>
+        <button type="button" class="fa fa-chevron-left btn btn-secondary o_pager_previous" t-att="att_prev" aria-label="Previous" title="Previous" tabindex="-1"/>
         <button type="button" class="fa fa-chevron-right btn btn-secondary o_pager_next" t-att="att_next" aria-label="Next" title="Next" tabindex="-1"/>
     </span>
 </div>
@@ -1553,7 +1557,7 @@
 
 <t t-name="SwitchCompanyMenu">
     <li class="o_switch_company_menu">
-        <a role="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+        <a role="button" class="dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false" href="#" aria-label="Dropdown menu" title="Dropdown menu">
             <span t-attf-class="#{widget.isMobile ? 'fa fa-building-o' : 'oe_topbar_name'}"/>
         </a>
         <div class="dropdown-menu dropdown-menu-right" role="menu"/>

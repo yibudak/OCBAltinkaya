@@ -81,7 +81,7 @@
                                 <field name="zip" placeholder="ZIP" class="o_address_zip"/>
                                 <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
                             </div>
-                            <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                            <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
                         </group>
                         <group>
                             <label for="contact_name"/>
@@ -117,8 +117,8 @@
                         </page>
                         <page name="extra" string="Extra Info">
                             <group>
-                                <group string="Email">
-                                    <field name="message_bounce" readonly="1" groups="base.group_no_one"/>
+                                <group string="Email" groups="base.group_no_one">
+                                    <field name="message_bounce" readonly="1"/>
                                 </group>
                                 <group string="Tracking" groups="base.group_multi_company,base.group_no_one" name="categorization">
                                     <field name="company_id"
@@ -339,7 +339,7 @@
                             <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
                                 <div class="o_dropdown_kanban dropdown">
 
-                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
                                         <span class="fa fa-ellipsis-v"/>
                                     </a>
                                     <div class="dropdown-menu" role="menu">
@@ -449,7 +449,7 @@
         <record id="crm_case_form_view_oppor" model="ir.ui.view">
             <field name="name">crm.lead.form.opportunity</field>
             <field name="model">crm.lead</field>
-            <field name="priority">20</field>
+            <field name="priority">15</field>
             <field name="arch" type="xml">
                 <form string="Opportunities" class="o_opportunity_form">
                     <header>
@@ -581,7 +581,7 @@
                                         <field name="zip" placeholder="ZIP" class="o_address_zip"/>
                                         <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
                                     </div>
-                                    <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                                    <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
                                 </group>
 
                                 <group class="mt48">
@@ -591,7 +591,14 @@
                                         <field name="title" placeholder="Title" domain="[]" options='{"no_open": True}'/>
                                     </div>
                                     <field name="function"/>
-                                    <field name="mobile"/>
+                                    <field name="partner_address_mobile"
+                                       attrs="{'invisible': [('partner_address_mobile', '=', False)]}"
+                                       readonly="1"
+                                       widget="phone"
+                                       string="Mobile"/>
+                                    <field name="mobile"
+                                        attrs="{'invisible': [('partner_address_mobile', '!=', False)]}"
+                                        widget="phone"/>
                                 </group>
                                 <group string="Marketing">
                                     <field name="campaign_id" />
@@ -711,6 +718,9 @@
                         help="Opportunities that are assigned to me"/>
                     <filter string="Unassigned" name="unassigned"
                         domain="[('user_id','=', False)]" help="No salesperson"/>
+                    <filter string="Open Opportunities" name="open_opportunities"
+                            domain="[('probability', '&lt;', 100), ('type', '=', 'opportunity')]"
+                            help="Open Opportunities"/>
                     <separator/>
                     <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
                     <separator/>
@@ -888,6 +898,7 @@ for rec in records:
             <field name="view_mode">tree,kanban,graph,pivot,calendar,form,activity</field>
             <field name="domain">['|', ('type','=','lead'), ('type','=',False)]</field>
             <field name="search_view_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="view_id" ref="crm.crm_case_form_view_leads"/>
             <field name="context">{
                     'default_type':'lead',
                     'search_default_type': 'lead',
@@ -947,7 +958,6 @@ for rec in records:
             <field name="domain">[('type','=','opportunity')]</field>
             <field name="context">{
                     'default_type': 'opportunity',
-                    'default_user_id': uid
                 }
             </field>
             <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
@@ -1009,7 +1019,6 @@ for rec in records:
             <field name="domain">[('type','=','opportunity')]</field>
             <field name="context">{
                     'default_type': 'opportunity',
-                    'default_user_id': uid,
                     'search_default_assigned_to_me': 1
             }</field>
             <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>

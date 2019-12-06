@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import unittest
+import email
 
-from odoo.tests.common import tagged
-from odoo.tools import html_sanitize, append_content_to_html, plaintext2html, email_split, misc
+from unittest.mock import patch
+
+from odoo.tests.common import BaseCase
+from odoo.tests.common import SavepointCase
+import odoo.addons.base.models.ir_mail_server as ir_mail_server
+from odoo.tools import html_sanitize, append_content_to_html, plaintext2html, email_split, misc, decode_smtp_header
+
 from . import test_mail_examples
 
 
-@tagged('standard', 'at_install')
-class TestSanitizer(unittest.TestCase):
+class TestSanitizer(BaseCase):
     """ Test the html sanitizer that filters html to remove unwanted attributes """
 
     def test_basic_sanitizer(self):
@@ -281,6 +285,11 @@ class TestSanitizer(unittest.TestCase):
         self.assertNotIn('<title>404 - Not Found</title>', html)
         self.assertIn('<h1>404 - Not Found</h1>', html)
 
+    def test_cid_with_at(self):
+        img_tag = '<img src="@">'
+        sanitized = html_sanitize(img_tag, sanitize_tags=False, strip_classes=True)
+        self.assertEqual(img_tag, sanitized, "img with can have cid containing @ and shouldn't be escaped")
+
     # ms office is currently not supported, have to find a way to support it
     # def test_30_email_msoffice(self):
     #     new_html = html_sanitize(test_mail_examples.MSOFFICE_1, remove=True)
@@ -290,8 +299,7 @@ class TestSanitizer(unittest.TestCase):
     #         self.assertNotIn(ext, new_html)
 
 
-@tagged('standard', 'at_install')
-class TestHtmlTools(unittest.TestCase):
+class TestHtmlTools(BaseCase):
     """ Test some of our generic utility functions about html """
 
     def test_plaintext2html(self):
@@ -318,8 +326,7 @@ class TestHtmlTools(unittest.TestCase):
             self.assertEqual(append_content_to_html(html, content, plaintext_flag, preserve_flag, container_tag), expected, 'append_content_to_html is broken')
 
 
-@tagged('standard', 'at_install')
-class TestEmailTools(unittest.TestCase):
+class TestEmailTools(BaseCase):
     """ Test some of our generic utility functions for emails """
 
     def test_email_split(self):
@@ -332,3 +339,51 @@ class TestEmailTools(unittest.TestCase):
         ]
         for text, expected in cases:
             self.assertEqual(email_split(text), expected, 'email_split is broken')
+
+    def test_decode_recode_username(self):
+        """If the name of a contact contains a comma,
+        it might cause trouble since it's used as email separator.
+        We check that in both cases, decoding is idempotent,
+        and we get back get the right name/address couples
+        """
+        froms = [
+            "From: pen pen <pen@odoodoo.com>",
+            "From: pen, pen <pen@odoodoo.com>",
+            "From: =?UTF-8?B?8J+QpyBwZW4gcGVuIPCfkKc=?= <pen@odoodoo.com>",  # basic unicode
+            "From: =?UTF-8?B?8J+QpywgcGVuIHBlbg==?= <pen@odoodoo.com>",  # with comma
+            "From: =?UTF-8?B?8J+QpyIsIGxlbg==?= <pen@odoodoo.com >",  # with double quote
+            "From: =?UTF-8?B?8J+QpycsIGxlbg==?= <pen@odoodoo.com >",  # with single quote
+            "From: =?UTF-8?B?8J+Qp1wnLCBsZVxu?= <pen@odoodoo.com >",  # with backslash
+        ]
+        for header_from in froms:
+            decoded_from = decode_smtp_header(header_from, escape_names=True)
+            addresses_from = email.utils.getaddresses([decoded_from])
+            re_encoded = ir_mail_server.encode_rfc2822_address_header(decoded_from)
+            redecoded_from = decode_smtp_header(re_encoded, escape_names=True)
+            addresses_from_redecoded = email.utils.getaddresses([redecoded_from])
+
+            self.assertEqual(len(addresses_from), len(addresses_from_redecoded))
+            self.assertEqual(addresses_from[0][1], addresses_from_redecoded[0][1])
+            self.assertEqual(addresses_from[0][0], addresses_from_redecoded[0][0])
+
+
+class EmailConfigCase(SavepointCase):
+    @patch.dict("odoo.tools.config.options", {"email_from": "settings@example.com"})
+    def test_default_email_from(self, *args):
+        """Email from setting is respected."""
+        # ICP setting is more important
+        ICP = self.env["ir.config_parameter"].sudo()
+        ICP.set_param("mail.catchall.domain", "example.org")
+        ICP.set_param("mail.default.from", "icp")
+        message = self.env["ir.mail_server"].build_email(
+            False, "recipient@example.com", "Subject",
+            "The body of an email",
+        )
+        self.assertEqual(message["From"], "icp@example.org")
+        # Without ICP, the config file/CLI setting is used
+        ICP.set_param("mail.default.from", False)
+        message = self.env["ir.mail_server"].build_email(
+            False, "recipient@example.com", "Subject",
+            "The body of an email",
+        )
+        self.assertEqual(message["From"], "settings@example.com")

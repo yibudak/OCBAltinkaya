@@ -4,25 +4,28 @@
 # 
 # Translators:
 # e2f <projects@e2f.com>, 2018
-# ES R2 <e2fds74f5ds412@outlook.com>, 2018
+# 384b9483dceff15cca881ce1cccf70f5, 2018
 # Pedro M. Baeza <pedro.baeza@gmail.com>, 2018
 # Christopher Ormaza <chris.ormaza@gmail.com>, 2018
 # Luis M. Ontalba <luis.martinez@tecnativa.com>, 2018
 # Miguel Orueta <mo@landoo.es>, 2018
-# e2f_EPV Translator <e2f_EPV@outlook.com>, 2018
+# 966ff43e6966712895a590e7320ca288, 2018
 # Nicolás Broggi <rnbroggi@gmail.com>, 2018
 # Martin Trigaux, 2018
 # Cristopher Cravioto <ccr@odoo.com>, 2018
 # Miquel Torner <miq@odoo.com>, 2018
 # Cristian Salamea <ovnicraft@gmail.com>, 2018
+# Gabriel Umana <gabriel.umana@delfixcr.com>, 2019
+# Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>, 2019
+# Massiel Acuna <mac@odoo.com>, 2019
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~11.5\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-21 13:17+0000\n"
+"POT-Creation-Date: 2019-11-14 07:33+0000\n"
 "PO-Revision-Date: 2018-08-24 09:25+0000\n"
-"Last-Translator: Cristian Salamea <ovnicraft@gmail.com>, 2018\n"
+"Last-Translator: Massiel Acuna <mac@odoo.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +38,7 @@ msgstr ""
 #: code:addons/stock_account/models/product.py:152
 #, python-format
 msgid "%s changed cost from %s to %s - %s"
-msgstr ""
+msgstr "%s cambio costo de %s a %s - %s"
 
 #. module: stock_account
 #: model:ir.model,name:stock_account.model_account_chart_template
@@ -46,6 +49,11 @@ msgstr "Plantilla de Plan de Cuentas"
 #: model:ir.model.fields,field_description:stock_account.field_stock_move__account_move_ids
 msgid "Account Move"
 msgstr "Movimiento de cuenta"
+
+#. module: stock_account
+#: model:ir.model,name:stock_account.model_account_reconciliation_widget
+msgid "Account Reconciliation widget"
+msgstr "Widget de reconciliación de cuenta"
 
 #. module: stock_account
 #: model_terms:ir.ui.view,arch_db:stock_account.view_category_property_form
@@ -74,6 +82,8 @@ msgid ""
 "Affect landed costs on reception operations and split them among products to"
 " update their cost price."
 msgstr ""
+"Afecte los costos de aterrizaje en las operaciones de recepción y divídalos "
+"entre productos para actualizar su precio de costo."
 
 #. module: stock_account
 #: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
@@ -84,11 +94,6 @@ msgstr "Archivado"
 #: selection:product.category,property_valuation:0
 msgid "Automated"
 msgstr "Automatizado"
-
-#. module: stock_account
-#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
-msgid "Available Products"
-msgstr "Productos disponibles"
 
 #. module: stock_account
 #: selection:product.category,property_cost_method:0
@@ -208,7 +213,7 @@ msgstr "Cuenta de contrapartida requerida"
 #. module: stock_account
 #: model_terms:ir.actions.act_window,help:stock_account.product_valuation_action
 msgid "Create a new product valuation"
-msgstr ""
+msgstr "Crear una nueva variante del producto"
 
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_stock_change_standard_price__create_uid
@@ -226,16 +231,13 @@ msgid ""
 "Date at which the accounting entries will be created in case of automated "
 "inventory valuation. If empty, the inventory date will be used."
 msgstr ""
+"Fecha en la que se crearán los asientos contables en caso de valoración de "
+"inventario automatizada. Si está vacío, se usará la fecha de inventario."
 
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_stock_change_standard_price__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
-
-#. module: stock_account
-#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
-msgid "Exhausted Stock"
-msgstr "Stock agotado"
 
 #. module: stock_account
 #: selection:product.category,property_cost_method:0
@@ -278,7 +280,6 @@ msgid "Inventory Locations"
 msgstr "Ubicaciones de inventario"
 
 #. module: stock_account
-#: code:addons/stock_account/wizard/stock_quantity_history.py:25
 #: model:ir.actions.act_window,name:stock_account.action_stock_inventory_valuation
 #: model:ir.actions.act_window,name:stock_account.product_valuation_action
 #: model:ir.model.fields,field_description:stock_account.field_product_category__property_valuation
@@ -287,7 +288,6 @@ msgstr "Ubicaciones de inventario"
 #: model:ir.ui.menu,name:stock_account.menu_valuation
 #: model_terms:ir.ui.view,arch_db:stock_account.view_category_property_form
 #: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
-#, python-format
 msgid "Inventory Valuation"
 msgstr "Valoración del inventario"
 
@@ -353,22 +353,19 @@ msgstr ""
 "        "
 
 #. module: stock_account
-#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
-msgid "Negative Stock"
-msgstr "Stock negativo"
-
-#. module: stock_account
-#: code:addons/stock_account/models/product.py:128
+#: code:addons/stock_account/models/product.py:139
 #, python-format
 msgid "No difference between the standard price and the new price."
-msgstr ""
+msgstr "No hay diferencia entre el precio estándar y el nuevo precio."
 
 #. module: stock_account
+#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
 #: selection:product.template,property_valuation:0
 msgid "Periodic (manual)"
 msgstr "Periódico (manual)"
 
 #. module: stock_account
+#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
 #: selection:product.template,property_valuation:0
 msgid "Perpetual (automated)"
 msgstr "Perpetuo (automatizado)"
@@ -385,6 +382,7 @@ msgstr "Grupo de abastecimiento"
 
 #. module: stock_account
 #: model:ir.model,name:stock_account.model_product_product
+#: model_terms:ir.ui.view,arch_db:stock_account.view_inventory_valuation_search
 msgid "Product"
 msgstr "Producto"
 
@@ -427,7 +425,7 @@ msgstr "Valor restante"
 #. module: stock_account
 #: model_terms:ir.ui.view,arch_db:stock_account.view_stock_quantity_history
 msgid "Retrieve the inventory valuation"
-msgstr ""
+msgstr "Recuperar la valoración del inventario."
 
 #. module: stock_account
 #: model:ir.model,name:stock_account.model_stock_return_picking
@@ -437,7 +435,7 @@ msgstr "Albarán de devolución"
 #. module: stock_account
 #: model:ir.model,name:stock_account.model_stock_return_picking_line
 msgid "Return Picking Line"
-msgstr ""
+msgstr "Línea de Albarán de devolución"
 
 #. module: stock_account
 #: selection:product.category,property_cost_method:0
@@ -473,12 +471,12 @@ msgstr ""
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_product_product__stock_fifo_manual_move_ids
 msgid "Stock Fifo Manual Move"
-msgstr ""
+msgstr "Movimiento Manual de Almacén PEPS"
 
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_product_product__stock_fifo_real_time_aml_ids
 msgid "Stock Fifo Real Time Aml"
-msgstr ""
+msgstr "Movimiento de Almacén Real AML PEPS"
 
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_product_category__property_stock_account_input_categ_id
@@ -537,7 +535,12 @@ msgid "Stock Valuation Account (Outgoing)"
 msgstr "Cuenta de valoracion de stock (salida)"
 
 #. module: stock_account
-#: code:addons/stock_account/models/stock.py:536
+#: model:ir.model.fields,field_description:stock_account.field_product_product__stock_value_currency_id
+msgid "Stock Value Currency"
+msgstr "Moneda de Valoración de Inventario"
+
+#. module: stock_account
+#: code:addons/stock_account/models/stock.py:540
 #, python-format
 msgid ""
 "The cost of %s is currently equal to 0. Change the cost or the configuration"
@@ -547,15 +550,17 @@ msgstr ""
 "de su producto para evitar una valoración incorrecta."
 
 #. module: stock_account
-#: code:addons/stock_account/models/stock.py:358
+#: code:addons/stock_account/models/stock.py:364
 #, python-format
 msgid ""
 "The move lines are not in a consistent state: some are entering and other "
 "are leaving the company."
 msgstr ""
+"Las líneas de movimiento no están en un estado consistente: algunas están "
+"entrando y otras están saliendo de la empresa."
 
 #. module: stock_account
-#: code:addons/stock_account/models/stock.py:369
+#: code:addons/stock_account/models/stock.py:375
 #, python-format
 msgid ""
 "The move lines are not in a consistent states: they are doing an "
@@ -567,7 +572,7 @@ msgstr ""
 "mientras deberían pasar por la ubicación de tránsito interno de la empresa."
 
 #. module: stock_account
-#: code:addons/stock_account/models/stock.py:367
+#: code:addons/stock_account/models/stock.py:373
 #, python-format
 msgid ""
 "The move lines are not in a consistent states: they do not share the same "
@@ -646,7 +651,7 @@ msgstr "Valoración"
 #: code:addons/stock_account/models/product.py:246
 #, python-format
 msgid "Valuation at date"
-msgstr ""
+msgstr "Valoración a la fecha"
 
 #. module: stock_account
 #: model:ir.model.fields,field_description:stock_account.field_product_product__stock_value
@@ -749,6 +754,8 @@ msgid ""
 "You don't have any stock journal defined on your product category, check if "
 "you have installed a chart of accounts."
 msgstr ""
+"No tiene ningún diario de existencias definido en su categoría de producto, "
+"verifique si ha instalado un plan de cuentas."
 
 #. module: stock_account
 #: code:addons/stock_account/models/product.py:130
