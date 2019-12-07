@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=odoo
 Group=odoo
-ExecStart=/usr/bin/odoo --config /etc/odoo/odoo.conf --logfile /var/log/odoo/odoo-server.log
+ExecStart=/opt/odoo/12/odoo-server/odoo-bin --config /etc/odoo-12.conf --logfile /var/log/odoo/odoo-12.log
 KillMode=mixed
 
 [Install]
