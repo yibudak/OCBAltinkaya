@@ -4,9 +4,13 @@ After=network.target
 
 [Service]
 Type=simple
+PermissionsStartOnly=true
+SyslogIdentifier=odoo-server
 User=odoo
 Group=odoo
 ExecStart=/opt/odoo/v12/odoo-server/odoo-bin --config /etc/odoo-12.conf --logfile /var/log/odoo/odoo-12.log
+WorkingDirectory=/opt/odoo/v12/
+StandardOutput=journal+console
 KillMode=mixed
 
 [Install]
