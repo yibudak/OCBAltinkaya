@@ -83,7 +83,19 @@ class mail_mail(osv.Model):
         # notification field: if not set, set if mail comes from an existing mail.message
         if 'notification' not in values and values.get('mail_message_id'):
             values['notification'] = True
-        return super(mail_mail, self).create(cr, uid, values, context=context)
+        new_mail_id = super(mail_mail, self).create(cr, uid, values, context=context)
+        if values.get('attachment_ids'):
+            new_mail = self.browse(cr, uid, new_mail_id, context=context)
+            self.pool['ir.attachment'].check(cr, uid, new_mail.attachment_ids.ids, mode='read', context=context)
+        return new_mail_id
+
+    @api.multi
+    def write(self, vals):
+        res = super(mail_mail, self).write(vals)
+        if vals.get('attachment_ids'):
+            for mail in self:
+                mail.attachment_ids.check(mode='read')
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
         # cascade-delete the parent message for all mails that are not created for a notification

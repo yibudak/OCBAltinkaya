@@ -812,7 +812,10 @@ class mail_message(osv.Model):
             values['record_name'] = self._get_record_name(cr, uid, values, context=context)
 
         newid = super(mail_message, self).create(cr, uid, values, context)
-        self.browse(cr, uid, newid, context)._invalidate_documents()
+        new_mail = self.browse(cr, uid, newid, context=context)
+        if values.get('attachment_ids'):
+            self.pool['ir.attachment'].check(cr, uid, new_mail.attachment_ids.ids, mode='read', context=context)
+        new_mail._invalidate_documents()
 
         self._notify(cr, uid, newid, context=context,
                      force_send=context.get('mail_notify_force_send', True),
@@ -839,6 +842,9 @@ class mail_message(osv.Model):
         if 'model' in vals or 'res_id' in vals:
             self._invalidate_documents()
         res = super(mail_message, self).write(vals)
+        if vals.get('attachment_ids'):
+            for mail in self:
+                mail.attachment_ids.check(mode='read')
         self._invalidate_documents()
         return res
 
