@@ -19,6 +19,9 @@
 #
 ##############################################################################
 
+from lxml import etree
+from lxml.html import builder as html
+
 from openerp import tools
 from openerp.osv import osv
 from openerp.osv import fields
@@ -35,16 +38,22 @@ class invite_wizard(osv.osv_memory):
         user_name = self.pool.get('res.users').name_get(cr, uid, [uid], context=context)[0][1]
         model = result.get('res_model')
         res_id = result.get('res_id')
+        message = ""
         if 'message' in fields and model and res_id:
             ir_model = self.pool.get('ir.model')
             model_ids = ir_model.search(cr, uid, [('model', '=', self.pool[model]._name)], context=context)
             model_name = ir_model.name_get(cr, uid, model_ids, context=context)[0][1]
 
             document_name = self.pool[model].name_get(cr, uid, [res_id], context=context)[0][1]
-            message = _('<div><p>Hello,</p><p>%s invited you to follow %s document: %s.</p></div>') % (user_name, model_name, document_name)
-            result['message'] = message
+            message = _('%s invited you to follow %s document: %s.') % (user_name, model_name, document_name)
         elif 'message' in fields:
-            result['message'] = _('<div><p>Hello,</p><p>%s invited you to follow a new document.</p></div>') % user_name
+            message = _('%s invited you to follow a new document.') % user_name
+        if message:
+            message = html.DIV(
+                html.P(_('Hello,')),
+                html.P(message)
+            )
+            result['message'] = etree.tostring(message)
         return result
 
     _columns = {
