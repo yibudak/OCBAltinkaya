@@ -708,31 +708,31 @@ Model Reference
 
         :type: bool
 
-     .. attribute:: _parent_name
+    .. attribute:: _parent_name
 
-         Alternative field to use as parent, used by indexed storage of the tree structure of records
-        (default: ``'parent_id'``)
+      Alternative field to use as parent, used by indexed storage of the tree structure of records
+      (default: ``'parent_id'``)
 
          :type: str
 
-     .. attribute:: _date_name
+    .. attribute:: _date_name
 
-         Alternative field to use for default calendar view
-        (default: ``'date'``)
+      Alternative field to use for default calendar view
+      (default: ``'date'``)
 
          :type: str     
 
-     .. attribute:: _fold_name
+    .. attribute:: _fold_name
 
-         Alternative field to determine folded groups in kanban views
-        (default: ``'fold'``)
+      Alternative field to determine folded groups in kanban views
+      (default: ``'fold'``)
 
          :type: str 
 
-     .. attribute:: _translate
+    .. attribute:: _translate
 
-         False disables translations export for this model
-        (default: ``True``)
+      False disables translations export for this model
+      (default: ``True``)
 
          :type: bool
 
@@ -1051,8 +1051,10 @@ will yield:
     :language: text
     :lines: 13
 
-.. note:: it will also yield the various :ref:`automatic fields
-          <reference/orm/model/automatic>` unless they've been disabled
+.. note::
+
+    It will also yield the various :ref:`automatic fields
+    <reference/orm/model/automatic>` unless they've been disabled
 
 Delegation
 ----------
@@ -1086,6 +1088,11 @@ and it's possible to write directly on the delegated field:
 
 .. warning:: when using delegation inheritance, methods are *not* inherited,
              only fields
+
+.. warning::
+
+    * `_inherits` is more or less implemented, avoid it if you can;
+    * chained `_inherits` is essentially not implemented, we cannot guarantee anything on the final behavior.
 
 .. _reference/orm/domains:
 

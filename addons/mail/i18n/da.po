@@ -11,12 +11,13 @@
 # Martin Trigaux, 2018
 # Hans Henrik Gabelgaard <hhg@gabelgaard.org>, 2018
 # Jonathan Stein <cgs@image.dk>, 2018
-# JonathanStein <jstein@image.dk>, 2018
-# Sanne Kristensen <sanne@vkdata.dk>, 2018
 # Joe Hansen <joedalton2@yahoo.dk>, 2019
 # Ejner Sønniksen <ejner@vkdata.dk>, 2019
 # Pernille Kristensen <pernillekristensen1994@gmail.com>, 2019
 # lhmflexerp <lhm@flexerp.dk>, 2019
+# JonathanStein <jstein@image.dk>, 2020
+# Walther Barnett <wba@miracle.dk>, 2020
+# Sanne Kristensen <sanne@vkdata.dk>, 2020
 # 
 msgid ""
 msgstr ""
@@ -24,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-14 07:34+0000\n"
 "PO-Revision-Date: 2018-08-24 09:20+0000\n"
-"Last-Translator: lhmflexerp <lhm@flexerp.dk>, 2019\n"
+"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2020\n"
 "Language-Team: Danish (https://www.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -505,7 +506,7 @@ msgstr "Aktivitetstyper"
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_ir_actions_server__activity_user_type
 msgid "Activity User Type"
-msgstr ""
+msgstr "Aktiv brugertype"
 
 #. module: mail
 #. openerp-web
@@ -526,7 +527,7 @@ msgstr "Tilføj"
 #: code:addons/mail/static/src/xml/chatter.xml:30
 #, python-format
 msgid "Add Attachments"
-msgstr ""
+msgstr "Tilføj vedhæftede filer"
 
 #. module: mail
 #. openerp-web
@@ -601,7 +602,7 @@ msgstr ""
 #: code:addons/mail/static/src/xml/composer.xml:15
 #, python-format
 msgid "Add attachment"
-msgstr ""
+msgstr "Tilføj vedhæftning"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_wizard_invite_form
@@ -1195,7 +1196,7 @@ msgstr ""
 #: code:addons/mail/static/src/xml/systray.xml:35
 #, python-format
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #. module: mail
 #: selection:mail.channel,channel_type:0
@@ -1668,7 +1669,7 @@ msgstr "Beskeder"
 #. module: mail
 #: model:ir.model,name:mail.model_mail_channel
 msgid "Discussion Channel"
-msgstr ""
+msgstr "Diskussionskanaler"
 
 #. module: mail
 #: model:mail.message.subtype,name:mail.mt_comment
@@ -2268,7 +2269,7 @@ msgstr "Fra"
 #: code:addons/mail/static/src/xml/chatter.xml:73
 #, python-format
 msgid "Full composer"
-msgstr ""
+msgstr "Avanceret editor"
 
 #. module: mail
 #. openerp-web
@@ -2627,7 +2628,7 @@ msgstr ""
 #: code:addons/mail/models/mail_blacklist.py:35
 #, python-format
 msgid "Invalid email address %r"
-msgstr ""
+msgstr "Ugyldig e-mail adresse %r"
 
 #. module: mail
 #: code:addons/mail/models/mail_alias.py:88
@@ -3019,7 +3020,7 @@ msgstr "Log eller planlæg en aktivitet"
 #: model:ir.model.fields,field_description:mail.field_mail_notification__mail_id
 #, python-format
 msgid "Mail"
-msgstr ""
+msgstr "Mail"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message__mail_activity_type_id
@@ -3147,7 +3148,7 @@ msgstr "Markér som udført"
 #: code:addons/mail/static/src/xml/thread.xml:346
 #, python-format
 msgid "Mark as Read"
-msgstr ""
+msgstr "Markér som læst"
 
 #. module: mail
 #. openerp-web
@@ -4523,7 +4524,7 @@ msgstr "Afvist"
 #: model:ir.model.fields,field_description:mail.field_mail_message__res_id
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite__res_id
 msgid "Related Document ID"
-msgstr ""
+msgstr "Relateret dokument ID"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_email_template_preview__model
@@ -5570,7 +5571,7 @@ msgstr ""
 #. module: mail
 #: selection:ir.actions.server,state:0
 msgid "Update the Record"
-msgstr ""
+msgstr "Opdatér posten"
 
 #. module: mail
 #. openerp-web
@@ -5713,7 +5714,7 @@ msgstr "Se type"
 #: code:addons/mail/static/src/xml/chatter.xml:99
 #, python-format
 msgid "View all the attachments of the current record"
-msgstr ""
+msgstr "Se alle vedhæftede filer til den aktuelle post"
 
 #. module: mail
 #. openerp-web
@@ -5903,6 +5904,14 @@ msgid ""
 msgstr ""
 
 #. module: mail
+#: code:addons/mail/models/mail_alias.py:89
+#, python-format
+msgid ""
+"You cannot use anything else than unaccented latin characters in the alias "
+"address."
+msgstr ""
+
+#. module: mail
 #: code:addons/mail/models/mail_channel.py:257
 #, python-format
 msgid ""
@@ -5947,6 +5956,8 @@ msgid ""
 "You may attach files to this template, to be added to all emails created "
 "from this template"
 msgstr ""
+"Du kan vedhæfte filer til denne skabelon, der skal føjes til alle e-mails "
+"oprettet fra denne skabelon"
 
 #. module: mail
 #. openerp-web
@@ -6024,7 +6035,7 @@ msgstr "Efter forrige aktivitetsdeadline"
 #. module: mail
 #: selection:mail.activity.type,delay_from:0
 msgid "after validation date"
-msgstr ""
+msgstr "efter godkendelses dato"
 
 #. module: mail
 #: code:addons/mail/models/mail_thread.py:1074

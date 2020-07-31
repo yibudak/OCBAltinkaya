@@ -189,7 +189,7 @@ class HrPayslip(models.Model):
             tz = timezone(calendar.tz)
             day_leave_intervals = contract.employee_id.list_leaves(day_from, day_to, calendar=contract.resource_calendar_id)
             for day, hours, leave in day_leave_intervals:
-                holiday = leave.holiday_id
+                holiday = leave[:1].holiday_id
                 current_leave_struct = leaves.setdefault(holiday.holiday_status_id, {
                     'name': holiday.holiday_status_id.name or _('Global Leaves'),
                     'sequence': 5,
@@ -246,7 +246,12 @@ class HrPayslip(models.Model):
         def _sum_salary_rule_category(localdict, category, amount):
             if category.parent_id:
                 localdict = _sum_salary_rule_category(localdict, category.parent_id, amount)
-            localdict['categories'].dict[category.code] = category.code in localdict['categories'].dict and localdict['categories'].dict[category.code] + amount or amount
+
+            if category.code in localdict['categories'].dict:
+                localdict['categories'].dict[category.code] += amount
+            else:
+                localdict['categories'].dict[category.code] = amount
+
             return localdict
 
         class BrowsableObject(object):

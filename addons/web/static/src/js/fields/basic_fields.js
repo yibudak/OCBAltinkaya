@@ -384,6 +384,22 @@ var NumericField = InputField.extend({
     },
 
     /**
+     * Parse numerical value (integer or float)
+     *
+     * Note: We have to overwrite this method to skip the format if we are into
+     * edit mode on a input type number.
+     *
+     * @override
+     * @private
+     */
+    _parseValue: function (value) {
+        if (this.mode === 'edit' && this.nodeOptions.type === 'number') {
+            return Number(value);
+        }
+        return this._super.apply(this, arguments);
+    },
+
+    /**
      * Formats an input element for edit mode. This is in a separate function so
      * extending widgets can use it on their input without having input as tagName.
      *
@@ -1971,7 +1987,7 @@ var StateSelectionWidget = AbstractField.extend({
             .addClass(currentState.state_class)
             .prop('special_click', true)
             .parent().attr('title', currentState.state_name)
-            .attr('aria-label', currentState.state_name);
+            .attr('aria-label', self.string + ": " + currentState.state_name);
 
         // Render "FormSelection.Items" and move it into "FormSelection"
         var $items = $(qweb.render('FormSelection.items', {
@@ -2561,7 +2577,10 @@ var JournalDashboardGraph = AbstractField.extend({
      * Called when the field is detached from the DOM.
      */
     on_detach_callback: function () {
-        this.chart.tooltip.hidden(true);
+        // ignore chart that have not yet been rendered
+        if (this.chart !== null) {
+            this.chart.tooltip.hidden(true);
+        }
         this._isInDOM = false;
     },
 

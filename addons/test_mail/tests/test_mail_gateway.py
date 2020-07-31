@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import io
-import logging
 import socket
-
-from email.utils import formataddr
 
 from odoo.addons.test_mail.data.test_mail_data import \
     MAIL_TEMPLATE, MAIL_TEMPLATE_PLAINTEXT, MAIL_MULTIPART_MIXED, MAIL_MULTIPART_MIXED_TWO, \
-    MAIL_MULTIPART_IMAGE, MAIL_SINGLE_BINARY, MAIL_EML_ATTACHMENT, MAIL_XHTML, MAIL_REF
+    MAIL_MULTIPART_IMAGE, MAIL_SINGLE_BINARY, MAIL_EML_ATTACHMENT, MAIL_XHTML
 from odoo.addons.test_mail.tests.common import BaseFunctionalTest, MockEmails
 from odoo.addons.test_mail.tests.common import mail_new_test_user
-from odoo.tools import mute_logger
+from odoo.tools import mute_logger, formataddr
 
 
 class TestEmailParsing(BaseFunctionalTest, MockEmails):
@@ -189,11 +185,59 @@ class TestMailgateway(BaseFunctionalTest, MockEmails):
         self.assertEqual(len(record), 1)
         self.assertEqual(len(record.message_ids), 1)
 
+    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    def test_message_process_received_bounce(self):
+        """Incoming bounce is properly processed."""
+        self.env['ir.config_parameter'].set_param('mail.bounce.alias', 'oops')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', 'example.com')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain.strict', True)
+
+        # Test: No group created, incoming bounce is counted
+        self.assertEqual(self.test_record.message_bounce, 0, 'The bounced thread should have no bounced messages by default')
+        new_groups = self.format_and_process(
+            MAIL_TEMPLATE,
+            email_from='Valid Lelitre <valid.lelitre@agrolait.com>',
+            to='valid.other@gmail.com, oops+{msg_id}-{model}-{res_id}@example.com'.format(
+                msg_id=self.fake_email.id,
+                model=self.fake_email.model,
+                res_id=self.fake_email.res_id,
+            ),
+            subject='Your email bounced, be more careful next time plea se',
+        )
+        self.assertFalse(new_groups)
+        self.assertEqual(len(self._mails), 0, 'message_process: incoming bounce produces no mails')
+        self.assertEqual(self.test_record.message_bounce, 1, 'The bounced thread should have 1 bounced message')
+
+    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    def test_message_process_received_bounce_no_domain_confusion(self):
+        """Incoming bounce-like mails are not confused when in alien domains."""
+        self.env['ir.config_parameter'].set_param('mail.bounce.alias', 'oops')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', 'example.com')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain.strict', True)
+        # A partner with an address that seems like our bounce address
+        alien_bounce_partner = self.env["res.partner"].create({
+            "name": "Alien bounce address",
+            "email": 'oops+{msg_id}-{model}-{res_id}@alien.com'.format(
+                msg_id=self.fake_email.id,
+                model=self.fake_email.model,
+                res_id=self.fake_email.res_id,
+            ),
+        })
+        # Test: group created, bounce-similar email is treated as a normal address
+        new_groups = self.format_and_process(
+            MAIL_TEMPLATE,
+            email_from='Valid Lelitre <valid.lelitre@agrolait.com>',
+            to=alien_bounce_partner.email + ', groups@example.com',
+        )
+        self.assertEqual(new_groups.message_ids[0].author_id, self.partner_1, 'message_process: recognized email -> author_id')
+        self.assertIn('Valid Lelitre <valid.lelitre@agrolait.com>', new_groups.message_ids[0].email_from, 'message_process: recognized email -> email_from')
+        self.assertEqual(new_groups.message_ids.partner_ids, alien_bounce_partner, 'message_process: alien bounce-like address should be subscribed as a normal partner')
+
     @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models.unlink', 'odoo.addons.mail.models.mail_mail')
     def test_message_process_alias_partners_bounce(self):
         """ Incoming email from an unknown partner on a Partners only alias -> bounce + test bounce email """
         self.env['ir.config_parameter'].set_param('mail.bounce.alias', 'bounce.test')
-        self.env['ir.config_parameter'].set_param('mail.catchall.domain', 'test.com')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', 'example.com')
         self.alias.write({'alias_contact': 'partners'})
 
         # Test: no group created, email bounced
@@ -204,7 +248,7 @@ class TestMailgateway(BaseFunctionalTest, MockEmails):
         # Test bounce email
         self.assertEqual(self._mails[0].get('subject'), 'Re: Should Bounce')
         self.assertEqual(self._mails[0].get('email_to')[0], 'whatever-2a840@postmaster.twitter.com')
-        self.assertEqual(self._mails[0].get('email_from'), formataddr(('MAILER-DAEMON', 'bounce.test@test.com')))
+        self.assertEqual(self._mails[0].get('email_from'), 'MAILER-DAEMON <bounce.test@example.com>')
 
     @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models.unlink', 'odoo.addons.mail.models.mail_mail')
     def test_message_process_alias_followers_bounce(self):
@@ -387,7 +431,7 @@ class TestMailgateway(BaseFunctionalTest, MockEmails):
         # Test bounce email
         self.assertEqual(self._mails[0].get('subject'), 'Re: Should Bounce')
         self.assertEqual(self._mails[0].get('email_to')[0], 'whatever-2a840@postmaster.twitter.com')
-        self.assertEqual(self._mails[0].get('email_from'), formataddr(('MAILER-DAEMON', '%s@%s' % (self.bounce_alias, self.catchall_domain))))
+        self.assertEqual(self._mails[0].get('email_from'), '%s <%s@%s>' % ('MAILER-DAEMON', self.bounce_alias, self.catchall_domain))
 
     @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
     def test_message_process_write_to_catchall_and_alias(self):
@@ -584,6 +628,18 @@ class TestMailgateway(BaseFunctionalTest, MockEmails):
                           msg_id='<1198923581.41972151344608186760.JavaMail.new5@agrolait.com>')
 
     @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
+    def test_message_process_crash_alien_domain_same_alias(self):
+        """Incoming email to the same address in an alien domain must raise."""
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain', 'example.com')
+        self.env['ir.config_parameter'].set_param('mail.catchall.domain.strict', True)
+        with self.assertRaises(ValueError):
+            self.format_and_process(
+                MAIL_TEMPLATE,
+                email_from='Valid Lelitre <valid.lelitre@agrolait.com>',
+                to='groups@alien.com, other@gmail.com',
+            )
+
+    @mute_logger('odoo.addons.mail.models.mail_thread', 'odoo.models')
     def test_message_process_fallback(self):
         """ Incoming email with model that accepting incoming emails as fallback """
         record = self.format_and_process(
@@ -671,40 +727,3 @@ class TestMailgateway(BaseFunctionalTest, MockEmails):
         self.assertEqual(msg_fw.model, 'mail.test.simple')
         self.assertFalse(msg_fw.parent_id)
         self.assertTrue(msg_fw.res_id == new_record.id)
-
-    def test_mail_message_values_unicode(self):
-        """Normal flow demonstrating the name handling; the user replied on a thread.
-           The issue is that the partner's name (email from) is terrible,
-           as it contains a COMMASPACE, used as a separator between email addresses.
-
-           So we create a thread with a first dummy message, and process a message
-           coming from outside as a reply. Because the processing of the address
-           is in a try/except, correct processing means nothing in the logs.
-        """
-        thread_record = self.env['res.partner'].create({'name': "Fountain"})
-        reference = '<openerp-%s-res.partner@werk>' % thread_record.id
-        mail = self.env['mail.message'].create({
-            'model': 'res.partner',
-            'res_id': thread_record.id,
-            'author_id': self.env.ref('base.user_demo').partner_id.id,
-            'reply_to': 'test@odoodoo.com',
-            'subtype_id': self.env['ir.model.data'].xmlid_to_res_id('mail.mt_note'),
-        })
-        mail.message_id = reference
-        thread_record.message_ids = [(4, mail.id)]
-
-        example_email = MAIL_REF.format(reference=reference)
-
-        logger = logging.getLogger('odoo.addons.base.models.ir_mail_server')
-        log_capture_string = io.StringIO()
-        ch = logging.StreamHandler(log_capture_string)
-        logger.addHandler(ch)
-
-        self.env['mail.thread'].message_process(False, example_email)
-
-        log_contents = log_capture_string.getvalue()
-        log_capture_string.close()
-
-        # without fix:
-        # self.assertIn("Failed to encode the address", log_contents)
-        self.assertEqual(log_contents, '')

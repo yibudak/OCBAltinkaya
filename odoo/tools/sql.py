@@ -36,7 +36,13 @@ def table_kind(cr, tablename):
         ``'f'`` (foreign table), ``'t'`` (temporary table),
         ``'m'`` (materialized view), or ``None``.
     """
-    query = "SELECT relkind FROM pg_class WHERE relname = %s"
+    query = """
+        SELECT c.relkind
+          FROM pg_class c
+          JOIN pg_namespace n ON (n.oid = c.relnamespace)
+         WHERE c.relname = %s
+           AND n.nspname = 'public'
+    """
     cr.execute(query, (tablename,))
     return cr.fetchone()[0] if cr.rowcount else None
 
@@ -96,16 +102,17 @@ def convert_column(cr, tablename, columnname, columntype):
     _schema.debug("Table %r: column %r changed to type %s", tablename, columnname, columntype)
 
 def set_not_null(cr, tablename, columnname):
-    """ Add a NOT NULL constraint on the given column. """
+    """ Add a NOT NULL constraint on the given column, and return ``None`` (in
+        case of success) or an error message (in case of failure).
+    """
     query = 'ALTER TABLE "{}" ALTER COLUMN "{}" SET NOT NULL'.format(tablename, columnname)
     try:
         with cr.savepoint():
-            cr.execute(query)
+            cr.execute(query, log_exceptions=False)
             _schema.debug("Table %r: column %r: added constraint NOT NULL", tablename, columnname)
-    except Exception:
-        msg = "Table %r: unable to set NOT NULL on column %r!\n" \
-              "If you want to have it, you should update the records and execute manually:\n%s"
-        _schema.warning(msg, tablename, columnname, query, exc_info=True)
+    except Exception as e:
+        _schema.debug("Table %r: column %r: unable to set constraint NOT NULL", tablename, columnname)
+        return str(e)
 
 def drop_not_null(cr, tablename, columnname):
     """ Drop the NOT NULL constraint on the given column. """

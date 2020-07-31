@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import email
 
 from unittest.mock import patch
 
 from odoo.tests.common import BaseCase
 from odoo.tests.common import SavepointCase
-import odoo.addons.base.models.ir_mail_server as ir_mail_server
 from odoo.tools import html_sanitize, append_content_to_html, plaintext2html, email_split, misc, decode_smtp_header
 
 from . import test_mail_examples
@@ -319,6 +317,8 @@ class TestHtmlTools(BaseCase):
              '<!DOCTYPE...><html encoding="blah">some <b>content</b>\n<pre>--\nYours truly</pre>\n</html>'),
             ('<!DOCTYPE...><HTML encoding="blah">some <b>content</b></HtMl>', '--\nYours truly', True, False, False,
              '<!DOCTYPE...><html encoding="blah">some <b>content</b>\n<p>--<br/>Yours truly</p>\n</html>'),
+            ('<html><body>some <b>content</b></body></html>', '--\nYours & <truly>', True, True, False,
+             '<html><body>some <b>content</b>\n<pre>--\nYours &amp; &lt;truly&gt;</pre>\n</body></html>'),
             ('<html><body>some <b>content</b></body></html>', '<!DOCTYPE...>\n<html><body>\n<p>--</p>\n<p>Yours truly</p>\n</body>\n</html>', False, False, False,
              '<html><body>some <b>content</b>\n\n\n<p>--</p>\n<p>Yours truly</p>\n\n\n</body></html>'),
         ]
@@ -340,31 +340,38 @@ class TestEmailTools(BaseCase):
         for text, expected in cases:
             self.assertEqual(email_split(text), expected, 'email_split is broken')
 
-    def test_decode_recode_username(self):
-        """If the name of a contact contains a comma,
-        it might cause trouble since it's used as email separator.
-        We check that in both cases, decoding is idempotent,
-        and we get back get the right name/address couples
-        """
-        froms = [
-            "From: pen pen <pen@odoodoo.com>",
-            "From: pen, pen <pen@odoodoo.com>",
-            "From: =?UTF-8?B?8J+QpyBwZW4gcGVuIPCfkKc=?= <pen@odoodoo.com>",  # basic unicode
-            "From: =?UTF-8?B?8J+QpywgcGVuIHBlbg==?= <pen@odoodoo.com>",  # with comma
-            "From: =?UTF-8?B?8J+QpyIsIGxlbg==?= <pen@odoodoo.com >",  # with double quote
-            "From: =?UTF-8?B?8J+QpycsIGxlbg==?= <pen@odoodoo.com >",  # with single quote
-            "From: =?UTF-8?B?8J+Qp1wnLCBsZVxu?= <pen@odoodoo.com >",  # with backslash
-        ]
-        for header_from in froms:
-            decoded_from = decode_smtp_header(header_from, escape_names=True)
-            addresses_from = email.utils.getaddresses([decoded_from])
-            re_encoded = ir_mail_server.encode_rfc2822_address_header(decoded_from)
-            redecoded_from = decode_smtp_header(re_encoded, escape_names=True)
-            addresses_from_redecoded = email.utils.getaddresses([redecoded_from])
 
-            self.assertEqual(len(addresses_from), len(addresses_from_redecoded))
-            self.assertEqual(addresses_from[0][1], addresses_from_redecoded[0][1])
-            self.assertEqual(addresses_from[0][0], addresses_from_redecoded[0][0])
+    def test_decode_smtp_header_email(self):
+        cases = [
+            # In == Out for trivial ASCII cases
+            ('Joe Doe <joe@ex.com>', 'Joe Doe <joe@ex.com>'),
+            ('Joe <joe@ex.com>, Mike <mike@ex.com>', 'Joe <joe@ex.com>, Mike <mike@ex.com>'),
+
+            # Same thing, but RFC822 quoted-strings must be preserved
+            ('"Doe, Joe" <joe@ex.com>', '"Doe, Joe" <joe@ex.com>'),
+            ('"Doe, Joe" <joe@ex.com>, "Foo, Mike" <mike@ex.com>',
+                    '"Doe, Joe" <joe@ex.com>, "Foo, Mike" <mike@ex.com>'),
+
+            # RFC2047-encoded words have to be quoted after decoding, because
+            # they are considered RFC822 `words` i.e. atom or quoted-string only!
+            # It's ok to quote a single word even if unnecessary.
+            # Example values produced by `formataddr((name, address), 'ascii')`
+            ("=?utf-8?b?Sm/DqQ==?= <joe@ex.com>", '"Joé" <joe@ex.com>'),
+            ("=?utf-8?b?Sm/DqQ==?= <joe@ex.com>, =?utf-8?b?RsO2w7YsIE1pa2U=?= <mike@ex.com>",
+                    '"Joé" <joe@ex.com>, "Föö, Mike" <mike@ex.com>'),
+            ('=?utf-8?b?RG/DqSwg?= =?US-ASCII?Q?Joe?= <joe@ex.com>',
+                '"Doé, ""Joe" <joe@ex.com>'),
+
+            # Double-quotes may appear in the encoded form and /must/ be turned
+            # into a RFC2822 quoted-pair (i.e. escaped)
+            #   "Trevor \"Banana\" Dumoulin" <tbd@ex.com>
+            ('=?utf-8?b?VHLDqXZvciAiQmFuYW5hIiBEdW1vdWxpbg==?= <tbd@ex.com>',
+                    '"Trévor \\"Banana\\" Dumoulin" <tbd@ex.com>'),
+        ]
+
+        for test, truth in cases:
+            self.assertEqual(decode_smtp_header(test, quoted=True), truth)
+
 
 
 class EmailConfigCase(SavepointCase):
