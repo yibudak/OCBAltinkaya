@@ -135,6 +135,8 @@ class Inventory(models.Model):
             self.package_id = False
         if self.filter != 'category':
             self.category_id = False
+        if self.filter != 'product':
+            self.exhausted = False
         if self.filter == 'product':
             self.exhausted = True
             if self.product_id:
@@ -185,7 +187,7 @@ class Inventory(models.Model):
         if negative:
             raise UserError(_('You cannot set a negative product quantity in an inventory line:\n\t%s - qty: %s') % (negative.product_id.name, negative.product_qty))
         self.action_check()
-        self.write({'state': 'done'})
+        self.write({'state': 'done', 'date': fields.Datetime.now()})
         self.post_inventory()
         return True
 

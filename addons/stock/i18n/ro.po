@@ -5,8 +5,8 @@
 # Translators:
 # Cozmin Candea <office@terrabit.ro>, 2018
 # Martin Trigaux, 2018
-# Foldi Robert <foldirobert@nexterp.ro>, 2020
 # Hongu Cosmin <cosmin513@gmail.com>, 2020
+# Foldi Robert <foldirobert@nexterp.ro>, 2020
 # Dorin Hongu <dhongu@gmail.com>, 2020
 # 
 msgid ""
@@ -2337,6 +2337,9 @@ msgid ""
 "If the picking is unlocked you can edit initial demand (for a draft picking)"
 " or done quantities (for a done picking)."
 msgstr ""
+"În cazul în care ridicarea este deblocată, puteți edita cererea inițială "
+"(pentru o ridicare ciornă) sau cantitățile efective (pentru o ridicare "
+"efectuată)."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_picking_type__show_reserved
@@ -2558,7 +2561,7 @@ msgstr ""
 #: code:addons/stock/models/product.py:256
 #, python-format
 msgid "Invalid domain operator %s"
-msgstr ""
+msgstr "Operator de domeniu nevalid%s"
 
 #. module: stock
 #: code:addons/stock/models/product.py:258
@@ -2941,7 +2944,7 @@ msgstr "Termen livrare"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse_orderpoint__lead_type
 msgid "Lead Type"
-msgstr ""
+msgstr "Tip Pistă"
 
 #. module: stock
 #: selection:stock.rule,group_propagation_option:0
@@ -4129,6 +4132,12 @@ msgid "Please add some items to move."
 msgstr "Vă rugăm să adăugați câteva elemente pentru a muta."
 
 #. module: stock
+#: code:addons/stock/models/stock_quant.py:92
+#, python-format
+msgid "Please check the following serial number (name, id): "
+msgstr ""
+
+#. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:132
 #, python-format
 msgid "Please specify at least one non-zero quantity."
@@ -4643,7 +4652,7 @@ msgstr "Poziții de stoc"
 #: code:addons/stock/models/stock_quant.py:74
 #, python-format
 msgid "Quants cannot be created for consumables or services."
-msgstr ""
+msgstr "Cotele nu pot fi create pentru consumabile sau servicii."
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type__rate_picking_backorders
@@ -5003,6 +5012,8 @@ msgid ""
 "Routes will be created automatically to resupply this warehouse from the "
 "warehouses ticked"
 msgstr ""
+"Traseele vor fi create automat pentru aprovizionarea acestui depozit din "
+"depozitele bifate"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse__resupply_route_ids
@@ -5010,6 +5021,8 @@ msgid ""
 "Routes will be created for these resupply warehouses and you can select them"
 " on products and product categories"
 msgstr ""
+"Vor fi create trasee pentru aceste depozite de aprovizionare și le puteți "
+"selecta pe produse și categorii de produse"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_rule__rule_message
@@ -6679,7 +6692,7 @@ msgstr "Configurație depozit"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse__warehouse_count
 msgid "Warehouse Count"
-msgstr ""
+msgstr "Număr depozite"
 
 #. module: stock
 #: model:ir.ui.menu,name:stock.menu_warehouse_config

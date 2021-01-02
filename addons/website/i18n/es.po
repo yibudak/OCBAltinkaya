@@ -26,7 +26,7 @@
 # Luis M. Ontalba <luis.martinez@tecnativa.com>, 2018
 # Cristopher Cravioto <ccr@odoo.com>, 2018
 # Raquel Iciarte <ric@odoo.com>, 2018
-# JOSE ALEJANDRO ECHEVERRI VALENCIA <josealejandroeche@gmail.com>, 2018
+# Jose Alejandro Echeverri Valencia <josealejandroeche@gmail.com>, 2018
 # Cris Martin <cristina.marrod@gmail.com>, 2018
 # Pilar Marín <pilar@odooperu.pe>, 2018
 # Martin Trigaux, 2018
@@ -4916,6 +4916,12 @@ msgid ""
 msgstr ""
 "Ha ocultado esta página de los resultados de búsqueda. No será indexado por "
 "los motores de búsqueda."
+
+#. module: website
+#: code:addons/website/models/website.py:162
+#, python-format
+msgid "You must keep at least one website."
+msgstr ""
 
 #. module: website
 #. openerp-web
