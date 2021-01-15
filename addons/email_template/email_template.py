@@ -96,7 +96,7 @@ try:
         'str': str,
         'quote': quote,
         'urlencode': urlencode,
-        'datetime': datetime,
+        'datetime': tools.wrap_module(datetime, []),
         'len': len,
         'abs': abs,
         'min': min,

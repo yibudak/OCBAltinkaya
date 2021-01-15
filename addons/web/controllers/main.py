@@ -63,6 +63,7 @@ db_list = http.db_list
 
 db_monodb = http.db_monodb
 
+def clean(name): return name.replace('\x3c', '')
 def serialize_exception(f):
     @functools.wraps(f)
     def wrap(*args, **kwargs):
@@ -1175,7 +1176,7 @@ class Binary(http.Controller):
                     ufile.content_type, base64.b64encode(data)]
         except Exception, e:
             args = [False, e.message]
-        return out % (simplejson.dumps(callback), simplejson.dumps(args))
+        return out % (simplejson.dumps(clean(callback)), simplejson.dumps(args))
 
     @http.route('/web/binary/upload_attachment', type='http', auth="user")
     @serialize_exception
@@ -1194,13 +1195,13 @@ class Binary(http.Controller):
                 'res_id': int(id)
             }, request.context)
             args = {
-                'filename': ufile.filename,
+                'filename': clean(ufile.filename),
                 'id':  attachment_id
             }
         except Exception:
             args = {'error': "Something horrible happened"}
             _logger.exception("Fail to upload attachment %s" % ufile.filename)
-        return out % (simplejson.dumps(callback), simplejson.dumps(args))
+        return out % (simplejson.dumps(clean(callback)), simplejson.dumps(args))
 
     @http.route([
         '/web/binary/company_logo',

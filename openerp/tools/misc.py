@@ -41,7 +41,7 @@ import werkzeug.utils
 import zipfile
 from cStringIO import StringIO
 from collections import defaultdict, Mapping, OrderedDict
-from datetime import datetime
+import datetime
 from itertools import islice, izip, groupby
 from lxml import etree
 from which import which
@@ -55,7 +55,7 @@ except ImportError:
 
 from config import config
 from cache import *
-from .parse_version import parse_version 
+from .parse_version import parse_version
 
 import openerp
 # get_encodings, ustr and exception_to_unicode were originally from tools.misc.
@@ -989,7 +989,7 @@ def server_to_local_timestamp(src_tstamp_str, src_format, dst_format, dst_tz_nam
         server_tz = get_server_timezone()
         try:
             # dt_value needs to be a datetime.datetime object (so no time.struct_time or mx.DateTime.DateTime here!)
-            dt_value = datetime.strptime(src_tstamp_str, src_format)
+            dt_value = datetime.datetime.strptime(src_tstamp_str, src_format)
             if tz_offset and dst_tz_name:
                 try:
                     import pytz
@@ -1336,6 +1336,19 @@ class Pickle(object):
 
 pickle = Pickle
 
+def wrap_values(d):
+    # apparently sometimes people pass raw records as eval context
+    # values
+    if not (d and isinstance(d, dict)):
+        return d
+    for k in d:
+        v = d[k]
+        if isinstance(v, types.ModuleType):
+            d[k] = wrap_module(v, None)
+    return d
+import shutil
+_missing = object()
+_cache = dict.fromkeys([os, os.path, shutil, sys, subprocess])
 def wrap_module(module, attr_list):
     """Helper for wrapping a package/module to expose selected attributes
 
@@ -1344,14 +1357,38 @@ def wrap_module(module, attr_list):
             attributes and their own main attributes. No support for hiding attributes in case
             of name collision at different levels.
     """
-    attr_list = set(attr_list)
+    wrapper = _cache.get(module)
+    if wrapper:
+        return wrapper
+
+    attr_list = attr_list and set(attr_list)
     class WrappedModule(object):
         def __getattr__(self, attrib):
-            if attrib in attr_list:
-                target = getattr(module, attrib)
-                if isinstance(target, types.ModuleType):
-                    return wrap_module(target, attr_list)
-                return target
-            raise AttributeError(attrib)
+            # respect whitelist if there is one
+            if attr_list is not None and attrib not in attr_list:
+                raise AttributeError(attrib)
+
+            target = getattr(module, attrib)
+            if isinstance(target, types.ModuleType):
+                wrapper = _cache.get(target, _missing)
+                if wrapper is None:
+                    raise AttributeError(attrib)
+                if wrapper is _missing:
+                    target = wrap_module(target, attr_list)
+                else:
+                    target = wrapper
+            setattr(self, attrib, target)
+            return target
     # module and attr_list are in the closure
-    return WrappedModule()
+    wrapper = WrappedModule()
+    _cache.setdefault(module, wrapper)
+    return wrapper
+
+# dateutil submodules are lazy so need to import them for them to "exist"
+import dateutil
+mods = ['parser', 'relativedelta', 'rrule', 'tz']
+for mod in mods:
+    __import__('dateutil.%s' % mod)
+attribs = [attr for m in mods for attr in getattr(dateutil, m).__all__]
+dateutil = wrap_module(dateutil, set(mods + attribs))
+datetime = wrap_module(datetime, ['date', 'datetime', 'time', 'timedelta', 'timezone', 'tzinfo', 'MAXYEAR', 'MINYEAR'])

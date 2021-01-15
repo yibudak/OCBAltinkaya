@@ -1328,6 +1328,7 @@ instance.web.Sidebar = instance.web.Widget.extend({
         var items = [];
         var prefix = this.session.url('/web/binary/saveas', {model: 'ir.attachment', field: 'datas', filename_field: 'name'});
         _.each(attachments,function(a) {
+            a.name = _.escape(a.name);
             a.label = a.name;
             if(a.type === "binary") {
                 a.url = prefix  + '&id=' + a.id + '&t=' + (new Date().getTime());
