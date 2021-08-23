@@ -75,8 +75,8 @@
                             <tree string="Quotation Template Lines" editable="bottom">
                                 <control>
                                     <create string="Add a product"/>
-                                    <create string="Add a section" context="{'default_display_type': 'line_section'}"/>
-                                    <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    <create string="Add a section" invisible="1" context="{'default_display_type': 'line_section'}"/>
+                                    <create string="Add a note" invisible="1" context="{'default_display_type': 'line_note'}"/>
                                 </control>
 
                                 <field name="display_type" invisible="1"/>
