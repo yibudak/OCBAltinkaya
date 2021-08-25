@@ -439,7 +439,7 @@ var FormRenderer = BasicRenderer.extend({
     * @returns {integer}
     */
     _renderButtonBoxNbButtons: function () {
-        return [2, 2, 2, 4][config.device.size_class] || 7;
+        return [2, 2, 2, 4][config.device.size_class] || 10;
     },
     /**
      * @private
