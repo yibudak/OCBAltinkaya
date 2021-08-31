@@ -385,7 +385,10 @@ msgid ""
 "<span class=\"o_form_label\" attrs=\"{'invisible': "
 "['|',('state','=','draft'), ('type','!=','out_refund')]}\">Credit "
 "Note</span>"
-msgstr "Kredi Notu"
+msgstr ""
+"<span class=\"o_form_label\" attrs=\"{'invisible': "
+"['|',('state','=','draft'), ('type','!=','out_refund')]}\">Kredi "
+"Notu</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_reconcile_model_form
