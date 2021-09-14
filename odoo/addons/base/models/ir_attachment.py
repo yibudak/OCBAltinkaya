@@ -112,7 +112,7 @@ class IrAttachment(models.Model):
             else:
                 r = base64.b64encode(open(full_path,'rb').read())
         except (IOError, OSError):
-            if not config.get('dev_mode'):  # do not print noisy attachment not found error on developer mode, needs to add "--dev all" in parameters
+            if not self.env['ir.config_parameter'].sudo().get_param('translation_error_mute'):  # do not print noisy attachment not found error, needs to add in parameters
                 _logger.info("_read_file reading %s", full_path, exc_info=True)
         return r
 
