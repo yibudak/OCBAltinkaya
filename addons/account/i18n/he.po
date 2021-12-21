@@ -7995,7 +7995,7 @@ msgstr "הדפס כברירת מחדל"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.res_config_settings_view_form
 msgid "Print checks to pay your vendors"
-msgstr ""
+msgstr "הדפס שיקים כדי לשלם לספקים"
 
 #. module: account
 #: model:ir.model,name:account.model_product_product
@@ -11489,6 +11489,14 @@ msgid ""
 msgstr ""
 "לא יכולה להיות חפיפה בין שתי שנות כספים, אנא תקן את תאריכי ההתחלה ו / או "
 "הסיום של שנות הכספים שלך."
+
+#. module: account
+#: code:addons/account/models/partner.py:441
+#, python-format
+msgid ""
+"You can't change the company of a partner if the latter already has some "
+"invoices."
+msgstr ""
 
 #. module: account
 #: code:addons/account/models/account_invoice.py:1784
