@@ -1624,7 +1624,7 @@ class SaleOrderLine(models.Model):
             :param obj uom: unit of measure of current order line
             :param integer pricelist_id: pricelist id of sales order"""
         PricelistItem = self.env['product.pricelist.item']
-        field_name = 'lst_price'
+        field_name = 'attr_price'
         currency_id = None
         product_currency = product.currency_id
         if rule_id:
