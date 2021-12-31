@@ -564,6 +564,8 @@ class AccountInvoice(models.Model):
 
     @api.constrains('partner_id', 'partner_bank_id')
     def validate_partner_bank_id(self):
+# remove for migration
+        return
         for record in self:
             if record.partner_bank_id:
                 if record.type in ('in_invoice', 'out_refund') and record.partner_bank_id.partner_id != record.partner_id.commercial_partner_id:
