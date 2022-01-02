@@ -735,7 +735,7 @@ msgstr "Türü değiştirmeden önce mevcut miktar sıfır olarak ayarlanmalıd�
 #: model:ir.model.fields,field_description:stock.field_stock_move__backorder_id
 #: model:ir.model.fields,field_description:stock.field_stock_picking__backorder_id
 msgid "Back Order of"
-msgstr "Ön Teslimat : "
+msgstr "Ön Teslimat"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking__backorder_ids
