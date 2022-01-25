@@ -44,7 +44,7 @@ msgstr "Auto confirmació"
 #. module: event_sale
 #: model_terms:ir.ui.view,arch_db:event_sale.view_event_registration_editor_form
 msgid "Before confirming"
-msgstr ""
+msgstr "Abans de confirmar"
 
 #. module: event_sale
 #: model:ir.model.fields,help:event_sale.field_sale_order_line__event_id
@@ -52,6 +52,8 @@ msgid ""
 "Choose an event and it will automatically create a registration for this "
 "event."
 msgstr ""
+"Escolliu un esdeveniment i automàticament crearà un nou registre pel "
+"esdeveniment."
 
 #. module: event_sale
 #: model:ir.model.fields,help:event_sale.field_sale_order_line__event_ticket_id
@@ -138,7 +140,7 @@ msgstr "Registre esdeveniment"
 #. module: event_sale
 #: model:ir.actions.act_window,name:event_sale.action_sale_order_event_registration
 msgid "Event Registrations"
-msgstr ""
+msgstr "Inscripcions a esdeveniments"
 
 #. module: event_sale
 #: model:ir.model,name:event_sale.model_event_event_ticket
@@ -267,7 +269,7 @@ msgstr "Orígen"
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor_line__registration_id
 msgid "Original Registration"
-msgstr ""
+msgstr "Inscripció original"
 
 #. module: event_sale
 #: code:addons/event_sale/models/event.py:259
@@ -335,7 +337,7 @@ msgstr "Registres"
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_registration_editor__event_registration_ids
 msgid "Registrations to Edit"
-msgstr ""
+msgstr "Inscripcions a editar"
 
 #. module: event_sale
 #: model:ir.model.fields,field_description:event_sale.field_event_event_ticket__seats_reserved
@@ -463,7 +465,7 @@ msgstr "kg"
 #. module: event_sale
 #: model_terms:ir.ui.view,arch_db:event_sale.view_event_registration_editor_form
 msgid "please give details about the registrations"
-msgstr ""
+msgstr "doneu detalls sobre els registres"
 
 #. module: event_sale
 #: model_terms:ir.ui.view,arch_db:event_sale.view_event_form_inherit_ticket
