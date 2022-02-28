@@ -659,9 +659,9 @@ class MrpProduction(models.Model):
             production.workorder_ids.filtered(lambda x: x.state != 'cancel').action_cancel()
             finish_moves = production.move_finished_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
             raw_moves = production.move_raw_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
-            (finish_moves | raw_moves)._action_cancel()
-            picking_ids = production.picking_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
-            picking_ids.action_cancel()
+            dest_moves = production.move_dest_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
+            (finish_moves | raw_moves | dest_moves)._action_cancel()
+
         self.write({'state': 'cancel', 'is_locked': True})
         if documents:
             filtered_documents = {}
