@@ -659,6 +659,10 @@ class MrpProduction(models.Model):
             production.workorder_ids.filtered(lambda x: x.state != 'cancel').action_cancel()
             finish_moves = production.move_finished_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
             raw_moves = production.move_raw_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
+            for raw_move in raw_moves:
+                if raw_move.move_orig_ids:
+                    raw_move.cancel_move_origs(raw_move.move_orig_ids)
+            raw_moves.mapped('production_id').action_cancel()
             dest_moves = production.move_dest_ids.filtered(lambda x: x.state not in ('done', 'cancel'))
             (finish_moves | raw_moves | dest_moves)._action_cancel()
 
