@@ -982,5 +982,5 @@ class Orderpoint(models.Model):
             'warehouse_id': self.warehouse_id,
             'orderpoint_id': self,
             'company_id': self.company_id,
-            'group_id': group or self.group_id,
+            'group_id': group or self.group_id or self.env['procurement.group'].create({'name': self.name}),
         }
