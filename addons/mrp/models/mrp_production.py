@@ -733,6 +733,7 @@ class MrpProduction(models.Model):
     def do_unreserve(self):
         for production in self:
             production.move_raw_ids.filtered(lambda x: x.state not in ('done', 'cancel'))._do_unreserve()
+            production.move_raw_ids.filtered(lambda x: x.state == 'assigned').write({'state': 'confirmed'})
         return True
 
     @api.multi
