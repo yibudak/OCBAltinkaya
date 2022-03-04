@@ -70,6 +70,7 @@ class StockRule(models.Model):
             'location_src_id': self.location_src_id.id or self.picking_type_id.default_location_src_id.id or location_id.id,
             'location_dest_id': location_id.id,
             'bom_id': bom.id,
+            'active_rule_id': self.id,
             'date_planned_start': fields.Datetime.to_string(self._get_date_planned(product_id, values)),
             'date_planned_finished': values['date_planned'],
             'procurement_group_id': False,
