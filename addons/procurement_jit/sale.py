@@ -13,6 +13,7 @@ class SaleOrderLine(models.Model):
         orders = list(set(x.order_id for x in self))
         for order in orders:
             reassign = order.picking_ids.filtered(lambda x: x.state=='confirmed' or (x.state in ['waiting', 'assigned'] and not x.printed))
+            reassign.note = order.note
             if reassign:
                 reassign.action_assign()
         return res
