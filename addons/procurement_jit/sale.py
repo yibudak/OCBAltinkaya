@@ -5,7 +5,7 @@ from odoo import api, models
 
 
 class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line
+    _inherit = "sale.order.line"
 
     @api.multi
     def _action_launch_stock_rule(self):
@@ -15,6 +15,4 @@ class SaleOrderLine(models.Model):
             reassign = order.picking_ids.filtered(lambda x: x.state=='confirmed' or (x.state in ['waiting', 'assigned'] and not x.printed))
             if reassign:
                 reassign.action_assign()
-                for picking in reassign:
-                    picking.note = order.note
         return res
