@@ -5,7 +5,7 @@ from odoo import api, models
 
 
 class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line
+    _inherit = "sale.order.lines"
 
     @api.multi
     def _action_launch_stock_rule(self):
