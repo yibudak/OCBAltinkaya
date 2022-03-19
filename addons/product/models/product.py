@@ -24,9 +24,13 @@ class ProductCategory(models.Model):
     _rec_name = 'complete_name'
     _order = 'complete_name'
 
-    name = fields.Char('Name', index=True, required=True, translate=True)
+    name = fields.Char('Name', index=True, required=True)
+    name_en = fields.Char('Name English', index=True, required=True)
     complete_name = fields.Char(
         'Complete Name', compute='_compute_complete_name',
+        store=True)
+    complete_name_en = fields.Char(
+        'Complete Name', compute='_compute_complete_name_en',
         store=True)
     parent_id = fields.Many2one('product.category', 'Parent Category', index=True, ondelete='cascade')
     parent_path = fields.Char(index=True)
@@ -42,6 +46,14 @@ class ProductCategory(models.Model):
                 category.complete_name = '%s / %s' % (category.parent_id.complete_name, category.name)
             else:
                 category.complete_name = category.name
+
+    @api.depends('name_en', 'parent_id.complete_name_en')
+    def _compute_complete_name_en(self):
+        for category in self:
+            if category.parent_id:
+                category.complete_name_en = '%s / %s' % (category.parent_id.complete_name_en, category.name_en)
+            else:
+                category.complete_name_en = category.name_en
 
     def _compute_product_count(self):
         read_group_res = self.env['product.template'].read_group([('categ_id', 'child_of', self.ids)], ['categ_id'], ['categ_id'])
