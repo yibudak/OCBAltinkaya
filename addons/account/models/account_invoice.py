@@ -170,7 +170,8 @@ class AccountInvoice(models.Model):
                     else:
                         title = line.move_id.name
                     info['content'].append({
-                        'journal_name': line.ref or line.move_id.name,
+                        'journal_name': "%s (%s%s)" % (line.ref or line.move_id.name, abs(line.amount_residual),
+                                                       line.company_id.currency_id.symbol),
                         'title': title,
                         'amount': amount_to_show,
                         'currency': currency_id.symbol,

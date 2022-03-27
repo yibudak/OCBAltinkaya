@@ -1628,6 +1628,8 @@ class AccountPartialReconcile(models.Model):
                 'currency_id': aml.currency_id.id,
                 'amount_currency': aml.amount_residual_currency and -aml.amount_residual_currency or 0.0,
                 'partner_id': aml.partner_id.id,
+                'invoice_id': aml.invoice_id.id,
+                'payment_id': aml.payment_id.id,
             })
             #create the counterpart on exchange gain/loss account
             exchange_journal = move.company_id.currency_exchange_journal_id
@@ -1640,6 +1642,8 @@ class AccountPartialReconcile(models.Model):
                 'currency_id': aml.currency_id.id,
                 'amount_currency': aml.amount_residual_currency and aml.amount_residual_currency or 0.0,
                 'partner_id': aml.partner_id.id,
+                'invoice_id': aml.invoice_id.id,
+                'payment_id': aml.payment_id.id,
             })
 
             #reconcile all aml_to_fix
@@ -1846,17 +1850,20 @@ class AccountFullReconcile(models.Model):
             cancel the currency difference entry on the partner account (otherwise it will still appear on the aged balance
             for example).
         """
+        to_unlink = self.env['account.move']
         for rec in self:
+
             if rec.exists() and rec.exchange_move_id:
                 # reverse the exchange rate entry after de-referencing it to avoid looping
                 # (reversing will cause a nested attempt to drop the full reconciliation)
-                to_reverse = rec.exchange_move_id
+                to_unlink |= rec.exchange_move_id
                 rec.exchange_move_id = False
-                if to_reverse.date > (to_reverse.company_id.period_lock_date or date.min):
-                    to_reverse.reverse_moves(date=to_reverse.date)
-                else:
-                    to_reverse.reverse_moves()
-        return super(AccountFullReconcile, self).unlink()
+
+        res = super(AccountFullReconcile, self).unlink()
+        for move in to_unlink:
+            move.button_cancel()
+            move.line_ids.unlink()
+            move.unlink()
 
     @api.model
     def _prepare_exchange_diff_move(self, move_date, company):
