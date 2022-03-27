@@ -849,6 +849,7 @@ class account_payment(models.Model):
             'move_id': move_id,
             'debit': debit,
             'credit': credit,
+            'date': self.payment_date,
             'amount_currency': amount_currency or False,
             'payment_id': self.id,
             'journal_id': self.journal_id.id,
