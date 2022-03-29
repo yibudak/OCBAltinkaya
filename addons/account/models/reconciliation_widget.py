@@ -242,7 +242,7 @@ class AccountReconciliation(models.AbstractModel):
 
         domain = self._domain_move_lines_for_manual_reconciliation(account_id, partner_id, excluded_ids, search_str)
         recs_count = Account_move_line.search_count(domain)
-        lines = Account_move_line.search(domain, offset=offset, limit=limit, order="date_maturity desc, id desc")
+        lines = Account_move_line.search(domain, offset=offset, limit=limit, order="date_maturity asc, id asc")
         if target_currency_id:
             target_currency = Currency.browse(target_currency_id)
         else:
@@ -770,7 +770,8 @@ class AccountReconciliation(models.AbstractModel):
 
         account_move_line = self.env['account.move.line'].browse(move_line_ids)
         writeoff_lines = self.env['account.move.line']
-
+        partner_id = account_move_line[0].partner_id or False
+        company_id = self.env.user.company_id
         # Create writeoff move lines
         if len(new_mv_line_dicts) > 0:
             company_currency = account_move_line[0].account_id.company_id.currency_id
@@ -783,6 +784,20 @@ class AccountReconciliation(models.AbstractModel):
             for mv_line_dict in new_mv_line_dicts:
                 if not same_currency:
                     mv_line_dict['amount_currency'] = False
+
+                if partner_id and partner_id.has_secondary_curr and partner_id.secondary_curr_id:
+                    mv_line_dict.update({'debit': partner_id.secondary_curr_id._convert(mv_line_dict['debit'],
+                                                                                        company_currency,
+                                                                                        company_id,
+                                                                                        mv_line_dict['date'],
+                                                                                        round=False),
+
+                                         'credit': partner_id.secondary_curr_id._convert(mv_line_dict['credit'],
+                                                                                         company_currency,
+                                                                                         company_id,
+                                                                                         mv_line_dict['date'],
+                                                                                         round=False),
+                                         })
                 writeoff_lines += account_move_line._create_writeoff([mv_line_dict])
 
             (account_move_line + writeoff_lines).reconcile()
