@@ -786,13 +786,13 @@ class AccountReconciliation(models.AbstractModel):
                     mv_line_dict['amount_currency'] = False
 
                 if partner_id and partner_id.has_secondary_curr and partner_id.secondary_curr_id:
-                    mv_line_dict.update({'debit': partner_id.secondary_curr_id._convert(mv_line_dict['debit'],
+                    mv_line_dict.update({'debit': partner_id.property_account_receivable_id.currency_id._convert(mv_line_dict['debit'],
                                                                                         company_currency,
                                                                                         company_id,
                                                                                         mv_line_dict['date'],
                                                                                         round=False),
 
-                                         'credit': partner_id.secondary_curr_id._convert(mv_line_dict['credit'],
+                                         'credit': partner_id.property_account_receivable_id.currency_id._convert(mv_line_dict['credit'],
                                                                                          company_currency,
                                                                                          company_id,
                                                                                          mv_line_dict['date'],
