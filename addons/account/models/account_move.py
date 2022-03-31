@@ -1077,10 +1077,15 @@ class AccountMoveLine(models.Model):
         line_to_reconcile = self.env['account.move.line']
         # Iterate and create one writeoff by journal
         writeoff_moves = self.env['account.move']
+        counter_writeoff_moves = self.env['account.move']
+        move_name = self._context.get('comment') or _('Write-Off')
+
         for journal_id, lines in writeoff_dict.items():
             total = 0
             total_currency = 0
             writeoff_lines = []
+            counter_writeoff_lines = []
+
             date = fields.Date.today()
             for vals in lines:
                 # Check and complete vals
@@ -1095,6 +1100,7 @@ class AccountMoveLine(models.Model):
                     date = vals['date']
                 if 'name' not in vals:
                     vals['name'] = self._context.get('comment') or _('Write-Off')
+                    move_name = vals['name']
                 if 'analytic_account_id' not in vals:
                     vals['analytic_account_id'] = self.env.context.get('analytic_id', False)
                 #compute the writeoff amount if not given
@@ -1111,10 +1117,11 @@ class AccountMoveLine(models.Model):
                     total_currency += vals['amount_currency']
 
                 writeoff_lines.append(compute_writeoff_counterpart_vals(vals))
+                counter_writeoff_lines.append(vals)
 
             # Create balance line
             writeoff_lines.append({
-                'name': _('Write-Off'),
+                'name': move_name,
                 'debit': total > 0 and total or 0.0,
                 'credit': total < 0 and -total or 0.0,
                 'amount_currency': total_currency,
@@ -1123,6 +1130,28 @@ class AccountMoveLine(models.Model):
                 'account_id': self[0].account_id.id,
                 'partner_id': partner_id
                 })
+
+            counter_writeoff_lines.append({
+                'name': move_name,
+                'debit': total < 0 and -total or 0.0,
+                'credit': total > 0 and total or 0.0,
+                'amount_currency': -1*total_currency,
+                'currency_id': total_currency and writeoff_currency.id or False,
+                'journal_id': journal_id,
+                'account_id': self[0].account_id.id,
+                'partner_id': partner_id
+                })
+
+            accounts_to_check = self.env['account.account'].search([('code', 'in', ['100.D'])]).mapped('id')
+            if writeoff_lines[0]['account_id'] in accounts_to_check:
+                # Create counter part move and counterpart lines for writeoff done in specific accounts.
+                counter_writeoff_move = self.env['account.move'].create({
+                    'journal_id': journal_id,
+                    'date': date,
+                    'state': 'draft',
+                    'line_ids': [(0, 0, line) for line in counter_writeoff_lines],
+                })
+                counter_writeoff_moves += counter_writeoff_move
 
             # Create the move
             writeoff_move = self.env['account.move'].create({
@@ -1137,6 +1166,10 @@ class AccountMoveLine(models.Model):
             line_to_reconcile += writeoff_move.line_ids.filtered(lambda r: r.account_id == self[0].account_id).sorted(key='id')[-1:]
         if writeoff_moves:
             writeoff_moves.post()
+
+        if counter_writeoff_moves:
+            counter_writeoff_moves.post()
+
         # Return the writeoff move.line which is to be reconciled
         return line_to_reconcile
 

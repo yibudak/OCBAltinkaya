@@ -785,7 +785,7 @@ class AccountReconciliation(models.AbstractModel):
                 if not same_currency:
                     mv_line_dict['amount_currency'] = False
 
-                if partner_id and partner_id.has_secondary_curr and partner_id.secondary_curr_id:
+                if partner_id.property_account_receivable_id.currency_id and partner_id.property_account_receivable_id.currency_id != company_currency:
                     mv_line_dict.update({'debit': partner_id.property_account_receivable_id.currency_id._convert(mv_line_dict['debit'],
                                                                                         company_currency,
                                                                                         company_id,
