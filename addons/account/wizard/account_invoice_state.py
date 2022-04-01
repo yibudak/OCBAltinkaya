@@ -21,4 +21,5 @@ class AccountInvoiceConfirm(models.TransientModel):
             if record.state != 'draft':
                 raise UserError(_("Selected invoice(s) cannot be confirmed as they are not in 'Draft' state."))
             record.action_invoice_open()
+            self.env.cr.commit()
         return {'type': 'ir.actions.act_window_close'}
