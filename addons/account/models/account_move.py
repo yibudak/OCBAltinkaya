@@ -885,9 +885,8 @@ class AccountMoveLine(models.Model):
                 part_reconcile = self.env['account.partial.reconcile']
                 for aml_to_balance, total in to_balance.values():
                     if total:
-                        rate_diff_amls, rate_diff_partial_rec = part_reconcile.create_exchange_rate_entry(aml_to_balance, exchange_move)
+                        rate_diff_amls = part_reconcile.create_exchange_rate_entry(aml_to_balance, exchange_move)
                         amls += rate_diff_amls
-                        partial_rec_ids += rate_diff_partial_rec.ids
                     else:
                         aml_to_balance.reconcile()
                 exchange_move.post()
@@ -1258,6 +1257,7 @@ class AccountMoveLine(models.Model):
             vals.setdefault('company_currency_id', account.company_id.currency_id.id) # important to bypass the ORM limitation where monetary fields are not rounded; more info in the commit message
             amount = vals.get('debit', 0.0) - vals.get('credit', 0.0)
             move = self.env['account.move'].browse(vals['move_id'])
+            diff_inv_journals = self.env['account.journal'].search([('code', 'in', ['KFARK', 'KRFRK'])])
             if account.deprecated:
                 raise UserError(_('The account %s (%s) is deprecated.') %(account.name, account.code))
             journal = vals.get('journal_id') and self.env['account.journal'].browse(vals['journal_id']) or move.journal_id
@@ -1273,10 +1273,11 @@ class AccountMoveLine(models.Model):
 
             # Automatically convert in the account's secondary currency if there is one and
             # the provided values were not already multi-currency
-            if account.currency_id and vals['amount_currency'] == 0 and account.currency_id.id != account.company_id.currency_id.id:
+            if account.currency_id and vals.get('amount_currency') == 0 and account.currency_id.id != account.company_id.currency_id.id:
                 vals['currency_id'] = account.currency_id.id
                 date = vals.get('date') or vals.get('date_maturity') or fields.Date.today()
-                vals['amount_currency'] = account.company_id.currency_id._convert(amount, account.currency_id, account.company_id, date)
+                if journal not in diff_inv_journals:
+                    vals['amount_currency'] = account.company_id.currency_id._convert(amount, account.currency_id, account.company_id, date)
 
         lines = super(AccountMoveLine, self).create(vals_list)
 
