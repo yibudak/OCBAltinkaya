@@ -15,6 +15,7 @@ except ImportError:
 from random import randrange
 
 from odoo.exceptions import UserError
+from odoo.tools.misc import exec_command_pipe
 from odoo.tools.translate import _
 
 
@@ -29,6 +30,7 @@ FILETYPE_BASE64_MAGICWORD = {
     b'R': 'gif',
     b'i': 'png',
     b'P': 'svg+xml',
+    b'U': 'webp',
 }
 
 EXIF_TAG_ORIENTATION = 0x112
@@ -465,15 +467,32 @@ def image_guess_size_from_field_name(field_name):
         return (0, 0)
 
 
-def image_data_uri(base64_source):
+def image_data_uri(base64_source, report_type):
     """This returns data URL scheme according RFC 2397
     (https://tools.ietf.org/html/rfc2397) for all kind of supported images
     (PNG, GIF, JPG and SVG), defaulting on PNG type if not mimetype detected.
     """
-    return 'data:image/%s;base64,%s' % (
-        FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png'),
-        base64_source.decode(),
-    )
+    mimetype = FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png')
+    if 'webp' in mimetype and report_type == 'pdf':
+        # Convert image so that is recognized by wkhtmltopdf.
+        process_input, process_output = exec_command_pipe('python3', '-c', ';'.join([
+            'import sys',
+            'from PIL import Image',
+            "Image.open(sys.stdin.buffer).convert('RGB').save(sys.stdout.buffer, 'png')",
+        ]))
+        source = base64.b64decode(base64_source)
+        process_input.write(source)
+        process_input.close()
+        png_binary = process_output.read()
+        data_uri = 'data:image/png;base64,%s' % (
+            base64.b64encode(png_binary).decode(),
+        )
+    else:
+        data_uri = 'data:image/%s;base64,%s' % (
+            FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png'),
+            base64_source.decode(),
+        )
+    return data_uri
 
 
 def get_saturation(rgb):
