@@ -840,12 +840,28 @@ var StatementModel = BasicModel.extend({
      */
     _changePartner: function (handle, partner_id) {
         var self = this;
+        var head = this.lines[handle];
         return this._rpc({
                 model: 'res.partner',
                 method: 'read',
-                args: [partner_id, ["property_account_receivable_id", "property_account_payable_id"]],
+                args: [partner_id, ["property_account_receivable_id", "property_account_payable_id", "partner_currency_id"]],
             }).then(function (result) {
                 if (result.length > 0) {
+                var new_currency_id = result[0].partner_currency_id[0];
+                self._rpc({
+                model: 'res.currency',
+                method: 'convert_currency_rate',
+                args:[head.st_line.currency_id, head.balance.amount, new_currency_id, head.st_line.company_id, head.st_line.date]}).then(function (result){
+                    head.balance.amount = result[1];
+                    head.balance.amount_currency = result[1];
+                    head.balance.amount_str = result[0] + '&nbsp;' + String(result[1]).replace('.', ',');
+                    head.st_line.amount = result[1];
+                    head.st_line.amount_currency_str = head.st_line.amount_str;
+                    head.st_line.currency_id = new_currency_id;
+                    head.st_line.amount_str = result[0] + ' ' + String(result[1]).replace('.', ',');
+
+
+                });
                     var line = self.getLine(handle);
                     self.lines[handle].st_line.open_balance_account_id = line.balance.amount < 0 ? result[0]['property_account_payable_id'][0] : result[0]['property_account_receivable_id'][0];
                 }
