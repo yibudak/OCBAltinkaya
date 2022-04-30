@@ -374,6 +374,11 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
 
         // reconciliation_proposition
         var $props = this.$('.accounting_view tbody').empty();
+        if(self.fields.partner_id.value){
+        var $head = this.$('.accounting_view thead').empty();
+        state.partner_id = self.fields.partner_id.value.data.id;
+        $head.append(qweb.render('reconciliation.line.header', {'state': state}));
+        }
 
         // Search propositions that could be a partial credit/debit.
         var props = [];
@@ -406,7 +411,6 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
                     partialCreditProp = prop;
             }
         });
-
         _.each(props, function (line) {
             line.display_triangle = (line.already_paid === false &&
                 (((state.balance.amount_currency < 0 || line.partial_reconcile) && partialDebitProp && partialDebitProp === line) ||

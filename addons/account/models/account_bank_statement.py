@@ -680,6 +680,16 @@ class AccountBankStatementLine(models.Model):
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
                 self._prepare_move_line_for_currency(aml_dict, date)
+                if partner_id.partner_currency_id != (aml_dict.get('currency_id', False) or company_currency) and not aml_dict.get('amount_currency'):
+                    amount_currency = company_currency._convert((aml_dict['debit']-aml_dict['credit']),
+                                                                partner_id.partner_currency_id,
+                                                                self.company_id, date)
+                    aml_dict.update({
+                        'currency_id': partner_id.partner_currency_id.id,
+                        'amount_currency': aml_dict['debit'] - aml_dict['credit'],
+                        'debit': amount_currency if aml_dict['debit'] else 0.0,
+                        'credit': -amount_currency if aml_dict['credit'] else 0.0,
+                    })
 
             # Create write-offs
             for aml_dict in new_aml_dicts:
