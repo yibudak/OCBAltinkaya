@@ -68,7 +68,7 @@ class SaleOrder(models.Model):
         """
         # Ignore the status of the deposit product
         deposit_product_id = self.env['sale.advance.payment.inv']._default_product_id()
-        line_invoice_status_all = [(d['order_id'][0], d['invoice_status']) for d in self.env['sale.order.line'].read_group([('order_id', 'in', self.ids), ('product_id', '!=', deposit_product_id.id), ('price_total', '>', 0.00001)], ['order_id', 'invoice_status'], ['order_id', 'invoice_status'], lazy=False)]
+        line_invoice_status_all = [(d['order_id'][0], d['invoice_status']) for d in self.env['sale.order.line'].read_group([('order_id', 'in', self.ids), ('product_id', '!=', deposit_product_id.id)], ['order_id', 'invoice_status'], ['order_id', 'invoice_status'], lazy=False)]
         for order in self:
             invoice_ids = order.order_line.mapped('invoice_lines').mapped('invoice_id').filtered(lambda r: r.type in ['out_invoice', 'out_refund'])
             # Search for invoices which have been 'cancelled' (filter_refund = 'modify' in
