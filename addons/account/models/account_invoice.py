@@ -1885,6 +1885,10 @@ class AccountInvoiceLine(models.Model):
         invoice_type = self.invoice_id.type
         rslt = self.product_id.partner_ref
         if invoice_type in ('in_invoice', 'in_refund'):
+
+            if self.invoice_id.is_einvoice:
+                return self.display_name
+
             if self.product_id.description_purchase:
                 rslt += '\n' + self.product_id.description_purchase
         else:
