@@ -76,7 +76,7 @@ class AccountReconciliation(models.AbstractModel):
         domain = self._domain_move_lines_for_reconciliation(st_line, aml_accounts, partner_id, excluded_ids=excluded_ids, search_str=search_str)
         recs_count = self.env['account.move.line'].search_count(domain)
         aml_recs = self.env['account.move.line'].search(domain, offset=offset, limit=limit, order="date_maturity desc, id desc")
-        target_currency = self.env['res.partner'].browse(partner_id).partner_currency_id or st_line.currency_id or st_line.journal_id.currency_id or st_line.journal_id.company_id.currency_id
+        target_currency = st_line.currency_id or st_line.journal_id.currency_id or st_line.journal_id.company_id.currency_id
         return self._prepare_move_lines(aml_recs, target_currency=target_currency, target_date=st_line.date, recs_count=recs_count)
 
     @api.model
