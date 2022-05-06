@@ -485,14 +485,14 @@ class ProductProduct(models.Model):
                 sellers = [x for x in product_supplier_info if x.product_id and x.product_id == product]
                 if not sellers:
                     sellers = [x for x in product_supplier_info if not x.product_id]
-            if sellers:
+            if sellers and False:
                 for s in sellers:
                     seller_variant = s.product_name and (
                         variant and "%s (%s)" % (s.product_name, variant) or s.product_name
                         ) or False
                     mydict = {
                               'id': product.id,
-                              'name': seller_variant or name,
+                                'name': seller_variant or name,
                               'default_code': s.product_code or product.default_code,
                               }
                     temp = _name_get(mydict)
