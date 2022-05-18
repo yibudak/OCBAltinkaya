@@ -593,6 +593,7 @@ class PurchaseOrderLine(models.Model):
         product_lang = self.product_id.with_context(
             lang=self.partner_id.lang,
             partner_id=self.partner_id.id,
+            display_supplier_name=True,
         )
         self.name = product_lang.display_name
         if product_lang.description_purchase:
