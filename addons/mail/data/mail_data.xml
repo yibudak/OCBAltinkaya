@@ -150,11 +150,7 @@
             </table>
         </td>
     </tr>
-    <tr>
-        <td align="center" style="padding: 8px; font-size:11px;">
-            Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=email">Odoo</a>.
-        </td>
-    </tr>
+
 </tbody>
 </table>
 </div>
@@ -209,10 +205,7 @@
 </tbody>
 </table>
 </td></tr>
-<!-- POWERED BY -->
-<tr><td align="center" style="min-width: 590px;">
-        Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=email" style="color: #875A7B;">Odoo</a>
-</td></tr>
+
 </table>
         </template>
 
@@ -292,10 +285,6 @@
 </tbody>
 </table>
 </td></tr>
-<!-- POWERED BY -->
-<tr><td align="center" style="min-width: 590px; padding: 8px; font-size:11px;">
-    Powered by <a target="_blank" href="https://www.odoo.com?utm_source=db&amp;utm_medium=email" style="color: #875A7B;">Odoo</a>
-</td></tr>
 </table>
         </template>
 
@@ -346,6 +335,16 @@
         <!-- Mail gateway templates -->
         <template id="mail_bounce_catchall">
 <div>
+
+      <p>Merhaba <t t-esc="message['email_from']"/>,</p>
+    <p><t t-esc="message['to']"/> Adresine gönderdiğiniz e-posta mesajınızı işleyemedik.
+    Bize mesaj gönderdiğiniz bu adresimiz sadece gönderilen mesajların cevaplarını toplamak için kullanılmaktadır.
+    </p>
+       <p> <t t-esc="res_company.name"/> ile iletişim kurmak için Lütfen <a t-att-href="'mailto:%s' % res_company.email"><t t-esc="res_company.email"/></a> adresini kullanın.</p>
+    <p>Sayılarımızla,</p>
+    <p>The <t t-esc="res_company.name"/> ekibi.</p>
+
+
     <p>Hello <t t-esc="message['email_from']"/>,</p>
     <p>The email sent to <t t-esc="message['to']"/> cannot be processed. This address
     is used to collect replies and should not be used to directly contact <t t-esc="res_company.name"/>.</p>
