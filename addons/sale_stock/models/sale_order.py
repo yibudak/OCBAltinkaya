@@ -217,6 +217,8 @@ class SaleOrderLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         lines = super(SaleOrderLine, self).create(vals_list)
+        if lines and lines.order_id.date_order <= datetime.strptime('2021-12-31', '%Y-%m-%d'):
+            return lines
         lines.filtered(lambda line: line.state == 'sale')._action_launch_stock_rule()
         return lines
 
