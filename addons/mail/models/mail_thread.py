@@ -2361,6 +2361,7 @@ class MailThread(models.AbstractModel):
         if user_ids:
             new_pids = self.env['res.partner'].sudo().search([('user_ids', 'in', user_ids), ('active', '=', True)]).ids
             for new_pid in new_pids:
+                continue
                 new_subscriptions.append((new_pid, default_subtype_ids, 'mail.message_user_assigned' if new_pid != self.env.user.partner_id.id else False))
 
         return new_subscriptions
