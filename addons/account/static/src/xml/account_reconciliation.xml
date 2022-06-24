@@ -141,6 +141,19 @@
     </tr>
 </t>
 
+<t t-name="reconciliation.line.header">
+    <tr t-if="state.partner_id">
+                <tr>
+                    <td class="cell_action"><span class="toggle_match fa fa-cog" aria-label="Settings" role="img" title="Settings"></span></td>
+                    <td class="cell_account_code"><t t-esc="state.st_line.account_code"/></td>
+                    <td class="cell_due_date"><t t-esc="state.st_line.date"/></td>
+                    <td class="cell_label"><t t-if="state.st_line.name" t-esc="state.st_line.name"/> <t t-if="state.st_line.amount_currency_str"> (<t t-esc="state.st_line.amount_currency_str"/>)</t></td>
+                    <td class="cell_left"><t t-if="state.st_line.amount &gt; 0"><t t-raw="state.st_line.amount_str"/></t></td>
+                    <td class="cell_right"><t t-if="state.st_line.amount &lt; 0"><t t-raw="state.st_line.amount_str"/></t></td>
+                    <td class="cell_info_popover"></td>
+                </tr>
+    </tr>
+</t>
 
 <div t-name="reconciliation.line.match">
     <div class="match_controls">
