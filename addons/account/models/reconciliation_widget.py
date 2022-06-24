@@ -76,7 +76,7 @@ class AccountReconciliation(models.AbstractModel):
         domain = self._domain_move_lines_for_reconciliation(st_line, aml_accounts, partner_id, excluded_ids=excluded_ids, search_str=search_str)
         recs_count = self.env['account.move.line'].search_count(domain)
         aml_recs = self.env['account.move.line'].search(domain, offset=offset, limit=limit, order="date_maturity desc, id desc")
-        target_currency = st_line.currency_id or st_line.journal_id.currency_id or st_line.journal_id.company_id.currency_id
+        target_currency = self.env['res.partner'].browse(partner_id).partner_currency_id or st_line.currency_id or st_line.journal_id.currency_id or st_line.journal_id.company_id.currency_id
         return self._prepare_move_lines(aml_recs, target_currency=target_currency, target_date=st_line.date, recs_count=recs_count)
 
     @api.model
@@ -637,7 +637,7 @@ class AccountReconciliation(models.AbstractModel):
                     total_amount_currency = line.amount_currency
 
             if target_currency != company_currency:
-                if line_currency == target_currency:
+                if line_currency == target_currency :
                     amount = amount_currency
                     amount_currency = ""
                     total_amount = line.amount_currency
@@ -650,13 +650,17 @@ class AccountReconciliation(models.AbstractModel):
                     total_amount = company_currency._convert((line.debit - line.credit), target_currency, company, date)
                     total_amount_currency = line.currency_id and line.amount_currency or (line.debit - line.credit)
 
+            if line.journal_id.code == 'KFARK':
+                amount = 0.0
+                total_amount = 0.0
+
             ret_line['recs_count'] = recs_count
             ret_line['debit'] = amount > 0 and amount or 0
             ret_line['credit'] = amount < 0 and -amount or 0
             ret_line['amount_currency'] = amount_currency
-            ret_line['amount_str'] = formatLang(self.env, abs(amount), currency_obj=target_currency)
-            ret_line['total_amount_str'] = formatLang(self.env, abs(total_amount), currency_obj=target_currency)
-            ret_line['amount_currency_str'] = amount_currency and formatLang(self.env, abs(amount_currency), currency_obj=line_currency) or ""
+            ret_line['amount_str'] = formatLang(self.env, abs(amount), currency_obj=target_currency, digits=2)
+            ret_line['total_amount_str'] = formatLang(self.env, abs(total_amount), currency_obj=target_currency, digits=2)
+            ret_line['amount_currency_str'] = amount_currency and formatLang(self.env, abs(amount_currency), currency_obj=line_currency, digits=2) or ""
             ret_line['total_amount_currency_str'] = total_amount_currency and formatLang(self.env, abs(total_amount_currency), currency_obj=line_currency) or ""
             ret.append(ret_line)
         return ret
