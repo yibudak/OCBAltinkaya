@@ -669,7 +669,7 @@ class AccountBankStatementLine(models.Model):
                     'currency_id': currency.id,
                     'amount': abs(total),
                     'communication': self._get_communication(payment_methods[0] if payment_methods else False),
-                    'name': self.statement_id.name or _("Bank Statement %s") %  self.date,
+                    'name': self.statement_id.name or _("Bank Statement %s") % self.date,
                 })
 
             # Complete dicts to create both counterpart move lines and write-offs
@@ -738,6 +738,22 @@ class AccountBankStatementLine(models.Model):
         st_line_currency = self.currency_id or statement_currency
         st_line_currency_rate = self.currency_id and (self.amount_currency / self.amount) or False
         company = self.company_id
+
+        partner_currency = self.partner_id and self.partner_id.partner_currency_id or company_currency
+
+        if partner_currency != company_currency and partner_currency != statement_currency:
+            if aml_dict.get('move_line', False):
+                aml_dict['amount_currency'] = aml_dict['move_line'].amount_residual_currency
+                aml_dict['currency_id'] = aml_dict['move_line'].currency_id.id
+                aml_dict['debit'] = aml_dict['move_line'].debit
+                aml_dict['credit'] = aml_dict['move_line'].credit
+                #todo check if amount residual and amout are same or solve other way
+            else:
+                aml_dict['amount_currency'] = aml_dict['debit'] - aml_dict['credit']
+                aml_dict['currency_id'] = partner_currency.id
+                aml_dict['debit'] = partner_currency._convert(aml_dict['debit'] , company_currency, company, date)
+                aml_dict['credit'] = partner_currency._convert(aml_dict['credit'] , company_currency, company, date)
+
 
         if st_line_currency.id != company_currency.id:
             aml_dict['amount_currency'] = aml_dict['debit'] - aml_dict['credit']
