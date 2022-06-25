@@ -669,7 +669,7 @@ class AccountBankStatementLine(models.Model):
                     'currency_id': currency.id,
                     'amount': abs(total),
                     'communication': self._get_communication(payment_methods[0] if payment_methods else False),
-                    'name': self.statement_id.name or _("Bank Statement %s") %  self.date,
+                    'name': self.statement_id.name or _("Bank Statement %s") % self.date,
                 })
 
             # Complete dicts to create both counterpart move lines and write-offs
@@ -680,17 +680,6 @@ class AccountBankStatementLine(models.Model):
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
                 self._prepare_move_line_for_currency(aml_dict, date)
-
-                if partner_id.partner_currency_id != (aml_dict.get('currency_id', False) or company_currency) and not aml_dict.get('amount_currency'):
-                    amount_currency = company_currency._convert((aml_dict['debit']-aml_dict['credit']),
-                                                                partner_id.partner_currency_id,
-                                                                self.company_id, date)
-                    aml_dict.update({
-                        'currency_id': partner_id.partner_currency_id.id,
-                        'amount_currency': aml_dict['debit'] - aml_dict['credit'],
-                        'debit': amount_currency if aml_dict['debit'] else 0.0,
-                        'credit': -amount_currency if aml_dict['credit'] else 0.0,
-                    })
 
             # Create write-offs
             for aml_dict in new_aml_dicts:
@@ -746,10 +735,25 @@ class AccountBankStatementLine(models.Model):
         self.ensure_one()
         company_currency = self.journal_id.company_id.currency_id
         statement_currency = self.journal_id.currency_id or company_currency
-        partner_currency = self.partner_id and self.partner_id.partner_currency_id or company_currency
         st_line_currency = self.currency_id or statement_currency
         st_line_currency_rate = self.currency_id and (self.amount_currency / self.amount) or False
         company = self.company_id
+
+        partner_currency = self.partner_id and self.partner_id.partner_currency_id or company_currency
+
+        if partner_currency != company_currency and partner_currency != statement_currency:
+            if aml_dict.get('move_line', False):
+                aml_dict['amount_currency'] = aml_dict['move_line'].amount_residual_currency
+                aml_dict['currency_id'] = aml_dict['move_line'].currency_id.id
+                aml_dict['debit'] = aml_dict['move_line'].debit
+                aml_dict['credit'] = aml_dict['move_line'].credit
+                #todo check if amount residual and amout are same or solve other way
+            else:
+                aml_dict['amount_currency'] = aml_dict['debit'] - aml_dict['credit']
+                aml_dict['currency_id'] = partner_currency.id
+                aml_dict['debit'] = partner_currency._convert(aml_dict['debit'] , company_currency, company, date)
+                aml_dict['credit'] = partner_currency._convert(aml_dict['credit'] , company_currency, company, date)
+
 
         if st_line_currency.id != company_currency.id:
             aml_dict['amount_currency'] = aml_dict['debit'] - aml_dict['credit']
@@ -771,13 +775,6 @@ class AccountBankStatementLine(models.Model):
             prorata_factor = (aml_dict['debit'] - aml_dict['credit']) / self.amount_currency
             aml_dict['amount_currency'] = prorata_factor * self.amount
             aml_dict['currency_id'] = statement_currency.id
-        elif st_line_currency.id == company_currency.id and st_line_currency.id != partner_currency.id:
-            # Statement and transaction are in company currency but partners currency differs from company currency
-            aml_dict['amount_currency'] = st_line_currency._convert(aml_dict['debit'] - aml_dict['credit'], partner_currency, company, date)
-            aml_dict['currency_id'] = partner_currency.id
-
-
-
 
     def _check_invoice_state(self, invoice):
         if invoice.state == 'in_payment' and all([payment.state == 'reconciled' for payment in invoice.mapped('payment_move_line_ids.payment_id')]):
