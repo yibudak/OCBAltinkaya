@@ -1276,7 +1276,8 @@ class AccountMoveLine(models.Model):
             if account.currency_id and vals.get('amount_currency') == 0 and account.currency_id.id != account.company_id.currency_id.id:
                 vals['currency_id'] = account.currency_id.id
                 date = vals.get('date') or vals.get('date_maturity') or fields.Date.today()
-                if journal not in diff_inv_journals:
+                counterpart_journal_id = vals.get('counterpart_journal_id', False)
+                if journal not in diff_inv_journals and counterpart_journal_id not in diff_inv_journals.ids:
                     vals['amount_currency'] = account.company_id.currency_id._convert(amount, account.currency_id, account.company_id, date)
 
         lines = super(AccountMoveLine, self).create(vals_list)
@@ -1898,7 +1899,7 @@ class AccountFullReconcile(models.Model):
             move.button_cancel()
             move.line_ids.unlink()
             move.unlink()
-
+        return res
     @api.model
     def _prepare_exchange_diff_move(self, move_date, company):
         if not company.currency_exchange_journal_id:
