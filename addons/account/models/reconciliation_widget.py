@@ -574,6 +574,9 @@ class AccountReconciliation(models.AbstractModel):
             line_currency = (line.currency_id and line.amount_currency) and line.currency_id or company_currency
             date_maturity = misc.format_date(self.env, line.date_maturity, lang_code=self.env.user.lang)
 
+            if line.full_reconcile_id:
+                continue
+
             ret_line = {
                 'id': line.id,
                 'name': line.name and line.name != '/' and line.move_id.name + ': ' + line.name or line.move_id.name,
