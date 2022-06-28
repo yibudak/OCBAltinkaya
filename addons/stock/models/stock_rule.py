@@ -488,9 +488,7 @@ class ProcurementGroup(models.Model):
 
             for location_id, location_data in location_data.items():
                 location_orderpoints = location_data['orderpoints']
-                qty_locations = location_orderpoints[0].location_id
-                qty_locations |= qty_locations.included_location_ids
-                product_context = dict(self._context, location=qty_locations.ids)
+                product_context = dict(self._context, location=location_orderpoints[0].location_id.id)
                 substract_quantity = location_orderpoints._quantity_in_progress()
 
                 for group in location_data['groups']:
