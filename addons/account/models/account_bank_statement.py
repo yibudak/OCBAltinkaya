@@ -840,7 +840,7 @@ class AccountBankStatementLine(models.Model):
 
         # Fully reconciled moves are just linked to the bank statement
         total = self.amount
-
+        date = self.date or fields.Date.today()
 
         # Create move line(s). Either matching an existing journal entry (eg. invoice), in which
         # case we reconcile the existing and the new move lines together, or being a write-off.
@@ -886,6 +886,11 @@ class AccountBankStatementLine(models.Model):
 
             # Create write-offs
             for aml_dict in new_aml_dicts:
+                aml_dict['partner_id'] = self.partner_id.id
+                aml_dict['statement_line_id'] = self.id
+                aml_dict['credit'] = aml_dict['debit']
+                aml_dict['debit'] = 0
+                self._prepare_move_line_for_currency(aml_dict, date)
                 amls_to_reconcile |= amls_to_reconcile._create_writeoff([aml_dict])
 
             # Create counterpart move lines and reconcile them
@@ -897,8 +902,34 @@ class AccountBankStatementLine(models.Model):
             #record the move name on the statement line to be able to retrieve it in case of unreconciliation
             self.write({'move_name': self.statement_id.name})
             payment and payment.write({'payment_reference': self.statement_id.name})
-        elif self.move_name:
-            raise UserError(_('Operation not allowed. Since your statement line already received a number (%s), you cannot reconcile it entirely with existing journal entries otherwise it would make a gap in the numbering. You should book an entry and make a regular revert of it in case you want to cancel it.') % (self.move_name))
+
+        else:
+            move_vals = self._prepare_reconciliation_move(self.statement_id.name)
+            aml_to_create = []
+            for st_line in self:
+                aml_dict = {
+                    'name': st_line.name,
+                    'debit': st_line.amount < 0 and -st_line.amount or 0.0,
+                    'credit': st_line.amount > 0 and st_line.amount or 0.0,
+                    'account_id': st_line.statement_id.journal_id.default_credit_account_id.id,
+                    'partner_id': st_line.partner_id.id,
+                    'statement_line_id': st_line.id,
+                }
+                st_line._prepare_move_line_for_currency(aml_dict, st_line.date or fields.Date.today())
+                aml_to_create.append(aml_dict)
+
+            for aml_dict in new_aml_dicts:
+                aml_dict['partner_id'] = self.partner_id.id
+                aml_dict['statement_line_id'] = self.id
+                aml_dict['debit'] = aml_dict['credit']
+                aml_dict['credit'] = 0
+                self._prepare_move_line_for_currency(aml_dict, date)
+                aml_to_create.append(aml_dict)
+
+            move_vals['line_ids'] = [(0, 0, line) for line in aml_to_create]
+            move = self.env['account.move'].create(move_vals)
+            move.post()
+            return move
 
         #create the res.partner.bank if needed
         if self.account_number and self.partner_id and not self.bank_account_id:
