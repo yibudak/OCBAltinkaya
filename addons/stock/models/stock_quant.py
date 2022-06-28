@@ -236,9 +236,9 @@ class StockQuant(models.Model):
                 'product_id': product_id.id,
                 'location_id': location_id.id,
                 'quantity': quantity,
-                'lot_id': lot_id and lot_id.id,
-                'package_id': package_id and package_id.id,
-                'owner_id': owner_id and owner_id.id,
+                'lot_id': lot_id and lot_id.id or False,
+                'package_id': package_id and package_id.id or False,
+                'owner_id': owner_id and owner_id.id or False,
                 'in_date': in_date,
             })
         return self._get_available_quantity(product_id, location_id, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=False, allow_negative=True), fields.Datetime.from_string(in_date)
