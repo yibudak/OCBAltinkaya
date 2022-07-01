@@ -362,34 +362,30 @@ class AccountBankStatementLine(models.Model):
 
     @api.multi
     def button_cancel_reconciliation(self):
-        aml_to_unbind = self.env['account.move.line']
-        aml_to_cancel = self.env['account.move.line']
-        payment_to_unreconcile = self.env['account.payment']
-        payment_to_cancel = self.env['account.payment']
+
         for st_line in self:
-            aml_to_unbind |= st_line.journal_entry_ids
-            for line in st_line.journal_entry_ids:
-                payment_to_unreconcile |= line.payment_id
-                if st_line.move_name and line.payment_id.payment_reference == st_line.move_name:
-                    #there can be several moves linked to a statement line but maximum one created by the line itself
-                    aml_to_cancel |= line
-                    payment_to_cancel |= line.payment_id
-        aml_to_unbind = aml_to_unbind - aml_to_cancel
+            if not st_line.partner_id:
+                move_id = st_line.journal_entry_ids.mapped('move_id')
+                move_id.button_cancel()
+                st_line.journal_entry_ids.unlink()
+                move_id.unlink()
+            else:
+                created_move_ids = st_line.journal_entry_ids.filtered(lambda r: r.move_id.journal_id.id in [10, 53]).mapped('move_id')
 
-        if aml_to_unbind:
-            aml_to_unbind.write({'statement_line_id': False})
+                payment = self.env['account.payment'].search([('statement_line_id', '=', st_line.id),
+                                                              ('state', '!=', 'cancelled')])
+                if payment:
+                    payment.move_line_ids.filtered(lambda x: x.full_reconcile_id).remove_move_reconcile()
+                    payment.cancel()
+                # todo: ara devirleri sil
+                st_line.write({
+                    'journal_entry_ids': [(6, 0, [])], # Empty account move lines
+                })
+                if created_move_ids:
+                    created_move_ids.button_cancel()
+                    created_move_ids.mapped('line_ids').unlink()
+                    created_move_ids.unlink()
 
-        payment_to_unreconcile = payment_to_unreconcile - payment_to_cancel
-        if payment_to_unreconcile:
-            payment_to_unreconcile.unreconcile()
-
-        if aml_to_cancel:
-            aml_to_cancel.remove_move_reconcile()
-            moves_to_cancel = aml_to_cancel.mapped('move_id')
-            moves_to_cancel.button_cancel()
-            moves_to_cancel.unlink()
-        if payment_to_cancel:
-            payment_to_cancel.unlink()
 
     ####################################################
     # Reconciliation methods
@@ -551,6 +547,7 @@ class AccountBankStatementLine(models.Model):
     def _get_communication(self, payment_method_id):
         return self.name or ''
 
+
     def process_reconciliation(self, counterpart_aml_dicts=None, payment_aml_rec=None, new_aml_dicts=None):
         """ Match statement lines with existing payments (eg. checks) and/or payables/receivables (eg. invoices and credit notes) and/or new move lines (eg. write-offs).
             If any new journal item needs to be created (via new_aml_dicts or counterpart_aml_dicts), a new journal entry will be created and will contain those
@@ -584,15 +581,8 @@ class AccountBankStatementLine(models.Model):
         counterpart_aml_dicts = counterpart_aml_dicts or []
         payment_aml_rec = payment_aml_rec or self.env['account.move.line']
         new_aml_dicts = new_aml_dicts or []
-
+        no_full_reconcile = False
         aml_obj = self.env['account.move.line']
-
-        company_currency = self.journal_id.company_id.currency_id
-        statement_currency = self.journal_id.currency_id or company_currency
-        st_line_currency = self.currency_id or statement_currency
-
-        counterpart_moves = self.env['account.move']
-
         # Check and prepare received data
         if any(rec.statement_id for rec in payment_aml_rec):
             raise UserError(_('A selected move line was already reconciled.'))
@@ -613,40 +603,26 @@ class AccountBankStatementLine(models.Model):
                 account_types |= user_type_id
         if any(line.journal_entry_ids for line in self):
             raise UserError(_('A selected statement line was already reconciled with an account move.'))
-
         # Fully reconciled moves are just linked to the bank statement
+        amls_to_check = aml_obj
+        for aml in counterpart_aml_dicts:
+            amls_to_check |= aml.get('move_line', aml_obj)
+        if len(amls_to_check.mapped('account_id')) > 1:
+            raise UserError(_('You can only reconcile journal items with the same account.'))
         total = self.amount
-        currency = self.currency_id or statement_currency
-        for aml_rec in payment_aml_rec:
-            balance = aml_rec.amount_currency if aml_rec.currency_id else aml_rec.balance
-            aml_currency = aml_rec.currency_id or aml_rec.company_currency_id
-            total -= aml_currency._convert(balance, currency, aml_rec.company_id, aml_rec.date)
-            aml_rec.with_context(check_move_validity=False).write({'statement_line_id': self.id})
-            counterpart_moves = (counterpart_moves | aml_rec.move_id)
-            if aml_rec.journal_id.post_at_bank_rec and aml_rec.payment_id and aml_rec.move_id.state == 'draft':
-                # In case the journal is set to only post payments when performing bank
-                # reconciliation, we modify its date and post it.
-                aml_rec.move_id.date = self.date
-                aml_rec.payment_id.payment_date = self.date
-                aml_rec.move_id.post()
-                # We check the paid status of the invoices reconciled with this payment
-                for invoice in aml_rec.payment_id.reconciled_invoice_ids:
-                    self._check_invoice_state(invoice)
+        date = self.date or fields.Date.today()
 
         # Create move line(s). Either matching an existing journal entry (eg. invoice), in which
         # case we reconcile the existing and the new move lines together, or being a write-off.
-        if counterpart_aml_dicts or new_aml_dicts:
+        if self.partner_id:
 
             # Create the move
             self.sequence = self.statement_id.line_ids.ids.index(self.id) + 1
-            move_vals = self._prepare_reconciliation_move(self.statement_id.name)
-            move = self.env['account.move'].create(move_vals)
-            counterpart_moves = (counterpart_moves | move)
 
             # Create The payment
             payment = self.env['account.payment']
             partner_id = self.partner_id or (aml_dict.get('move_line') and aml_dict['move_line'].partner_id) or self.env['res.partner']
-            if abs(total)>0.00001:
+            if abs(total) > 0.00001:
                 partner_type = False
                 if partner_id and len(account_types) == 1:
                     partner_type = 'customer' if account_types == receivable_account_type else 'supplier'
@@ -658,63 +634,97 @@ class AccountBankStatementLine(models.Model):
 
                 payment_methods = (total>0) and self.journal_id.inbound_payment_method_ids or self.journal_id.outbound_payment_method_ids
                 currency = self.journal_id.currency_id or self.company_id.currency_id
+
                 payment = self.env['account.payment'].create({
                     'payment_method_id': payment_methods and payment_methods[0].id or False,
-                    'payment_type': total >0 and 'inbound' or 'outbound',
+                    'payment_type': total > 0 and 'inbound' or 'outbound',
                     'partner_id': partner_id.id,
                     'partner_type': partner_type,
                     'journal_id': self.statement_id.journal_id.id,
                     'payment_date': self.date,
-                    'state': 'reconciled',
+                    'statement_line_id': self.id,
+                    'state': 'draft',
+                    'payment_reference': self.name,
                     'currency_id': currency.id,
                     'amount': abs(total),
                     'communication': self._get_communication(payment_methods[0] if payment_methods else False),
                     'name': self.statement_id.name or _("Bank Statement %s") % self.date,
                 })
+                payment.post()
+                self.write({
+                    'journal_entry_ids': [(6, 0, payment.move_line_ids.ids)],
+                    'move_name': self.name,
+                })
+                # todo payment move id will be written in self.move_line_ids
 
-            # Complete dicts to create both counterpart move lines and write-offs
-            to_create = (counterpart_aml_dicts + new_aml_dicts)
-            date = self.date or fields.Date.today()
-            for aml_dict in to_create:
-                aml_dict['move_id'] = move.id
-                aml_dict['partner_id'] = self.partner_id.id
-                aml_dict['statement_line_id'] = self.id
-                self._prepare_move_line_for_currency(aml_dict, date)
+            journal_accounts = self.journal_id.default_debit_account_id + self.journal_id.default_credit_account_id
+
+            amls_to_reconcile = payment.move_line_ids.filtered(lambda r: r.account_id not in journal_accounts)
+
+            for aml in counterpart_aml_dicts:
+                amls_to_reconcile |= aml.get('move_line', aml_obj)
 
             # Create write-offs
             for aml_dict in new_aml_dicts:
-                aml_dict['payment_id'] = payment and payment.id or False
-                aml_obj.with_context(check_move_validity=False).create(aml_dict)
+                aml_dict['partner_id'] = self.partner_id.id
+                aml_dict['statement_line_id'] = self.id
 
-            # Create counterpart move lines and reconcile them
-            for aml_dict in counterpart_aml_dicts:
-                if aml_dict['move_line'].payment_id and not aml_dict['move_line'].statement_line_id:
-                    aml_dict['move_line'].write({'statement_line_id': self.id})
-                if aml_dict['move_line'].partner_id.id:
-                    aml_dict['partner_id'] = aml_dict['move_line'].partner_id.id
-                aml_dict['account_id'] = aml_dict['move_line'].account_id.id
-                aml_dict['payment_id'] = payment and payment.id or False
+                account_id = self.env['account.account'].browse(aml_dict['account_id'])
+                if account_id.code == '100.D':
+                    aml_dict['journal_id'] = 10
+                elif account_id.code == '679':
+                    aml_dict['journal_id'] = 53
+                else:
+                    aml_dict['journal_id'] = self.statement_id.journal_id.id
+                # swap  debit and credit values
+                debit = aml_dict['debit']
+                aml_dict['debit'] = aml_dict['credit']
+                aml_dict['credit'] = debit
+                self._prepare_move_line_for_currency(aml_dict, date)
+                if account_id not in self.partner_id.property_account_receivable_id + self.partner_id.property_account_payable_id:
+                    amls_to_reconcile |= amls_to_reconcile._create_writeoff([aml_dict])
+                else:
+                    no_full_reconcile = True
 
-                counterpart_move_line = aml_dict.pop('move_line')
-                new_aml = aml_obj.with_context(check_move_validity=False).create(aml_dict)
+            if not no_full_reconcile:
+                amls_to_reconcile.reconcile()
+                if not amls_to_reconcile.mapped('full_reconcile_id'):
+                    raise UserError(_('Full reconcilation process is failed. Aborted.\n'))
+        else:
+            move_vals = self._prepare_reconciliation_move(self.statement_id.name)
+            aml_to_create = []
+            for st_line in self:
+                account_id = st_line.amount > 0 and st_line.journal_id.default_credit_account_id.id or\
+                             st_line.journal_id.default_debit_account_id.id
+                aml_dict = {
+                    'name': st_line.name,
+                    'debit': st_line.amount > 0 and st_line.amount or 0.0,
+                    'credit': st_line.amount < 0 and -st_line.amount or 0.0,
+                    'account_id': account_id,
+                    'partner_id': st_line.partner_id.id,
+                    'statement_line_id': st_line.id,
+                }
+                st_line._prepare_move_line_for_currency(aml_dict, st_line.date or fields.Date.today())
+                aml_to_create.append(aml_dict)
 
-                (new_aml | counterpart_move_line).reconcile()
+            for aml_dict in new_aml_dicts:
+                aml_dict['partner_id'] = self.partner_id.id
+                aml_dict['statement_line_id'] = self.id
+                account_id = self.env['account.account'].browse(aml_dict['account_id'])
+                if account_id.code == '100.D':
+                    aml_dict['journal_id'] = 10
+                elif account_id.code == '679':
+                    aml_dict['journal_id'] = 53
+                else:
+                    aml_dict['journal_id'] = self.statement_id.journal_id.id
+                self._prepare_move_line_for_currency(aml_dict, date)
+                aml_to_create.append(aml_dict)
 
-                self._check_invoice_state(counterpart_move_line.invoice_id)
-
-            # Balance the move
-            st_line_amount = -sum([x.balance for x in move.line_ids])
-            aml_dict = self._prepare_reconciliation_move_line(move, st_line_amount)
-            aml_dict['payment_id'] = payment and payment.id or False
-            aml_obj.with_context(check_move_validity=False).create(aml_dict)
-
-            move.update_lines_tax_exigibility() # Needs to be called manually as lines were created 1 by 1
+            move_vals['line_ids'] = [(0, 0, line) for line in aml_to_create]
+            move = self.env['account.move'].create(move_vals)
             move.post()
-            #record the move name on the statement line to be able to retrieve it in case of unreconciliation
-            self.write({'move_name': move.name})
-            payment and payment.write({'payment_reference': move.name})
-        elif self.move_name:
-            raise UserError(_('Operation not allowed. Since your statement line already received a number (%s), you cannot reconcile it entirely with existing journal entries otherwise it would make a gap in the numbering. You should book an entry and make a regular revert of it in case you want to cancel it.') % (self.move_name))
+            self.write({'move_name': move.display_name, 'journal_entry_ids': [(6, 0, move.line_ids.ids)]})
+            return move
 
         #create the res.partner.bank if needed
         if self.account_number and self.partner_id and not self.bank_account_id:
@@ -727,8 +737,7 @@ class AccountBankStatementLine(models.Model):
                 })
             self.bank_account_id = bank_account
 
-        counterpart_moves.assert_balanced()
-        return counterpart_moves
+        return True
 
     @api.multi
     def _prepare_move_line_for_currency(self, aml_dict, date):
@@ -747,7 +756,6 @@ class AccountBankStatementLine(models.Model):
                 aml_dict['currency_id'] = aml_dict['move_line'].currency_id.id
                 aml_dict['debit'] = aml_dict['move_line'].debit
                 aml_dict['credit'] = aml_dict['move_line'].credit
-                #todo check if amount residual and amout are same or solve other way
             else:
                 aml_dict['amount_currency'] = aml_dict['debit'] - aml_dict['credit']
                 aml_dict['currency_id'] = partner_currency.id
