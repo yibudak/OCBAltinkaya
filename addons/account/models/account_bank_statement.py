@@ -607,8 +607,12 @@ class AccountBankStatementLine(models.Model):
                 account_types |= user_type_id
         if any(line.journal_entry_ids for line in self):
             raise UserError(_('A selected statement line was already reconciled with an account move.'))
-        # todo check if counterpart aml dicts in same account
         # Fully reconciled moves are just linked to the bank statement
+        amls_to_check = aml_obj
+        for aml in counterpart_aml_dicts:
+            amls_to_check |= aml.get('move_line', aml_obj)
+        if len(amls_to_check.mapped('account_id')) > 1:
+            raise UserError(_('You can only reconcile journal items with the same account.'))
         total = self.amount
         date = self.date or fields.Date.today()
 
@@ -636,7 +640,7 @@ class AccountBankStatementLine(models.Model):
                 currency = self.journal_id.currency_id or self.company_id.currency_id
                 payment = self.env['account.payment'].create({
                     'payment_method_id': payment_methods and payment_methods[0].id or False,
-                    'payment_type': total >0 and 'inbound' or 'outbound',
+                    'payment_type': total > 0 and 'inbound' or 'outbound',
                     'partner_id': partner_id.id,
                     'partner_type': partner_type,
                     'journal_id': self.statement_id.journal_id.id,
@@ -650,7 +654,9 @@ class AccountBankStatementLine(models.Model):
                 payment.post()
                 # todo payment move id will be written in self.move_line_ids
 
-            amls_to_reconcile = payment.move_line_ids.filtered(lambda r: r.account_id.code.startswith('120'))
+            journal_accounts = self.journal_id.default_debit_account_id + self.journal_id.default_credit_account_id
+
+            amls_to_reconcile = payment.move_line_ids.filtered(lambda r: r.account_id not in journal_accounts)
 
             for aml in counterpart_aml_dicts:
                 amls_to_reconcile |= aml.get('move_line', aml_obj)
@@ -659,8 +665,7 @@ class AccountBankStatementLine(models.Model):
             for aml_dict in new_aml_dicts:
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
-                aml_dict['credit'] = aml_dict['debit']
-                aml_dict['debit'] = 0
+                aml_dict['journal_id'] = self.statement_id.journal_id.id
                 self._prepare_move_line_for_currency(aml_dict, date)
                 amls_to_reconcile |= amls_to_reconcile._create_writeoff([aml_dict])
 
@@ -678,11 +683,13 @@ class AccountBankStatementLine(models.Model):
             move_vals = self._prepare_reconciliation_move(self.statement_id.name)
             aml_to_create = []
             for st_line in self:
+                account_id = st_line.amount > 0 and st_line.journal_id.default_credit_account_id.id or\
+                             st_line.journal_id.default_debit_account_id.id
                 aml_dict = {
                     'name': st_line.name,
                     'debit': st_line.amount > 0 and st_line.amount or 0.0,
                     'credit': st_line.amount < 0 and -st_line.amount or 0.0,
-                    'account_id': st_line.statement_id.journal_id.default_credit_account_id.id, #todo select recv or payable of journal id
+                    'account_id': account_id,
                     'partner_id': st_line.partner_id.id,
                     'statement_line_id': st_line.id,
                 }
