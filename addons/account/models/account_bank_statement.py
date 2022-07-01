@@ -648,7 +648,7 @@ class AccountBankStatementLine(models.Model):
                     'name': self.statement_id.name or _("Bank Statement %s") % self.date,
                 })
                 payment.post()
-                # todo payment move id will be written in self.move_id
+                # todo payment move id will be written in self.move_line_ids
 
             amls_to_reconcile = payment.move_line_ids.filtered(lambda r: r.account_id.code.startswith('120'))
 
@@ -680,8 +680,8 @@ class AccountBankStatementLine(models.Model):
             for st_line in self:
                 aml_dict = {
                     'name': st_line.name,
-                    'debit': st_line.amount < 0 and -st_line.amount or 0.0,
-                    'credit': st_line.amount > 0 and st_line.amount or 0.0,
+                    'debit': st_line.amount > 0 and st_line.amount or 0.0,
+                    'credit': st_line.amount < 0 and -st_line.amount or 0.0,
                     'account_id': st_line.statement_id.journal_id.default_credit_account_id.id, #todo select recv or payable of journal id
                     'partner_id': st_line.partner_id.id,
                     'statement_line_id': st_line.id,
@@ -692,8 +692,7 @@ class AccountBankStatementLine(models.Model):
             for aml_dict in new_aml_dicts:
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
-                aml_dict['debit'] = aml_dict['credit']  # swap two values instead also
-                aml_dict['credit'] = 0
+
                 self._prepare_move_line_for_currency(aml_dict, date)
                 aml_to_create.append(aml_dict)
 
