@@ -646,12 +646,17 @@ class AccountBankStatementLine(models.Model):
                     'journal_id': self.statement_id.journal_id.id,
                     'payment_date': self.date,
                     'state': 'draft',
+                    'payment_reference': self.name,
                     'currency_id': currency.id,
                     'amount': abs(total),
                     'communication': self._get_communication(payment_methods[0] if payment_methods else False),
                     'name': self.statement_id.name or _("Bank Statement %s") % self.date,
                 })
                 payment.post()
+                self.write({
+                    'journal_entry_ids': [(6, 0, payment.move_line_ids.ids)],
+                    'move_name': self.name,
+                })
                 # todo payment move id will be written in self.move_line_ids
 
             journal_accounts = self.journal_id.default_debit_account_id + self.journal_id.default_credit_account_id
@@ -665,6 +670,15 @@ class AccountBankStatementLine(models.Model):
             for aml_dict in new_aml_dicts:
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
+
+                account_id = self.env['account.account'].browse(aml_dict['account_id'])
+                if account_id.code == '100.D':
+                    aml_dict['journal_id'] = 10
+                elif account_id.code == '679':
+                    aml_dict['journal_id'] = 53
+                else:
+                    aml_dict['journal_id'] = self.statement_id.journal_id.id
+                # swap  debit and credit values
                 debit = aml_dict['debit']
                 aml_dict['debit'] = aml_dict['credit']
                 aml_dict['credit'] = debit
@@ -677,8 +691,6 @@ class AccountBankStatementLine(models.Model):
             #                                  'payment_id': payment and payment.id or False})
 
             amls_to_reconcile.reconcile()
-            #record the move name on the statement line to be able to retrieve it in case of unreconciliation
-            self.write({'move_name': self.statement_id.name})
             payment and payment.write({'payment_reference': self.statement_id.name})
 
         else:
@@ -701,13 +713,20 @@ class AccountBankStatementLine(models.Model):
             for aml_dict in new_aml_dicts:
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
-
+                account_id = self.env['account.account'].browse(aml_dict['account_id'])
+                if account_id.code == '100.D':
+                    aml_dict['journal_id'] = 10
+                elif account_id.code == '679':
+                    aml_dict['journal_id'] = 53
+                else:
+                    aml_dict['journal_id'] = self.statement_id.journal_id.id
                 self._prepare_move_line_for_currency(aml_dict, date)
                 aml_to_create.append(aml_dict)
 
             move_vals['line_ids'] = [(0, 0, line) for line in aml_to_create]
             move = self.env['account.move'].create(move_vals)
             move.post()
+            self.write({'move_name': move.display_name, 'journal_entry_ids': [(6, 0, move.line_ids.ids)]})
             return move
 
         #create the res.partner.bank if needed
