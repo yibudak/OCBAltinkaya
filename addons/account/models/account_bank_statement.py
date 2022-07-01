@@ -665,8 +665,9 @@ class AccountBankStatementLine(models.Model):
             for aml_dict in new_aml_dicts:
                 aml_dict['partner_id'] = self.partner_id.id
                 aml_dict['statement_line_id'] = self.id
-                aml_dict['credit'] = aml_dict['debit']
-                aml_dict['debit'] = 0
+                debit = aml_dict['debit']
+                aml_dict['debit'] = aml_dict['credit']
+                aml_dict['credit'] = debit
                 self._prepare_move_line_for_currency(aml_dict, date)
                 amls_to_reconcile |= amls_to_reconcile._create_writeoff([aml_dict])
 
