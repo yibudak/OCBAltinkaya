@@ -379,6 +379,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
         state.partner_id = self.fields.partner_id.value.data.id;
         $head.append(qweb.render('reconciliation.line.header', {'state': state}));
         }
+
         // Search propositions that could be a partial credit/debit.
         var props = [];
         var partialDebitProp;
@@ -410,7 +411,6 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
                     partialCreditProp = prop;
             }
         });
-
         _.each(props, function (line) {
             line.display_triangle = (line.already_paid === false &&
                 (((state.balance.amount_currency < 0 || line.partial_reconcile) && partialDebitProp && partialDebitProp === line) ||
@@ -480,7 +480,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
                                 else {
                                     $('.create_force_tax_included').removeClass('d-none');
                                 }
-                            } 
+                            }
                         });
                     });
                 });
@@ -608,7 +608,7 @@ var LineRenderer = Widget.extend(FieldManagerMixin, {
 
             self.fields.amount = new basic_fields.FieldFloat(self,
                 'amount', record, {mode: 'edit'});
-            
+
             self.fields.date = new basic_fields.FieldDate(self,
                 'date', record, {mode: 'edit'});
 

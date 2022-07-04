@@ -300,7 +300,7 @@ var StatementModel = BasicModel.extend({
      */
     getStatementLines: function () {
         var self = this;
-        var linesToDisplay = _.pick(this.lines, function(value, key, object) { 
+        var linesToDisplay = _.pick(this.lines, function(value, key, object) {
             if (value.visible === true && self.alreadyDisplayed.indexOf(key) === -1) {
                 self.alreadyDisplayed.push(key);
                 return object;
@@ -492,7 +492,7 @@ var StatementModel = BasicModel.extend({
     },
     /**
      * RPC method to load informations on lines
-     * 
+     *
      * @param {Array} ids ids of bank statement line passed to rpc call
      * @param {Array} excluded_ids list of move_line ids that needs to be excluded from search
      * @returns {Deferred}
@@ -513,7 +513,7 @@ var StatementModel = BasicModel.extend({
      * Add lines into the propositions from the reconcile model
      * Can add 2 lines, and each with its taxes. The second line become editable
      * in the create mode.
-     * 
+     *
      * @see 'updateProposition' method for more informations about the
      * 'amount_type'
      *
@@ -641,7 +641,7 @@ var StatementModel = BasicModel.extend({
      * Change the value of the editable proposition line or create a new one.
      *
      * If the editable line comes from a reconcile model with 2 lines
-     * and their 'amount_type' is "percent" 
+     * and their 'amount_type' is "percent"
      * and their total equals 100% (this doesn't take into account the taxes
      * who can be included or not)
      * Then the total is recomputed to have 100%.
@@ -856,9 +856,7 @@ var StatementModel = BasicModel.extend({
                     head.balance.amount_currency = result[1];
                     head.balance.amount_str = result[0] + '&nbsp;' + String(result[1]).replace('.', ',');
                     head.st_line.amount = result[1];
-                    if (head.st_line.amount_currency_str === ""){
                     head.st_line.amount_currency_str = head.st_line.amount_str;
-                    }
                     head.st_line.currency_id = new_currency_id;
                     head.st_line.amount_str = result[0] + ' ' + String(result[1]).replace('.', ',');
 
@@ -985,7 +983,7 @@ var StatementModel = BasicModel.extend({
         });
     },
     /**
-     * 
+     *
      *
      * @private
      * @param {string} handle
@@ -1555,7 +1553,7 @@ var ManualModel = StatementModel.extend({
 
     /**
      * override change the balance type to display or not the reconcile button
-     * 
+     *
      * @override
      * @private
      * @param {Object} line
@@ -1604,7 +1602,7 @@ var ManualModel = StatementModel.extend({
     },
     /**
      * override to add journal_id
-     * 
+     *
      * @override
      * @private
      * @param {Object} line
@@ -1688,7 +1686,7 @@ var ManualModel = StatementModel.extend({
             })
             .then(this._formatMoveLine.bind(this, handle));
     },
-    
+
     _formatToProcessReconciliation: function (line, prop) {
         var result = this._super(line, prop);
         result['date'] = prop.date;
