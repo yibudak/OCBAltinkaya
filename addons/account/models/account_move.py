@@ -844,7 +844,7 @@ class AccountMoveLine(models.Model):
             maxdate = max(aml.date, maxdate)
             total_amount_currency += aml.amount_currency
             # Convert in currency if we only have one currency and no amount_currency
-            if not aml.amount_currency and currency:
+            if not aml.amount_currency and currency and aml.journal_id.id != 60:
                 multiple_currency = True
                 total_amount_currency += aml.company_id.currency_id._convert(aml.balance, currency, aml.company_id, aml.date)
             # If we still have residual value, it means that this move might need to be balanced using an exchange rate entry
