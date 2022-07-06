@@ -704,6 +704,7 @@ class AccountBankStatementLine(models.Model):
                     'account_id': account_id,
                     'partner_id': st_line.partner_id.id,
                     'statement_line_id': st_line.id,
+                    'date': st_line.date,
                 }
                 st_line._prepare_move_line_for_currency(aml_dict, st_line.date or fields.Date.today())
                 aml_to_create.append(aml_dict)
