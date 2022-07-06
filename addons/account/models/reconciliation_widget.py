@@ -501,7 +501,7 @@ class AccountReconciliation(models.AbstractModel):
             ('balance', '!=', 0.0),
         ]
 
-        domain = expression.OR([domain_reconciliation, domain_matching])
+        domain = domain_matching
         if partner_id:
             domain = expression.AND([domain, [('partner_id', '=', partner_id)]])
 
