@@ -680,6 +680,7 @@ class AccountBankStatementLine(models.Model):
                 debit = aml_dict['debit']
                 aml_dict['debit'] = aml_dict['credit']
                 aml_dict['credit'] = debit
+                aml_dict['date'] = date
                 self._prepare_move_line_for_currency(aml_dict, date)
                 if account_id not in self.partner_id.property_account_receivable_id + self.partner_id.property_account_payable_id:
                     amls_to_reconcile |= amls_to_reconcile._create_writeoff([aml_dict])
@@ -717,6 +718,7 @@ class AccountBankStatementLine(models.Model):
                     aml_dict['journal_id'] = 53
                 else:
                     aml_dict['journal_id'] = self.statement_id.journal_id.id
+                aml_dict['date'] = date
                 self._prepare_move_line_for_currency(aml_dict, date)
                 aml_to_create.append(aml_dict)
 
