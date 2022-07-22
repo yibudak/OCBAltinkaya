@@ -29,5 +29,5 @@ class PhoneValidationMixin(models.AbstractModel):
             country.code if country else None,
             country.phone_code if country else None,
             always_international=always_international,
-            raise_exception=False
+            raise_exception=True
         )
