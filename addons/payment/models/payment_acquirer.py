@@ -668,6 +668,7 @@ class PaymentTransaction(models.Model):
             'currency_id': self.currency_id.id,
             'partner_id': self.partner_id.id,
             'partner_type': 'customer',
+            'payment_date': self.date,
             'invoice_ids': [(6, 0, self.invoice_ids.ids)],
             'journal_id': self.acquirer_id.journal_id.id,
             'company_id': self.acquirer_id.company_id.id,
@@ -772,7 +773,7 @@ class PaymentTransaction(models.Model):
 
         tx_to_process.write({
             'state': target_state,
-            'date': fields.Datetime.now(),
+            'date': tx_to_process.date or fields.Datetime.now(),
             'state_message': '',
         })
         tx_to_process._log_payment_transaction_received()
@@ -789,7 +790,7 @@ class PaymentTransaction(models.Model):
             _logger.warning('Processed tx with abnormal state (ref: %s, target state: %s, previous state %s, expected previous states: %s)' % (tx.reference, target_state, tx.state, allowed_states))
         tx_to_process.write({
             'state': target_state,
-            'date': fields.Datetime.now(),
+            'date': tx_to_process.date or fields.Datetime.now(),
             'state_message': '',
         })
         tx_to_process._log_payment_transaction_received()
@@ -807,7 +808,7 @@ class PaymentTransaction(models.Model):
 
         tx_to_process.write({
             'state': target_state,
-            'date': fields.Datetime.now(),
+            'date': tx_to_process.date or fields.Datetime.now(),
             'state_message': '',
         })
 
@@ -848,7 +849,7 @@ class PaymentTransaction(models.Model):
         # Cancel the existing payments.
         tx_to_process.mapped('payment_id').cancel()
 
-        tx_to_process.write({'state': target_state, 'date': fields.Datetime.now()})
+        tx_to_process.write({'state': target_state, 'date': tx_to_process.date or fields.Datetime.now()})
         tx_to_process._log_payment_transaction_received()
 
     @api.multi
@@ -864,7 +865,7 @@ class PaymentTransaction(models.Model):
 
         tx_to_process.write({
             'state': target_state,
-            'date': fields.Datetime.now(),
+            'date': tx_to_process.date or fields.Datetime.now(),
             'state_message': msg,
         })
 
