@@ -94,7 +94,7 @@ class StockPicking(models.Model):
     @api.depends('carrier_id', 'carrier_tracking_ref')
     def _compute_carrier_tracking_url(self):
         for picking in self:
-            picking.carrier_tracking_url = picking.carrier_id.get_tracking_link(picking) if picking.carrier_id and picking.carrier_tracking_ref else False
+            picking.carrier_tracking_url = picking.carrier_id.get_tracking_link(picking) if picking.carrier_id and picking.shipping_number else False
 
     def _compute_weight_uom_id(self):
         weight_uom_id = self.env['product.template']._get_weight_uom_id_from_ir_config_parameter()
