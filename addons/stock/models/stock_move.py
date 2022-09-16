@@ -783,8 +783,15 @@ class StockMove(models.Model):
         for move in move_create_proc:
             values = move._prepare_procurement_values()
             origin = (move.group_id and move.group_id.name or (move.origin or move.picking_id.name or "/"))
-            self.env['procurement.group'].run(move.product_id, move.product_uom_qty, move.product_uom, move.location_id, move.rule_id and move.rule_id.name or "/", origin,
-                                              values)
+            # Use the given move if rule's procure method is 'make_to_stock'
+            rule_id = move.rule_id.id if move.rule_id and move.rule_id.procure_method == 'make_to_stock' else False
+            self.env['procurement.group'].with_context({'move_rule_id': rule_id}).run(move.product_id,
+                                                                                      move.product_uom_qty,
+                                                                                      move.product_uom,
+                                                                                      move.location_id,
+                                                                                      move.rule_id and move.rule_id.name or "/",
+                                                                                      origin,
+                                                                                      values)
 
         move_to_confirm.write({'state': 'confirmed'})
         (move_waiting | move_create_proc).write({'state': 'waiting'})
