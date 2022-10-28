@@ -16,7 +16,7 @@ import { ViewButton } from "@web/views/view_button/view_button";
 import { useViewButtons } from "@web/views/view_button/view_button_hook";
 import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
 
-const { Component, onWillStart, useSubEnv, useEffect, useRef } = owl;
+import { Component, onWillStart, useSubEnv, useEffect, useRef } from "@odoo/owl";
 
 export class ListViewHeaderButton extends ViewButton {
     async onClick() {
@@ -97,7 +97,7 @@ export class ListController extends Component {
                 const editedRecord = list.editedRecord;
                 if (editedRecord) {
                     if (!(await list.unselectRecord(true))) {
-                        throw new Error("View can't be saved");
+                        return false;
                     }
                 }
             },
