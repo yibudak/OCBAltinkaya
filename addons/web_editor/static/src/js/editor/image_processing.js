@@ -454,7 +454,7 @@ function isImageSupportedForProcessing(mimetype, strict = false) {
     if (isGif(mimetype)) {
         return !strict;
     }
-    return ['image/jpeg', 'image/png'].includes(mimetype);
+    return ['image/jpeg', 'image/png', 'image/webp'].includes(mimetype);
 }
 /**
  * @param {HTMLImageElement} img
