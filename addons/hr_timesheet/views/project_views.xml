@@ -7,7 +7,10 @@
             <field name="view_mode">tree,kanban,pivot,graph,form</field>
             <field name="view_id" ref="timesheet_view_tree_user"/>
             <field name="domain">[('project_id', '=', active_id)]</field>
-            <field name="context">{"default_project_id": active_id}</field>
+            <field name="context">{
+                "default_project_id": active_id,
+                "is_timesheet": 1,
+            }</field>
             <field name="search_view_id" ref="hr_timesheet_line_search"/>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -142,7 +145,7 @@
                             </group>
                         </group>
                         <group name="timesheet_error" attrs="{'invisible': [('analytic_account_active', '!=', False)]}">
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning" role="alert" colspan="2">
                                 You cannot log timesheets on this project since it is linked to an inactive analytic account. Please change this account, or reactivate the current one to timesheet on the project.
                             </div>
                         </group>

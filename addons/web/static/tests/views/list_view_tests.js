@@ -1668,7 +1668,7 @@ QUnit.module("Views", (hooks) => {
             { force: true }
         );
 
-        serverData.models.foo.fields.m2m.sortable = true;
+        serverData.models.foo.fields.m2m.store = true;
 
         await makeView({
             type: "list",
@@ -2865,11 +2865,24 @@ QUnit.module("Views", (hooks) => {
     });
 
     QUnit.test("aggregates are computed correctly", async function (assert) {
+        // map: foo record id -> qux value
+        const quxVals = { 1: 1.0, 2: 2.0, 3: 3.0, 4: 0 };
+
+        serverData.models.foo.records = serverData.models.foo.records.map((r) => ({
+            ...r,
+            qux: quxVals[r.id],
+        }));
+
         await makeView({
             type: "list",
             resModel: "foo",
             serverData,
-            arch: '<tree><field name="foo"/><field name="int_field" sum="Sum"/></tree>',
+            arch: /*xml*/ `
+                <tree>
+                    <field name="foo"/>
+                    <field name="int_field" sum="Sum"/>
+                    <field name="qux" avg="Average"/>
+                </tree>`,
             searchViewArch: `
                 <search>
                     <filter name="my_filter" string="My Filter" domain="[('id', '=', 0)]"/>
@@ -2878,23 +2891,23 @@ QUnit.module("Views", (hooks) => {
         const tbodySelectors = target.querySelectorAll("tbody .o_list_record_selector input");
         const theadSelector = target.querySelector("thead .o_list_record_selector input");
 
-        assert.strictEqual(target.querySelectorAll("tfoot td")[2].innerText, "32");
+        const getFooterTextArray = () => {
+            return [...target.querySelectorAll("tfoot td")].map((td) => td.innerText);
+        };
+
+        assert.deepEqual(getFooterTextArray(), ["", "", "32", "1.50"]);
 
         await click(tbodySelectors[0]);
         await click(tbodySelectors[3]);
-        assert.strictEqual(target.querySelectorAll("tfoot td")[2].innerText, "6");
+        assert.deepEqual(getFooterTextArray(), ["", "", "6", "0.50"]);
 
         await click(theadSelector);
-        assert.strictEqual(target.querySelectorAll("tfoot td")[2].innerText, "32");
+        assert.deepEqual(getFooterTextArray(), ["", "", "32", "1.50"]);
 
         // Let's update the view to dislay NO records
         await toggleFilterMenu(target);
         await toggleMenuItem(target, "My Filter");
-        assert.strictEqual(
-            target.querySelectorAll("tfoot td")[2].innerText,
-            "",
-            "No records, so no total."
-        );
+        assert.deepEqual(getFooterTextArray(), ["", "", "", ""]);
     });
 
     QUnit.test("aggregates are computed correctly in grouped lists", async function (assert) {
@@ -5202,6 +5215,35 @@ QUnit.module("Views", (hooks) => {
             "2"
         );
     });
+
+    QUnit.test(
+        "pager, grouped, pager limit should be based on the group's count",
+        async function (assert) {
+            patchWithCleanup(DynamicRecordList, { WEB_SEARCH_READ_COUNT_LIMIT: 3 });
+            serverData.models.foo.records = [
+                { id: 121, foo: "blip" },
+                { id: 122, foo: "blip" },
+                { id: 123, foo: "blip" },
+                { id: 124, foo: "blip" },
+                { id: 125, foo: "blip" },
+                { id: 126, foo: "blip" },
+            ];
+            await makeView({
+                type: "list",
+                resModel: "foo",
+                serverData,
+                arch: '<tree limit="2"><field name="foo"/><field name="bar"/></tree>',
+                groupBy: ["foo"],
+            });
+
+            // unfold
+            await click(target.querySelector(".o_group_header:first-of-type"));
+            assert.strictEqual(
+                target.querySelector(".o_group_header:first-of-type .o_pager_limit").innerText,
+                "6"
+            );
+        }
+    );
 
     QUnit.test("list keeps offset on switchView", async (assert) => {
         assert.expect(3);
@@ -15726,7 +15768,12 @@ QUnit.module("Views", (hooks) => {
                 </list>
             `,
         });
-        assert.containsN(target, ".test_widget", 4, "there should be one widget per record");
+        assert.containsN(
+            target,
+            "td .test_widget",
+            4,
+            "there should be one widget (inside td) per record"
+        );
         assert.deepEqual(
             [...target.querySelectorAll(".test_widget")].map((w) => w.textContent),
             ["true", "true", "true", "false"],
