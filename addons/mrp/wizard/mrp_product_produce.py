@@ -100,9 +100,8 @@ class MrpProductProduce(models.TransientModel):
 
         for pl in self.produce_line_ids:
             if pl.qty_done:
-                # Todo: remove it when product lots are filled
-                # if pl.product_id.tracking != 'none' and not pl.lot_id:
-                #     raise UserError(_('Please enter a lot or serial number for %s !' % pl.product_id.display_name))
+                if pl.product_id.tracking != 'none' and not pl.lot_id:
+                    raise UserError(_('Please enter a lot or serial number for %s !' % pl.product_id.display_name))
                 if not pl.move_id:
                     # Find move_id that would match
                     move_id = self.production_id.move_raw_ids.filtered(lambda m: m.product_id == pl.product_id and m.state not in ('done', 'cancel'))
