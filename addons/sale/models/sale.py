@@ -1635,6 +1635,13 @@ class SaleOrderLine(models.Model):
                     price, rule_id = pricelist_item.base_pricelist_id.with_context(uom=uom.id).get_product_price_rule(product, qty, self.order_id.partner_id)
                     pricelist_item = PricelistItem.browse(rule_id)
 
+            if pricelist_item.base == "21":  # v_nakliye_fiyat
+                if self._context.get("sale_id"):
+                    sale = self.env["sale.order"].browse(self._context.get("sale_id"))
+                    if sale:
+                        product_currency = sale.currency_id
+                field_name = 'v_fiyat_nakliye'
+
             if pricelist_item.base == 'standard_price':
                 field_name = 'standard_price'
                 product_currency = product.cost_currency_id
