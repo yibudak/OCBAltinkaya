@@ -741,12 +741,14 @@
                 <div class="ms-lg-3 me-auto">
                     <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_1"/>
                 </div>
-                <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0">
+
+                <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0 flex-row">
                     <!-- Sign In -->
                     <t t-call="portal.placeholder_user_sign_in">
                         <t t-set="_item_class" t-valuef="nav-item ms-3"/>
                         <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
                     </t>
+
                     <!-- User Dropdown -->
                     <t t-call="portal.user_dropdown">
                         <t t-set="_user_name" t-value="True"/>
@@ -762,10 +764,7 @@
                         </t>
                     </li>
                 </ul>
-                <!-- Separator -->
-                <div class="w-100">
-                    <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_3"/>
-                </div>
+
                 <!-- Navbar Toggler -->
                 <t t-call="website.navbar_toggler"/>
                  <!-- Navbar Collapse -->
@@ -785,8 +784,14 @@
                         <t t-set="_div_classes" t-valuef="mb-4 mb-lg-0 align-self-lg-center ms-lg-auto"/>
                         <t t-set="_dropdown_menu_class" t-valuef="float-lg-end"/>
                     </t>
+                <!-- Content builder empty space on navbar -->
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_3"/>
                 </div>
+                </div>
+
             </div>
+
         </t>
     </xpath>
 </template>
