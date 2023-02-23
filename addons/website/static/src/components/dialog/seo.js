@@ -64,7 +64,7 @@ class ImageSelector extends Component {
 
     get title() {
         let _title = this.seoContext.title || this.props.defaultTitle;
-        const websiteName = this.seoContext.website_id[1];
+        const websiteName = this.seoContext.website_id && this.seoContext.website_id[1];
         if (_title && websiteName) {
             // If the title already contains the website name, don't add it again.
             if (!_title.includes(websiteName)) {
@@ -317,7 +317,7 @@ class TitleDescription extends Component {
 
     get title() {
         let _title = this.seoContext.title || this.props.defaultTitle;
-        const websiteName = this.seoContext.website_id[1];
+        const websiteName = this.seoContext.website_id && this.seoContext.website_id[1];
         if (_title && websiteName) {
             // If the title already contains the website name, don't add it again.
             if (!_title.includes(websiteName)) {
