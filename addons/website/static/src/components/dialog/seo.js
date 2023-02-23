@@ -63,7 +63,15 @@ class ImageSelector extends Component {
     }
 
     get title() {
-        return this.seoContext.title || this.props.defaultTitle;
+        let _title = this.seoContext.title || this.props.defaultTitle;
+        const websiteName = this.seoContext.website_id[1];
+        if (_title && websiteName) {
+            // If the title already contains the website name, don't add it again.
+            if (!_title.includes(websiteName)) {
+                _title += ` | ${websiteName}`;
+            }
+        }
+        return _title;
     }
 
     get description() {
@@ -308,9 +316,16 @@ class TitleDescription extends Component {
     }
 
     get title() {
-        return this.seoContext.title || this.props.defaultTitle;
+        let _title = this.seoContext.title || this.props.defaultTitle;
+        const websiteName = this.seoContext.website_id[1];
+        if (_title && websiteName) {
+            // If the title already contains the website name, don't add it again.
+            if (!_title.includes(websiteName)) {
+                _title += ` | ${websiteName}`;
+            }
+        }
+        return _title;
     }
-
     get description() {
         return this.seoContext.description || this.props.previewDescription;
     }
@@ -406,6 +421,7 @@ export class OptimizeSEODialog extends Component {
 
             this.canEditKeywords = 'website_meta_keywords' in this.data;
             seoContext.keywords = this.getMeta({ name: 'keywords' });
+            seoContext.website_id = this.data.website_id;
         });
     }
 
@@ -440,6 +456,11 @@ export class OptimizeSEODialog extends Component {
     async save() {
         const data = {};
         if (this.canEditTitle) {
+            // Add company name if not already present
+            let companyName = seoContext.website_id && seoContext.website_id[1];
+            if (seoContext.title && companyName && !seoContext.title.includes(companyName)) {
+                seoContext.title += ` | ${companyName}`;
+            }
             data.website_meta_title = seoContext.title;
         }
         if (this.canEditDescription) {
