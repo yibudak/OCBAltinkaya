@@ -18,6 +18,11 @@ import werkzeug.exceptions
 import werkzeug.routing
 import werkzeug.utils
 
+try:
+    from werkzeug.routing import NumberConverter
+except ImportError:
+    from werkzeug.routing.converters import NumberConverter  # moved in werkzeug 2.2.2
+
 import odoo
 from odoo import api, http, models, tools, SUPERUSER_ID
 from odoo.exceptions import AccessDenied, AccessError, MissingError
@@ -69,7 +74,7 @@ class ModelsConverter(werkzeug.routing.BaseConverter):
         return ",".join(value.ids)
 
 
-class SignedIntConverter(werkzeug.routing.NumberConverter):
+class SignedIntConverter(NumberConverter):
     regex = r'-?\d+'
     num_convert = int
 
@@ -92,8 +97,12 @@ class IrHttp(models.AbstractModel):
         return rule, args
 
     @classmethod
+    def _get_public_users(cls):
+        return [request.env['ir.model.data']._xmlid_to_res_model_res_id('base.public_user')[1]]
+
+    @classmethod
     def _auth_method_user(cls):
-        if request.env.uid is None:
+        if request.env.uid in [None] + cls._get_public_users():
             raise http.SessionExpiredException("Session expired")
 
     @classmethod

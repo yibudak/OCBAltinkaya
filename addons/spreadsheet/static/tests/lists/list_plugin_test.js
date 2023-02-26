@@ -9,6 +9,7 @@ import { addGlobalFilter, selectCell, setCellContent } from "../utils/commands";
 import { getCell, getCellContent, getCellFormula, getCells, getCellValue } from "../utils/getters";
 import { createSpreadsheetWithList } from "../utils/list";
 import { registry } from "@web/core/registry";
+import { RPCError } from "@web/core/network/rpc_service";
 
 QUnit.module("spreadsheet > list plugin", {}, () => {
     QUnit.test("List export", async (assert) => {
@@ -485,4 +486,52 @@ QUnit.module("spreadsheet > list plugin", {}, () => {
         assert.deepEqual(model.getters.getListFieldMatching("1", filter.id), undefined);
         assert.deepEqual(model.getters.getListDataSource("1").getComputedDomain(), []);
     });
+
+    QUnit.test("Preload currency of monetary field", async function (assert) {
+        assert.expect(3);
+        await createSpreadsheetWithList({
+            columns: ["pognon"],
+            mockRPC: async function (route, args, performRPC) {
+                if (args.method === "search_read" && args.model === "partner") {
+                    assert.strictEqual(args.kwargs.fields.length, 2);
+                    assert.strictEqual(args.kwargs.fields[0], "pognon");
+                    assert.strictEqual(args.kwargs.fields[1], "currency_id");
+                }
+            },
+        });
+    });
+
+    QUnit.test(
+        "Load list spreadsheet with models that cannot be accessed",
+        async function (assert) {
+            let hasAccessRights = true;
+            const { model } = await createSpreadsheetWithList({
+                mockRPC: async function (route, args) {
+                    if (
+                        args.model === "partner" &&
+                        args.method === "search_read" &&
+                        !hasAccessRights
+                    ) {
+                        const error = new RPCError();
+                        error.data = { message: "ya done!" };
+                        throw error;
+                    }
+                },
+            });
+            const headerCell = getCell(model, "A3");
+            const cell = getCell(model, "C3");
+
+            await waitForDataSourcesLoaded(model);
+            assert.equal(headerCell.evaluated.value, 1);
+            assert.equal(cell.evaluated.value, 42669);
+
+            hasAccessRights = false;
+            model.dispatch("REFRESH_ODOO_LIST", { listId: "1" });
+            await waitForDataSourcesLoaded(model);
+            assert.equal(headerCell.evaluated.value, "#ERROR");
+            assert.equal(headerCell.evaluated.error.message, "ya done!");
+            assert.equal(cell.evaluated.value, "#ERROR");
+            assert.equal(cell.evaluated.error.message, "ya done!");
+        }
+    );
 });

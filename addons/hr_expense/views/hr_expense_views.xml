@@ -99,7 +99,7 @@
                 <xpath expr="//tree" position="attributes">
                     <!-- Display the tree dashboard view with the header -->
                     <attribute name="js_class">hr_expense_dashboard_tree</attribute>
-                    <attribute name="class">hr_expense h-auto</attribute>
+                    <attribute name="class">hr_expense h-auto o_forbidden_tooltip_parent</attribute>
                 </xpath>
             </field>
         </record>
@@ -157,19 +157,17 @@
                                     <field name="quantity" class="oe_inline" attrs="{'readonly': [('sheet_is_editable', '=', False)]}"/>
                                     <field name="product_uom_id" required="1" force_save="1" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom"/>
                                 </div>
-                                <field name="total_amount_company" widget='monetary' options="{'currency_field': 'company_currency_id'}"/>
                             </div>
 
                             <label for="total_amount" string="Total" attrs="{'invisible': [('product_has_cost', '=', True)]}"/>
-                            <div attrs="{'invisible': [('product_has_cost', '=', True)]}">
-                                <div class="o_row" attrs="{'invisible': [('product_has_cost', '=', True)]}">
-                                    <field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('sheet_is_editable', '=', False)]}" class="oe_inline"/>
-                                    <field name="currency_id" groups="base.group_multi_currency"/>
-                                </div>
-                                <div class="o_row" attrs="{'invisible': [('same_currency', '=', True), ('product_has_cost', '=', False)]}">
-                                    <field name="total_amount_company" widget='monetary' options="{'currency_field': 'company_currency_id'}" class="oe_inline"/>
-                                    <field name="label_convert_rate" class="ps-0"/>
-                                </div>
+                            <div class="o_row" attrs="{'invisible': [('product_has_cost', '=', True)]}">
+                                <field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('sheet_is_editable', '=', False)]}" class="oe_inline"/>
+                                <field name="currency_id" groups="base.group_multi_currency"/>
+                            </div>
+                            <label for="total_amount_company" attrs="{'invisible': [('same_currency', '=', True), ('product_has_cost', '=', False)]}"/>
+                            <div class="o_row" attrs="{'invisible': [('same_currency', '=', True), ('product_has_cost', '=', False)]}">
+                                <field name="total_amount_company" widget='monetary' options="{'currency_field': 'company_currency_id'}" class="oe_inline"/>
+                                <field name="label_convert_rate" class="ps-0"/>
                             </div>
                             <label for="tax_ids" attrs="{'invisible': [('product_has_tax', '=', False)]}"/>
                             <div class="d-flex o_row" attrs="{'invisible': [('product_has_tax', '=', False)]}">
@@ -662,6 +660,7 @@
                             string="Approve"
                             type="object"
                             data-hotkey="v"
+                            context="{'validate_analytic': True}"
                             attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', '!=', 'submit')]}"
                             class="oe_highlight o_expense_sheet_approve"/>
                     <button name="action_sheet_move_create"
@@ -716,7 +715,7 @@
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h1>
-                            <field name="name" placeholder="e.g. Trip to NY" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                            <field name="name" placeholder="e.g. Trip to NY" attrs="{'readonly': [('is_editable', '=', False)]}" force_save="1"/>
                         </h1>
                     </div>
                     <group>
@@ -744,12 +743,14 @@
                                     domain="[('state', '=', 'draft'), ('employee_id', '=', employee_id), ('company_id', '=', company_id)]"
                                     options="{'reload_on_button': True}"
                                     context="{'form_view_ref' : 'hr_expense.hr_expense_view_form_without_header', 'default_company_id': company_id, 'default_employee_id': employee_id}" 
-                                    attrs="{'readonly': [('is_editable', '=', False)]}">
+                                    attrs="{'readonly': [('is_editable', '=', False)]}"
+                                    force_save="1">
                                 <tree decoration-danger="is_refused" editable="bottom" class="o_expense_line_list">
                                     <field name="date" optional="show"/>
                                     <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="description" optional="hide"/>
+                                    <field name="employee_id" invisible="1"/>
                                     <field name="state" invisible="1"/>
                                     <field name="attachment_number" invisible="1"/>
                                     <button name="action_get_attachment_view" type="object" icon="fa-paperclip" aria-label="View Attachments" title="View Attachments" class="float-end pe-0" readonly="True" attrs="{'invisible': [('attachment_number', '=', 0)]}"/>

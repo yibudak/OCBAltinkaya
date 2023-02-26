@@ -208,7 +208,7 @@ class HrEmployeePrivate(models.Model):
             responsible_user_id = employee.parent_id.user_id.id
             if responsible_user_id:
                 employees_scheduled |= employee
-                lang = self.env['res.partner'].browse(responsible_user_id).lang
+                lang = self.env['res.users'].browse(responsible_user_id).lang
                 formated_date = format_date(employee.env, employee.work_permit_expiration_date, date_format="dd MMMM y", lang_code=lang)
                 employee.activity_schedule(
                     'mail.mail_activity_data_todo',
@@ -298,7 +298,7 @@ class HrEmployeePrivate(models.Model):
 
     def _sync_user(self, user, employee_has_image=False):
         vals = dict(
-            work_email=user.email,
+            work_contact_id=user.partner_id.id,
             user_id=user.id,
         )
         if not employee_has_image:
@@ -330,6 +330,7 @@ class HrEmployeePrivate(models.Model):
         employees = super().create(vals_list)
         if self.env.context.get('salary_simulation'):
             return employees
+        employees.message_subscribe(employees.address_home_id.ids)
         employee_departments = employees.department_id
         if employee_departments:
             self.env['mail.channel'].sudo().search([
@@ -357,6 +358,8 @@ class HrEmployeePrivate(models.Model):
             account_id = vals.get('bank_account_id') or self.bank_account_id.id
             if account_id:
                 self.env['res.partner.bank'].browse(account_id).partner_id = vals['address_home_id']
+            self.message_unsubscribe(self.address_home_id.ids)
+            self.message_subscribe([vals['address_home_id']])
         if vals.get('user_id'):
             # Update the profile pictures with user, except if provided 
             vals.update(self._sync_user(self.env['res.users'].browse(vals['user_id']),

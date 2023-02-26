@@ -76,6 +76,18 @@ export class ListRenderer extends Component {
         this.longTouchTimer = null;
         this.touchStartMs = 0;
 
+        /**
+         * When resizing, it's possible that the pointer is not above the resize
+         * handle (by some few pixel difference). During this scenario, click event
+         * will be triggered on the column title which will reorder the column.
+         * Column resize that triggers a reorder is not a good UX and we prevent this
+         * using the following state variables: `resizing` and `preventReorder` which
+         * are set during the column's click (onClickSortColumn), mouseup
+         * (onColumnTitleMouseUp) and onStartResize events.
+         */
+        this.resizing = false;
+        this.preventReorder = false;
+
         this.creates = this.props.archInfo.creates.length
             ? this.props.archInfo.creates
             : [{ type: "create", string: this.env._t("Add a line") }];
@@ -128,7 +140,7 @@ export class ListRenderer extends Component {
 
         if (this.env.searchModel) {
             useBus(this.env.searchModel, "focus-view", () => {
-                if (this.props.list.model.useSampleModel || !this.showTable) {
+                if (this.props.list.model.useSampleModel) {
                     return;
                 }
 
@@ -168,7 +180,7 @@ export class ListRenderer extends Component {
             () => {
                 this.freezeColumnWidths();
             },
-            () => [this.state.columns, this.isEmpty, this.showTable]
+            () => [this.state.columns, this.isEmpty]
         );
         useExternalListener(window, "resize", () => {
             this.columnWidths = null;
@@ -198,9 +210,6 @@ export class ListRenderer extends Component {
     // The following code manipulates the DOM directly to avoid having to wait for a
     // render + patch which would occur on the next frame and cause flickering.
     freezeColumnWidths() {
-        if (!this.showTable) {
-            return;
-        }
         if (!this.keepColumnWidths) {
             this.columnWidths = null;
         }
@@ -321,7 +330,7 @@ export class ListRenderer extends Component {
     }
 
     get canResequenceRows() {
-        if (!this.props.list.canResequence()) {
+        if (!this.props.list.canResequence() || this.props.readonly) {
             return false;
         }
         const orderBy = this.props.list.orderBy;
@@ -706,7 +715,8 @@ export class ListRenderer extends Component {
         // in those situations, we put the value as title of the cells.
         // This is only necessary for some field types, as for the others, we hardcode
         // a minimum column width that should be enough to display the entire value.
-        if (!(fieldType in FIXED_FIELD_COLUMN_WIDTHS)) {
+        // Also, we don't set title for json fields, because it's not human readable anyway.
+        if (!(fieldType in FIXED_FIELD_COLUMN_WIDTHS) && fieldType != "json") {
             return this.getFormattedValue(column, record);
         }
     }
@@ -848,6 +858,10 @@ export class ListRenderer extends Component {
     }
 
     onClickSortColumn(column) {
+        if (this.preventReorder) {
+            this.preventReorder = false;
+            return;
+        }
         if (this.props.list.editedRecord || this.props.list.model.useSampleModel) {
             return;
         }
@@ -1493,11 +1507,6 @@ export class ListRenderer extends Component {
         return !group.isFolded && group.list.limit < group.list.count;
     }
 
-    get showTable() {
-        const { model } = this.props.list;
-        return model.hasData() || !this.props.noContentHelp;
-    }
-
     toggleGroup(group) {
         group.toggle();
     }
@@ -1600,6 +1609,12 @@ export class ListRenderer extends Component {
         }
     }
 
+    onColumnTitleMouseUp() {
+        if (this.resizing) {
+            this.preventReorder = true;
+        }
+    }
+
     /**
      * Handles the resize feature on the column headers
      *
@@ -1607,6 +1622,7 @@ export class ListRenderer extends Component {
      * @param {MouseEvent} ev
      */
     onStartResize(ev) {
+        this.resizing = true;
         const table = this.tableRef.el;
         const th = ev.target.closest("th");
         const handler = th.querySelector(".o_resize");
@@ -1649,6 +1665,9 @@ export class ListRenderer extends Component {
 
         // Mouse or keyboard events : stop resize
         const stopResize = (ev) => {
+            this.resizing = false;
+            // freeze column size after resizing
+            this.keepColumnWidths = true;
             // Ignores the 'left mouse button down' event as it used to start resizing
             if (ev.type === "mousedown" && ev.which === 1) {
                 return;
@@ -1694,17 +1713,14 @@ export class ListRenderer extends Component {
             return;
         }
         if (this.props.list.selection.length) {
-            // in selection mode, only selection is allowed.
-            ev.preventDefault();
-            this.toggleRecordSelection(record);
-        } else {
-            this.touchStartMs = Date.now();
-            if (this.longTouchTimer === null) {
-                this.longTouchTimer = browser.setTimeout(() => {
-                    this.toggleRecordSelection(record);
-                    this.resetLongTouchTimer();
-                }, this.constructor.LONG_TOUCH_THRESHOLD);
-            }
+            ev.stopPropagation(); // This is done in order to prevent the tooltip from showing up
+        }
+        this.touchStartMs = Date.now();
+        if (this.longTouchTimer === null) {
+            this.longTouchTimer = browser.setTimeout(() => {
+                this.toggleRecordSelection(record);
+                this.resetLongTouchTimer();
+            }, this.constructor.LONG_TOUCH_THRESHOLD);
         }
     }
     onRowTouchEnd(record) {
@@ -1746,6 +1762,20 @@ export class ListRenderer extends Component {
      */
     sortStart({ element }) {
         element.classList.add("o_dragged");
+        const table = this.tableRef.el;
+        const headers = [...table.querySelectorAll("thead th")];
+        const cells = [...element.querySelectorAll("td")];
+        let headerIndex = 0;
+        for (const cell of cells) {
+            let width = 0;
+            for (let i = 0; i < cell.colSpan; i++) {
+                const header = headers[headerIndex + i];
+                const style = getComputedStyle(header);
+                width += parseFloat(style.width);
+            }
+            cell.style.width = `${width}px`;
+            headerIndex += cell.colSpan;
+        }
     }
 
     /**
@@ -1755,6 +1785,27 @@ export class ListRenderer extends Component {
      */
     sortStop({ element }) {
         element.classList.remove("o_dragged");
+        for (const cell of element.querySelectorAll("td")) {
+            cell.style.width = null;
+        }
+    }
+
+    ignoreEventInSelectionMode(ev) {
+        const { list } = this.props;
+        if (this.env.isSmall && list.selection && list.selection.length) {
+            // in selection mode, only selection is allowed.
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
+    }
+
+    onClickCapture(record, ev) {
+        const { list } = this.props;
+        if (this.env.isSmall && list.selection && list.selection.length) {
+            ev.stopPropagation();
+            ev.preventDefault();
+            this.toggleRecordSelection(record);
+        }
     }
 }
 
@@ -1776,6 +1827,7 @@ ListRenderer.props = [
     "editable?",
     "noContentHelp?",
     "nestedKeyOptionalFieldsData?",
+    "readonly?",
 ];
 ListRenderer.defaultProps = { hasSelectors: false, cycleOnTab: true };
 

@@ -4,10 +4,10 @@
 # 
 # Translators:
 # Maidu Targama <m.targama@gmail.com>, 2022
+# Martin Talts <martin.t@avalah.ee>, 2022
 # Andre Roomet <andreroomet@gmail.com>, 2022
 # Marek Pontus, 2022
 # Piia Paurson <piia@avalah.ee>, 2022
-# Martin Talts <martin.t@avalah.ee>, 2022
 # Martin Aavastik <martin@avalah.ee>, 2022
 # Algo Kärp <algokarp@gmail.com>, 2022
 # Egon Raamat <egon@avalah.ee>, 2022
@@ -18,14 +18,17 @@
 # Eneli Õigus <enelioigus@gmail.com>, 2022
 # Martin Trigaux, 2022
 # Triine Aavik <triine@avalah.ee>, 2022
+# Leaanika Randmets, 2023
+# Anna, 2023
+# Jana Jaakson, 2023
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-10 10:23+0000\n"
+"POT-Creation-Date: 2023-02-02 10:35+0000\n"
 "PO-Revision-Date: 2022-09-22 05:55+0000\n"
-"Last-Translator: Triine Aavik <triine@avalah.ee>, 2022\n"
+"Last-Translator: Jana Jaakson, 2023\n"
 "Language-Team: Estonian (https://www.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,14 +37,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid " records"
 msgstr "kirjed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -49,7 +52,7 @@ msgid "# Code editor"
 msgstr "# Koodi redigeerija"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -57,15 +60,15 @@ msgid "%d days ago"
 msgstr "%d päeva eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
 msgid "%d hours ago"
-msgstr "%d tunni eest"
+msgstr "%d tund(i) tagasi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -73,7 +76,7 @@ msgid "%d minutes ago"
 msgstr "%d minutit tagasi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -81,7 +84,7 @@ msgid "%d months ago"
 msgstr "%d kuu eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -89,141 +92,141 @@ msgid "%d years ago"
 msgstr "%d aasta eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_service.js:0
 #, python-format
 msgid "%s Files"
-msgstr ""
+msgstr "%s failid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "%s days ago"
 msgstr "%s päeva eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/formatters.js:0
 #, python-format
 msgid "%s records"
-msgstr ""
+msgstr "%s kirjed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "'%s' is not a correct date"
 msgstr "'%s' ei ole korrektne kuupäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/dates.js:0
 #, python-format
 msgid "'%s' is not a correct date or datetime"
-msgstr ""
+msgstr "'%s' ei ole õige kuupäev või kellaaeg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/time.js:0
 #, python-format
 msgid "'%s' is not a correct date, datetime nor time"
 msgstr "\"%s\" ei ole korrektne kuupäev, kuupäev-kellaaeg ega ka kellaaeg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "'%s' is not a correct datetime"
 msgstr "'%s' ei ole korrektne kuupäev-kellaaeg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "'%s' is not a correct float"
 msgstr "'%s' ei ole korrektne ujukomaarv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "'%s' is not a correct integer"
 msgstr "'%s' ei ole korrektne täisarv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "'%s' is not a correct monetary field"
-msgstr ""
+msgstr "'%s' ei ole õige rahaväli"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/time.js:0
 #, python-format
 msgid "'%s' is not convertible to date, datetime nor time"
-msgstr ""
+msgstr "'%s' ei ole teisendatav kuupäevaks, päevaks või kellaajaks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_model.js:0
 #, python-format
 msgid "'%s' is unsynchronized with '%s'."
-msgstr ""
+msgstr "'%s' ei ole sünkroniseeritud '%s'."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_record.js:0
 #, python-format
 msgid "(%s/%sMB)"
-msgstr ""
+msgstr "(%s/%sMB)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_edition.xml:0
 #, python-format
 msgid "(Community Edition)"
 msgstr "(Community Edition)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "(change)"
-msgstr ""
+msgstr "(muuda)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "(count)"
 msgstr "(loendus)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "(create)"
-msgstr ""
+msgstr "(loo)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/burger_menu/mobile_switch_company_menu/mobile_switch_company_menu.xml:0
 #, python-format
 msgid "(current)"
-msgstr ""
+msgstr "(praegune)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_bar.js:0
 #: code:addons/web/static/src/search/search_bar/search_bar.js:0
 #, python-format
 msgid "(no result)"
-msgstr ""
+msgstr "(tulemused puuduvad)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
 #, python-format
@@ -231,14 +234,14 @@ msgid "(no string)"
 msgstr "(ei ole rida)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "(nolabel)"
-msgstr ""
+msgstr "(silt puudub)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #, python-format
 msgid ""
@@ -247,36 +250,40 @@ msgid ""
 "                        font-style: normal;\n"
 "                    }"
 msgstr ""
+") format(\"woff\");\n"
+"                        font-weight: normal;\n"
+"                        font-style: normal;\n"
+"                    }"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "+ KEY"
-msgstr ""
+msgstr "+ VÕTI"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "07/08/2020"
-msgstr ""
+msgstr "07/08/2020"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "08/07/2020"
-msgstr ""
+msgstr "08/07/2020"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #: code:addons/web/static/src/views/fields/formatters.js:0
 #, python-format
 msgid "1 record"
-msgstr ""
+msgstr "1 kirje"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span class=\"text-nowrap\">$ 2,887.50</span>"
-msgstr ""
+msgstr "<span class=\"text-nowrap\">$ 2,887.50</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -284,6 +291,8 @@ msgid ""
 "<span class=\"text-nowrap\">$ <span class=\"oe_currency_value\">\n"
 "                                                       22,137.50</span></span>"
 msgstr ""
+"<span class=\"text-nowrap\">$ <span class=\"oe_currency_value\">\n"
+"                                                       22,137.50</span></span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -291,6 +300,8 @@ msgid ""
 "<span class=\"text-nowrap\">$ <span "
 "class=\"oe_currency_value\">11,750.00</span></span>"
 msgstr ""
+"<span class=\"text-nowrap\">$ <span "
+"class=\"oe_currency_value\">11,750.00</span></span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -298,21 +309,23 @@ msgid ""
 "<span class=\"text-nowrap\">$ <span "
 "class=\"oe_currency_value\">7,500.00</span></span>"
 msgstr ""
+"<span class=\"text-nowrap\">$ <span "
+"class=\"oe_currency_value\">7,500.00</span></span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span class=\"text-nowrap\">1,500.00</span>"
-msgstr ""
+msgstr "<span class=\"text-nowrap\">1,500.00</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span class=\"text-nowrap\">2,350.00</span>"
-msgstr ""
+msgstr "<span class=\"text-nowrap\">2,350.00</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span class=\"text-nowrap\">Tax 15%</span>"
-msgstr ""
+msgstr "<span class=\"text-nowrap\">Tulumaks 15%</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -320,26 +333,28 @@ msgid ""
 "<span class=\"w-100 o_force_ltr\" itemprop=\"streetAddress\">77 Santa Barbara\n"
 "                                                   Rd<br/>Pleasant Hill CA 94523<br/>United States</span>"
 msgstr ""
+"<span class=\"w-100 o_force_ltr\" itemprop=\"streetAddress\">77 Santa Barbara\n"
+"                                                   Rd<br/>Pleasant Hill CA 94523<br/>United States</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span id=\"line_tax_ids\">15.00%</span>"
-msgstr ""
+msgstr "<span id=\"line_tax_ids\">15.00%</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span itemprop=\"name\">Deco Addict</span>"
-msgstr ""
+msgstr "<span itemprop=\"name\">Deco Addict</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span>$ <span class=\"oe_currency_value\">19,250.00</span></span>"
-msgstr ""
+msgstr "<span>$ <span class=\"oe_currency_value\">19,250.00</span></span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span>5.000</span>"
-msgstr ""
+msgstr "<span>5.000</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -357,11 +372,13 @@ msgid ""
 "<span>Invoice</span>\n"
 "                           <span>INV/2020/07/0003</span>"
 msgstr ""
+"<span>Müügiarve</span>\n"
+"                           <span>INV/2020/07/0003</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
 msgid "<span>Payment terms: 30 Days</span>"
-msgstr ""
+msgstr "<span>Maksetingimused: 30 päeva</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -384,6 +401,8 @@ msgid ""
 "<span>[FURN_8220] Four Person Desk<br/>\n"
 "                                       Four person modern office workstation</span>"
 msgstr ""
+"<span>[FURN_8220] Four Person Desk<br/>\n"
+"                                       Neljakohaline kaasaegne kontorilaud</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -391,6 +410,8 @@ msgid ""
 "<span>[FURN_8999] Three-Seat Sofa<br/>\n"
 "                                       Three Seater Sofa with Lounger in Steel Grey Colour</span>"
 msgstr ""
+"<span>[FURN_8999] Three-Seat Sofa<br/>\n"
+"                                     Halli värvi kolmekohaline diivan</span>"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -413,21 +434,21 @@ msgid "<strong>Total</strong>"
 msgstr "<strong>Kokku</strong>"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #, python-format
 msgid "=ilike"
-msgstr ""
+msgstr "=mullemeeldib"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #, python-format
 msgid "=like"
-msgstr ""
+msgstr "=meeldib"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #, python-format
 msgid ""
@@ -435,24 +456,27 @@ msgid ""
 "                        font-family: \"font\";\n"
 "                        src: url(data:font/ttf;base64,"
 msgstr ""
+"@font-face {\n"
+"                        font-family: \"font\";\n"
+"                        src: url(data:font/ttf;base64,"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/favorite_menu/custom_favorite_item.js:0
 #, python-format
 msgid "A filter with same name already exists."
-msgstr ""
+msgstr "Sama nimega filter on juba olemas."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/custom_favorite_item.js:0
 #: code:addons/web/static/src/search/favorite_menu/custom_favorite_item.js:0
 #, python-format
 msgid "A name for your favorite filter is required."
-msgstr ""
+msgstr "Lemmikfiltri nimi peab olema määratud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid ""
@@ -461,56 +485,49 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "ALL"
 msgstr "KÕIK"
 
 #. module: web
-#. openerp-web
-#: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
-#, python-format
-msgid "ALT"
-msgstr ""
-
-#. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "ANY"
 msgstr "VÄHEMALT ÜKS"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Access Denied"
 msgstr "Juurdepääs keelatud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Access Error"
 msgstr "Ligipääsu viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Access to all Enterprise Apps"
 msgstr "Ligipääs kõigile Enterprise rakendustele"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/ace/ace_field.js:0
 #, python-format
 msgid "Ace Editor"
-msgstr ""
+msgstr "Ace redaktor"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/components/action_menus.js:0
 #: code:addons/web/static/src/search/action_menus/action_menus.xml:0
 #: code:addons/web/static/src/views/form/status_bar_buttons/status_bar_buttons.xml:0
@@ -519,7 +536,7 @@ msgid "Action"
 msgstr "Toiming"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
 #, python-format
@@ -532,50 +549,50 @@ msgid "Action Window View"
 msgstr "Tegevuseakna vaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.js:0
 #, python-format
 msgid "Activate Assets Debugging"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.js:0
 #, python-format
 msgid "Activate Tests Assets Debugging"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_providers.js:0
 #: code:addons/web/static/src/core/debug/debug_providers.js:0
 #, python-format
 msgid "Activate debug mode (with assets)"
-msgstr ""
+msgstr "Aktiveeri debug režiim (koos viidetega)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_dev_tool.xml:0
 #, python-format
 msgid "Activate the developer mode"
 msgstr "Aktiveeri arendusrežiim"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_dev_tool.xml:0
 #, python-format
 msgid "Activate the developer mode (with assets)"
 msgstr "Aktiveeri arendusrežiim (koos viidetega)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_dev_tool.xml:0
 #, python-format
 msgid "Activate the developer mode (with tests assets)"
 msgstr "Aktiveeri arendusrežiim (testviidetega)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
@@ -587,42 +604,42 @@ msgid "Add"
 msgstr "Lisa"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.xml:0
 #, python-format
 msgid "Add Custom Filter"
 msgstr "Lisa kohandatud filter"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/group_by_menu/custom_group_by_item.xml:0
 #, python-format
 msgid "Add Custom Group"
 msgstr "Lisa kohandatud grupp"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.xml:0
 #, python-format
 msgid "Add a Property"
-msgstr ""
+msgstr "Lisa omadus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition_selection.xml:0
 #, python-format
 msgid "Add a Value"
-msgstr ""
+msgstr "Lisa väärtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.xml:0
 #, python-format
 msgid "Add a condition"
 msgstr "Lisa tingimus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_editable_renderer.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_editable_renderer.js:0
 #: code:addons/web/static/src/views/list/list_renderer.js:0
@@ -632,7 +649,7 @@ msgid "Add a line"
 msgstr "Lisa rida"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -642,7 +659,7 @@ msgid "Add branch"
 msgstr "Lisa haru"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
@@ -654,7 +671,7 @@ msgid "Add column"
 msgstr "Lisa veerg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -662,7 +679,7 @@ msgid "Add filter"
 msgstr "Lisa filter"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_field_input_with_tags.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -670,7 +687,7 @@ msgid "Add new value"
 msgstr "Lisa uus väärtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -680,60 +697,60 @@ msgid "Add node"
 msgstr "Lisa sõlm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Add qweb directive context"
-msgstr ""
+msgstr "Lisa qwebi direktiivi kontekst"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_field_input_with_tags.xml:0
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_field_input_with_tags.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Add tag"
-msgstr ""
+msgstr "Lisa silt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Add to Favorites"
 msgstr "Lisa lemmikutesse"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "Add: "
 msgstr "Lisa:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/x2many/x2many_field.js:0
 #, python-format
 msgid "Add: %s"
-msgstr ""
+msgstr "Lisa: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/components/action_menus.js:0
 #, python-format
 msgid "Additionnal actions"
-msgstr ""
+msgstr "Täiendavad tegevused"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/signature_dialog.xml:0
 #: code:addons/web/static/src/legacy/js/views/signature_dialog.js:0
 #, python-format
 msgid "Adopt & Sign"
-msgstr ""
+msgstr "Lisa & Kirjuta alla"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/signature_dialog.js:0
 #: code:addons/web/static/src/legacy/js/views/signature_dialog.js:0
 #, python-format
@@ -741,7 +758,7 @@ msgid "Adopt Your Signature"
 msgstr "Lisa oma allkiri"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #: code:addons/web/static/src/legacy/js/core/dialog.js:0
 #, python-format
@@ -749,7 +766,7 @@ msgid "Alert"
 msgstr "Hoiatus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/search_panel_model_extension.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -762,7 +779,7 @@ msgid "All"
 msgstr "Kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_popover.js:0
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_renderer.js:0
 #, python-format
@@ -770,7 +787,7 @@ msgid "All day"
 msgstr "Kogu päev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -778,36 +795,36 @@ msgid "All users"
 msgstr "Kõik kasutajad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
 msgid "Among the"
-msgstr ""
+msgstr "hulgas"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_service.js:0
 #, python-format
 msgid "An error occured while uploading."
-msgstr ""
+msgstr "Esines tõrge faili laadimisel"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #, python-format
 msgid "An error occurred"
 msgstr "Ilmnes viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "And more"
 msgstr "ja rohkem"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -820,9 +837,11 @@ msgid ""
 "Appears by default on the top right corner of your printed documents (report"
 " header)."
 msgstr ""
+"Kuvatakse vaikimisi teie prinditud dokumentidel üleval paremas nurgas "
+"(aruande päis)."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.xml:0
 #: code:addons/web/static/src/search/group_by_menu/custom_group_by_item.xml:0
@@ -832,7 +851,7 @@ msgid "Apply"
 msgstr "Kinnita"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/views/form/form_controller.js:0
@@ -842,7 +861,7 @@ msgid "Archive"
 msgstr "Arhiveeri"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #, python-format
@@ -850,7 +869,7 @@ msgid "Archive All"
 msgstr "Arhiveeri kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.js:0
 #, python-format
@@ -860,7 +879,7 @@ msgstr ""
 "Kas te olete kindel, et soovite sellest tulbast kõik kirjed arhiveerida?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/views/list/list_controller.js:0
 #, python-format
@@ -869,28 +888,28 @@ msgstr ""
 "Kas te olete kindlad, et soovite kõik need valitud kirjed arhiveerida?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_controller.js:0
 #, python-format
 msgid "Are you sure that you want to archive all this record?"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #, python-format
 msgid "Are you sure that you want to archive this record?"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #, python-format
 msgid "Are you sure that you want to remove this column ?"
 msgstr "Oled Sa kindel, et soovid eemaldada seda veergu?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/control_panel.xml:0
 #: code:addons/web/static/src/search/favorite_menu/favorite_menu.js:0
 #, python-format
@@ -898,14 +917,14 @@ msgid "Are you sure that you want to remove this filter?"
 msgstr "Kas oled kindel, et soovid eemaldada selle filtri?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #, python-format
 msgid "Are you sure you want to delete these records ?"
 msgstr "Olete te kindlad, et soovite neid andmeid kustutada? "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_controller.js:0
 #: code:addons/web/static/src/views/list/list_controller.js:0
 #, python-format
@@ -913,14 +932,14 @@ msgid "Are you sure you want to delete these records?"
 msgstr "Kas olete kindel, et soovite need kirjed kustutada?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/kanban/kanban_renderer.js:0
 #, python-format
 msgid "Are you sure you want to delete this column?"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid ""
@@ -929,14 +948,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_controller.js:0
 #, python-format
 msgid "Are you sure you want to delete this record ?"
 msgstr "Kas oled kindel, et soovid selle kirje kustutada?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_controller.js:0
 #: code:addons/web/static/src/views/form/form_controller.js:0
 #: code:addons/web/static/src/views/kanban/kanban_record.js:0
@@ -946,7 +965,7 @@ msgid "Are you sure you want to delete this record?"
 msgstr "Kas olete kindel, et soovite selle kirje kustutada?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
@@ -954,7 +973,7 @@ msgid "Are you sure you want to perform the following update on those"
 msgstr "Kas olete kindel, et soovite uuendada järgmist"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
@@ -962,7 +981,7 @@ msgid "As a default text when no value are set"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -971,16 +990,16 @@ msgid "Ascending"
 msgstr "Kasvav"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.xml:0
 #, python-format
 msgid "Attach"
-msgstr ""
+msgstr "Lisa"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_cover_image_dialog.xml:0
 #, python-format
@@ -988,14 +1007,14 @@ msgid "Attachment"
 msgstr "Manus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/attachment_image/attachment_image_field.js:0
 #, python-format
 msgid "Attachment Image"
-msgstr ""
+msgstr "Manustatud pilt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
@@ -1004,15 +1023,15 @@ msgid "Auto"
 msgstr "Automaatne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
 msgid "Available fields"
-msgstr "Saadval väljad"
+msgstr "Saadaval väljad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.xml:0
@@ -1029,7 +1048,7 @@ msgid "Background Image"
 msgstr "Taustapilt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields_owl.js:0
 #: code:addons/web/static/src/views/fields/badge/badge_field.js:0
 #, python-format
@@ -1037,15 +1056,15 @@ msgid "Badge"
 msgstr "Märk"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/badge_selection/badge_selection_field.js:0
 #, python-format
 msgid "Badges"
-msgstr "Märgid"
+msgstr "Tunnustusmärgid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -1059,13 +1078,14 @@ msgid "Base"
 msgstr "Alus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.js:0
 #, python-format
 msgid "Become Superuser"
-msgstr ""
+msgstr "Hakka superkasutajaks"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #, python-format
 msgid ""
@@ -1074,24 +1094,24 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/image/image_field.xml:0
 #: code:addons/web/static/src/views/fields/signature/signature_field.xml:0
 #, python-format
 msgid "Binary file"
-msgstr ""
+msgstr "Binaarne fail"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Bugfixes guarantee"
-msgstr ""
+msgstr "Veaparanduste garantii"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
@@ -1100,7 +1120,7 @@ msgid "Button"
 msgstr "Nupp"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
 #, python-format
@@ -1108,7 +1128,7 @@ msgid "Button Type:"
 msgstr "Nupu tüüp:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/signature_dialog.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
@@ -1119,51 +1139,55 @@ msgid ""
 " all purposes when it is used on documents, including legally binding "
 "contracts."
 msgstr ""
+"Klõpsates käsul \"Võta vastu ja allkirjasta\", nõustun, et valitud "
+"allkiri/initsiaalid on minu käsitsi kirjutatud allkirja/initsiaalide kehtiv "
+"elektrooniline esitus kõigil eesmärkidel, kui seda kasutatakse dokumentidel,"
+" sealhulgas õiguslikult siduvates lepingutes."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/formatters.js:0
 #, python-format
 msgid "Bytes"
-msgstr ""
+msgstr "Baidid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/utils.js:0
 #, python-format
 msgid "Bytes|Kb|Mb|Gb|Tb|Pb|Eb|Zb|Yb"
-msgstr ""
+msgstr "Bytes|Kb|Mb|Gb|Tb|Pb|Eb|Zb|Yb"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/control_panel/control_panel.xml:0
 #, python-format
 msgid "CLEAR"
-msgstr ""
+msgstr "TÜHJENDA"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.xml:0
 #, python-format
 msgid "CMD"
-msgstr ""
+msgstr "CMD"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.xml:0
 #, python-format
 msgid "CTRL"
-msgstr ""
+msgstr "CTRL"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/phone/phone_field.xml:0
 #, python-format
 msgid "Call"
 msgstr "Helista"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/signature/signature_dialog.xml:0
@@ -1187,22 +1211,22 @@ msgid "Cancel"
 msgstr "Tühista"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_bar.xml:0
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_bar.xml:0
 #, python-format
 msgid "Cancel Upload"
-msgstr ""
+msgstr "Tühista üleslaadimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #, python-format
 msgid "Card color: %s"
-msgstr ""
+msgstr "Kaardi värv: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -1210,7 +1234,7 @@ msgid "Change default:"
 msgstr "Muuda vaikimisi:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -1218,10 +1242,10 @@ msgstr "Muuda vaikimisi:"
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
 #, python-format
 msgid "Change graph"
-msgstr ""
+msgstr "Muuda graafikut"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/_deprecated/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields_owl.js:0
 #: code:addons/web/static/src/views/fields/boolean/boolean_field.js:0
@@ -1231,37 +1255,37 @@ msgid "Checkbox"
 msgstr "Märkekast"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/many2many_checkboxes/many2many_checkboxes_field.js:0
 #, python-format
 msgid "Checkboxes"
-msgstr ""
+msgstr "Märkekastid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/colorpicker.js:0
 #, python-format
 msgid "Choose"
 msgstr "Vali"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_input/file_input.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Choose File"
-msgstr ""
+msgstr "Vali fail"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu.js:0
 #, python-format
 msgid "Choose a debug command..."
-msgstr ""
+msgstr "Vali debug käsk"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -1269,23 +1293,23 @@ msgstr ""
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
-#: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #: code:addons/web/static/src/views/fields/binary/binary_field.xml:0
 #: code:addons/web/static/src/views/fields/image/image_field.xml:0
 #: code:addons/web/static/src/views/fields/pdf_viewer/pdf_viewer_field.xml:0
+#: code:addons/web/static/src/views/view_dialogs/select_create_dialog.xml:0
 #, python-format
 msgid "Clear"
 msgstr "Tühjenda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Clear Signature"
 msgstr "Tühjenda allkiri"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
@@ -1313,12 +1337,12 @@ msgid "Close"
 msgstr "Sulge"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/burger_menu/burger_menu.xml:0
 #: code:addons/web/static/src/webclient/burger_menu/burger_menu.xml:0
 #, python-format
 msgid "Close menu"
-msgstr ""
+msgstr "Sulge menüü"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
@@ -1326,15 +1350,15 @@ msgid "Colors"
 msgstr "Värvid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_renderer.js:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.js:0
 #, python-format
 msgid "Column %s"
-msgstr ""
+msgstr "Veerg %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/burger_menu/mobile_switch_company_menu/mobile_switch_company_menu.xml:0
 #: model:ir.model,name:web.model_res_company
 #, python-format
@@ -1350,7 +1374,7 @@ msgstr "Ettevõte"
 #: model:ir.model.fields,field_description:web.field_base_document_layout__company_details
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
 msgid "Company Details"
-msgstr ""
+msgstr "Ettevõtte detailid"
 
 #. module: web
 #: model:ir.model,name:web.model_base_document_layout
@@ -1378,14 +1402,14 @@ msgid "Company name"
 msgstr "Ettevõtte nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/comparison_menu/comparison_menu.xml:0
 #, python-format
 msgid "Comparison"
 msgstr "Võrdlus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -1398,7 +1422,7 @@ msgid "Configure your document layout"
 msgstr "Konfigureeri dokumendi põhi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #: code:addons/web/static/src/legacy/js/core/dialog.js:0
 #: code:addons/web/static/src/legacy/js/core/dialog.js:0
@@ -1410,21 +1434,21 @@ msgid "Confirmation"
 msgstr "Kinnitus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_handlers.js:0
 #, python-format
 msgid "Connection lost. Trying to reconnect..."
-msgstr ""
+msgstr "Ühendus on katkenud.. Proovime uuesti ühendada..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_handlers.js:0
 #, python-format
 msgid "Connection restored. You are back online."
-msgstr ""
+msgstr "Ühendus on taastatud.. Olete tagasi online'is."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
@@ -1434,31 +1458,31 @@ msgid "Context:"
 msgstr "Sisu:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/x2many/x2many_field.xml:0
 #: code:addons/web/static/src/views/list/list_controller.xml:0
 #, python-format
 msgid "Control panel buttons"
-msgstr ""
+msgstr "Kontrollpaneeli nupud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/copy_clipboard/copy_clipboard_field.js:0
 #, python-format
 msgid "Copied"
 msgstr "Kopeeritud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Copied !"
 msgstr "Kopeeritud !"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -1468,35 +1492,35 @@ msgid "Copy"
 msgstr "Koopia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/copy_clipboard/copy_clipboard_field.js:0
 #, python-format
 msgid "Copy Multiline Text to Clipboard"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/copy_clipboard/copy_clipboard_field.js:0
 #, python-format
 msgid "Copy Text to Clipboard"
-msgstr ""
+msgstr "Kopeeri tekst lõikelauale"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/copy_clipboard/copy_clipboard_field.js:0
 #, python-format
 msgid "Copy URL to Clipboard"
-msgstr ""
+msgstr "Kopeeri URL lõikelauale"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #, python-format
 msgid "Copy the full error to clipboard"
 msgstr "Kopeeri kogu viga oma lõikelauale"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
@@ -1504,61 +1528,61 @@ msgstr "Kopeeri kogu viga oma lõikelauale"
 #: code:addons/web/static/src/views/fields/copy_clipboard/copy_clipboard_field.js:0
 #, python-format
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Kopeerida lõikelauale"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.frontend_layout
 msgid "Copyright &amp;copy;"
-msgstr ""
+msgstr "Kasutajaõigused &amp;copy;"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_edition.xml:0
 #, python-format
 msgid "Copyright © 2004"
-msgstr ""
+msgstr "Kasutajaõigused © 2004"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/ajax.js:0
 #, python-format
 msgid "Could not connect to the server"
-msgstr ""
+msgstr "Ei saanud serveriga ühendust"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/signature.js:0
 #: code:addons/web/static/src/views/fields/image/image_field.js:0
 #: code:addons/web/static/src/views/fields/signature/signature_field.js:0
 #, python-format
 msgid "Could not display the selected image"
-msgstr ""
+msgstr "Ei saa kuvada valitud pilti"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/pdf_viewer/pdf_viewer_field.js:0
 #, python-format
 msgid "Could not display the selected pdf"
-msgstr ""
+msgstr "Ei saa kuvada valitud PDF'i"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/image_url/image_url_field.js:0
 #, python-format
 msgid "Could not display the specified image url."
-msgstr ""
+msgstr "Ei saa kuvada valitud pildi URL."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/utils.js:0
 #, python-format
 msgid "Could not serialize XML"
-msgstr ""
+msgstr "Ei saa serialiseerida XML'i"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #: code:addons/web/static/src/views/kanban/kanban_record.js:0
 #, python-format
@@ -1568,14 +1592,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/barcode/barcode_scanner.js:0
 #, python-format
 msgid "Could not start scanning. "
-msgstr ""
+msgstr "Skaneerimist ei saanud alustada."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.js:0
 #: code:addons/web/static/src/views/utils.js:0
@@ -1589,7 +1613,7 @@ msgid "Country"
 msgstr "Riik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
@@ -1611,7 +1635,7 @@ msgid "Create"
 msgstr "Loo"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #, python-format
@@ -1619,58 +1643,58 @@ msgid "Create "
 msgstr "Loo"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_tags.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Create \"%s\""
-msgstr ""
+msgstr "Loo \"%s\""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "Create \"<strong>%s</strong>\""
 msgstr "Loo \"<strong>%s</strong>\""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Create %s"
-msgstr ""
+msgstr "Loo %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "Create and Edit..."
 msgstr "Loo ja muuda..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Create and edit..."
-msgstr ""
+msgstr "Loo ja muuda..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/fields/x2many/x2many_field.xml:0
 #, python-format
 msgid "Create record"
-msgstr ""
+msgstr "Loo kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "Create: %s"
-msgstr ""
+msgstr "Loo: %s"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__create_uid
@@ -1683,28 +1707,28 @@ msgid "Created on"
 msgstr "Loomise kuupäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "Creation Date:"
 msgstr "Loomiskuupäev:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "Creation User:"
 msgstr "Looja kasutaja:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
 #, python-format
 msgid "Cumulative"
-msgstr ""
+msgstr "Kumulatiivne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.xml:0
 #, python-format
@@ -1714,27 +1738,27 @@ msgstr "Praegune olek"
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__custom_colors
 msgid "Custom Colors"
-msgstr ""
+msgstr "Kohandatud värvid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Dark blue"
-msgstr ""
+msgstr "Tumesinine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Dark purple"
-msgstr ""
+msgstr "Tumelilla"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login
@@ -1742,16 +1766,16 @@ msgid "Database"
 msgstr "Andmebaas"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/date/date_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
 #, python-format
 msgid "Date"
-msgstr "Date"
+msgstr "Kuupäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -1760,7 +1784,7 @@ msgid "Date & Time"
 msgstr "Kuupäev ja kellaaeg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.js:0
@@ -1769,65 +1793,66 @@ msgid "Day"
 msgstr "Päev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_providers.js:0
 #, python-format
 msgid "Deactivate debug mode"
-msgstr ""
+msgstr "Deaktiveeri debug režiim"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_dev_tool.xml:0
 #, python-format
 msgid "Deactivate the developer mode"
 msgstr "Deaktiveeri arendusrežiim"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu.js:0
 #, python-format
 msgid "Debug tools..."
-msgstr ""
+msgstr "Debug tööriistad.."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
 #, python-format
 msgid "Decimal"
-msgstr ""
+msgstr "Kümnend"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Default"
 msgstr "Vaikimisi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Default State"
-msgstr ""
+msgstr "Vaikimisi olek"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Default Value"
 msgstr "Vaikeväärtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
 msgid "Default text is used when no values are set"
 msgstr ""
+"Vaikimisi teksti kasutatakse ainult sel juhul kui väärtusi pole määratud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
@@ -1835,7 +1860,7 @@ msgid "Default value"
 msgstr "Vaikeväärtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
@@ -1844,7 +1869,7 @@ msgid "Default:"
 msgstr "Vaikimisi:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -1870,22 +1895,22 @@ msgid "Delete"
 msgstr "Kustuta"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Delete Property Field"
-msgstr ""
+msgstr "Kustuta seade väljad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/search/favorite_menu/favorite_menu.xml:0
 #, python-format
 msgid "Delete item"
-msgstr ""
+msgstr "Kustuta üksus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -1895,21 +1920,21 @@ msgid "Delete node"
 msgstr "Kustuta sõlm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/list/list_renderer.xml:0
 #, python-format
 msgid "Delete row"
-msgstr ""
+msgstr "Kustuta rida"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_editable_renderer.js:0
 #, python-format
 msgid "Delete row "
-msgstr ""
+msgstr "Kustuta rida"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -1918,7 +1943,7 @@ msgid "Descending"
 msgstr "Kahanev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector_dialog/domain_selector_dialog.xml:0
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
@@ -1941,20 +1966,20 @@ msgid "Discard"
 msgstr "Loobu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_error_dialog/form_error_dialog.xml:0
 #: code:addons/web/static/src/views/form/form_status_indicator/form_status_indicator.xml:0
 #, python-format
 msgid "Discard changes"
-msgstr ""
+msgstr "Loobu muudatustest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Discard record"
-msgstr ""
+msgstr "Loobu kirjest"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__display_name
@@ -1962,14 +1987,14 @@ msgid "Display Name"
 msgstr "Näidatav nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_bar.js:0
 #, python-format
 msgid "Do you really want to cancel the upload of %s?"
-msgstr ""
+msgstr "Kas soovite tõesti %s üleslaadimist tühistada? "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
 #, python-format
@@ -1982,14 +2007,14 @@ msgid "Document Template"
 msgstr "Dokumendi põhi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
 msgid "Documentation"
 msgstr "Dokumentatsioon"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector_dialog/domain_selector_dialog.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector_dialog.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -2004,29 +2029,29 @@ msgid "Domain"
 msgstr "Domeen"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_control_panel.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Domain node"
-msgstr ""
+msgstr "Domeeni sõlm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
 msgid "Domain not properly formed"
-msgstr ""
+msgstr "Domeen ei ole korrektse vorminguga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
 msgid "Domain not supported"
-msgstr ""
+msgstr "Domeenit ei toetata"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -2034,22 +2059,23 @@ msgid "Domain:"
 msgstr "Domeen:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "Don't leave yet,"
-msgstr ""
+msgstr "Ära veel lahku,"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
 #, python-format
 msgid "Don't leave yet,<br />it's still loading..."
 msgstr "Ära veel lahku -<br />laen ikka veel ..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
+#: code:addons/web/static/src/views/fields/binary/binary_field.xml:0
 #: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.xml:0
 #, python-format
 msgid "Download"
@@ -2058,10 +2084,10 @@ msgstr "Laadige alla"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
 msgid "Download PDF Preview"
-msgstr ""
+msgstr "Lae alla PDF eelvaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/pivot/pivot_controller.xml:0
@@ -2070,23 +2096,23 @@ msgid "Download xlsx"
 msgstr "Lae alla xlsx"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
 msgid "Draw"
-msgstr ""
+msgstr "Joonista"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Dropdown menu"
 msgstr "Rippmenüü"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/views/form/form_controller.js:0
 #, python-format
@@ -2094,7 +2120,7 @@ msgid "Duplicate"
 msgstr "Tee koopia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -2110,21 +2136,21 @@ msgid "Edit"
 msgstr "Muuda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "Edit Action"
 msgstr "Muuda tegevust"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #, python-format
 msgid "Edit Column"
 msgstr "Muuda veergu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #, python-format
@@ -2132,14 +2158,14 @@ msgid "Edit Domain"
 msgstr "Muuda tingimusi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/debug_items.js:0
 #, python-format
 msgid "Edit SearchView"
-msgstr ""
+msgstr "Muuda otsinguvaadet"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #, python-format
@@ -2147,28 +2173,28 @@ msgid "Edit Stage"
 msgstr "Muuda etappi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/debug_items.js:0
 #, python-format
 msgid "Edit View: "
-msgstr ""
+msgstr "Muuda vaadet:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Edit record"
-msgstr ""
+msgstr "Muuda kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/kanban/kanban_renderer.js:0
 #, python-format
 msgid "Edit: %s"
-msgstr ""
+msgstr "Muuda: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/email/email_field.js:0
 #: model:ir.model.fields,field_description:web.field_base_document_layout__email
@@ -2178,42 +2204,42 @@ msgid "Email"
 msgstr "E-post"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.js:0
 #, python-format
 msgid "Empty email address"
-msgstr ""
+msgstr "Tühi meiliaadress"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Enable profiling"
-msgstr ""
+msgstr "Luba profileerimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.xml:0
 #, python-format
 msgid "Enter e-mail address"
 msgstr "Sisesta e-posti aadress"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/highlight_text/form_label_highlight_text.xml:0
 #, python-format
 msgid "Enterprise"
-msgstr ""
+msgstr "Ettevõtte"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_service.js:0
 #, python-format
 msgid "Error"
 msgstr "Viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_column_quick_create.xml:0
 #, python-format
@@ -2221,21 +2247,21 @@ msgid "Esc to discard"
 msgstr "Esc tühistamiseks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_model.js:0
 #, python-format
 msgid "Everybody's calendars"
 msgstr "Kõigi kalendrid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_model.js:0
 #, python-format
 msgid "Everything"
 msgstr "Kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/pivot/pivot_controller.xml:0
@@ -2244,7 +2270,7 @@ msgid "Expand all"
 msgstr "Laienda kõike"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/list/list_controller.js:0
@@ -2254,7 +2280,7 @@ msgid "Export"
 msgstr "Eksport"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_controller.xml:0
@@ -2263,7 +2289,7 @@ msgid "Export All"
 msgstr "Ekspordi kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
 #, python-format
@@ -2271,7 +2297,7 @@ msgid "Export Data"
 msgstr "Ekspordi andmed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
@@ -2279,13 +2305,15 @@ msgid "Export Format:"
 msgstr "Ekspordi formaat:"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #, python-format
 msgid "Exporting grouped data to csv is not supported."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #: code:addons/web/controllers/export.py:0
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
@@ -2295,7 +2323,7 @@ msgid "External ID"
 msgstr "Väline ID"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -2303,50 +2331,50 @@ msgid "External link"
 msgstr "Välislink"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/control_panel/control_panel.xml:0
 #: code:addons/web/static/src/search/search_panel/search_panel.xml:0
 #, python-format
 msgid "FILTER"
-msgstr ""
+msgstr "FILTER"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/control_panel_model_extension.js:0
 #, python-format
 msgid "Failed to evaluate search context"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "False"
 msgstr "Väär"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.js:0
 #, python-format
 msgid "Favorite"
-msgstr ""
+msgstr "Lemmik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/favorite_menu/favorite_menu.xml:0
 #, python-format
 msgid "Favorites"
 msgstr "Lemmikud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Field Type"
 msgstr "Välja tüüp"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
@@ -2356,7 +2384,7 @@ msgid "Field:"
 msgstr "Väli:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
@@ -2364,7 +2392,7 @@ msgid "Fields to export"
 msgstr "Väljad eksportimiseks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/binary/binary_field.js:0
 #, python-format
@@ -2372,7 +2400,7 @@ msgid "File"
 msgstr "Fail"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/file_handler.js:0
 #, python-format
@@ -2380,21 +2408,21 @@ msgid "File upload"
 msgstr "Faili üleslaadimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/custom_favorite_item.js:0
 #, python-format
 msgid "Filter with same name already exists."
 msgstr "Sellise nimega filter on juba olemas."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/filter_menu/filter_menu.xml:0
 #, python-format
 msgid "Filters"
 msgstr "Filtrid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/pivot/pivot_controller.xml:0
@@ -2403,14 +2431,14 @@ msgid "Flip axis"
 msgstr "Vaheta telgi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/float/float_field.js:0
 #, python-format
 msgid "Float"
 msgstr "Ujukomaarv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #, python-format
@@ -2418,7 +2446,7 @@ msgid "Fold"
 msgstr "Voldi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -2427,11 +2455,11 @@ msgid "Followed by"
 msgstr "Jälgitud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector.xml:0
 #, python-format
 msgid "Followed-by"
-msgstr ""
+msgstr "Jälgitud"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__font
@@ -2439,11 +2467,11 @@ msgid "Font"
 msgstr "Font"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/font_selection/font_selection_field.js:0
 #, python-format
 msgid "Font Selection"
-msgstr ""
+msgstr "Fondi valik"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
@@ -2456,7 +2484,7 @@ msgid "Footer text displayed at the bottom of all reports."
 msgstr "Jaluse tekst kuvatakse kõigi aruannete allosas."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/pivot/pivot_controller.js:0
 #, python-format
 msgid ""
@@ -2466,35 +2494,35 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_view.js:0
 #, python-format
 msgid "Form"
 msgstr "Vorm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/qweb/qweb_view.js:0
 #, python-format
 msgid "Freedom View"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Fri"
 msgstr "Reede"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #, python-format
 msgid "Fuchsia"
-msgstr ""
+msgstr "Fuksia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
@@ -2502,52 +2530,52 @@ msgid "Full Name"
 msgstr "Täielik nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Fushia"
-msgstr ""
+msgstr "Fushia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_edition.xml:0
 #, python-format
 msgid "GNU LGPL Licensed"
-msgstr ""
+msgstr "GNU LGPL litsentsitud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/debug_items.js:0
 #: code:addons/web/static/src/views/debug_items.js:0
 #, python-format
 msgid "Get View"
-msgstr ""
+msgstr "Hangi vaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Get this feature and much more with Odoo Enterprise!"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/url/url_field.xml:0
 #, python-format
 msgid "Go to URL"
-msgstr ""
+msgstr "Mine URL'ile"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_view.js:0
 #, python-format
 msgid "Graph"
 msgstr "Graafik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -2557,7 +2585,7 @@ msgid "Green"
 msgstr "Roheline"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/group_by_menu/group_by_menu.xml:0
 #, python-format
 msgid "Group By"
@@ -2569,77 +2597,79 @@ msgid "HTTP Routing"
 msgstr "HTTP Routing"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/handle/handle_field.js:0
 #, python-format
 msgid "Handle"
-msgstr ""
+msgstr "Käsitle"
 
 #. module: web
 #: model:ir.model.fields,help:web.field_base_document_layout__company_details
 msgid "Header text displayed at the top of all reports."
 msgstr ""
+"84%match\n"
+"Päise tekst kuvatakse kõigi aruannete ülaosas."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hide in Kanban"
-msgstr ""
+msgstr "Peida Kanban olekus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2many_tags/many2many_tags_field.xml:0
 #, python-format
 msgid "Hide in kanban"
-msgstr ""
+msgstr "Peida kanban olekus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hit DOWN to navigate to the list below"
-msgstr ""
+msgstr "Vajutage ALLA allolevasse loendisse navigeerimiseks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hit ENTER to"
-msgstr ""
+msgstr "Vajuta SISESTA"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hit ENTER to CREATE"
-msgstr ""
+msgstr "Vajuta SISESTA, et luua"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hit ENTER to SAVE"
-msgstr ""
+msgstr "Vajuta SISESTA, et salvestada"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Hit ESCAPE to DISCARD"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/dialog.js:0
 #, python-format
 msgid "I am sure about this."
 msgstr "Ma olen selles kindel."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
@@ -2652,14 +2682,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "ID:"
 msgstr "ID:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_model.js:0
 #, python-format
 msgid ""
@@ -2668,7 +2698,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
@@ -2681,21 +2711,21 @@ msgid "Image"
 msgstr "Pilt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.xml:0
 #, python-format
 msgid "In"
 msgstr "Sisse"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "In %s days"
 msgstr "%s päeva pärast"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/integer/integer_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -2704,28 +2734,29 @@ msgid "Integer"
 msgstr "Täisarv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.xml:0
 #: code:addons/web/static/src/views/fields/properties/property_value.xml:0
 #, python-format
 msgid "Internal link"
-msgstr ""
+msgstr "Sisemine link"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Interval"
 msgstr "Intervall"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
 #, python-format
 msgid "Invalid data"
 msgstr "Vigased andmed"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/database.py:0
 #: code:addons/web/controllers/database.py:0
 #, python-format
@@ -2737,7 +2768,7 @@ msgstr ""
 "lubatud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #, python-format
@@ -2745,7 +2776,7 @@ msgid "Invalid domain"
 msgstr "Vale domeen"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector.xml:0
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -2755,7 +2786,7 @@ msgid "Invalid field chain"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
 msgid ""
@@ -2764,14 +2795,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/quick_create/calendar_quick_create.js:0
 #, python-format
 msgid "Invalid fields"
 msgstr "Vigased väljad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_controller.js:0
 #: code:addons/web/static/src/legacy/js/widgets/attach_document.js:0
 #, python-format
@@ -2779,36 +2810,36 @@ msgid "Invalid fields:"
 msgstr "Vigased väljad:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/basic_relational_model.js:0
 #: code:addons/web/static/src/views/relational_model.js:0
 #, python-format
 msgid "Invalid fields: "
-msgstr ""
+msgstr "Vigased väljad:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.js:0
 #, python-format
 msgid "Invite"
 msgstr "Kutsu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.xml:0
 #, python-format
 msgid "Invite New Users"
 msgstr "Kutsu uusi kasutajaid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.js:0
 #, python-format
 msgid "Inviting..."
-msgstr ""
+msgstr "Kutsub..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #, python-format
 msgid ""
@@ -2820,22 +2851,22 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_view.js:0
 #, python-format
 msgid "Kanban"
 msgstr "Kanban"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column_quick_create.js:0
 #: code:addons/web/static/src/views/kanban/kanban_column_examples_dialog.js:0
 #, python-format
 msgid "Kanban Examples"
-msgstr ""
+msgstr "Kanban toru näidised"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #: code:addons/web/static/src/views/kanban/kanban_record.js:0
 #, python-format
@@ -2843,14 +2874,15 @@ msgid "Kanban: no action for type: "
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/label_selection/label_selection_field.js:0
 #: code:addons/web/static/src/views/fields/state_selection/state_selection_field.js:0
 #, python-format
 msgid "Label Selection"
-msgstr ""
+msgstr "Sildi valimine"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/session.py:0
 #, python-format
 msgid "Languages"
@@ -2872,14 +2904,14 @@ msgid "Last Updated on"
 msgstr "Viimati uuendatud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "Latest Modification Date:"
 msgstr "Viimase muudatuse kuupäev:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "Latest Modification by:"
@@ -2896,24 +2928,24 @@ msgid "Layout Background"
 msgstr "Paigutuse taust"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.js:0
 #, python-format
 msgid "Leave the Developer Tools"
 msgstr "Lahku arendaja tööriistadest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Light blue"
-msgstr ""
+msgstr "Helesinine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -2922,14 +2954,14 @@ msgid "Line Chart"
 msgstr "Joondiagramm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_view.js:0
 #, python-format
 msgid "List"
 msgstr "Loend"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
@@ -2938,14 +2970,14 @@ msgid "Load"
 msgstr "Lae"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_dev_tool.xml:0
 #, python-format
 msgid "Load demo data"
 msgstr "Laadi alla demoandmed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
@@ -2954,7 +2986,7 @@ msgid "Load more... ("
 msgstr "Laadi rohkem ... ("
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
@@ -2965,15 +2997,15 @@ msgid "Loading"
 msgstr "Laadimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Loading, please wait..."
-msgstr ""
+msgstr "Laeb, palun oota..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_selector/model_selector.js:0
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
@@ -2994,10 +3026,10 @@ msgstr "Sisene"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login
 msgid "Log in as superuser"
-msgstr ""
+msgstr "Logi sisse superkasutajana"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #: model_terms:ir.ui.view,arch_db:web.login_successful
 #, python-format
@@ -3017,22 +3049,22 @@ msgstr "Logo"
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__logo_primary_color
 msgid "Logo Primary Color"
-msgstr ""
+msgstr "Logo põhivärv"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__logo_secondary_color
 msgid "Logo Secondary Color"
-msgstr ""
+msgstr "Logo sekundaarne värv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "MailDeliveryException"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -3048,12 +3080,12 @@ msgid "Main actions"
 msgstr "Peamised tegevused"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/debug_manager.js:0
 #: code:addons/web/static/src/views/debug_items.js:0
 #, python-format
 msgid "Manage Attachments"
-msgstr ""
+msgstr "Halda manuseid"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login_layout
@@ -3061,21 +3093,21 @@ msgid "Manage Databases"
 msgstr "Halda Andmebaase"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "Manage Filters"
 msgstr "Halda filtreid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2one_barcode/many2one_barcode_field.js:0
 #, python-format
 msgid "Many2OneBarcode"
-msgstr ""
+msgstr "Many2OneBarcode"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
 #, python-format
@@ -3083,7 +3115,7 @@ msgid "Many2many"
 msgstr "Many2many"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -3092,7 +3124,7 @@ msgid "Many2one"
 msgstr "Many2one"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -3100,7 +3132,7 @@ msgid "Match"
 msgstr "Sobita"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -3108,7 +3140,7 @@ msgid "Match records with"
 msgstr "Sobita kirjeid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -3116,7 +3148,7 @@ msgid "Match records with the following rule:"
 msgstr "Peab vastama järgmistele tingimustele:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
 #, python-format
@@ -3124,7 +3156,7 @@ msgid "Maybe you should consider reloading the application by pressing F5..."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view.xml:0
 #, python-format
@@ -3132,31 +3164,31 @@ msgid "Measures"
 msgstr "Näitajad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Medium blue"
-msgstr ""
+msgstr "Keskmine sinine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/quick_create/calendar_quick_create.js:0
 #, python-format
 msgid "Meeting Subject"
 msgstr "Kohtumise teema"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/quick_create/calendar_quick_create.xml:0
 #, python-format
 msgid "Meeting Subject:"
-msgstr ""
+msgstr "Koosoleku teema:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/burger_menu/burger_menu.xml:0
 #: model:ir.model,name:web.model_ir_ui_menu
 #, python-format
@@ -3164,7 +3196,7 @@ msgid "Menu"
 msgstr "Menüü"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
 #, python-format
@@ -3172,35 +3204,35 @@ msgid "Method:"
 msgstr "Meetod:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Missing Record"
 msgstr "Puuduv salvestus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Mobile support"
 msgstr "Mobiili tugi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Model"
 msgstr "Mudel"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "Model Record Rules"
-msgstr ""
+msgstr "Mudeli salvestusreeglid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
 msgid "Model:"
@@ -3212,7 +3244,7 @@ msgid "Models"
 msgstr "Mudelid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
@@ -3222,14 +3254,14 @@ msgid "Modifiers:"
 msgstr "Täpsustajad:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Mon"
 msgstr "Esmaspäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/monetary/monetary_field.js:0
 #, python-format
@@ -3237,7 +3269,7 @@ msgid "Monetary"
 msgstr "Rahaline"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.js:0
@@ -3246,7 +3278,7 @@ msgid "Month"
 msgstr "Kuu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_renderer.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.xml:0
@@ -3256,37 +3288,37 @@ msgid "More"
 msgstr "Veel"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.js:0
 #, python-format
 msgid "Move to %s..."
-msgstr ""
+msgstr "Liigu %s..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/text/text_field.js:0
 #, python-format
 msgid "Multiline Text"
-msgstr ""
+msgstr "Mitmerealine tekst"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
 msgid "My Odoo.com account"
 msgstr "Minu Odoo.com kasutaja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "NONE"
 msgstr "POLE ÜHTEGI"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_model.js:0
 #: code:addons/web/static/src/views/form/form_controller.js:0
 #, python-format
@@ -3294,14 +3326,14 @@ msgid "New"
 msgstr "Uus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "New %s"
-msgstr ""
+msgstr "Uus %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_controller.js:0
 #: code:addons/web/static/src/views/calendar/quick_create/calendar_quick_create.js:0
 #, python-format
@@ -3309,21 +3341,21 @@ msgid "New Event"
 msgstr "Uus üritus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.xml:0
 #, python-format
 msgid "New Property"
-msgstr ""
+msgstr "Uus omadus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "New design"
 msgstr "Uus kujundus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
@@ -3333,21 +3365,21 @@ msgid "New template"
 msgstr "Uus mall"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "New:"
-msgstr ""
+msgstr "Uus:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.js:0
 #, python-format
 msgid "New: %s"
-msgstr ""
+msgstr "Uus: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/pager/pager.xml:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.xml:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.xml:0
@@ -3356,7 +3388,7 @@ msgid "Next"
 msgstr "Järgmine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -3364,7 +3396,7 @@ msgid "Next page"
 msgstr "Järgmine lehekülg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_bar.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_renderer.js:0
@@ -3377,90 +3409,91 @@ msgid "No"
 msgstr "Ei"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_value.js:0
 #: code:addons/web/static/src/views/fields/properties/property_value.xml:0
 #, python-format
 msgid "No Access"
-msgstr ""
+msgstr "Ligipääs puudub"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "No Update:"
 msgstr "Uuendused puuduvad:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/client_actions.js:0
 #, python-format
 msgid "No action with id '%s' could be found"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "No color"
-msgstr ""
+msgstr "Värv puudub"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/default_providers.js:0
 #, python-format
 msgid "No command found"
-msgstr ""
+msgstr "Käsk ei ole leitud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_renderer.js:0
 #, python-format
 msgid "No data"
 msgstr "Andmed puuduvad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/no_content_helpers.xml:0
 #, python-format
 msgid "No data to display"
 msgstr "Pole andmeid, mida näidata"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu.js:0
 #, python-format
 msgid "No debug command found"
-msgstr ""
+msgstr "Debug käsk ei ole leitud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/barcode/barcode_scanner.js:0
 #, python-format
 msgid "No device can be found."
-msgstr ""
+msgstr "Ühtegi seadet ei leitud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
 msgid "No match found."
-msgstr ""
+msgstr "Ühtegi vastet ei leitud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/menus/menu_providers.js:0
 #, python-format
 msgid "No menu found"
-msgstr ""
+msgstr "Menüüd ei leitud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_selector/model_selector.js:0
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
+#: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
 #: code:addons/web/static/src/views/fields/formatters.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
@@ -3468,45 +3501,45 @@ msgid "No records"
 msgstr "Kirjed puuduvad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #, python-format
 msgid "No records found!"
 msgstr "Andmeid ei leitud!"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_tags.js:0
 #, python-format
 msgid "No result"
 msgstr "Tulemused puuduvad"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.js:0
 #, python-format
 msgid "No result found"
 msgstr "Tulemusi ei leitud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/views/relational_model.js:0
 #: code:addons/web/static/src/views/relational_model.js:0
 #, python-format
 msgid "No valid record to save"
-msgstr ""
+msgstr "Ühtegi kehtivat kirjet salvestamiseks ei leitud. "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid "No view of type '%s' could be found in the current action."
-msgstr ""
+msgstr "Ühtegi vaadet tüübile '%s' ei ole leitud praeguse tegevuse ajal. "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
@@ -3523,30 +3556,31 @@ msgid "None"
 msgstr "Pole"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/models/models.py:0 code:addons/web/models/models.py:0
 #: code:addons/web/models/models.py:0
 #, python-format
 msgid "Not Set"
-msgstr ""
+msgstr "Pole määratud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.xml:0
 #, python-format
 msgid "Not active state"
-msgstr ""
+msgstr "Ei ole aktiivne olek"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.xml:0
 #, python-format
 msgid "Not active state, click to change it"
-msgstr ""
+msgstr "Ei ole aktiivne olek, klõpsake muutmiseks "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
@@ -3555,7 +3589,7 @@ msgid "Object:"
 msgstr "Objekt:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/dialog.js:0
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_edition.xml:0
 #: model_terms:ir.ui.view,arch_db:web.brand_promotion_message
@@ -3564,14 +3598,14 @@ msgid "Odoo"
 msgstr "Odoo"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/apps.js:0
 #, python-format
 msgid "Odoo Apps will be available soon"
 msgstr "Odoo rakendused on varsti saadavl"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
@@ -3579,36 +3613,36 @@ msgid "Odoo Client Error"
 msgstr "Odoo kliendi viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Odoo Error"
 msgstr "Odoo viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Odoo Network Error"
-msgstr ""
+msgstr "Odoo võrgu viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_edition.xml:0
 #, python-format
 msgid "Odoo S.A."
 msgstr "Odoo S.A."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Odoo Server Error"
-msgstr ""
+msgstr "Odoo serveri viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/public/error_notifications.js:0
 #, python-format
@@ -3616,7 +3650,7 @@ msgid "Odoo Session Expired"
 msgstr "Odoo sessioon on aegunud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
@@ -3624,30 +3658,31 @@ msgid "Odoo Warning"
 msgstr "Odoo hoiatus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/barcode/barcode_scanner.js:0
 #, python-format
 msgid "Odoo needs your authorization first."
-msgstr ""
+msgstr "Odoo vajab teie luba."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/views/list/list_controller.js:0
 #, python-format
 msgid ""
 "Of the %d records selected, only the first %d have been archived/unarchived."
 msgstr ""
+"Valitud kirjetest %d, on ainult esimene %d arhiveeritud/arhiveerimata."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_error_dialog/form_error_dialog.xml:0
 #, python-format
 msgid "Oh snap!"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
@@ -3669,41 +3704,45 @@ msgid "Ok"
 msgstr "Ok"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "On change:"
 msgstr "Muudatusel:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "One2many"
 msgstr "One2many"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/home.py:0
 #, python-format
 msgid ""
 "Only employees can access this database. Please contact the administrator."
 msgstr ""
+"Ainult töötajad saavad sellele andmebaasile ligi. Palun kontakteeru "
+"administraatoriga."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #, python-format
 msgid "Only the first %d records have been deleted (out of %d selected)"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/list/list_controller.js:0
 #, python-format
 msgid "Only the first %s records have been deleted (out of %s selected)"
 msgstr ""
 
 #. module: web
+#. odoo-python
 #: code:addons/web/models/models.py:0
 #, python-format
 msgid ""
@@ -3712,6 +3751,7 @@ msgid ""
 msgstr ""
 
 #. module: web
+#. odoo-python
 #: code:addons/web/models/models.py:0
 #, python-format
 msgid ""
@@ -3720,7 +3760,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -3728,21 +3768,21 @@ msgid "Only you"
 msgstr "Ainult sina"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/debug_items.js:0
 #, python-format
 msgid "Open View"
 msgstr "Ava vaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Open:"
 msgstr "Ava:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
@@ -3752,29 +3792,29 @@ msgid "Open: "
 msgstr "Avatud: "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Open: %s"
-msgstr ""
+msgstr "Avatud: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition_selection.xml:0
 #, python-format
 msgid "Option Name"
-msgstr ""
+msgstr "Valiku nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_renderer.js:0
 #, python-format
 msgid "Optional columns"
-msgstr ""
+msgstr "Valikulised veerud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -3784,7 +3824,7 @@ msgid "Orange"
 msgstr "Oranz"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column_progressbar.js:0
 #: code:addons/web/static/src/views/kanban/kanban_model.js:0
 #, python-format
@@ -3792,26 +3832,26 @@ msgid "Other"
 msgstr "Muu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/pdf_viewer/pdf_viewer_field.js:0
 #, python-format
 msgid "PDF Viewer"
-msgstr ""
+msgstr "PDF'i vaataja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "PDF controls"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/pdf_viewer/pdf_viewer_field.xml:0
 #, python-format
 msgid "PDF file"
-msgstr ""
+msgstr "PDF fail"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.external_layout_striped
@@ -3833,12 +3873,12 @@ msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr "Lehekülg: <span class=\"page\"/> / <span class=\"topage\"/>st"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/pager/pager.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Pager"
-msgstr ""
+msgstr "Pager"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__paperformat_id
@@ -3856,21 +3896,21 @@ msgid "Password"
 msgstr "Salasõna"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.xml:0
 #, python-format
 msgid "Pending Invitations:"
 msgstr "Ootel kutsed:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/percent_pie/percent_pie_field.js:0
 #, python-format
 msgid "PercentPie"
-msgstr ""
+msgstr "Sekordi protsent"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/percentage/percentage_field.js:0
 #, python-format
@@ -3878,14 +3918,14 @@ msgid "Percentage"
 msgstr "Protsent"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Percentage Pie"
-msgstr ""
+msgstr "Protsentuaalne sekord"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/phone/phone_field.js:0
 #: model:ir.model.fields,field_description:web.field_base_document_layout__phone
@@ -3894,14 +3934,14 @@ msgid "Phone"
 msgstr "Telefon"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/colorpicker.js:0
 #, python-format
 msgid "Pick a color"
-msgstr ""
+msgstr "Vali värv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -3910,7 +3950,7 @@ msgid "Pie Chart"
 msgstr "Sektordiagramm"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
 #, python-format
 msgid ""
@@ -3921,35 +3961,36 @@ msgstr ""
 "Proovi muuta domeeni, et kuvataks ainult positiivseid tulemusi."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/pivot/pivot_view.js:0
 #, python-format
 msgid "Pivot"
-msgstr "Pivoo"
+msgstr "Pivot "
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/pivot.py:0
 #, python-format
 msgid "Pivot %(title)s (%(model_name)s)"
-msgstr ""
+msgstr "Pivot %(title)s (%(model_name)s)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/pivot/pivot_controller.xml:0
 #, python-format
 msgid "Pivot settings"
-msgstr ""
+msgstr "Pivot seaded"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "Please be patient."
-msgstr ""
+msgstr "Palun ole kannatlik."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_renderer.js:0
 #, python-format
@@ -3957,21 +3998,21 @@ msgid "Please click on the \"save\" button first"
 msgstr "Palun kliki esmalt \"salvesta\" nuppu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Please complete your properties before adding a new one"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Please enter a numerical value"
-msgstr ""
+msgstr "Sisesta numbriline väärtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
 #, python-format
@@ -3979,21 +4020,21 @@ msgid "Please enter save field list name"
 msgstr "Palun sisesta salvestatud välja listi nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/attach_document.js:0
 #, python-format
 msgid "Please save before attaching a file"
-msgstr ""
+msgstr "Palun salvesta enne faili manustamist"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #, python-format
 msgid "Please select fields to export..."
 msgstr "Palun vali väljad, mida ekportida ..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
 #, python-format
@@ -4001,7 +4042,7 @@ msgid "Please select fields to save export list..."
 msgstr "Palun vali väljad, et salvestada ekspordi list ..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/form/form_controller.xml:0
 #, python-format
@@ -4009,7 +4050,7 @@ msgid "Please update translations of :"
 msgstr "Palun uuendage tõlget:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #, python-format
 msgid ""
@@ -4023,13 +4064,15 @@ msgid ""
 "Please use the following communication for your payment : <b><span>\n"
 "                           INV/2020/07/0003</span></b>"
 msgstr ""
+"Palun märkige ülekande selgitusse arve number: <b><span>\n"
+"                           INV/2020/07/0003</span></b>"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.js:0
 #, python-format
 msgid "Please, scan again !"
-msgstr ""
+msgstr "Palun skaneeri uuesti !"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.brand_promotion_message
@@ -4042,7 +4085,7 @@ msgid "Powered by <span>Odoo</span>"
 msgstr "Toodetud <span>Odoo</span> poolt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
 msgid "Preferences"
@@ -4066,10 +4109,10 @@ msgstr "Sisemise aruande eelvaade"
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__preview_logo
 msgid "Preview logo"
-msgstr ""
+msgstr "Logo eelvaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/core/pager/pager.xml:0
@@ -4082,7 +4125,7 @@ msgid "Previous"
 msgstr "Eelmine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
@@ -4090,7 +4133,7 @@ msgid "Previous Period"
 msgstr "Eelmine periood"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
@@ -4098,14 +4141,14 @@ msgid "Previous Year"
 msgstr "Eelmine aasta"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Previous menu"
-msgstr ""
+msgstr "Eelmine menüü"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -4118,7 +4161,7 @@ msgid "Primary Color"
 msgstr "Peamine värv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/components/action_menus.js:0
 #: code:addons/web/static/src/search/action_menus/action_menus.xml:0
 #: code:addons/web/static/src/webclient/actions/reports/report_action.xml:0
@@ -4128,14 +4171,14 @@ msgid "Print"
 msgstr "Prindi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/components/action_menus.js:0
 #, python-format
 msgid "Printing options"
-msgstr ""
+msgstr "Printimise valikud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/priority/priority_field.js:0
 #: code:addons/web/static/src/views/fields/priority/priority_field.xml:0
@@ -4144,43 +4187,43 @@ msgid "Priority"
 msgstr "Prioriteet"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_record.js:0
 #, python-format
 msgid "Processing..."
-msgstr ""
+msgstr "Töötlemises.."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/progress_bar/progress_bar_field.js:0
 #, python-format
 msgid "Progress Bar"
-msgstr ""
+msgstr "Edenemisriba"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Properties"
 msgstr "Seaded"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Property %s"
-msgstr ""
+msgstr "Omadus %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Property Name"
-msgstr ""
+msgstr "Omaduse nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4190,36 +4233,36 @@ msgid "Purple"
 msgstr "Lilla"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
 msgid "Q1"
-msgstr ""
+msgstr "Q1"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
 msgid "Q2"
-msgstr ""
+msgstr "Q2"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
 msgid "Q3"
-msgstr ""
+msgstr "Q3"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
 msgid "Q4"
-msgstr ""
+msgstr "Q4"
 
 #. module: web
 #: model:ir.model.fields.selection,name:web.selection__ir_actions_act_window_view__view_mode__qweb
@@ -4227,7 +4270,7 @@ msgid "QWeb"
 msgstr "QWeb"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #, python-format
@@ -4235,17 +4278,17 @@ msgid "Quarter"
 msgstr "Kvartal"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #, python-format
 msgid "Quick add"
-msgstr ""
+msgstr "Kiire lisamine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
@@ -4260,21 +4303,21 @@ msgid "Qweb Field Image"
 msgstr "Qweb Pildi Väli"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/colorpicker.xml:0
 #, python-format
 msgid "RGB"
-msgstr ""
+msgstr "RGB"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/colorpicker.xml:0
 #, python-format
 msgid "RGBA"
-msgstr ""
+msgstr "RGBA"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/radio/radio_field.js:0
 #, python-format
@@ -4282,35 +4325,35 @@ msgid "Radio"
 msgstr "Ringidega valikud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Record qweb"
-msgstr ""
+msgstr "qweb kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Record sql"
-msgstr ""
+msgstr "sql kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Record traces"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_item.xml:0
 #, python-format
 msgid "Recording..."
-msgstr ""
+msgstr "Salvestamine..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4320,48 +4363,48 @@ msgid "Red"
 msgstr "Punane"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/reference/reference_field.js:0
 #, python-format
 msgid "Reference"
 msgstr "Viide"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #, python-format
 msgid "Refresh"
-msgstr ""
+msgstr "Uuenda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.js:0
 #, python-format
 msgid "Regenerate Assets Bundles"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
 msgid "Relation not allowed"
 msgstr "Seos pole lubatud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Relation to follow"
-msgstr ""
+msgstr "Seos, mida jälgida"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -4369,7 +4412,14 @@ msgid "Relation:"
 msgstr "Seos:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/x2many/x2many_field.js:0
+#, python-format
+msgid "Relational table"
+msgstr "Relatsioon'i tabel"
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.js:0
 #, python-format
@@ -4377,7 +4427,7 @@ msgid "Remaining Days"
 msgstr "Järelejäänud päevi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4391,7 +4441,7 @@ msgid "Remove"
 msgstr "Eemalda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #: code:addons/web/static/src/views/kanban/kanban_cover_image_dialog.xml:0
 #, python-format
@@ -4399,40 +4449,40 @@ msgid "Remove Cover Image"
 msgstr "Eemalda kaanepilt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #: code:addons/web/static/src/views/fields/properties/property_definition_selection.xml:0
 #, python-format
 msgid "Remove Property"
-msgstr ""
+msgstr "Eemalda omadus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/data_export.js:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
 #, python-format
 msgid "Remove field"
-msgstr ""
+msgstr "Eemalda väli"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Remove from Favorites"
 msgstr "Eemalda lemmikutest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_field_input_with_tags.xml:0
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_field_input_with_tags.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Remove tag"
-msgstr ""
+msgstr "Eemalda silt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.xml:0
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.xml:0
 #, python-format
@@ -4440,7 +4490,7 @@ msgid "Remove this favorite from the list"
 msgstr "Eemalda see lemmik listist"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid "Report"
@@ -4459,54 +4509,54 @@ msgstr "Aruande paigutus"
 #. module: web
 #: model:ir.actions.report,name:web.action_report_layout_preview
 msgid "Report Layout Preview"
-msgstr ""
+msgstr "Aruande paigutuse eelvaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/public/error_notifications.js:0
 #, python-format
 msgid "Request timeout"
-msgstr ""
+msgstr "Päring on aegunud"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
 msgid "Reset to logo colors"
-msgstr ""
+msgstr "Lähtesta logo värvidele"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/clickbot/clickbot_loader.js:0
 #, python-format
 msgid "Run Click Everywhere Test"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_providers.js:0
 #: code:addons/web/static/src/webclient/debug_items.js:0
 #, python-format
 msgid "Run JS Mobile Tests"
-msgstr ""
+msgstr "Käivita JS mobiilne test"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_providers.js:0
 #: code:addons/web/static/src/webclient/debug_items.js:0
 #, python-format
 msgid "Run JS Tests"
-msgstr ""
+msgstr "Käivita JS test"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/control_panel/control_panel.xml:0
 #: code:addons/web/static/src/search/search_panel/search_panel.xml:0
 #, python-format
 msgid "SEE RESULT"
-msgstr ""
+msgstr "VAATA TULEMUSI"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/signature.js:0
 #: code:addons/web/static/src/views/fields/signature/signature_field.xml:0
 #, python-format
@@ -4514,24 +4564,24 @@ msgid "SIGNATURE"
 msgstr "ALLKIRI"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Salmon pink"
-msgstr ""
+msgstr "Roosa"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Sat"
 msgstr "Laupäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector_dialog/domain_selector_dialog.xml:0
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector_dialog.js:0
@@ -4550,7 +4600,7 @@ msgid "Save"
 msgstr "Salvesta"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.xml:0
 #: code:addons/web/static/src/views/view_dialogs/form_view_dialog.xml:0
@@ -4560,7 +4610,7 @@ msgid "Save & Close"
 msgstr "Salvesta ja sulge"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.xml:0
 #: code:addons/web/static/src/views/view_dialogs/form_view_dialog.xml:0
@@ -4569,58 +4619,58 @@ msgid "Save & New"
 msgstr "Salvesta ja Uus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Save as :"
 msgstr "Salvesta nimega :"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
 msgid "Save as:"
-msgstr ""
+msgstr "Salvesta nimega:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/favorite_menu/custom_favorite_item.xml:0
 #, python-format
 msgid "Save current search"
 msgstr "Salvesta praegune otsing"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "Save default"
 msgstr "Salvesta vaikimisi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_status_indicator/form_status_indicator.xml:0
 #, python-format
 msgid "Save manually"
-msgstr ""
+msgstr "Salvesta manuaalselt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Save record"
-msgstr ""
+msgstr "Salvesta kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.xml:0
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.xml:0
 #, python-format
 msgid "Scan barcode"
-msgstr ""
+msgstr "Skaneeri triipkood"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4633,7 +4683,7 @@ msgid "Search"
 msgstr "Otsi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
@@ -4642,42 +4692,42 @@ msgid "Search More..."
 msgstr "Otsi veel..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_selector/model_selector.js:0
 #, python-format
 msgid "Search a Model..."
-msgstr ""
+msgstr "Otsi mudelit..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Search a field..."
-msgstr ""
+msgstr "Otsi väli..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/default_providers.js:0
 #, python-format
 msgid "Search for a command..."
-msgstr ""
+msgstr "Otsi käsku..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/menus/menu_providers.js:0
 #, python-format
 msgid "Search for a menu..."
-msgstr ""
+msgstr "Otsi menüüd..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Search for records"
-msgstr ""
+msgstr "Otsi kirjeid.."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.js:0
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4694,13 +4744,13 @@ msgid "Search..."
 msgstr "Otsing..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Search: %s"
-msgstr ""
+msgstr "Otsi: %s"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__secondary_color
@@ -4708,22 +4758,22 @@ msgid "Secondary Color"
 msgstr "Sekundaarne värv"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #, python-format
 msgid "See details"
 msgstr "Vaata detaile"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_column_quick_create.xml:0
 #, python-format
 msgid "See examples"
-msgstr "See examples"
+msgstr "Vaata näidiseid siit"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #: code:addons/web/static/src/legacy/js/views/view_dialogs.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -4744,23 +4794,25 @@ msgid ""
 "Select <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" "
 "title=\"Database\"/>"
 msgstr ""
+"Vali <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" "
+"title=\"Database\"/>"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition_selection.xml:0
 #, python-format
 msgid "Select Default"
-msgstr ""
+msgstr "Vali vaikimisi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Select Signature Style"
 msgstr "Vali allkirja stiil"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #, python-format
@@ -4768,14 +4820,14 @@ msgid "Select a model to add a filter."
 msgstr "Valige filtri lisamiseks mudel."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/debug_items.js:0
 #, python-format
 msgid "Select a view"
 msgstr "Vali vaade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_controller.xml:0
 #, python-format
@@ -4783,23 +4835,22 @@ msgid "Select all"
 msgstr "Vali kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
 msgid "Select field"
-msgstr ""
+msgstr "Vali väli"
 
 #. module: web
-#. openerp-web
-#: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
 #, python-format
 msgid "Select records"
-msgstr ""
+msgstr "Vali kirje"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -4808,7 +4859,7 @@ msgid "Selected records"
 msgstr "Valitud kirjed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
 #: code:addons/web/static/src/views/fields/selection/selection_field.js:0
@@ -4817,7 +4868,7 @@ msgid "Selection"
 msgstr "Valik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -4825,14 +4876,14 @@ msgid "Selection:"
 msgstr "Valik:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/email/email_field.xml:0
 #, python-format
 msgid "Send Email"
 msgstr "Saada kiri"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/debug_manager.js:0
 #: code:addons/web/static/src/legacy/debug_manager.js:0
 #: code:addons/web/static/src/views/debug_items.js:0
@@ -4842,52 +4893,52 @@ msgid "Set Defaults"
 msgstr "Määra vaikimisi seadistused"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #, python-format
 msgid "Set a Cover Image"
 msgstr "Määra kaanepilt"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Set a kanban state..."
-msgstr ""
+msgstr "Seadista kanbani olek..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Set a priority..."
-msgstr ""
+msgstr "Määra prioriteet..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/special_fields.js:0
 #: code:addons/web/static/src/views/fields/timezone_mismatch/timezone_mismatch_field.js:0
 #, python-format
 msgid "Set a timezone on your user"
-msgstr ""
+msgstr "Määra ajavöönd enda kasutajale"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/state_selection/state_selection_field.js:0
 #, python-format
 msgid "Set kanban state..."
-msgstr ""
+msgstr "Seadista kanbani olek..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/priority/priority_field.js:0
 #, python-format
 msgid "Set priority..."
-msgstr ""
+msgstr "Määra prioriteet..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
@@ -4898,52 +4949,45 @@ msgid "Settings"
 msgstr "Seaded"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/favorite_menu/custom_favorite_item.xml:0
 #, python-format
 msgid "Share with all users"
 msgstr "Jaga kõigi kasutajatega"
 
 #. module: web
-#. openerp-web
-#: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
-#, python-format
-msgid "Shortcuts"
-msgstr "Otseteed"
-
-#. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
-#: code:addons/web/static/src/views/view_dialogs/export_data_dialog.js:0
+#: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
 msgid "Show sub-fields"
-msgstr ""
+msgstr "Näita alamväli"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/apps.js:0
 #, python-format
 msgid "Showing locally available modules"
 msgstr "Näitab lokaalselt saadaolevaid mooduleid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/signature.js:0
 #, python-format
 msgid "Signature"
 msgstr "Allkiri"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Size:"
 msgstr "Suurus:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/ajax.js:0
 #, python-format
 msgid ""
@@ -4952,21 +4996,22 @@ msgid ""
 msgstr ""
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/binary.py:0
 #, python-format
 msgid "Something horrible happened"
 msgstr "Midagi kohutavat juhtus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
 #, python-format
 msgid "Sort graph"
-msgstr ""
+msgstr "Sorteeri graafikud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_button/view_button.xml:0
 #, python-format
@@ -4974,7 +5019,7 @@ msgid "Special:"
 msgstr "Eriline:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/graph/graph_controller.xml:0
@@ -4984,7 +5029,7 @@ msgid "Stacked"
 msgstr "Virnastatud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/properties/property_tags.js:0
 #: code:addons/web/static/src/views/fields/relational_utils.js:0
@@ -4993,35 +5038,35 @@ msgid "Start typing..."
 msgstr "Alustage kirjutamist..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/stat_info/stat_info_field.js:0
 #, python-format
 msgid "Stat Info"
-msgstr ""
+msgstr "Statistika teave"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/statusbar/statusbar_field.js:0
 #, python-format
 msgid "Status"
 msgstr "Staatus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/settings_confirmation_dialog.xml:0
 #, python-format
 msgid "Stay Here"
-msgstr ""
+msgstr "Jää siia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_error_dialog/form_error_dialog.xml:0
 #, python-format
 msgid "Stay here"
-msgstr ""
+msgstr "Jää siia"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
@@ -5030,22 +5075,21 @@ msgid "Still loading..."
 msgstr "Ikka laen..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
 #, python-format
 msgid "Still loading...<br />Please be patient."
 msgstr "Ikka laen...<br />Palun ole kannatlik."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
-#: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
 msgid "Style"
 msgstr "Stiil"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
@@ -5053,35 +5097,35 @@ msgid "Styles"
 msgstr "Stiilid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Sun"
 msgstr "Pühapäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
 msgid "Support"
 msgstr "Tugi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
 msgid "Syntax error"
 msgstr "Süntaksi viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "TIP"
-msgstr ""
+msgstr "VIHJE"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #: code:addons/web/static/src/views/fields/many2many_tags/many2many_tags_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -5091,14 +5135,14 @@ msgid "Tags"
 msgstr "Sildid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "Take a minute to get a coffee,"
-msgstr ""
+msgstr "Võta hetk, et juua kohvi,"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
 #, python-format
 msgid "Take a minute to get a coffee,<br />because it's loading..."
@@ -5110,12 +5154,7 @@ msgid "Tax ID"
 msgstr "KMKR nr"
 
 #. module: web
-#: model_terms:ir.ui.view,arch_db:web.external_layout_bold
-msgid "Tel:"
-msgstr "Tel:"
-
-#. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
 #, python-format
@@ -5123,7 +5162,7 @@ msgid "Template:"
 msgstr "Mall:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/char/char_field.js:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
@@ -5134,13 +5173,13 @@ msgstr "Tekst"
 #. module: web
 #: model:ir.model.fields,help:web.field_base_document_layout__vat
 msgid ""
-"The Tax Identification Number. Complete it if the contact is subjected to "
-"government taxes. Used in some legal statements."
+"The Tax Identification Number. Values here will be validated based on the "
+"country format. You can use '/' to indicate that the partner is not subject "
+"to tax."
 msgstr ""
-"Maksu ID-kood. Täitke see, kui kontaktile kohaldatakse riiklikke makse. "
-"Kasutatakse mõnedes juriidilistes avaldustes."
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #, python-format
 msgid ""
@@ -5149,14 +5188,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "The field is empty, there's nothing to save."
-msgstr ""
+msgstr "Väli on tühi. Midagi pole salvestada!"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/public/error_notifications.js:0
 #, python-format
@@ -5166,7 +5205,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/file_handler.js:0
 #, python-format
@@ -5174,7 +5213,7 @@ msgid "The selected file exceed the maximum file size of %s."
 msgstr "Valitud fail ületab maksimaalse faili suurust, mis on %s."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid ""
@@ -5183,6 +5222,7 @@ msgid ""
 msgstr ""
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #, python-format
 msgid ""
@@ -5191,78 +5231,78 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_cover_image_dialog.xml:0
 #, python-format
 msgid "There is no available image to be set as cover."
-msgstr ""
+msgstr "Ühtegi pilti pole kaanepildiks valida."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "There was a problem while uploading your file"
 msgstr "Faili üleslaadimisel esines tõrge"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/file_handler.js:0
 #, python-format
 msgid "There was a problem while uploading your file."
-msgstr ""
+msgstr "Faili üleslaadimisel esines tõrge."
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.neutralize_banner
 msgid "This database is neutralized."
-msgstr ""
+msgstr "Andmebaas on neutraliseeritud."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/date_picker.js:0
 #, python-format
 msgid "This date is in the future. Make sure this is what you expect."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "This date is on the future. Make sure it is what you expected."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
 msgid "This domain is not supported."
-msgstr ""
+msgstr "Seda domeenit ei toetata."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "This field is already first"
-msgstr ""
+msgstr "See väli on juba esimene"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "This field is already last"
-msgstr ""
+msgstr "See väli on juba viimane"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
 msgid "This file is invalid. Please select an image."
-msgstr ""
+msgstr "Antud fail on vigane. Palun valige pilt!"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/control_panel.xml:0
 #: code:addons/web/static/src/search/favorite_menu/favorite_menu.js:0
 #, python-format
@@ -5281,14 +5321,14 @@ msgid "This is a sample of an internal report."
 msgstr "See on sisemise aruande näidis."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_tags.js:0
 #, python-format
 msgid "This tag is already available"
-msgstr ""
+msgstr "See silt on juba saadaval"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
@@ -5296,14 +5336,14 @@ msgid "This update will only consider the records of the current page."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Thu"
 msgstr "Saaja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/float_time/float_time_field.js:0
 #, python-format
@@ -5311,7 +5351,7 @@ msgid "Time"
 msgstr "Aeg"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/special_fields.js:0
 #: code:addons/web/static/src/views/fields/timezone_mismatch/timezone_mismatch_field.js:0
 #, python-format
@@ -5321,7 +5361,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.xml:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.xml:0
@@ -5332,7 +5372,7 @@ msgid "Today"
 msgstr "Täna"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/boolean_toggle/boolean_toggle_field.js:0
 #, python-format
@@ -5340,15 +5380,15 @@ msgid "Toggle"
 msgstr "Lülitage ümber"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/burger_menu/burger_menu.xml:0
 #: code:addons/web/static/src/webclient/burger_menu/burger_menu.xml:0
 #, python-format
 msgid "Toggle menu"
-msgstr ""
+msgstr "Toggle menüü"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.xml:0
 #, python-format
@@ -5356,13 +5396,14 @@ msgid "Tomorrow"
 msgstr "Homme"
 
 #. module: web
+#. odoo-python
 #: code:addons/web/models/models.py:0
 #, python-format
 msgid "Too many items to display."
-msgstr ""
+msgstr "Liiga palju üksusi kuvamiseks. "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_model.js:0
 #: code:addons/web/static/src/views/graph/graph_model.js:0
 #: code:addons/web/static/src/views/pivot/pivot_model.js:0
@@ -5372,53 +5413,55 @@ msgid "Total"
 msgstr "Kokku"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/translation_dialog.js:0
 #: code:addons/web/static/src/views/fields/translation_dialog.js:0
 #, python-format
 msgid "Translate: %s"
-msgstr ""
+msgstr "Tõlgi: %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
 #, python-format
 msgid "True"
 msgstr "Tõene"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/no_content_helpers.xml:0
 #, python-format
 msgid ""
 "Try to add some records, or make sure that there is no\n"
 "                    active filter in the search bar."
 msgstr ""
+"Proovige lisada andmeid või veenduge, et ükski filter pole \n"
+"otsinguribal aktiivne.                    "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Tue"
 msgstr "Teisipäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.xml:0
 #, python-format
 msgid "Type a default text or press ENTER"
-msgstr ""
+msgstr "Sisesta vaikimisi tekst või vajuta ENTER"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/signature/name_and_signature.xml:0
 #: code:addons/web/static/src/legacy/xml/name_and_signature.xml:0
 #, python-format
 msgid "Type your name to sign"
-msgstr ""
+msgstr "Allkirjastamiseks sisesta enda nimi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -5426,7 +5469,7 @@ msgid "Type:"
 msgstr "Tüüp:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/url/url_field.js:0
 #, python-format
@@ -5434,7 +5477,7 @@ msgid "URL"
 msgstr "URL"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid ""
@@ -5442,14 +5485,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/form/form_status_indicator/form_status_indicator.xml:0
 #, python-format
 msgid "Unable to save"
-msgstr ""
+msgstr "Ei saa salvestada"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/form/form_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
 #: code:addons/web/static/src/views/form/form_controller.js:0
@@ -5459,7 +5502,7 @@ msgid "Unarchive"
 msgstr "Võta arhiivist välja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #, python-format
@@ -5467,28 +5510,29 @@ msgid "Unarchive All"
 msgstr "Võta kõik arhiivist välja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_service.js:0
 #, python-format
 msgid "Uncaught CORS Error"
-msgstr ""
+msgstr "Tabamata CORS-i viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_service.js:0
 #, python-format
 msgid "Uncaught Javascript Error"
-msgstr ""
+msgstr "Tabamata Javascript'i viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_service.js:0
 #, python-format
 msgid "Uncaught Promise"
-msgstr ""
+msgstr "Tabamata lubadus"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
+#. odoo-python
 #: code:addons/web/controllers/export.py:0
 #: code:addons/web/static/src/views/calendar/calendar_model.js:0
 #: code:addons/web/static/src/views/graph/graph_model.js:0
@@ -5498,7 +5542,7 @@ msgid "Undefined"
 msgstr "Määramata"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
@@ -5508,7 +5552,7 @@ msgid "Unfold"
 msgstr "Ava"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_service.js:0
 #, python-format
 msgid ""
@@ -5520,21 +5564,21 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/py_utils.js:0
 #, python-format
 msgid "Unknown nonliteral type "
 msgstr "Tundmatu mittesõnaline tüüp "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/list/list_editable_renderer.js:0
 #, python-format
 msgid "Unlink row "
-msgstr ""
+msgstr "Tühista rea linkimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/_deprecated/data.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -5546,7 +5590,7 @@ msgid "Unnamed"
 msgstr "Nimetu"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/settings_confirmation_dialog.js:0
 #: code:addons/web/static/src/webclient/settings_form_view/settings_form_view.xml:0
 #, python-format
@@ -5554,7 +5598,7 @@ msgid "Unsaved changes"
 msgstr "Muudatused salvestamata"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/graph/graph_view.js:0
 #: code:addons/web/static/src/views/pivot/pivot_view.js:0
 #, python-format
@@ -5562,7 +5606,7 @@ msgid "Untitled"
 msgstr "Pealkirjata"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
@@ -5570,28 +5614,28 @@ msgid "Update to:"
 msgstr "Uuenda:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Upgrade now"
 msgstr "Uuenda nüüd"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Upgrade to enterprise"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/fields/upgrade_dialog.xml:0
 #, python-format
 msgid "Upgrade to future versions"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #: code:addons/web/static/src/views/kanban/kanban_cover_image_dialog.xml:0
 #, python-format
@@ -5599,7 +5643,7 @@ msgid "Upload and Set"
 msgstr "Laadige üles ja määrake"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/binary/binary_field.xml:0
@@ -5610,7 +5654,7 @@ msgid "Upload your file"
 msgstr "Laadi fail üles"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.xml:0
@@ -5620,7 +5664,7 @@ msgid "Uploaded"
 msgstr "Üles laaditud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.xml:0
 #, python-format
@@ -5628,21 +5672,21 @@ msgid "Uploading"
 msgstr "Üleslaadimine"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "Uploading Error"
 msgstr "Üleslaadimise viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.js:0
 #, python-format
 msgid "Uploading error"
 msgstr "Üleslaadimise viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -5652,100 +5696,100 @@ msgid "Uploading..."
 msgstr "Üleslaadimine..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/file_upload/file_upload_progress_record.js:0
 #, python-format
 msgid "Uploading... (%s%)"
-msgstr ""
+msgstr "Üleslaadimine... (%s%)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column_quick_create.js:0
 #: code:addons/web/static/src/views/kanban/kanban_column_quick_create.js:0
 #, python-format
 msgid "Use This For My Kanban"
-msgstr ""
+msgstr "Kasuta seda minu Kanbani jaoks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/favorite_menu/custom_favorite_item.xml:0
 #, python-format
 msgid "Use by default"
 msgstr "Kasutage vaikimisi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu.xml:0
 #, python-format
 msgid "User"
 msgstr "Kasutaja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "User Error"
 msgstr "Veateade"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #, python-format
 msgid "Validation Error"
 msgstr "Kinnitamise viga"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "Values"
 msgstr "Väärtused"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_renderer.js:0
 #: code:addons/web/static/src/views/form/form_label.js:0
 #, python-format
 msgid "Values set here are company-specific."
-msgstr ""
+msgstr "Seatud väärtused on ettevõttepõhised."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/pivot/pivot_model.js:0
 #, python-format
 msgid "Variation"
-msgstr ""
+msgstr "Variatsioon"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "View %s"
 msgstr "Ava %s"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "View Access Rights"
-msgstr ""
+msgstr "Vaata ligipääsuõigusi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "View Fields"
 msgstr "Vaata välju"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
 #, python-format
 msgid "View In Kanban"
-msgstr ""
+msgstr "Vaata Kanban vaates"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/debug_manager.js:0
 #: code:addons/web/static/src/legacy/debug_manager.js:0
 #: code:addons/web/static/src/views/debug_items.js:0
@@ -5755,11 +5799,11 @@ msgid "View Metadata"
 msgstr "Vaata metaandmeid"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/debug_items.js:0
 #, python-format
 msgid "View Record Rules"
-msgstr ""
+msgstr "Vaata kirje reeglid"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_ir_actions_act_window_view__view_mode
@@ -5767,14 +5811,14 @@ msgid "View Type"
 msgstr "Vaate tüüp"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "View switcher"
-msgstr ""
+msgstr "Vaata muudatusi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.js:0
 #: code:addons/web/static/src/legacy/js/views/basic/basic_controller.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_controller.js:0
@@ -5793,17 +5837,17 @@ msgstr "Hoiatus"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.benchmark_suite
 msgid "Web Benchmarks"
-msgstr ""
+msgstr "Veebi võrdlusnäitajad"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.qunit_mobile_suite
 msgid "Web Mobile Tests"
-msgstr ""
+msgstr "Veebi mobiilsed testid"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.qunit_suite
 msgid "Web Tests"
-msgstr ""
+msgstr "Veebi testid"
 
 #. module: web
 #: model:ir.model.fields,field_description:web.field_base_document_layout__website
@@ -5811,14 +5855,14 @@ msgid "Website Link"
 msgstr "Veebilehe link"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/widgets/week_days/week_days.js:0
 #, python-format
 msgid "Wed"
 msgstr "Kolmapäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_renderer.js:0
@@ -5828,14 +5872,14 @@ msgid "Week"
 msgstr "Nädal"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/effects/effect_service.js:0
 #, python-format
 msgid "Well Done!"
 msgstr "Hea töö!"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/field_tooltip.xml:0
 #, python-format
@@ -5843,14 +5887,14 @@ msgid "Widget:"
 msgstr "Vidin:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/settings_form_controller.js:0
 #, python-format
 msgid "Would you like to save your changes?"
-msgstr ""
+msgstr "Kas soovite enda muudatused salvestada?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/special_fields.js:0
 #: code:addons/web/static/src/views/fields/iframe_wrapper/iframe_wrapper_field.js:0
 #, python-format
@@ -5858,20 +5902,21 @@ msgid "Wrap raw html within an iframe"
 msgstr ""
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/home.py:0
 #, python-format
 msgid "Wrong login/password"
 msgstr "Vale kasutajanimi/parool"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #, python-format
 msgid "XML ID:"
 msgstr "XML ID:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/utils/dates.js:0
 #: code:addons/web/static/src/views/calendar/calendar_controller.js:0
@@ -5880,17 +5925,17 @@ msgid "Year"
 msgstr "Aasta"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/colorlist/colorlist.js:0
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "Yellow"
-msgstr ""
+msgstr "Kollane"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_bar.js:0
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_column.js:0
 #: code:addons/web/static/src/legacy/js/views/list/list_renderer.js:0
@@ -5905,7 +5950,7 @@ msgid "Yes"
 msgstr "Jah"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.xml:0
 #, python-format
@@ -5915,37 +5960,38 @@ msgstr "Eile"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.login_successful
 msgid "You are logged in."
-msgstr ""
+msgstr "Olete sisse logitud."
 
 #. module: web
+#. odoo-python
 #: code:addons/web/controllers/binary.py:0
 #, python-format
 msgid "You are not allowed to upload an attachment here."
-msgstr ""
+msgstr "Siin ei ole lubatud manuseid üles laadida."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/widgets/model_field_selector_popover.js:0
 #, python-format
 msgid "You cannot follow relations for this field chain construction"
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_definition.js:0
 #, python-format
 msgid "You do not have access to the model \"%s\"."
-msgstr ""
+msgstr "Teil ei ole ligipääsu mudeli \"%s\" jaoks."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "You may not believe it,"
-msgstr ""
+msgstr "Sa ei pruugi seda uskuda,"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/misc.js:0
 #, python-format
 msgid ""
@@ -5953,7 +5999,7 @@ msgid ""
 msgstr "Tundub uskumatu,<br /> kuid rakendust endiselt laadidakse ... "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/basic/basic_controller.js:0
 #: code:addons/web/static/src/views/fields/translation_button.js:0
 #, python-format
@@ -5961,9 +6007,10 @@ msgid ""
 "You need to save this new record before editing the translation. Do you want"
 " to proceed?"
 msgstr ""
+"Antud kirje peab olema salvestatud enne tõlke muutmist. Kas soovid jätkata?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid ""
@@ -5972,7 +6019,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid ""
@@ -5982,7 +6029,7 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/public/error_notifications.js:0
 #, python-format
@@ -5990,7 +6037,7 @@ msgid "Your Odoo session expired. The current page is about to be refreshed."
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/actions/action_service.js:0
 #, python-format
 msgid ""
@@ -5999,14 +6046,14 @@ msgid ""
 msgstr ""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/views/kanban/kanban_record.js:0
 #, python-format
 msgid "[No widget %s]"
-msgstr ""
+msgstr "[Vidinat pole %s]"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6014,7 +6061,7 @@ msgid "a day ago"
 msgstr "päeva eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6022,7 +6069,7 @@ msgid "about a minute ago"
 msgstr "umbes minuti eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6030,7 +6077,7 @@ msgid "about a month ago"
 msgstr "umbes kuu eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6038,7 +6085,7 @@ msgid "about a year ago"
 msgstr "umbes aasta eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6046,7 +6093,7 @@ msgid "about an hour ago"
 msgstr "umbes tunni eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
@@ -6055,7 +6102,7 @@ msgid "all"
 msgstr "kõik"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -6063,53 +6110,53 @@ msgid "all records"
 msgstr "kõik kirjed"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #, python-format
 msgid "any"
-msgstr ""
+msgstr "vähemalt üks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
 msgid "are valid for this update."
-msgstr ""
+msgstr "kehtib antud uuenduse jaoks."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/many2one/many2one_field.xml:0
 #, python-format
 msgid "as a new"
-msgstr ""
+msgstr "uue "
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "at:"
-msgstr ""
+msgstr "kell"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "because it's loading..."
-msgstr ""
+msgstr "kuna endiselt laen..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "but the application is actually loading..."
-msgstr ""
+msgstr "aga rakendus endiselt laeb..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6117,7 +6164,7 @@ msgid "child of"
 msgstr "alam"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
@@ -6127,28 +6174,28 @@ msgid "contains"
 msgstr "sisaldab"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/search/search_bar/search_bar.js:0
 #, python-format
 msgid "date"
 msgstr "kuupäev"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.xml:0
 #, python-format
 msgid "days"
 msgstr "päeva pärast"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/remaining_days/remaining_days_field.xml:0
 #, python-format
 msgid "days ago"
-msgstr ""
+msgstr "päeva tagasi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6156,7 +6203,7 @@ msgid "does not contain"
 msgstr "ei sisalda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
@@ -6164,33 +6211,26 @@ msgid "doesn't contain"
 msgstr "ei sisalda"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/network/download.js:0
 #, python-format
 msgid "downloading..."
-msgstr ""
+msgstr "allalaadimine..."
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
 msgid "e.g. Global Business Solutions"
-msgstr ""
+msgstr "nt. Globaalsed ärilahendused"
 
 #. module: web
-#. openerp-web
-#: code:addons/web/static/src/views/view_dialogs/export_data_dialog.xml:0
-#, python-format
-msgid "expandText"
-msgstr ""
-
-#. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "for:"
-msgstr ""
+msgstr "jaoks:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
@@ -6199,7 +6239,7 @@ msgid "greater than"
 msgstr "suurem kui"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
@@ -6207,28 +6247,28 @@ msgid "greater than or equal to"
 msgstr "suurem kui või võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/colorpicker.xml:0
 #, python-format
 msgid "hex"
-msgstr ""
+msgstr "hex"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_popover.js:0
 #, python-format
 msgid "hour"
 msgstr "tund"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_popover.js:0
 #, python-format
 msgid "hours"
 msgstr "tundi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6236,7 +6276,7 @@ msgid "in"
 msgstr "puhkused"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_leaf_node.xml:0
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_boolean_field.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
@@ -6250,23 +6290,23 @@ msgid "is"
 msgstr "on"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
 msgid "is No"
-msgstr ""
+msgstr "on \"Ei\""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
 msgid "is Yes"
-msgstr ""
+msgstr "on \"Jah\""
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
@@ -6276,17 +6316,17 @@ msgid "is after"
 msgstr "on pärast"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
 msgid "is after or equal to"
-msgstr ""
+msgstr "kas pärast või võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
@@ -6296,17 +6336,17 @@ msgid "is before"
 msgstr "on enne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
 msgid "is before or equal to"
-msgstr ""
+msgstr "on enne või võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
@@ -6316,7 +6356,7 @@ msgid "is between"
 msgstr "on vahel"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
@@ -6330,7 +6370,7 @@ msgid "is equal to"
 msgstr "on võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_boolean_field.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
@@ -6340,7 +6380,7 @@ msgid "is not"
 msgstr "ei ole"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6348,7 +6388,7 @@ msgid "is not ="
 msgstr "ei ole ="
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
@@ -6362,7 +6402,7 @@ msgid "is not equal to"
 msgstr "ei ole võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
@@ -6381,7 +6421,7 @@ msgid "is not set"
 msgstr "ei ole määratud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
@@ -6400,22 +6440,22 @@ msgid "is set"
 msgstr "on määratud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/ui/block_ui.js:0
 #, python-format
 msgid "it's still loading..."
-msgstr ""
+msgstr "ikka laen..."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/core/utils.js:0
 #: code:addons/web/static/src/views/fields/formatters.js:0
 #, python-format
 msgid "kMGTPE"
-msgstr ""
+msgstr "kMGTPE"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
 #, python-format
@@ -6423,7 +6463,7 @@ msgid "less than"
 msgstr "vähem kui"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/l10n/translation.js:0
 #: code:addons/web/static/src/legacy/js/core/translation.js:0
 #, python-format
@@ -6431,7 +6471,7 @@ msgid "less than a minute ago"
 msgstr "vähem kui minuti eest"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/legacy/js/control_panel/search_utils.js:0
 #: code:addons/web/static/src/search/filter_menu/custom_filter_item.js:0
@@ -6440,66 +6480,66 @@ msgid "less than or equal to"
 msgstr "väiksem kui või võrdne"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #, python-format
 msgid "like"
-msgstr ""
+msgstr "meeldib"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/menus/menu_providers.js:0
 #, python-format
 msgid "menus"
-msgstr ""
+msgstr "menüüd"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_popover.js:0
 #, python-format
 msgid "minute"
 msgstr "minut"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/views/calendar/calendar_common/calendar_common_popover.js:0
 #, python-format
 msgid "minutes"
 msgstr "minutit"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.xml:0
 #, python-format
 msgid "more"
 msgstr "rohkem"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #, python-format
 msgid "ms"
-msgstr ""
+msgstr "ms"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/default_providers.js:0
 #, python-format
 msgid "no description provided"
-msgstr ""
+msgstr "kirjeldust ei ole"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_operator.xml:0
 #, python-format
 msgid "none"
-msgstr ""
+msgstr "mitte ühtegi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_leaf_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -6507,7 +6547,7 @@ msgid "not"
 msgstr "ei ole"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6515,14 +6555,14 @@ msgid "not in"
 msgstr "ei ole"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #, python-format
 msgid "not like"
-msgstr ""
+msgstr "ei meeldi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_boolean_field.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6530,7 +6570,7 @@ msgid "not set (false)"
 msgstr "ei ole määratud (väär)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_root_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -6538,7 +6578,7 @@ msgid "of the following rules:"
 msgstr "järgmistest reeglitest:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_branch_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -6546,14 +6586,14 @@ msgid "of:"
 msgstr "järgmistest:"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "on any screen to show shortcut overlays and"
-msgstr ""
+msgstr "mis tahes ekraanil kuvatakse otsetee kattuvust ja"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_leaf_node.xml:0
 #: code:addons/web/static/src/legacy/js/views/action_model.js:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
@@ -6564,7 +6604,7 @@ msgid "or"
 msgstr "või"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_operators.js:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6572,16 +6612,16 @@ msgid "parent of"
 msgstr "ülem"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #: code:addons/web/static/src/core/debug/profiling/profiling_qweb.xml:0
 #, python-format
 msgid "query"
-msgstr ""
+msgstr "päring"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
@@ -6590,7 +6630,7 @@ msgid "record(s)"
 msgstr "kirje(t)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
@@ -6598,7 +6638,7 @@ msgid "records ?"
 msgstr "kirjet?"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/kanban.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
 #: code:addons/web/static/src/views/kanban/kanban_renderer.xml:0
@@ -6607,15 +6647,15 @@ msgid "remaining)"
 msgstr "ülejäänud)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/search/search_bar/search_bar.xml:0
 #, python-format
 msgid "search"
-msgstr ""
+msgstr "otsi"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_controller.xml:0
@@ -6625,7 +6665,7 @@ msgid "selected"
 msgstr "valitud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
 #, python-format
@@ -6633,7 +6673,7 @@ msgid "selected records,"
 msgstr "valitud kirjet,"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/domain_selector_leaf_node.xml:0
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
@@ -6641,7 +6681,7 @@ msgid "set"
 msgstr "määratud"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/domain_selector/fields/domain_selector_boolean_field.xml:0
 #: code:addons/web/static/src/legacy/js/widgets/domain_selector.js:0
 #, python-format
@@ -6649,36 +6689,36 @@ msgid "set (true)"
 msgstr "määratud (tõene)"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.xml:0
 #, python-format
 msgid "to open in new tab"
-msgstr ""
+msgstr "uuel vahelehel avamiseks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/core/commands/command_palette.xml:0
 #, python-format
 msgid "to open,"
-msgstr ""
+msgstr "avamiseks"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "to trigger a shortcut."
-msgstr ""
+msgstr "otsetee käivitamiseks."
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
 msgid "type a default text or press ENTER"
-msgstr ""
+msgstr "sisesta vaikimisi tekst või vajuta ENTER"
 
 #. module: web
-#. openerp-web
+#. odoo-javascript
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "— press"
-msgstr ""
+msgstr "— vajuta"

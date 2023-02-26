@@ -22,13 +22,17 @@ import json
 from lxml import etree
 from contextlib import closing
 from reportlab.graphics.barcode import createBarcodeDrawing
-from PyPDF2 import PdfFileWriter, PdfFileReader, utils
+from PyPDF2 import PdfFileWriter, PdfFileReader
 from collections import OrderedDict
 from collections.abc import Iterable
 from PIL import Image, ImageFile
 # Allow truncated images
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
+try:
+    from PyPDF2.errors import PdfReadError
+except ImportError:
+    from PyPDF2.utils import PdfReadError
 
 _logger = logging.getLogger(__name__)
 
@@ -42,12 +46,6 @@ try:
 except Exception:
     pass
 
-datamatrix_available = True
-try:
-    from pylibdmtx import pylibdmtx
-except Exception:
-    _logger.info('A package may be missing to print Data Matrix barcodes: pylibdmtx or libdmtx.')
-    datamatrix_available = False
 
 def _get_wkhtmltopdf_bin():
     return find_in_path('wkhtmltopdf')
@@ -221,7 +219,7 @@ class IrActionsReport(models.Model):
 
         :return: Boolean
         '''
-        return datamatrix_available
+        return True
 
     def get_paperformat(self):
         return self.paperformat_id or self.env.company.paperformat_id
@@ -542,9 +540,9 @@ class IrActionsReport(models.Model):
         elif barcode_type == 'auto':
             symbology_guess = {8: 'EAN8', 13: 'EAN13'}
             barcode_type = symbology_guess.get(len(value), 'Code128')
-        elif barcode_type == 'DataMatrix' and not self.datamatrix_available():
-            # fallback to avoid stacktrack because reportlab won't recognize the type and error message isn't useful/will be blocking
-            barcode_type = 'Code128'
+        elif barcode_type == 'DataMatrix':
+            # Prevent a crash due to a lib change from pylibdmtx to reportlab
+            barcode_type = 'ECC200DataMatrix'
         elif barcode_type == 'QR':
             # for `QR` type, `quiet` is not supported. And is simply ignored.
             # But we can use `barBorder` to get a similar behaviour.
@@ -621,7 +619,7 @@ class IrActionsReport(models.Model):
             try:
                 reader = PdfFileReader(stream)
                 writer.appendPagesFromReader(reader)
-            except utils.PdfReadError:
+            except PdfReadError:
                 raise UserError(_("Odoo is unable to merge the generated PDFs."))
         result_stream = io.BytesIO()
         streams.append(result_stream)
@@ -699,7 +697,7 @@ class IrActionsReport(models.Model):
 
             html = self.with_context(**additional_context)._render_qweb_html(report_ref, res_ids_wo_stream, data=data)[0]
 
-            bodies, html_ids, header, footer, specific_paperformat_args = self._prepare_html(html, report_model=report_sudo.model)
+            bodies, html_ids, header, footer, specific_paperformat_args = self.with_context(**additional_context)._prepare_html(html, report_model=report_sudo.model)
 
             if report_sudo.attachment and set(res_ids_wo_stream) != set(html_ids):
                 raise UserError(_(

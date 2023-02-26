@@ -33,10 +33,12 @@ const {
     isGif,
 } = require('web_editor.image_processing');
 const OdooEditorLib = require('@web_editor/js/editor/odoo-editor/src/OdooEditor');
+const {SIZES, MEDIAS_BREAKPOINTS} = require('@web/core/ui/ui_service');
 
 var qweb = core.qweb;
 var _t = core._t;
 const preserveCursor = OdooEditorLib.preserveCursor;
+const descendants = OdooEditorLib.descendants;
 
 /**
  * @param {HTMLElement} el
@@ -54,6 +56,9 @@ function _addTitleAndAllowedAttributes(el, title, options) {
         const titleEl = _buildTitleElement(title);
         tooltipEl = titleEl;
         el.appendChild(titleEl);
+        if (options && options.dataAttributes && options.dataAttributes.fontFamily) {
+            titleEl.style.fontFamily = options.dataAttributes.fontFamily;
+        }
     }
 
     if (options && options.classes) {
@@ -941,6 +946,16 @@ const SelectUserValueWidget = BaseSelectionUserValueWidget.extend({
      */
     async start() {
         await this._super(...arguments);
+        if (!this.menuEl.children.length) {
+            // Remove empty text nodes so that :empty css rule can work
+            // TODO this has been added here as a fix to be extra careful. In
+            // master we should just avoid adding text nodes inside
+            // we-selection-items in the first place.
+            while (this.menuEl.firstChild
+                    && !this.menuEl.firstChild.data.trim().length) {
+                this.menuEl.firstChild.remove();
+            }
+        }
 
         if (this.options && this.options.valueEl) {
             this.containerEl.insertBefore(this.options.valueEl, this.menuEl);
@@ -1228,6 +1243,7 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
     async setValue() {
         await this._super(...arguments);
         this.inputEl.value = this._value;
+        this._oldValue = this._value;
     },
 
     //--------------------------------------------------------------------------
@@ -1251,25 +1267,47 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
      */
     _onInputInput: function (ev) {
         this._value = this.inputEl.value;
+        // When the value changes as a result of a arrow up/down, the change
+        // event is not called, unless a real user input has been triggered.
+        // This event handler holds a variable for this in order to not call
+        // `_onUserValueChange` two times. If the users only uses arrow up/down
+        // it will be trigger on blur otherwise it will be triggered on change.
+        if (!ev.detail || !ev.detail.keyUpOrDown) {
+            this.changeEventWillBeTriggered = true;
+        }
         this._onUserValuePreview(ev);
     },
     /**
-     * TODO remove in master
+     * @private
+     * @param {Event} ev
      */
-    _onInputBlur: function (ev) {},
+    _onInputBlur: function (ev) {
+        if (this.notifyValueChangeOnBlur && !this.changeEventWillBeTriggered) {
+            // In case the input value has been modified with arrow up/down, the
+            // change event is not triggered (except if there has been a natural
+            // input event), so if the element doesn't trigger a preview, we
+            // have to notify that the value changes now.
+            this._onUserValueChange(ev);
+            this.notifyValueChangeOnBlur = false;
+        }
+        this.changeEventWillBeTriggered = false;
+    },
     /**
      * @private
      * @param {Event} ev
      */
     _onInputKeydown: function (ev) {
+        const params = this._methodsParams;
+        if (!params.unit && !params.step) {
+            return;
+        }
         switch (ev.which) {
+            case $.ui.keyCode.ENTER:
+                this._onUserValueChange(ev);
+                break;
             case $.ui.keyCode.UP:
             case $.ui.keyCode.DOWN: {
                 const input = ev.currentTarget;
-                const params = this._methodsParams;
-                if (!params.unit && !params.step) {
-                    break;
-                }
                 let value = parseFloat(input.value || input.placeholder);
                 if (isNaN(value)) {
                     value = 0.0;
@@ -1280,11 +1318,28 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
                 }
                 value += (ev.which === $.ui.keyCode.UP ? step : -step);
                 input.value = this._floatToStr(value);
-                $(input).trigger('input');
+                // We need to know if the change event will be triggered or not.
+                // Change is triggered if there has been a "natural" input event
+                // from the user. Since we are triggering a "fake" input event,
+                // we specify that the original event is a key up/down.
+                input.dispatchEvent(new CustomEvent('input', {
+                    bubbles: true,
+                    cancelable: true,
+                    detail: {keyUpOrDown: true}
+                }));
+                this.notifyValueChangeOnBlur = true;
                 break;
             }
         }
     },
+    /**
+     * @override
+     */
+    _onUserValueChange() {
+        if (this._oldValue !== this._value) {
+            this._super(...arguments);
+        }
+    }
 });
 
 const MultiUserValueWidget = UserValueWidget.extend({
@@ -2145,9 +2200,8 @@ const ListUserValueWidget = UserValueWidget.extend({
             if (this.el.dataset.idMode && this.el.dataset.idMode === "name") {
                 id = el.name;
             }
-            const idInt = parseInt(id);
             return Object.assign({
-                id: isNaN(idInt) ? id : idInt,
+                id: /^-?[0-9]{1,15}$/.test(id) ? parseInt(id) : id,
                 name: el.value,
                 display_name: el.value,
             }, el.dataset);
@@ -2157,8 +2211,7 @@ const ListUserValueWidget = UserValueWidget.extend({
             this.selected = checkboxes.map(el => {
                 const input = el.parentElement.previousSibling.firstChild;
                 const id = input.name || input.value;
-                const idInt = parseInt(id);
-                return isNaN(idInt) ? id : idInt;
+                return /^-?[0-9]{1,15}$/.test(id) ? parseInt(id) : id;
             });
             values.forEach(v => {
                 // Elements not toggleable are considered as always selected.
@@ -2312,6 +2365,8 @@ const RangeUserValueWidget = UnitUserValueWidget.extend({
             this.outputEl.classList.add('ms-2');
             this.containerEl.appendChild(this.outputEl);
         }
+
+        this._onInputChange = _.debounce(this._onInputChange, 100);
     },
 
     //--------------------------------------------------------------------------
@@ -2634,18 +2689,6 @@ const Many2oneUserValueWidget = SelectUserValueWidget.extend({
      * @private
      */
     async _search(needle) {
-        this._userValueWidgets = this._userValueWidgets.filter(widget => !widget.isDestroyed());
-        // Remove select options
-        this._userValueWidgets
-            .filter(widget => {
-                return widget instanceof ButtonUserValueWidget &&
-                    widget.el.parentElement.matches('we-selection-items');
-            }).forEach(button => {
-                if (button.isPreviewed()) {
-                    button.notifyValueChange('reset');
-                }
-                button.destroy();
-            });
         const recTuples = await this._rpc({
             model: this.options.model,
             method: 'name_search',
@@ -2661,6 +2704,18 @@ const Many2oneUserValueWidget = SelectUserValueWidget.extend({
             method: 'read',
             args: [recTuples.map(([id, _name]) => id), this.options.fields],
         });
+        // Remove select options.
+        this._userValueWidgets.filter(widget => {
+            return widget instanceof ButtonUserValueWidget &&
+                !widget.isDestroyed() &&
+                widget.el.parentElement.matches('we-selection-items');
+        }).forEach(button => {
+            if (button.isPreviewed()) {
+                button.notifyValueChange('reset');
+            }
+            button.destroy();
+        });
+        this._userValueWidgets = this._userValueWidgets.filter(widget => !widget.isDestroyed());
         records.forEach(record => {
             this.displayNameCache[record.id] = record.display_name;
         });
@@ -2797,6 +2852,11 @@ const Many2oneUserValueWidget = SelectUserValueWidget.extend({
             return;
         }
         if (widget && widget === this.createButton) {
+            // When the create button is clicked, make sure the text
+            // value is restored from the actual input element because
+            // it might have been removed when hovering existing tags.
+            // TODO review this, there is probably better to do
+            this.createInput._value = this.createInput.el.querySelector('input').value;
             if (!this.createInput._value) {
                 ev.stopPropagation();
             }
@@ -3345,10 +3405,8 @@ const SnippetOptionWidget = Widget.extend({
                 return true;
             }
 
-            const propertyValue = styles.getPropertyValue(cssProp);
-
             // This condition requires extraClass to NOT be set.
-            if (!weUtils.areCssValuesEqual(propertyValue, cssValue, cssProp, this.$target[0])) {
+            if (!weUtils.areCssValuesEqual(styles.getPropertyValue(cssProp), cssValue, cssProp, this.$target[0])) {
                 // Property must be set => extraClass will be enabled.
                 if (params.extraClass) {
                     // The extraClass is temporarily removed during selectStyle
@@ -3361,7 +3419,7 @@ const SnippetOptionWidget = Widget.extend({
                     this.$target[0].classList.add(params.extraClass);
                     // Set inline style only if different from value defined
                     // with extraClass.
-                    if (!weUtils.areCssValuesEqual(propertyValue, cssValue, cssProp, this.$target[0])) {
+                    if (!weUtils.areCssValuesEqual(styles.getPropertyValue(cssProp), cssValue, cssProp, this.$target[0])) {
                         this.$target[0].style.setProperty(cssProp, cssValue);
                     }
                 } else {
@@ -3370,7 +3428,7 @@ const SnippetOptionWidget = Widget.extend({
                 }
                 // If change had no effect then make it important.
                 // This condition requires extraClass to be set.
-                if (!weUtils.areCssValuesEqual(propertyValue, cssValue, cssProp, this.$target[0])) {
+                if (!weUtils.areCssValuesEqual(styles.getPropertyValue(cssProp), cssValue, cssProp, this.$target[0])) {
                     this.$target[0].style.setProperty(cssProp, cssValue, 'important');
                 }
                 if (params.extraClass) {
@@ -3791,7 +3849,8 @@ const SnippetOptionWidget = Widget.extend({
         if (moveUpOrLeft || moveDownOrRight) {
             // The arrows are not displayed if the target is in a grid and if
             // not in mobile view.
-            const isMobileView = this.$target[0].ownerDocument.defaultView.frameElement.clientWidth < 768;
+            const mobileViewThreshold = MEDIAS_BREAKPOINTS[SIZES.LG].minWidth;
+            const isMobileView = this.$target[0].ownerDocument.defaultView.frameElement.clientWidth < mobileViewThreshold;
             if (this.$target[0].classList.contains('o_grid_item') && !isMobileView) {
                 return false;
             }
@@ -4464,7 +4523,8 @@ registry.sizing = SnippetOptionWidget.extend({
     async updateUIVisibility() {
         await this._super(...arguments);
 
-        const isMobileView = this.$target[0].ownerDocument.defaultView.frameElement.clientWidth < 768;
+        const mobileViewThreshold = MEDIAS_BREAKPOINTS[SIZES.LG].minWidth;
+        const isMobileView = this.$target[0].ownerDocument.defaultView.frameElement.clientWidth < mobileViewThreshold;
         const isGrid = this.$target[0].classList.contains('o_grid_item');
         if (this.$target[0].parentNode && this.$target[0].parentNode.classList.contains('row')) {
             // Hiding/showing the correct resize handles if we are in grid mode
@@ -4651,24 +4711,35 @@ registry['sizing_x'] = registry.sizing.extend({
      * @override
      */
     _onResize: function (compass, beginClass, current) {
-        if (compass === 'w') {
-            // don't change the right border position when we change the offset (replace col size)
-            var beginCol = Number(beginClass.match(/col-lg-([0-9]+)|$/)[1] || 0);
-            var beginOffset = Number(beginClass.match(/offset-lg-([0-9-]+)|$/)[1] || beginClass.match(/offset-xl-([0-9-]+)|$/)[1] || 0);
-            var offset = Number(this.grid.w[0][current].match(/offset-lg-([0-9-]+)|$/)[1] || 0);
-            if (offset < 0) {
-                offset = 0;
-            }
-            var colSize = beginCol - (offset - beginOffset);
-            if (colSize <= 0) {
-                colSize = 1;
-                offset = beginOffset + beginCol - 1;
-            }
-            this.$target.attr('class', this.$target.attr('class').replace(/\s*(offset-xl-|offset-lg-|col-lg-)([0-9-]+)/g, ''));
+        if (compass === 'w' || compass === 'e') {
+            const beginOffset = Number(beginClass.match(/offset-lg-([0-9-]+)|$/)[1] || beginClass.match(/offset-xl-([0-9-]+)|$/)[1] || 0);
 
-            this.$target.addClass('col-lg-' + (colSize > 12 ? 12 : colSize));
-            if (offset > 0) {
-                this.$target.addClass('offset-lg-' + offset);
+            if (compass === 'w') {
+                // don't change the right border position when we change the offset (replace col size)
+                var beginCol = Number(beginClass.match(/col-lg-([0-9]+)|$/)[1] || 0);
+                var offset = Number(this.grid.w[0][current].match(/offset-lg-([0-9-]+)|$/)[1] || 0);
+                if (offset < 0) {
+                    offset = 0;
+                }
+                var colSize = beginCol - (offset - beginOffset);
+                if (colSize <= 0) {
+                    colSize = 1;
+                    offset = beginOffset + beginCol - 1;
+                }
+                this.$target.attr('class', this.$target.attr('class').replace(/\s*(offset-xl-|offset-lg-|col-lg-)([0-9-]+)/g, ''));
+
+                this.$target.addClass('col-lg-' + (colSize > 12 ? 12 : colSize));
+                if (offset > 0) {
+                    this.$target.addClass('offset-lg-' + offset);
+                }
+            } else if (beginOffset > 0) {
+                const endCol = Number(this.grid.e[0][current].match(/col-lg-([0-9]+)|$/)[1] || 0);
+                // Avoids overflowing the grid to the right if the
+                // column size + the offset exceeds 12.
+                if ((endCol + beginOffset) > 12) {
+                    this.$target[0].className = this.$target[0].className.replace(/\s*(col-lg-)([0-9-]+)/g, '');
+                    this.$target[0].classList.add('col-lg-' + (12 - beginOffset));
+                }
             }
         }
         this._super.apply(this, arguments);
@@ -4900,13 +4971,11 @@ registry.layout_column = SnippetOptionWidget.extend({
     /**
      * @override
      */
-    start: function () {
-        // Needs to be done manually for now because _computeWidgetVisibility
-        // doesn't go through this option for buttons inside of a select.
-        // TODO: improve this.
-        this.$el.find('we-button[data-name="zero_cols_opt"]')
-            .toggleClass('d-none', !this.$target.is('.s_allow_columns'));
-        return this._super(...arguments);
+    cleanForSave() {
+        // Remove the padding highlights.
+        this.$target[0].querySelectorAll('.o_we_padding_highlight').forEach(highlightedEl => {
+            highlightedEl._removePaddingPreview();
+        });
     },
 
     //--------------------------------------------------------------------------
@@ -4923,6 +4992,9 @@ registry.layout_column = SnippetOptionWidget.extend({
         let $row = this.$('> .row');
         if (!$row.length) {
             const restoreCursor = preserveCursor(this.$target[0].ownerDocument);
+            for (const node of descendants(this.$target[0])) {
+                node.ouid = undefined;
+            }
             $row = this.$target.contents().wrapAll($('<div class="row"><div class="col-lg-12"/></div>')).parent().parent();
             restoreCursor();
         }
@@ -4935,6 +5007,9 @@ registry.layout_column = SnippetOptionWidget.extend({
         await new Promise(resolve => setTimeout(resolve));
         if (nbColumns === 0) {
             const restoreCursor = preserveCursor(this.$target[0].ownerDocument);
+            for (const node of descendants($row[0])) {
+                node.ouid = undefined;
+            }
             $row.contents().unwrap().contents().unwrap();
             restoreCursor();
             this.trigger_up('activate_snippet', {$snippet: this.$target});
@@ -5052,6 +5127,24 @@ registry.layout_column = SnippetOptionWidget.extend({
         gridUtils._resizeGrid(rowEl);
         this.trigger_up('activate_snippet', {$snippet: $(newColumnEl)});
     },
+    /**
+     * @override
+     */
+    async selectStyle(previewMode, widgetValue, params) {
+        await this._super(...arguments);
+        if (params.cssProperty.startsWith('--grid-item-padding')) {
+            // Reset the animations.
+            this._removePaddingPreview();
+            void this.$target[0].offsetWidth; // Trigger a DOM reflow.
+
+            // Highlight the padding when changing it, by adding a pseudo-
+            // element with an animated colored border inside the grid items.
+            const rowEl = this.$target[0];
+            rowEl.classList.add('o_we_padding_highlight');
+            rowEl._removePaddingPreview = this._removePaddingPreview.bind(this);
+            rowEl.addEventListener('animationend', rowEl._removePaddingPreview);
+        }
+    },
 
     //--------------------------------------------------------------------------
     // Private
@@ -5070,6 +5163,20 @@ registry.layout_column = SnippetOptionWidget.extend({
             } else {
                 return 'normal';
             }
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * @override
+     */
+    _computeWidgetVisibility(widgetName, params) {
+        if (widgetName === 'zero_cols_opt') {
+            // Note: "s_allow_columns" indicates containers which may have
+            // bare content (without columns) and are allowed to have columns.
+            // By extension, we only show the "None" option on elements that
+            // were marked as such as they were allowed to have bare content in
+            // the first place.
+            return this.$target.is('.s_allow_columns');
         }
         return this._super(...arguments);
     },
@@ -5140,7 +5247,7 @@ registry.layout_column = SnippetOptionWidget.extend({
             gridUtils._reloadLazyImages(columnEl);
 
             // Removing the grid properties.
-            columnEl.classList.remove('o_grid_item', 'o_grid_item_image');
+            columnEl.classList.remove('o_grid_item', 'o_grid_item_image', 'o_grid_item_image_contain');
             columnEl.style.removeProperty('grid-area');
             columnEl.style.removeProperty('z-index');
         }
@@ -5149,6 +5256,18 @@ registry.layout_column = SnippetOptionWidget.extend({
 
         // Adding back an align-items-* class.
         rowEl.classList.add('align-items-start');
+    },
+    /**
+     * Removes the padding highlights that were added when changing the grid
+     * items padding.
+     *
+     * @private
+     */
+    _removePaddingPreview() {
+        const rowEl = this.$target[0];
+        rowEl.removeEventListener('animationend', rowEl._removePaddingPreview);
+        rowEl.classList.remove('o_we_padding_highlight');
+        delete rowEl._removePaddingPreview;
     },
 });
 
@@ -5199,11 +5318,19 @@ registry.SnippetMove = SnippetOptionWidget.extend({
         }
         if (!this.$target.is(this.data.noScroll)
                 && (params.name === 'move_up_opt' || params.name === 'move_down_opt')) {
-            scrollTo(this.$target[0], {
-                extraOffset: 50,
-                easing: 'linear',
-                duration: 550,
-            });
+            const mainScrollingEl = $().getScrollingElement()[0];
+            const elTop = this.$target[0].getBoundingClientRect().top;
+            const heightDiff = mainScrollingEl.offsetHeight - this.$target[0].offsetHeight;
+            const bottomHidden = heightDiff < elTop;
+            const hidden = elTop < 0 || bottomHidden;
+            if (hidden) {
+                scrollTo(this.$target[0], {
+                    extraOffset: 50,
+                    forcedOffset: bottomHidden ? heightDiff - 50 : undefined,
+                    easing: 'linear',
+                    duration: 500,
+                });
+            }
         }
         this.trigger_up('option_update', {
             optionName: 'StepsConnector',
@@ -5245,9 +5372,7 @@ registry.ReplaceMedia = SnippetOptionWidget.extend({
      * @see this.selectClass for parameters
      */
     async replaceMedia() {
-        // TODO for now, this simulates a double click on the media,
-        // to be refactored when the new editor is merged
-        this.$target.dblclick();
+        this.options.wysiwyg.openMediaDialog({ node: this.$target[0] });
     },
     /**
      * Makes the image a clickable link by wrapping it in an <a>.
@@ -5402,6 +5527,11 @@ const ImageHandlerOption = SnippetOptionWidget.extend({
         weightEl.classList.add('o_we_image_weight', 'o_we_tag', 'd-none');
         weightEl.title = _t("Size");
         this.$weight = $(weightEl);
+        // Perform the loading of the image info synchronously in order to
+        // avoid an intermediate rendering of the Blocks tab during the
+        // loadImageInfo RPC that obtains the file size.
+        // This does not update the target.
+        await this._applyOptions(false);
     },
 
     //--------------------------------------------------------------------------
@@ -6606,6 +6736,17 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
     /**
      * @override
      */
+    onBuilt() {
+        this._patchShape(this.$target[0]);
+    },
+
+    //--------------------------------------------------------------------------
+    // Public
+    //--------------------------------------------------------------------------
+
+    /**
+     * @override
+     */
     updateUI() {
         if (this.rerender) {
             this.rerender = false;
@@ -6745,7 +6886,7 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
 
         const shapeContainer = target.querySelector(':scope > .o_we_shape');
         if (shapeContainer) {
-            shapeContainer.remove();
+            this._removeShapeEl(shapeContainer);
         }
         if (newContainer) {
             const preShapeLayerElement = this._getLastPreShapeLayerElement();
@@ -6842,6 +6983,13 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
             this.prevShapeContainer = shapeContainer.cloneNode(true);
             this.prevShape = target.dataset.oeShapeData;
         }
+    },
+    /**
+     * @private
+     * @param {HTMLElement} shapeEl
+     */
+    _removeShapeEl(shapeEl) {
+        shapeEl.remove();
     },
     /**
      * Overwrites shape properties with the specified data.
@@ -6972,6 +7120,22 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
         return _.pick(colors, defaultKeys);
     },
     /**
+     * @todo remove me in master, needed to patch errors on set-up shapes in
+     * themes.
+     *
+     * @param {HTMLElement} el
+     * @returns {Object}
+     */
+    _patchShape(el) {
+        const shapeData = this._getShapeData(el);
+        // Wrong shape data for s_picture in kea theme
+        if (shapeData.shape === 'web_editor/Origins/Wavy_03') {
+            shapeData.shape = 'web_editor/Wavy/03';
+            el.dataset.oeShapeData = JSON.stringify(shapeData);
+        }
+        return shapeData;
+    },
+    /**
      * Toggles whether there is a shape or not, to be called from bg toggler.
      *
      * @private
@@ -6986,11 +7150,17 @@ registry.BackgroundShape = SnippetOptionWidget.extend({
             const possibleShapes = shapeWidget.getMethodsParams('shape').possibleValues;
             let shapeToSelect;
             if (previousSibling) {
-                const previousShape = this._getShapeData(previousSibling).shape;
+                const shapeData = this._patchShape(previousSibling);
+                const previousShape = shapeData.shape;
                 shapeToSelect = possibleShapes.find((shape, i) => {
                     return possibleShapes[i - 1] === previousShape;
                 });
-            } else {
+            }
+            // If there is no previous sibling, if the previous sibling had the
+            // last shape selected or if the previous shape could not be found
+            // in the possible shapes, default to the first shape. ([0] being no
+            // shapes selected.)
+            if (!shapeToSelect) {
                 shapeToSelect = possibleShapes[1];
             }
             this.trigger_up('snippet_edition_request', {exec: () => {
@@ -7181,6 +7351,9 @@ registry.BackgroundPosition = SnippetOptionWidget.extend({
             this.trigger_up('activate_snippet', {$snippet: this.$target});
 
             $(document).off('click.bgposition');
+            if (this.$bgDragger) {
+                this.$bgDragger.tooltip('dispose');
+            }
             return;
         }
 
@@ -7602,6 +7775,20 @@ registry.SnippetSave = SnippetOptionWidget.extend({
                 ]
             });
         });
+    },
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * TODO adapt in master, this option should only be instantiated for real
+     * snippets in the first place.
+     *
+     * @override
+     */
+    _computeVisibility() {
+        return this.$target[0].hasAttribute('data-snippet');
     },
 });
 

@@ -30,7 +30,7 @@
                                         <field name="balance" readonly="1"/>
                                         <field name="quantity" readonly="1"/>
                                     </group>
-                                    <group string="Accounting Documents">
+                                    <group string="Accounting Documents" colspan="2">
                                         <field name="move_id" readonly="1"/>
                                         <field name="statement_line_id" readonly="True" attrs="{'invisible': [('statement_line_id','=',False)]}"/>
                                     </group>
@@ -343,6 +343,7 @@
                     <filter string="Date" name="date" date="date"/>
                     <separator/>
                     <filter string="Report Dates" name="date_between" domain="[('date', '&gt;=', context.get('date_from')), ('date', '&lt;=', context.get('date_to'))]" invisible="1"/>
+                    <filter string="Report Dates" name="date_before" domain="[('date', '&lt;=', context.get('date_to'))]" invisible="1"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Journal Entry" name="group_by_move" domain="[]" context="{'group_by': 'move_name'}"/>
@@ -404,7 +405,7 @@
                     <field name="invoice_partner_display_name" invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')" groups="base.group_user" string="Customer" />
                     <field name="invoice_date" optional="show" invisible="context.get('default_move_type') not in ('in_invoice', 'in_refund','in_receipt')" string="Bill Date"/>
                     <field name="invoice_date" optional="show" invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')" string="Invoice Date"/>
-                    <field name="date" optional="hide" invisible="context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')" string="Accounting Date"/>
+                    <field name="date" optional="hide" string="Accounting Date"/>
                     <field name="invoice_date_due" widget="remaining_days" optional="show" attrs="{'invisible': [['payment_state', 'in', ('paid', 'in_payment', 'reversed')]]}"/>
                     <field name="invoice_origin" optional="hide" string="Source Document"/>
                     <field name="payment_reference" optional="hide" invisible="context.get('default_move_type') in ('out_invoice', 'out_refund','out_receipt')"/>
@@ -746,7 +747,7 @@
                         <div class="oe_title">
                             <span class="o_form_label"><field name="move_type" attrs="{'invisible': [('move_type', '=', 'entry')]}" readonly="1" nolabel="1"/></span>
 
-                            <span class="text-warning" attrs="{'invisible': [('show_name_warning', '=', False)]}">The current highest number is <field name="highest_name"/>. You might want to put a higher number here.</span>
+                            <div class="text-warning" attrs="{'invisible': [('show_name_warning', '=', False)]}">The current highest number is <field class="oe_inline" name="highest_name"/>. You might want to put a higher number here.</div>
 
                             <h1>
                                 <field name="name" attrs="{'invisible':[('name', '=', '/'), ('posted_before', '=', False), ('quick_edit_mode', '=', False)],
@@ -845,6 +846,11 @@
                                            groups="base.group_multi_currency"
                                            attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('move_type', '=', 'entry')]}"/>
                                 </div>
+
+                                <field name="currency_id"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                       groups="!account.group_account_readonly,base.group_multi_currency"/>
+
                             </group>
                         </group>
                         <notebook>
@@ -951,7 +957,7 @@
                                                                 <div class="text-muted">
                                                                     Quantity:
                                                                     <t t-esc="record.quantity.value"/>
-                                                                    <t t-esc="record.product_uom_id.value"/>
+                                                                    <t t-esc="record.product_uom_id.value" groups="uom.group_uom"/>
                                                                 </div>
                                                                 <div class="text-muted">
                                                                     Unit Price:
@@ -1104,6 +1110,7 @@
                                                widget="many2many_tags"
                                                string="Tax Grids"
                                                optional="show"
+                                               options="{'no_create': True}"
                                                domain="[
                                                     ('applicability', '=', 'taxes'),
                                                     '|', ('country_id', '=', parent.tax_country_id),
@@ -1434,7 +1441,7 @@
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_id" ref="view_move_tree"/>
             <field name="search_view_id" ref="view_account_move_filter"/>
-            <field name="context">{'default_move_type': 'entry', 'search_default_misc_filter':1, 'view_no_maturity': True}</field>
+            <field name="context">{'default_move_type': 'entry', 'search_default_posted':1, 'view_no_maturity': True}</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                 Create a journal entry

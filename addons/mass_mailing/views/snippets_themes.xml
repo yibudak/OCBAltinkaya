@@ -23,7 +23,7 @@
     <xpath expr="//t[@id='default_snippets']" position="replace">
         <t id="default_snippets">
             <t t-set="company_id" t-value="res_company"/>
-            <div id="email_designer_themes">
+            <div id="email_designer_themes" class="d-none">
                 <div data-name="basic"
                      title="Plain Text"
                      data-nowrap="1"
@@ -40,7 +40,7 @@
                 <div data-name="default"
                      title="Welcome Message"
                      data-img="/mass_mailing/static/src/img/theme_imgs/default_thumb"
-                     data-images-info='{"logo": {"format": "png"}}'>
+                     data-images-info='{"logo": {"format": "png"}, "header_logo": {"format": "png"}}'>
                     <t t-call="mass_mailing.theme_default_template"/>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="o_mail_footer_links">
+                <div class="col-lg o_mail_footer_links">
                     <a role="button" href="/unsubscribe_from_list" class="btn btn-link">Unsubscribe</a>
                 </div>
             </div>
@@ -269,7 +269,7 @@
             <we-button title="Solid" data-select-style="solid"><div class="o_we_fake_img_item o_we_border_preview" style="border-style: solid;"/></we-button>
             <we-button title="Dashed" data-select-style="dashed"><div class="o_we_fake_img_item o_we_border_preview" style="border-style: dashed;"/></we-button>
             <we-button title="Dotted" data-select-style="dotted"><div class="o_we_fake_img_item o_we_border_preview" style="border-style: dotted;"/></we-button>
-            <we-button title="Double" data-select-style="double"><div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-start: none; border-end: none;"/></we-button>
+            <we-button title="Double" data-select-style="double"><div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-left: none; border-right: none;"/></we-button>
         </we-select>
         <we-colorpicker data-dependencies="border_width_opt"
                         t-att-data-apply-to="apply_to"
@@ -738,7 +738,7 @@
                     <div class="o_we_fake_img_item o_we_border_preview" style="border-style: dotted;"/>
                 </we-button>
                 <we-button title="Double" data-customize-css-property="double">
-                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-start: none; border-end: none;"/>
+                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-left: none; border-right: none;"/>
                 </we-button>
             </we-select>
             <we-colorpicker data-customize-css-property=""
@@ -785,7 +785,7 @@
                     <div class="o_we_fake_img_item o_we_border_preview" style="border-style: dotted;"/>
                 </we-button>
                 <we-button title="Double" data-customize-css-property="double">
-                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-start: none; border-end: none;"/>
+                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-left: none; border-right: none;"/>
                 </we-button>
             </we-select>
             <we-colorpicker data-customize-css-property=""
@@ -811,7 +811,7 @@
                     <div class="o_we_fake_img_item o_we_border_preview" style="border-style: dotted;"/>
                 </we-button>
                 <we-button title="Double" data-customize-css-property="double">
-                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-start: none; border-end: none;"/>
+                    <div class="o_we_fake_img_item o_we_border_preview" style="border-style: double; border-left: none; border-right: none;"/>
                 </we-button>
             </we-select>
             <we-colorpicker data-customize-css-property=""

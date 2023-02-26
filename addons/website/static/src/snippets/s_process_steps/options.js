@@ -81,7 +81,10 @@ options.registry.StepsConnector = options.Class.extend({
     _reloadConnectors() {
         const possibleTypes = this._requestUserValueWidgets('connector_type')[0].getMethodsParams().optionsPossibleValues.selectClass;
         const type = possibleTypes.find(possibleType => possibleType && this.$target[0].classList.contains(possibleType)) || '';
-        const steps = this.$target[0].querySelectorAll('.s_process_step');
+        // As the connectors are only visible in desktop, we can ignore the
+        // steps that are only visible in mobile.
+        // TODO master: rename the variable to stepsEls.
+        const steps = this.$target[0].querySelectorAll('.s_process_step:not(.o_snippet_desktop_invisible)');
 
         for (let i = 0; i < steps.length - 1; i++) {
             const connectorEl = steps[i].querySelector('.s_process_step_connector');
@@ -135,8 +138,9 @@ options.registry.StepsConnector = options.Class.extend({
      * @returns {integer}
      */
     _getStepColSize(stepEl) {
-        const colClass = stepEl.className.split(' ').find(cl => cl.startsWith('col-lg'));
-        return parseInt(colClass[colClass.length - 1]);
+        const classPrefix = 'col-lg-';
+        const colClass = stepEl.className.split(' ').find(cl => cl.startsWith(classPrefix));
+        return parseInt(colClass.replace(classPrefix, ''));
     },
     /**
      * Returns the padding of the step, as a number of bootstrap lg-col.
@@ -146,8 +150,10 @@ options.registry.StepsConnector = options.Class.extend({
      * @returns {integer}
      */
     _getStepColPadding(stepEl) {
-        const paddingClass = stepEl.className.split(' ').find(cl => cl.startsWith('offset-lg'));
-        return paddingClass ? parseInt(paddingClass[paddingClass.length - 1]) : 0;
+        const classPrefix = 'offset-lg-';
+        const paddingClass = stepEl.className.split(' ').find(cl => cl.startsWith(classPrefix));
+        return paddingClass ? parseInt(paddingClass.replace(classPrefix, '')) : 0;
+
     },
     /**
      * Returns the svg path based on the type of connector.
@@ -171,5 +177,6 @@ options.registry.StepsConnector = options.Class.extend({
                 return `M ${0.05 * width} ${hHeight * 1.2} Q ${width / 2} ${hHeight * 1.8}, ${0.95 * width - 6} ${hHeight * 1.2}`;
             }
         }
+        return '';
     },
 });
