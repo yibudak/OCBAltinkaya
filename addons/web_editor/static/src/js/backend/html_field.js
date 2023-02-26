@@ -138,7 +138,7 @@ export class HtmlField extends Component {
                         // Ensure all external links are opened in a new tab.
                         retargetLinks(this.readonlyElementRef.el);
 
-                        const hasReadonlyModifiers = Boolean(this.props.record.activeFields[this.props.fieldName].modifiers.readonly);
+                        const hasReadonlyModifiers = Boolean(this.props.record.isReadonly(this.props.fieldName));
                         if (!hasReadonlyModifiers) {
                             const $el = $(this.readonlyElementRef.el);
                             $el.off('.checklistBinding');
@@ -373,7 +373,9 @@ export class HtmlField extends Component {
         }
     }
     _isDirty() {
-        return !this.props.readonly && this.props.value.toString() !== this.getEditingValue();
+        const strippedPropValue = stripHistoryIds(String(this.props.value));
+        const strippedEditingValue = stripHistoryIds(this.getEditingValue());
+        return !this.props.readonly && strippedPropValue !== strippedEditingValue;
     }
     _getCodeViewEl() {
         return this.state.showCodeView && this.codeViewRef.el;
@@ -597,7 +599,10 @@ HtmlField.components = {
     TranslationButton,
     HtmlFieldWysiwygAdapterComponent,
 };
-HtmlField.defaultProps = {dynamicPlaceholder: false};
+HtmlField.defaultProps = {
+    dynamicPlaceholder: false,
+    setDirty: () => {},
+};
 HtmlField.props = {
     ...standardFieldProps,
     isTranslatable: { type: Boolean, optional: true },
