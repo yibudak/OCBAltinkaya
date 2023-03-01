@@ -1070,7 +1070,7 @@ msgstr "Bazı zorunlu alanlar boş."
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_my_details_fields
 msgid "State / Province"
-msgstr "İl / Eyalet"
+msgstr "İl"
 
 #. module: portal
 #: model:ir.model.fields,field_description:portal.field_portal_wizard_user__email_state
