@@ -15,6 +15,7 @@ except ImportError:
 from random import randrange
 
 from odoo.exceptions import UserError
+from odoo.tools.misc import exec_command_pipe
 from odoo.tools.translate import _
 
 
@@ -29,6 +30,7 @@ FILETYPE_BASE64_MAGICWORD = {
     b'R': 'gif',
     b'i': 'png',
     b'P': 'svg+xml',
+    b'U': 'webp',
 }
 
 EXIF_TAG_ORIENTATION = 0x112
@@ -73,8 +75,8 @@ class ImageProcess():
         self.source = source or False
         self.operationsCount = 0
 
-        if not source or source[:1] == b'<':
-            # don't process empty source or SVG
+        if not source or source[:1] == b'<' or (source[0:4] == b'RIFF' and source[8:15] == b'WEBPVP8'):
+            # don't process empty source or SVG or WEBP
             self.image = False
         else:
             try:
@@ -441,8 +443,13 @@ def is_image_size_above(base64_source_1, base64_source_2):
     if base64_source_1[:1] in (b'P', 'P') or base64_source_2[:1] in (b'P', 'P'):
         # False for SVG
         return False
-    image_source = image_fix_orientation(base64_to_image(base64_source_1))
-    image_target = image_fix_orientation(base64_to_image(base64_source_2))
+    source_1 = base64.b64decode(base64_source_1)
+    source_2 = base64.b64decode(base64_source_2)
+    if (source_1[0:4] == b'RIFF' and source_1[8:15] == b'WEBPVP8') or (source_2[0:4] == b'RIFF' and source_2[8:15] == b'WEBPVP8'):
+        # False for WEBP
+        return False
+    image_source = image_fix_orientation(binary_to_image(source_1))
+    image_target = image_fix_orientation(binary_to_image(source_2))
     return image_source.width > image_target.width or image_source.height > image_target.height
 
 
@@ -462,15 +469,32 @@ def image_guess_size_from_field_name(field_name):
         return (0, 0)
 
 
-def image_data_uri(base64_source):
+def image_data_uri(base64_source, report_type):
     """This returns data URL scheme according RFC 2397
     (https://tools.ietf.org/html/rfc2397) for all kind of supported images
     (PNG, GIF, JPG and SVG), defaulting on PNG type if not mimetype detected.
     """
-    return 'data:image/%s;base64,%s' % (
-        FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png'),
-        base64_source.decode(),
-    )
+    mimetype = FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png')
+    if 'webp' in mimetype and report_type == 'pdf':
+        # Convert image so that is recognized by wkhtmltopdf.
+        process_input, process_output = exec_command_pipe('python3', '-c', ';'.join([
+            'import sys',
+            'from PIL import Image',
+            "Image.open(sys.stdin.buffer).convert('RGB').save(sys.stdout.buffer, 'png')",
+        ]))
+        source = base64.b64decode(base64_source)
+        process_input.write(source)
+        process_input.close()
+        png_binary = process_output.read()
+        data_uri = 'data:image/png;base64,%s' % (
+            base64.b64encode(png_binary).decode(),
+        )
+    else:
+        data_uri = 'data:image/%s;base64,%s' % (
+            FILETYPE_BASE64_MAGICWORD.get(base64_source[:1], 'png'),
+            base64_source.decode(),
+        )
+    return data_uri
 
 
 def get_saturation(rgb):

@@ -4235,7 +4235,7 @@ export class OdooEditor extends EventTarget {
                     : 'https://' + splitAroundUrl[i];
                 const youtubeUrl = YOUTUBE_URL_GET_VIDEO_ID.exec(url);
                 const urlFileExtention = url.split('.').pop();
-                const isImageUrl = ['jpg', 'jpeg', 'png', 'gif'].includes(urlFileExtention.toLowerCase());
+                const isImageUrl = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(urlFileExtention.toLowerCase());
                 // Even indexes will always be plain text, and odd indexes will always be URL.
                 // only allow images emebed inside an existing link. No other url or video embed.
                 if (i % 2 && (isImageUrl || !selectionIsInsideALink)) {

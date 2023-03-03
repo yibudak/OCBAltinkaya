@@ -106,6 +106,7 @@ class LinkPreview(models.Model):
             'image/png',
             'image/tiff',
             'image/x-icon',
+            'image/webp',
         )
         # Content-Type header can return a charset, but we just need the
         # mimetype (eg: image/jpeg;charset=ISO-8859-1)

@@ -874,7 +874,7 @@ class IrQWeb(models.AbstractModel):
                 time=safe_eval.time,
                 datetime=safe_eval.datetime,
                 relativedelta=relativedelta,
-                image_data_uri=image_data_uri,
+                image_data_uri=lambda i: image_data_uri(i, values['report_type']),
                 # specific 'math' functions to ease rounding in templates and lessen controller marshmalling
                 floor=math.floor,
                 ceil=math.ceil,
