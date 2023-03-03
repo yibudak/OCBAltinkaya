@@ -129,7 +129,7 @@ class AccountInvoice(models.Model):
         self.residual_company_signed = abs(residual_company_signed) * sign
         self.residual_signed = abs(residual) * sign
         self.residual = abs(residual)
-        digits_rounding_precision = self.currency_id.rounding
+        digits_rounding_precision = self.currency_id.view_precision
         if float_is_zero(self.residual, precision_rounding=digits_rounding_precision):
             self.reconciled = True
         else:
