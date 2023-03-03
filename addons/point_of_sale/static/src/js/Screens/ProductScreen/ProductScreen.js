@@ -267,18 +267,15 @@ odoo.define('point_of_sale.ProductScreen', function(require) {
                     merge: false,
                 });
             }
-            this.currentOrder.add_product(product,  options)
+            this.currentOrder.add_product(product,  options);
+            NumberBuffer.reset();
         }
         _barcodePartnerAction(code) {
             const partner = this.env.pos.db.get_partner_by_barcode(code.code);
             if (partner) {
                 if (this.currentOrder.get_partner() !== partner) {
                     this.currentOrder.set_partner(partner);
-                    this.currentOrder.set_pricelist(
-                        _.findWhere(this.env.pos.pricelists, {
-                            id: partner.property_product_pricelist[0],
-                        }) || this.env.pos.default_pricelist
-                    );
+                    this.currentOrder.updatePricelist(partner);
                 }
                 return true;
             }

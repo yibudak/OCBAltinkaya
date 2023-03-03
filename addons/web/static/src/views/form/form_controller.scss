@@ -95,6 +95,11 @@
         @extend .oe_inline;
         float: right!important;
     }
+    @for $i from 2 through 12 {
+        .o_field_widget.o_input_#{$i}ch input{
+            width: 1ch * $i !important;
+        }
+    }
 
     .o_field_empty:empty {
         min-height: $font-size-base * $line-height-base;
@@ -168,8 +173,6 @@
         }
 
         .oe_title {
-            max-width: 75%;
-
             .o_field_char {
                 width: 100%;
             }
@@ -205,16 +208,11 @@
     // rules for fields borders: only on hover/focus by default
     // except when used with o_field_highlight (on parent or on the field)
     .o_input {
-        border-color: transparent;
         padding: $o-input-padding-y $o-input-padding-x;
-
-        &:hover, &:focus {
-            border-color: var(--o-input-border-color);
-        }
     }
 
-    &.o_field_invalid .o_input {
-        border-color: var(--o-input-border-color);
+    &:not(.o_field_highlight) .o_field_widget:not(.o_field_invalid):not(.o_field_highlight) .o_input:not(:hover):not(:focus) {
+        --o-input-border-color: transparent;
     }
 
     .o_datepicker {
@@ -287,17 +285,19 @@
 
     // Statusbar
     .o_form_statusbar {
-        padding-left: $o-horizontal-padding;
+        @include media-breakpoint-up(md) {
+            padding-left: $o-horizontal-padding;
+        }
         background-color: $o-view-background-color;
 
         > .o_statusbar_status {
             display: flex;
             align-items: center;
             align-content: space-around;
-            
+
             > .o_arrow_button {
                 font-weight: $font-weight-bold;
-    
+
                 // Last element at the right should respect overall padding
                 &:first-of-type {
                     padding-right: $o-horizontal-padding;
@@ -366,9 +366,11 @@
     // Title
     .oe_title {
         color: $headings-color;
-        @include media-breakpoint-up(vsm, $o-extra-grid-breakpoints) {
-            padding-right: $o-innergroup-rpadding;
+
+        @include media-breakpoint-up(sm) {
+            max-width: 75%;
         }
+
         > h1, > h2, > h3 {
             width: 100%; // Needed because inline-block when is a hx.o_row
             margin-top: 0;
@@ -388,9 +390,6 @@
         > h2 {
             min-height: 42px;
         }
-        .oe_avatar + & {
-            padding-right: $o-avatar-size + 10;
-        }
     }
 
     // Avatar
@@ -398,11 +397,17 @@
         float: right;
         margin-bottom: 10px;
 
-        > div > img {
+        .img {
             max-width: $o-avatar-size;
             max-height: $o-avatar-size;
             vertical-align: top;
             border: 1px solid $o-gray-300;
+        }
+
+        @include media-breakpoint-down(sm) {
+            + .oe_title {
+                max-width: calc(100% - #{$o-avatar-size} - #{map-get($spacers, 2)});
+            }
         }
     }
 
@@ -449,13 +454,13 @@
         }
         .o_wrap_label .o_form_label {
             font-weight: $font-weight-bold;
-            margin-right: $o-form-label-margin-right;
         }
     }
 
     .o_inner_group {
         --columns: 1;
         gap: map-get($spacers, 2) $o-horizontal-padding;
+        margin-bottom: map-get($spacers, 2);
 
         span, .o_field_boolean, .oe_avatar, .o_form_uri {
             &.o_field_widget {
@@ -467,6 +472,9 @@
     @include media-breakpoint-up(sm) {
         .o_inner_group {
             grid-template-columns: fit-content(150px) 1fr;
+            &.o_form_fw_labels {
+                grid-template-columns: 150px 1fr;
+            }
         }
     }
 
@@ -486,7 +494,6 @@
 
         > .o_form_label {
             color: $headings-color;
-            margin-right: $o-form-label-margin-right;
             font-weight: $font-weight-bold;
         }
     }
@@ -582,6 +589,10 @@
                         }
                     }
                 }
+                // Prevent table overflow when having long chars in x2many list
+                .o_field_widget:has(.o_field_x2many.o_field_x2many_list) {
+                    width: 100%;
+                }
             }
         }
 
@@ -592,7 +603,6 @@
 
     // Labels
     .o_form_label {
-        margin-right: $o-form-spacing-unit;
         font-size: $font-size-base; // The label muse have the same size whatever their position
         line-height: $line-height-base;
         font-weight: $font-weight-bold;
@@ -663,19 +673,25 @@
     }
 
     .oe_no_translation_content {
-        :not(.btn) {
-            display: none;
-        }
+        // hide content but show the translate button
+        height: 0px;
 
-        .btn {
-            width: 100% !important;
-            margin-left: 0px;
-            visibility: hidden;
-        }
+        div{
+            :not(.btn) {
+                display: none;
+            }
 
-        .btn:after {
-            content: 'EN';
-            visibility: visible;
+            .btn {
+                width: 100% !important;
+                margin-left: 0px;
+                visibility: hidden;
+            }
+
+            .btn:after {
+                // force the the translate button to EN
+                content: 'EN';
+                visibility: visible;
+            }
         }
     }
 
@@ -931,14 +947,6 @@
         }
     }
     @include media-breakpoint-down(md) {
-        .o_control_panel {
-            padding-right: 16px;
-
-            > div.o_cp_top {
-                flex-flow: column;
-            }
-        }
-
         .o_cp_buttons {
             width: 100%;
             div, .o-kanban-button-new {

@@ -1,3 +1,5 @@
+/** @odoo-module **/
+
 import { OdooEditor } from '../src/OdooEditor.js';
 import { sanitize } from '../src/utils/sanitize.js';
 import { closestElement } from '../src/utils/utils.js';
@@ -429,11 +431,27 @@ export async function click(el, options) {
 }
 
 export async function deleteForward(editor) {
-    editor.execCommand('oDeleteForward');
+    const selection = document.getSelection();
+    if (selection.isCollapsed) {
+        editor.execCommand('oDeleteForward');
+    } else {
+        // Better representation of what happened in the editor when the user
+        // presses the delete key.
+        await triggerEvent(editor.editable, 'keydown', { key: 'Delete' });
+        editor.document.execCommand('delete');
+    }
 }
 
 export async function deleteBackward(editor) {
-    editor.execCommand('oDeleteBackward');
+    const selection = document.getSelection();
+    if (selection.isCollapsed) {
+        editor.execCommand('oDeleteBackward');
+    } else {
+        // Better representation of what happened in the editor when the user
+        // presses the backspace key.
+        await triggerEvent(editor.editable, 'keydown', { key: 'Backspace' });
+        editor.document.execCommand('delete');
+    }
 }
 
 export async function deleteBackwardMobile(editor) {
@@ -554,6 +572,7 @@ function getEventConstructor(win, type) {
         'dragend': win.DragEvent,
         'drop': win.DragEvent,
         'beforecut': win.ClipboardEvent,
+        'copy': win.ClipboardEvent,
         'cut': win.ClipboardEvent,
         'paste': win.ClipboardEvent,
         'touchstart': win.TouchEvent,

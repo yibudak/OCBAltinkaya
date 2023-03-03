@@ -36,23 +36,42 @@
 
 <template id="layout" name="Main layout" inherit_id="portal.frontend_layout">
     <xpath expr="//html" position="before">
+        <!--
+            /!\ Notice that some `html_data` keys were moved between the `t-if`
+            version and the normal `t-set` below as a bug fix in stable 16.0.
+            Existing users before that fix may experience issues with:
+            - The publish button as a restricted editor
+            - The "edit-in-backend" button as a restricted editor
+            - The "Products" snippet as a visitor
+            - ...
+            None should be critical though (you just not have access to some
+            (important) features anymore). An update of the website app or
+            patching this view directly to have the following lines setting
+            `html_data` should solve the issue.
+
+            TODO remove this comment in master and also avoid the t-set outside
+            of the if (kept here to be a bit more stable).
+        -->
         <t t-set="editable_in_backend" t-value="edit_in_backend or ('website_published' in main_object.fields_get() and main_object._name != 'website.page')"/>
         <t t-set="html_data" t-value="{
             'lang': lang and lang.replace('_', '-'),
             'data-website-id': website.id if website else None,
             'data-edit_translations': '1' if edit_translations else None,
+            'data-main-object': repr(main_object) if main_object else None,
+            'data-seo-object': repr(seo_object) if seo_object else None,
         }"/>
+        <t t-if="not request.env.user._is_public()" t-set="nothing" t-value="html_data.update({
+            'data-is-published': 'website_published' in main_object.fields_get() and main_object.website_published,
+            'data-can-publish': 'can_publish' in main_object.fields_get() and main_object.can_publish,
+            'data-editable-in-backend': editable_in_backend,
+        })"/>
+        <!-- TODO investigate: data-oe-company-name seems like dead code -->
         <t t-if="editable or translatable" t-set="nothing" t-value="html_data.update({
             'data-editable': '1' if editable else None,
             'data-translatable': '1' if translatable else None,
             'data-view-xmlid': xmlid,
             'data-viewid': viewid,
-            'data-main-object': repr(main_object) if main_object else None,
-            'data-seo-object': repr(seo_object) if seo_object else None,
             'data-oe-company-name': res_company.name,
-            'data-is-published': 'website_published' in main_object.fields_get() and main_object.website_published,
-            'data-can-publish': 'can_publish' in main_object.fields_get() and main_object.can_publish,
-            'data-editable-in-backend': editable_in_backend,
         })"/>
     </xpath>
 
@@ -64,7 +83,7 @@
             <t t-if="not additional_title and main_object and 'name' in main_object">
                 <t t-set="additional_title" t-value="main_object.name"/>
             </t>
-            <t t-set="default_title" t-translation="off"> <t t-if="additional_title"><t t-out="additional_title"/> | </t><t t-out="(website or res_company).name"/> </t>
+            <t t-set="default_title" t-translation="off"><t t-if="additional_title"><t t-out="additional_title"/> | </t><t t-out="(website or res_company).name"/></t>
             <t t-set="seo_object" t-value="seo_object or main_object"/>
             <t t-if="seo_object and 'website_meta_title' in seo_object and seo_object.website_meta_title">
                 <t t-set="title" t-value="seo_object.website_meta_title"/>
@@ -722,12 +741,14 @@
                 <div class="ms-lg-3 me-auto">
                     <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_1"/>
                 </div>
-                <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0">
+
+                <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0 flex-row">
                     <!-- Sign In -->
                     <t t-call="portal.placeholder_user_sign_in">
                         <t t-set="_item_class" t-valuef="nav-item ms-3"/>
                         <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
                     </t>
+
                     <!-- User Dropdown -->
                     <t t-call="portal.user_dropdown">
                         <t t-set="_user_name" t-value="True"/>
@@ -743,10 +764,7 @@
                         </t>
                     </li>
                 </ul>
-                <!-- Separator -->
-                <div class="w-100">
-                    <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_3"/>
-                </div>
+
                 <!-- Navbar Toggler -->
                 <t t-call="website.navbar_toggler"/>
                  <!-- Navbar Collapse -->
@@ -766,8 +784,14 @@
                         <t t-set="_div_classes" t-valuef="mb-4 mb-lg-0 align-self-lg-center ms-lg-auto"/>
                         <t t-set="_dropdown_menu_class" t-valuef="float-lg-end"/>
                     </t>
+                <!-- Content builder empty space on navbar -->
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_3"/>
                 </div>
+                </div>
+
             </div>
+
         </t>
     </xpath>
 </template>
@@ -2513,21 +2537,22 @@ Sitemap: <t t-esc="url_root"/>sitemap.xml
                     t-attf-onclick="location.href='#{result.get('extra_link_url')}';return false;"/>
                 <t t-if="extra_link_html" t-out="extra_link_html"/>
             </div>
-            <div class="flex-shrink-0">
-                <t t-if="result.get('detail_strike')">
-                    <span class="text-danger text-nowrap" style="text-decoration: line-through;">
-                        <t t-out="result.get('detail_strike')"/>
-                    </span>
-                    <br/>
-                </t>
-                <b t-if="result.get('detail')" class="text-nowrap">
-                    <t t-out="result.get('detail')"/>
-                </b>
-                <t t-if="result.get('detail_extra')">
-                    <br/>
-                    <span class="text-nowrap" t-out="result.get('detail_extra')"/>
-                </t>
-            </div>
+<!--            yigit: this part is commented out to hide prices in search results-->
+<!--            <div class="flex-shrink-0">-->
+<!--                <t t-if="result.get('detail_strike')">-->
+<!--                    <span class="text-danger text-nowrap" style="text-decoration: line-through;">-->
+<!--                        <t t-out="result.get('detail_strike')"/>-->
+<!--                    </span>-->
+<!--                    <br/>-->
+<!--                </t>-->
+<!--                <b t-if="result.get('detail')" class="text-nowrap">-->
+<!--                    <t t-out="result.get('detail')"/>-->
+<!--                </b>-->
+<!--                <t t-if="result.get('detail_extra')">-->
+<!--                    <br/>-->
+<!--                    <span class="text-nowrap" t-out="result.get('detail_extra')"/>-->
+<!--                </t>-->
+<!--            </div>-->
         </div>
     </a>
 </template>

@@ -16,7 +16,7 @@ from odoo import api, Command, fields, models, tools
 from odoo.addons.base.models.res_partner import _tz_get
 from odoo.addons.resource.models.resource import float_to_time, HOURS_PER_DAY
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools import float_compare
+from odoo.tools import float_compare, format_date
 from odoo.tools.float_utils import float_round
 from odoo.tools.misc import format_date
 from odoo.tools.translate import _
@@ -115,10 +115,19 @@ class HolidaysRequest(models.Model):
 
     def _default_get_request_parameters(self, values):
         new_values = dict(values)
-        if values.get('date_from'):
-            new_values['request_date_from'] = self._adjust_date_based_on_tz(values['date_from'].date(), values['date_from'].time())
-        if values.get('date_to'):
-            new_values['request_date_to'] = self._adjust_date_based_on_tz(values['date_to'].date(), values['date_to'].time())
+        if values.get('date_from') and values.get('date_to'):
+            date_from = self._adjust_date_based_on_tz(values['date_from'].date(), values['date_from'].time())
+            date_to = self._adjust_date_based_on_tz(values['date_to'].date(), values['date_to'].time())
+            new_values.update([('request_date_from', date_from), ('request_date_to', date_to)])
+
+            employee = self.env['hr.employee'].browse(values['employee_id']) if values.get('employee_id') else self.env.user.employee_id
+            default_start_time = self._get_start_or_end_from_attendance(7, datetime.now().date(), employee).time()
+            default_end_time = self._get_start_or_end_from_attendance(19, datetime.now().date(), employee).time()
+            if values['date_from'].time() == default_start_time and values['date_to'].time() == default_end_time:
+                attendance_from, attendance_to = self._get_attendances(employee, date_from, date_to)
+                new_values['date_from'] = self._get_start_or_end_from_attendance(attendance_from.hour_from, date_from, employee)
+                new_values['date_to'] = self._get_start_or_end_from_attendance(attendance_to.hour_to, date_to, employee)
+
         return new_values
 
     active = fields.Boolean(default=True, readonly=True)
@@ -807,6 +816,7 @@ class HolidaysRequest(models.Model):
                     target = leave.employee_id.name
                 else:
                     target = ', '.join(leave.employee_ids.mapped('name'))
+                display_date = format_date(self.env, date_from_utc) or ""
                 if leave.leave_type_request_unit == 'hour':
                     if self.env.context.get('hide_employee_name') and 'employee_id' in self.env.context.get('group_by', []):
                         res.append((
@@ -815,7 +825,7 @@ class HolidaysRequest(models.Model):
                                 person=target,
                                 leave_type=leave.holiday_status_id.name,
                                 duration=leave.number_of_hours_display,
-                                date=fields.Date.to_string(date_from_utc) or "",
+                                date=display_date,
                             )
                         ))
                     else:
@@ -825,13 +835,12 @@ class HolidaysRequest(models.Model):
                                 person=target,
                                 leave_type=leave.holiday_status_id.name,
                                 duration=leave.number_of_hours_display,
-                                date=fields.Date.to_string(date_from_utc) or "",
+                                date=display_date,
                             )
                         ))
                 else:
-                    display_date = fields.Date.to_string(date_from_utc) or ""
                     if leave.number_of_days > 1 and date_from_utc and date_to_utc:
-                        display_date += ' / %s' % fields.Date.to_string(date_to_utc) or ""
+                        display_date += ' / %s' % format_date(self.env, date_to_utc) or ""
                     if not target or self.env.context.get('hide_employee_name') and 'employee_id' in self.env.context.get('group_by', []):
                         res.append((
                             leave.id,
@@ -1081,6 +1090,7 @@ class HolidaysRequest(models.Model):
             Meeting = self.env['calendar.event']
             for user_id, meeting_values in meeting_values_for_user_id.items():
                 meetings += Meeting.with_user(user_id or self.env.uid).with_context(
+                                allowed_company_ids=[],
                                 no_mail_to_attendees=True,
                                 calendar_no_videocall=True,
                                 active_model=self._name

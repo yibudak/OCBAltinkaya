@@ -15,6 +15,7 @@ import {
 } from "@spreadsheet/../tests/utils/model";
 import { makeDeferred, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { session } from "@web/session";
+import { RPCError } from "@web/core/network/rpc_service";
 
 QUnit.module("spreadsheet > pivot plugin", {}, () => {
     QUnit.test("can select a Pivot from cell formula", async function (assert) {
@@ -395,7 +396,6 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
     QUnit.test("display loading while data is not fully available", async function (assert) {
         const metadataPromise = makeDeferred();
         const dataPromise = makeDeferred();
-        const namePromise = makeDeferred();
         const spreadsheetData = {
             sheets: [
                 {
@@ -436,8 +436,7 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
                     await dataPromise;
                 }
                 if (model === "product" && method === "name_get") {
-                    assert.step(`${model}/${method}`);
-                    await namePromise;
+                    assert.ok(false, "should not be called because data is put in cache");
                 }
                 return result;
             },
@@ -455,15 +454,9 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
         await nextTick();
         setCellContent(model, "A10", "2");
         assert.strictEqual(getCellValue(model, "A1"), "Probability");
-        assert.strictEqual(getCellValue(model, "A2"), "Loading...");
-        assert.strictEqual(getCellValue(model, "A3"), 131);
-        namePromise.resolve();
-        await nextTick();
-        setCellContent(model, "A10", "3");
-        assert.strictEqual(getCellValue(model, "A1"), "Probability");
         assert.strictEqual(getCellValue(model, "A2"), "xphone");
         assert.strictEqual(getCellValue(model, "A3"), 131);
-        assert.verifySteps(["partner/fields_get", "partner/read_group", "product/name_get"]);
+        assert.verifySteps(["partner/fields_get", "partner/read_group"]);
     });
 
     QUnit.test("relational PIVOT.HEADER with missing id", async function (assert) {
@@ -722,4 +715,38 @@ QUnit.module("spreadsheet > pivot plugin", {}, () => {
         assert.deepEqual(model.getters.getPivotFieldMatching("1", filter.id), undefined);
         assert.deepEqual(model.getters.getPivotDataSource("1").getComputedDomain(), []);
     });
+
+    QUnit.test(
+        "Load pivot spreadsheet with models that cannot be accessed",
+        async function (assert) {
+            let hasAccessRights = true;
+            const { model } = await createSpreadsheetWithPivot({
+                mockRPC: async function (route, args) {
+                    if (
+                        args.model === "partner" &&
+                        args.method === "read_group" &&
+                        !hasAccessRights
+                    ) {
+                        const error = new RPCError();
+                        error.data = { message: "ya done!" };
+                        throw error;
+                    }
+                },
+            });
+            const headerCell = getCell(model, "A3");
+            const cell = getCell(model, "C3");
+
+            await waitForDataSourcesLoaded(model);
+            assert.equal(headerCell.evaluated.value, "No");
+            assert.equal(cell.evaluated.value, 15);
+
+            hasAccessRights = false;
+            model.dispatch("REFRESH_PIVOT", { id: "1" });
+            await waitForDataSourcesLoaded(model);
+            assert.equal(headerCell.evaluated.value, "#ERROR");
+            assert.equal(headerCell.evaluated.error.message, "ya done!");
+            assert.equal(cell.evaluated.value, "#ERROR");
+            assert.equal(cell.evaluated.error.message, "ya done!");
+        }
+    );
 });

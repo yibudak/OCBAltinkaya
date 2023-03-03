@@ -63,7 +63,15 @@ class ImageSelector extends Component {
     }
 
     get title() {
-        return this.seoContext.title || this.props.defaultTitle;
+        let _title = this.seoContext.title || this.props.defaultTitle;
+        const websiteName = this.seoContext.website_id && this.seoContext.website_id[1];
+        if (_title && websiteName) {
+            // If the title already contains the website name, don't add it again.
+            if (!_title.includes(websiteName)) {
+                _title += ` | ${websiteName}`;
+            }
+        }
+        return _title;
     }
 
     get description() {
@@ -280,6 +288,10 @@ class TitleDescription extends Component {
         }, () => []);
     }
 
+    //--------------------------------------------------------------------------
+    // Getters
+    //--------------------------------------------------------------------------
+
     get seoNameUrl() {
         return this.previousSeoName || this.props.seoNameDefault;
     }
@@ -304,9 +316,16 @@ class TitleDescription extends Component {
     }
 
     get title() {
-        return this.seoContext.title || this.props.defaultTitle;
+        let _title = this.seoContext.title || this.props.defaultTitle;
+        const websiteName = this.seoContext.website_id && this.seoContext.website_id[1];
+        if (_title && websiteName) {
+            // If the title already contains the website name, don't add it again.
+            if (!_title.includes(websiteName)) {
+                _title += ` | ${websiteName}`;
+            }
+        }
+        return _title;
     }
-
     get description() {
         return this.seoContext.description || this.props.previewDescription;
     }
@@ -321,6 +340,23 @@ class TitleDescription extends Component {
             return this.env._t("Your description looks too long.");
         }
         return false;
+    }
+
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     * @param {InputEvent} ev
+     */
+    _updateInputValue(ev) {
+        // `NFKD` as in `http_routing` python `slugify()`
+        ev.target.value = ev.target.value.trim().normalize('NFKD').toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with -
+            .replace(/[^\w-]+/g, '') // Remove all non-word chars
+            .replace(/--+/g, '-'); // Replace multiple - with single -
+        this.seoContext.seoName = ev.target.value;
     }
 }
 TitleDescription.template = 'website.TitleDescription';
@@ -354,7 +390,7 @@ export class OptimizeSEODialog extends Component {
         onWillStart(async () => {
             const { metadata: { mainObject, seoObject, path } } = this.website.currentWebsite;
 
-            this.object = mainObject || seoObject;
+            this.object = seoObject || mainObject;
             this.data = await this.rpc('/website/get_seo_data', {
                 'res_id': this.object.id,
                 'res_model': this.object.model,
@@ -385,6 +421,7 @@ export class OptimizeSEODialog extends Component {
 
             this.canEditKeywords = 'website_meta_keywords' in this.data;
             seoContext.keywords = this.getMeta({ name: 'keywords' });
+            seoContext.website_id = this.data.website_id;
         });
     }
 
@@ -419,6 +456,11 @@ export class OptimizeSEODialog extends Component {
     async save() {
         const data = {};
         if (this.canEditTitle) {
+            // Add company name if not already present
+            let companyName = seoContext.website_id && seoContext.website_id[1];
+            if (seoContext.title && companyName && !seoContext.title.includes(companyName)) {
+                seoContext.title += ` | ${companyName}`;
+            }
             data.website_meta_title = seoContext.title;
         }
         if (this.canEditDescription) {

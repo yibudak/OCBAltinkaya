@@ -32,6 +32,7 @@ import CommandResult from "../../o_spreadsheet/cancelled_reason";
 import { _t } from "@web/core/l10n/translation";
 import { globalFiltersFieldMatchers } from "@spreadsheet/global_filters/plugins/global_filters_core_plugin";
 import { sprintf } from "@web/core/utils/strings";
+import { checkFilterFieldMatching } from "@spreadsheet/global_filters/helpers";
 
 const { CorePlugin } = spreadsheet;
 
@@ -69,6 +70,11 @@ export default class PivotCorePlugin extends CorePlugin {
                     return CommandResult.InvalidNextId;
                 }
                 break;
+            case "ADD_GLOBAL_FILTER":
+            case "EDIT_GLOBAL_FILTER":
+                if (cmd.pivot) {
+                    return checkFilterFieldMatching(cmd.pivot);
+                }
         }
         return CommandResult.Success;
     }
@@ -88,7 +94,7 @@ export default class PivotCorePlugin extends CorePlugin {
                 const table = new SpreadsheetPivotTable(cols, rows, measures);
                 this._addPivot(id, definition, dataSourceId);
                 this._insertPivot(sheetId, anchor, id, table);
-                this.nextId = parseInt(id, 10) + 1;
+                this.history.update("nextId", parseInt(id, 10) + 1);
                 break;
             }
             case "RE_INSERT_PIVOT": {
