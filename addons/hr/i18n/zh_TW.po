@@ -551,7 +551,7 @@ msgstr "存檔私人地址"
 #: model_terms:ir.ui.view,arch_db:hr.view_employee_form
 #: model_terms:ir.ui.view,arch_db:hr.view_job_filter
 msgid "Archived"
-msgstr "已歸檔"
+msgstr "已封存"
 
 #. module: hr
 #: model_terms:hr.job,website_description:hr.job_ceo
@@ -3122,8 +3122,8 @@ msgstr "使用者"
 #. odoo-python
 #: code:addons/hr/models/hr_plan_activity_type.py:0
 #, python-format
-msgid "User of coach of employee %s is not set."
-msgstr "未設置員工 %s 的 Coach 使用者。"
+msgid "The user of %s's coach is not set."
+msgstr ""
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__user_partner_id

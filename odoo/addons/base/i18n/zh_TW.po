@@ -6,8 +6,8 @@
 # 敬雲 林 <chingyun@yuanchih-consult.com>, 2022
 # Shigurefox <tom.liang@omniwaresoft.com.tw>, 2023
 # Benson <Benson.Dr@Gmail.com>, 2023
-# Martin Trigaux, 2023
 # Tony Ng, 2023
+# Martin Trigaux, 2023
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-02 11:00+0000\n"
 "PO-Revision-Date: 2022-09-22 05:44+0000\n"
-"Last-Translator: Tony Ng, 2023\n"
+"Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8534,6 +8534,27 @@ msgid ""
 "\n"
 "**Credits:** Sistheo, Zeekom, CrysaLEAD, Akretion and Camptocamp.\n"
 msgstr ""
+"\n"
+"This is the module to manage the accounting chart for France in Odoo.\n"
+"========================================================================\n"
+"\n"
+"This module applies to companies based in France mainland. It doesn't apply to\n"
+"companies based in the DOM-TOMs (Guadeloupe, Martinique, Guyane, Réunion, Mayotte).\n"
+"\n"
+"This localisation module creates the VAT taxes of type 'tax included' for purchases\n"
+"(it is notably required when you use the module 'hr_expense'). Beware that these\n"
+"'tax included' VAT taxes are not managed by the fiscal positions provided by this\n"
+"module (because it is complex to manage both 'tax excluded' and 'tax included'\n"
+"scenarios in fiscal positions).\n"
+"\n"
+"This localisation module doesn't properly handle the scenario when a France-mainland\n"
+"company sells services to a company based in the DOMs. We could manage it in the\n"
+"fiscal positions, but it would require to differentiate between 'product' VAT taxes\n"
+"and 'service' VAT taxes. We consider that it is too 'heavy' to have this by default\n"
+"in l10n_fr; companies that sell services to DOM-based companies should update the\n"
+"configuration of their taxes and fiscal positions manually.\n"
+"\n"
+"**Credits:** Sistheo, Zeekom, CrysaLEAD, Akretion and Camptocamp.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_mn
@@ -10412,7 +10433,7 @@ msgstr "%s (備份)"
 #: code:addons/base/models/res_currency.py:0
 #, python-format
 msgid "%s per Unit"
-msgstr "%s 每單位"
+msgstr "每單位可兌 %s"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.res_lang_form
@@ -10695,7 +10716,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:base.view_server_action_form
 msgid ""
 "<code>UserError</code>: Warning Exception to use with <code>raise</code>"
-msgstr "<code>UserError</code>: 與 <code>raise</code> 一起使用的警告異常"
+msgstr "<code>UserError</code>：警告錯誤，與 <code>raise</code> 關鍵字一起使用"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_model_fields_form
@@ -12792,7 +12813,7 @@ msgstr "美屬薩摩亞"
 msgid ""
 "Amounts in this currency are rounded off to the nearest multiple of the "
 "rounding factor."
-msgstr "以本貨幣記賬的金額，會四捨五入至這個系數的最接近倍數。"
+msgstr "以本貨幣記賬的金額，會四捨五入至這個因數的最接近倍數。"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_payment_aps
@@ -13127,7 +13148,7 @@ msgstr "架構差異"
 #: model_terms:ir.ui.view,arch_db:base.view_sequence_search
 #: model_terms:ir.ui.view,arch_db:base.view_users_form
 msgid "Archived"
-msgstr "已歸檔"
+msgstr "已封存"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.base_partner_merge_automatic_wizard_form
@@ -14087,7 +14108,7 @@ msgstr "博內爾島，聖尤斯特歇斯島和薩巴"
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_property__type__boolean
 msgid "Boolean"
-msgstr "布爾"
+msgstr "真假值"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_website_event_booth_sale_exhibitor
@@ -14584,14 +14605,14 @@ msgstr "無法僅從名稱建立新的 '1%s' 紀錄. 請手動建立這些紀錄
 #: code:addons/base/models/res_lang.py:0
 #, python-format
 msgid "Cannot deactivate a language that is currently used by contacts."
-msgstr "無法停用目前被聯繫人所使用的語系."
+msgstr "不可停用目前正有聯絡人使用的語言。"
 
 #. module: base
 #. odoo-python
 #: code:addons/base/models/res_lang.py:0
 #, python-format
 msgid "Cannot deactivate a language that is currently used by users."
-msgstr "不能撤消目前使用者使用的語言."
+msgstr "不可停用目前正有用戶使用的語言。"
 
 #. module: base
 #. odoo-python
@@ -15219,7 +15240,7 @@ msgstr "公司屬性"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency_rate__company_rate
 msgid "Company Rate"
-msgstr ""
+msgstr "公司匯率"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_company__report_header
@@ -16239,7 +16260,7 @@ msgstr "目前行"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__rate
 msgid "Current Rate"
-msgstr ""
+msgstr "目前匯率"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_actions_act_window__target__current
@@ -16579,7 +16600,7 @@ msgstr "小數分隔符"
 msgid ""
 "Decimal places taken into account for operations on amounts in this "
 "currency. It is determined by the rounding factor."
-msgstr "計算此貨幣金額的操作時考慮的小數位. 它由捨入係數決定."
+msgstr "以此貨幣記賬的金額進行運算時，會計算的小數位數目。此數值由捨入因數決定。"
 
 #. module: base
 #. odoo-python
@@ -16851,7 +16872,7 @@ msgstr "詳細算法:"
 msgid ""
 "Determines where the currency symbol should be placed after or before the "
 "amount."
-msgstr "指定貨幣符的位置，放在總額的前面還是後面."
+msgstr "設定貨幣符號放置於金額前面或後面。"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_country__name_position
@@ -21371,12 +21392,12 @@ msgstr "庫存，物流，計價，會計"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency_rate__inverse_company_rate
 msgid "Inverse Company Rate"
-msgstr "反轉公司利率"
+msgstr "反轉公司匯率"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__inverse_rate
 msgid "Inverse Rate"
-msgstr "反轉利率"
+msgstr "反轉匯率"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__res_partner__type__invoice
@@ -22404,7 +22425,7 @@ msgstr "語言本地化"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.ir_logging_form_view
 msgid "Log"
-msgstr "紀錄"
+msgstr "日誌"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.ir_logging_all_act
@@ -27207,7 +27228,7 @@ msgstr "輸出名稱 %r 已二次使用."
 #: model:ir.model.fields,field_description:base.field_base_language_import__overwrite
 #: model:ir.model.fields,field_description:base.field_base_language_install__overwrite
 msgid "Overwrite Existing Terms"
-msgstr "覆蓋現有術語"
+msgstr "取代目前已有字詞"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_attachment_search
@@ -28138,7 +28159,7 @@ msgstr "產品比較"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_product_email_template
 msgid "Product Email Template"
-msgstr "產品 Email 模板"
+msgstr "產品電郵範本"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_product_images
@@ -28670,7 +28691,7 @@ msgstr "專案、任務、工時表"
 #: model_terms:ir.ui.view,arch_db:base.view_model_fields_form
 #: model_terms:ir.ui.view,arch_db:base.view_model_form
 msgid "Properties"
-msgstr "權益"
+msgstr "屬性"
 
 #. module: base
 #. odoo-python
@@ -29105,13 +29126,13 @@ msgstr "Raleway"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__rate_string
 msgid "Rate String"
-msgstr "比率字串"
+msgstr "匯率字串"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__rate_ids
 #: model_terms:ir.ui.view,arch_db:base.view_currency_form
 msgid "Rates"
-msgstr "比率"
+msgstr "匯率設定"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_model_access__perm_read
@@ -29640,7 +29661,7 @@ msgstr "羅馬尼亞 - 會計"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__rounding
 msgid "Rounding Factor"
-msgstr "捨入係數"
+msgstr "捨入因數"
 
 #. module: base
 #. odoo-python
@@ -31728,7 +31749,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__symbol
 msgid "Symbol"
-msgstr "符號"
+msgstr "貨幣符號"
 
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency__position
@@ -31928,7 +31949,7 @@ msgstr "技術名稱"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_currency_rate__rate
 msgid "Technical Rate"
-msgstr "技術評比"
+msgstr "技術匯率"
 
 #. module: base
 #: model:ir.actions.report,name:base.ir_module_reference_print
@@ -32318,7 +32339,7 @@ msgstr "幣別代碼必須唯一!"
 #: model:ir.model.fields,help:base.field_res_currency__inverse_rate
 #: model:ir.model.fields,help:base.field_res_currency_rate__company_rate
 msgid "The currency of rate 1 to the rate of the currency."
-msgstr "匯率 1 的貨幣到貨幣的匯率."
+msgstr "其他貨幣每一單位兌換此貨幣的匯率。"
 
 #. module: base
 #: model:ir.model.constraint,message:base.constraint_res_currency_rate_currency_rate_check
@@ -32679,17 +32700,17 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency_rate__rate
 msgid "The rate of the currency to the currency of rate 1"
-msgstr "幣別到其他幣別的比率為 1"
+msgstr "此貨幣每一單位兌其他貨幣的匯率。"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency_rate__inverse_company_rate
 msgid "The rate of the currency to the currency of rate 1 "
-msgstr ""
+msgstr "此貨幣每一單位兌其他貨幣的匯率。"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_currency__rate
 msgid "The rate of the currency to the currency of rate 1."
-msgstr "幣別到其他幣別的比率為 1."
+msgstr "此貨幣每一單位兌其他貨幣的匯率。"
 
 #. module: base
 #: model:ir.model.fields,help:base.field_res_company__company_registry
@@ -33878,7 +33899,7 @@ msgstr "Ukraine - Accounting"
 #, python-format
 msgid ""
 "Unable to delete this document because it is used as a default property"
-msgstr "不能刪除該單據，因為它被用作預設屬性"
+msgstr "無法刪除此文件，因它正被用作預設屬性"
 
 #. module: base
 #. odoo-python
@@ -33965,7 +33986,7 @@ msgstr ""
 #: code:addons/base/models/res_currency.py:0
 #, python-format
 msgid "Unit per %s"
-msgstr "每 %s 的單位"
+msgstr "每 %s 單位可兌"
 
 #. module: base
 #: model:res.country,name:base.ae
@@ -35103,7 +35124,7 @@ msgstr "三"
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_cron__interval_type__weeks
 msgid "Weeks"
-msgstr "周"
+msgstr "星期"
 
 #. module: base
 #: model:res.country,name:base.eh
@@ -35775,7 +35796,7 @@ msgstr ""
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__boolean
 msgid "boolean"
-msgstr "布林"
+msgstr "真假值"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_delivery_bpost
@@ -36425,7 +36446,7 @@ msgstr "website_sale_delivery_mondialrelay"
 #: code:addons/base/models/ir_qweb_fields.py:0
 #, python-format
 msgid "week"
-msgstr "周"
+msgstr "星期"
 
 #. module: base
 #. odoo-python

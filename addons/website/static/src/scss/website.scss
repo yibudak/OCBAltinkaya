@@ -431,7 +431,7 @@ font[class*='bg-'] {
 
 // Probably outdated
 // Disable fixed height
-@media (max-width: 400px) {
+@include media-breakpoint-down(md) {
     section,
     .parallax,
     .row,
@@ -810,6 +810,10 @@ $-transition-duration: 200ms;
             }
         }
     }
+}
+
+.o_hoverable_dropdown .nav-link.dropdown-toggle:focus {
+    outline: none;
 }
 
 // Navbar

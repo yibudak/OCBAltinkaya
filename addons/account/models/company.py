@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError, UserError, RedirectWarning
 from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import format_date
 from odoo.tools.float_utils import float_round, float_is_zero
+from odoo.addons.account.models.account_move import MAX_HASH_VERSION
 
 
 MONTH_SELECTION = [
@@ -178,6 +179,15 @@ class ResCompany(models.Model):
     # Storno Accounting
     account_storno = fields.Boolean(string="Storno accounting", readonly=False)
 
+    # Multivat
+    fiscal_position_ids = fields.One2many(comodel_name="account.fiscal.position", inverse_name="company_id")
+    multi_vat_foreign_country_ids = fields.Many2many(
+        string="Foreign VAT countries",
+        help="Countries for which the company has a VAT number",
+        comodel_name='res.country',
+        compute='_compute_multi_vat_foreign_country',
+    )
+
     # Fiduciary mode
     quick_edit_mode = fields.Selection(
         selection=[
@@ -203,10 +213,24 @@ class ResCompany(models.Model):
             if rec.fiscalyear_last_day > max_day:
                 raise ValidationError(_("Invalid fiscal year last day"))
 
+    @api.depends('fiscal_position_ids.foreign_vat')
+    def _compute_multi_vat_foreign_country(self):
+        company_to_foreign_vat_country = {
+            val['company_id'][0]: val['country_ids']
+            for val in self.env['account.fiscal.position'].read_group(
+                domain=[('company_id', 'in', self.ids), ('foreign_vat', '!=', False)],
+                fields=['country_ids:array_agg(country_id)'],
+                groupby='company_id',
+            )
+        }
+        for company in self:
+            company.multi_vat_foreign_country_ids = self.env['res.country'].browse(company_to_foreign_vat_country.get(company.id))
+
     @api.depends('country_id')
     def compute_account_tax_fiscal_country(self):
         for record in self:
-            record.account_fiscal_country_id = record.country_id
+            if not record.account_fiscal_country_id:
+                record.account_fiscal_country_id = record.country_id
 
     @api.depends('account_fiscal_country_id')
     def _compute_account_enabled_tax_country_ids(self):
@@ -634,8 +658,13 @@ class ResCompany(models.Model):
             previous_hash = u''
             start_move_info = []
             hash_corrupted = False
+            current_hash_version = 1
             for move in moves:
-                if move.inalterable_hash != move._compute_hash(previous_hash=previous_hash):
+                computed_hash = move.with_context(hash_version=current_hash_version)._compute_hash(previous_hash=previous_hash)
+                while move.inalterable_hash != computed_hash and current_hash_version < MAX_HASH_VERSION:
+                    current_hash_version += 1
+                    computed_hash = move.with_context(hash_version=current_hash_version)._compute_hash(previous_hash=previous_hash)
+                if move.inalterable_hash != computed_hash:
                     rslt.update({'msg_cover': _('Corrupted data on journal entry with id %s.', move.id)})
                     results_by_journal['results'].append(rslt)
                     hash_corrupted = True

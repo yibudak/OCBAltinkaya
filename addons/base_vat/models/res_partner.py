@@ -63,7 +63,7 @@ _ref_vat = {
     'no': 'NO123456785',
     'nz': '49-098-576 or 49098576',
     'pe': '10XXXXXXXXY or 20XXXXXXXXY or 15XXXXXXXXY or 16XXXXXXXXY or 17XXXXXXXXY',
-    'ph': '123-456-789-01234',
+    'ph': '123-456-789-123',
     'pl': 'PL1234567883',
     'pt': 'PT123456789',
     'ro': 'RO1234567897',
@@ -285,6 +285,16 @@ class ResPartner(models.Model):
             )
 
 
+    __check_vat_al_re = re.compile(r'^[JKLM][0-9]{8}[A-Z]$')
+
+    def check_vat_al(self, vat):
+        """Check Albania VAT number"""
+        number = stdnum.util.get_cc_module('al', 'vat').compact(vat)
+
+        if len(number) == 10 and self.__check_vat_al_re.match(number):
+            return True
+        return False
+
     __check_vat_ch_re = re.compile(r'E([0-9]{9}|-[0-9]{3}\.[0-9]{3}\.[0-9]{3})(MWST|TVA|IVA)$')
 
     def check_vat_ch(self, vat):
@@ -488,6 +498,12 @@ class ResPartner(models.Model):
         elif dig_check == 11:
             dig_check = 1
         return int(vat[10]) == dig_check
+
+    # Philippines TIN (+ branch code) validation
+    __check_vat_ph_re = re.compile(r"\d{3}-\d{3}-\d{3}(-\d{3,5})?$")
+
+    def check_vat_ph(self, vat):
+        return len(vat) >= 11 and len(vat) <= 17 and self.__check_vat_ph_re.match(vat)
 
     def check_vat_ru(self, vat):
         '''

@@ -147,7 +147,7 @@ msgstr ""
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.ticket_validation_screen
 msgid "<i class=\"fa fa-pencil\"/> Edit"
-msgstr "<i class=\"fa fa-pencil\"/> Modifier"
+msgstr "<i class=\"fa fa-pencil\"/> Éditer"
 
 #. module: point_of_sale
 #. odoo-python
@@ -393,6 +393,8 @@ msgstr "Écriture comptable"
 #: model:ir.model.fields,help:point_of_sale.field_pos_session__bank_payment_ids
 msgid "Account payments representing aggregated and bank split payments."
 msgstr ""
+"Les paiements en compte représentant des paiements agrégés et des paiements "
+"fractionnés."
 
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.res_config_settings_view_form
@@ -2177,7 +2179,7 @@ msgstr "Retracer les erreurs de téléchargement"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_config_kanban
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Éditer"
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -2338,7 +2340,7 @@ msgstr "Exporter les commandes non payées"
 #. module: point_of_sale
 #: model_terms:ir.ui.view,arch_db:point_of_sale.view_pos_pos_form
 msgid "Extra Info"
-msgstr "Info supplémentaires"
+msgstr "Infos supplémentaires"
 
 #. module: point_of_sale
 #: model:product.attribute,name:point_of_sale.fabric_attribute
@@ -3226,12 +3228,12 @@ msgstr "Nom du lot"
 #: code:addons/point_of_sale/static/src/js/Screens/ProductScreen/ProductScreen.js:0
 #, python-format
 msgid "Lot/Serial Number(s) Required"
-msgstr "N° lot/série requis"
+msgstr "Lot/numéro de série requis"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_order_line__pack_lot_ids
 msgid "Lot/serial Number"
-msgstr "N° lot/série"
+msgstr "Lot/numéro de série"
 
 #. module: point_of_sale
 #: model:product.template,name:point_of_sale.magnetic_board_product_template
@@ -5913,7 +5915,7 @@ msgstr "Route spécifique"
 #: model:ir.model,name:point_of_sale.model_pos_pack_operation_lot
 msgid "Specify product lot/serial number in pos order line"
 msgstr ""
-"Précisez le numéro de lot/série du produit dans la ligne de commande PdV"
+"Précisez le lot/numéro de série du produit dans la ligne de commande PdV"
 
 #. module: point_of_sale
 #: model:ir.model.fields,field_description:point_of_sale.field_pos_config__route_id
@@ -7324,7 +7326,7 @@ msgstr "Produit pesé"
 #. module: point_of_sale
 #: model:ir.model.fields.selection,name:point_of_sale.selection__pos_config__picking_policy__one
 msgid "When all products are ready"
-msgstr "Lorsque tous les produits sont prêts"
+msgstr "Quand tous les produits sont prêts"
 
 #. module: point_of_sale
 #: model:ir.model.fields,help:point_of_sale.field_pos_config__is_margins_costs_accessible_to_every_user
@@ -7427,8 +7429,8 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas créer une commande PdV depuis l'interface du backend ou "
 "annuler la liste de prix ou créer une commande PdV dans un test python avec "
-"l'outil Formulaire ou modifier la vue formulaire dans studio s'il n'y a "
-"aucune commande PdV"
+"l'outil Formulaire ou éditer la vue formulaire dans studio s'il n'y a aucune"
+" commande PdV"
 
 #. module: point_of_sale
 #. odoo-python

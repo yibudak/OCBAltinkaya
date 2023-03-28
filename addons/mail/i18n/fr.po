@@ -1681,7 +1681,7 @@ msgid ""
 " did not match any partner."
 msgstr ""
 "Auteur du message. S'il n'est pas indiqué, email_from peut contenir une "
-"adresse électronique ne correspondant à aucun partenaire."
+"adresse email ne correspondant à aucun partenaire."
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_mail__author_avatar
@@ -3235,7 +3235,7 @@ msgstr "Terminé & lancer la suite"
 #: model_terms:ir.ui.view,arch_db:mail.mail_activity_view_form_popup
 #, python-format
 msgid "Done & Schedule Next"
-msgstr "Terminer & planifier le suivant"
+msgstr "Terminé & Programmer suivant"
 
 #. module: mail
 #. odoo-javascript
@@ -3355,19 +3355,19 @@ msgstr "Intensité du floutage des contours"
 #: code:addons/mail/static/src/models/message_action_view.js:0
 #, python-format
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Éditer"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_resend_message_view_form
 msgid "Edit Partners"
-msgstr "Modifier les partenaires"
+msgstr "Éditer les partenaires"
 
 #. module: mail
 #. odoo-javascript
 #: code:addons/mail/static/src/components/follower_subtype_list/follower_subtype_list.xml:0
 #, python-format
 msgid "Edit Subscription of"
-msgstr "Modifier l'abonnement de"
+msgstr "Éditer l'abonnement de"
 
 #. module: mail
 #. odoo-javascript
@@ -3375,14 +3375,14 @@ msgstr "Modifier l'abonnement de"
 #: code:addons/mail/static/src/components/follower/follower.xml:0
 #, python-format
 msgid "Edit subscription"
-msgstr "Modifier abonnement"
+msgstr "Éditer abonnement"
 
 #. module: mail
 #. odoo-javascript
 #: code:addons/mail/static/src/views/fields/many2many_tags_email/many2many_tags_email.js:0
 #, python-format
 msgid "Edit: %s"
-msgstr "Modifier : %s"
+msgstr "Éditer : %s"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_blacklist_remove__email
@@ -3411,17 +3411,17 @@ msgstr "Ajouter signature email"
 #: model:ir.model.fields,field_description:mail.field_mail_resend_partner__email
 #: model_terms:ir.ui.view,arch_db:mail.mail_blacklist_remove_view_form
 msgid "Email Address"
-msgstr "Adresse électronique"
+msgstr "Adresse email"
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_alias
 msgid "Email Aliases"
-msgstr "Alias email"
+msgstr "Alias de messagerie"
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_alias_mixin
 msgid "Email Aliases Mixin"
-msgstr "Incorporer les alias email"
+msgstr "Incorporer les alias de messagerie"
 
 #. module: mail
 #: model:ir.ui.menu,name:mail.mail_blacklist_menu
@@ -3532,8 +3532,8 @@ msgid ""
 "Email alias %(alias_name)s cannot be used on %(count)d records at the same "
 "time. Please update records one by one."
 msgstr ""
-"L'alias d'email %(alias_name)s ne peut pas être utilisé pour %(count)d "
-"enregistrements à la fois. Veuillez mettre à jour les enregistrements un à "
+"L'alias de messagerie %(alias_name)s ne peut pas être utilisé pour %(count)d"
+" enregistrements à la fois. Veuillez mettre à jour les enregistrements un à "
 "un."
 
 #. module: mail
@@ -4212,12 +4212,12 @@ msgstr "halloween"
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__res_users__notification_type__email
 msgid "Handle by Emails"
-msgstr "Gérer par des emails"
+msgstr "Recevoir par email"
 
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__res_users__notification_type__inbox
 msgid "Handle in Odoo"
-msgstr "Gérer dans Odoo"
+msgstr "Recevoir dans Odoo"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_ir_model__is_mail_activity
@@ -5840,7 +5840,7 @@ msgstr "Marquer comme lu"
 #: code:addons/mail/static/src/models/message_action_view.js:0
 #, python-format
 msgid "Mark as Todo"
-msgstr "Marquer comme \"À faire\""
+msgstr "Marquer comme à faire"
 
 #. module: mail
 #. odoo-javascript
@@ -6610,12 +6610,12 @@ msgstr "Note"
 #: model_terms:ir.ui.view,arch_db:mail.mail_notification_view_form
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_search
 msgid "Notification"
-msgstr "Notification"
+msgstr "Notifications"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_mail__is_notification
 msgid "Notification Email"
-msgstr "Notification par email"
+msgstr "Notifications par email"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_message_schedule__notification_parameters
@@ -8448,8 +8448,8 @@ msgid ""
 "value will be the author's email alias if configured, or email address."
 msgstr ""
 "Adresse de l’expéditeur (les paramètres fictifs sont acceptés). Si non "
-"renseigné, la valeur par défaut sera l’alias email de l’auteur si il est "
-"configuré, ou son adresse email."
+"renseigné, la valeur par défaut sera l’alias de messagerie de l’auteur si il"
+" est configuré, ou son adresse email."
 
 #. module: mail
 #: model:ir.actions.act_window,name:mail.mail_resend_message_action
@@ -9868,8 +9868,8 @@ msgstr "Ne plus suivre"
 msgid ""
 "Unfortunately this email alias is already used, please choose a unique one"
 msgstr ""
-"Malheureusement, cet alias d'email est déjà utilisé : veuillez utiliser un "
-"alias unique"
+"Malheureusement, cet alias de messagerie est déjà utilisé : veuillez "
+"utiliser un alias unique"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_activity_type__delay_unit
@@ -10789,7 +10789,7 @@ msgstr "entrée"
 #: code:addons/mail/static/src/models_data/emoji_data.js:0
 #, python-format
 msgid "admission tickets"
-msgstr "billet d'entrée"
+msgstr "ticket d'entrée"
 
 #. module: mail
 #. odoo-javascript
