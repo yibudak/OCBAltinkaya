@@ -692,7 +692,7 @@ var VariantMixin = {
 
         var imagesSelectors = [
             'span[data-oe-model^="product."][data-oe-type="image"] img:first',
-            'img.product_detail_img',
+            'div.active img.product_detail_img',
             'span.variant_image img',
             'img.variant_image',
         ];
