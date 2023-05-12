@@ -233,7 +233,7 @@ class SaleOrder(models.Model):
 
     commitment_date = fields.Datetime('Commitment Date',
         states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
-        copy=False, oldname='requested_date', readonly=True,
+        copy=False, oldname='requested_date', readonly=False,
         help="This is the delivery date promised to the customer. If set, the delivery order "
              "will be scheduled based on this date rather than product lead times.")
     expected_date = fields.Datetime("Expected Date", compute='_compute_expected_date', store=False, oldname='commitment_date',  # Note: can not be stored since depends on today()
