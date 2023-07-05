@@ -1542,7 +1542,7 @@ class SaleOrderLine(models.Model):
 
         product = self.product_id.with_context(
             lang=self.order_id.partner_id.lang,
-            partner=self.order_id.partner_id,
+            partner=self.order_id.partner_id.id,
             quantity=vals.get('product_uom_qty') or self.product_uom_qty,
             date=self.order_id.date_order,
             pricelist=self.order_id.pricelist_id.id,
