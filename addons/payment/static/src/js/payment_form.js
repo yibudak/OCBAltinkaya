@@ -106,23 +106,19 @@ odoo.define('payment.payment_form', function (require) {
                     if (verify_validity.length > 0) {
                         form_data.verify_validity = verify_validity[0].value === "1";
                     }
-
+                    // yigit 14.08.2023: this section is modified to use payment_garanti module
                     // do the call to the route stored in the 'data_set' input of the acquirer form, the data must be called 'create-route'
                     return ajax.jsonRpc(ds.dataset.createRoute, 'call', form_data).then(function (data) {
                         // if the server has returned true
-                        if (data['3d_secure'].status === 'success') {
-                            // and it need a 3DS authentication
-                            if (data['3d_secure'] !== false) {
-                                // create a div and set its inner content to data['3d_secure'].form
-                                let formDiv = $('<div>').html(data['3d_secure'].form);
-                                // append the div to the body
-                                $("body").append(formDiv);
+                        if (data.status === 'success') {
+                            if (data.method === 'form') {
+                                $("#payment_method").append(data.response);
                                 $("#webform0").submit();
-
                             } else {
-                                checked_radio.value = data.id; // set the radio value to the new card id
-                                form.submit();
-                                return $.Deferred();
+                                // https://stackoverflow.com/questions/1236360/how-do-i-replace-the-entire-html-node-using-jquery
+                                let redirectPage = document.open("text/html", "replace");
+                                redirectPage.write(data.response);
+                                redirectPage.close();
                             }
                         }
                         // if the server has returned false, we display an error
