@@ -829,9 +829,12 @@ class SaleOrder(models.Model):
         return (self.state == 'sent' or (self.state == 'draft' and also_in_draft)) and not self.is_expired and self.require_signature and not self.signature and self.team_id.team_type != 'website'
 
     def has_to_be_paid(self, also_in_draft=False):
-        return False
-        transaction = self.get_portal_last_transaction()
-        return (self.state == 'sent' or (self.state == 'draft' and also_in_draft)) and not self.is_expired and self.require_payment and transaction.state != 'done' and self.amount_total
+        # yibudak 14.08.2023: we implemented our own logic for payment
+        sale_order = self
+        return not (
+            sale_order.invoice_ids.filtered(lambda r: r.state == "paid")
+            or sale_order.payment_status == "done"
+        )
 
     @api.multi
     def _notify_get_groups(self, message, groups):
