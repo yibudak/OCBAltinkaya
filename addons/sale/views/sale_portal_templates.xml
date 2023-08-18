@@ -235,11 +235,12 @@
                             </header>
                             <main class="modal-body" id="sign-dialog">
                                 <p>
-                                    <span>By paying this proposal, I agree to the following terms:</span>
-                                    <ul>
-                                        <li><span>Accepted on the behalf of:</span> <b t-field="sale_order.partner_id.commercial_partner_id"/></li>
-                                        <li><span>For an amount of:</span> <b data-id="total_amount" t-field="sale_order.amount_total"/></li>
-                                        <li t-if="sale_order.payment_term_id"><span>With payment terms:</span> <b t-field="sale_order.payment_term_id.note"/></li>
+                                    <span class="font-weight-bold">When the offer is paid, it is automatically approved and shipped. Please do not pay before checking the offer in terms of color, type and quantity.</span>
+                                    <ul id="payment_terms">
+                                        <li>You can use all credit cards for your orders.</li>
+                                        <li>Your card information is never stored on our servers.</li>
+                                        <li>Your card security is ensured with 256-bit encrypted communication during the processing of your card information.</li>
+                                        <li>The system does not accept double payments for the same order, so you will not accidentally make a duplicate payment.</li>
                                     </ul>
                                 </p>
                                 <div t-if="pms or acquirers" id="payment_method" class="text-left">
