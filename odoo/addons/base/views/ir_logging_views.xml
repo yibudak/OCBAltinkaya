@@ -4,17 +4,19 @@
             <field name="model">ir.logging</field>
             <field name="arch" type="xml">
                 <form string="Log">
-                    <group>
-                        <field name="create_date" />
-                        <field name="dbname" />
-                        <field name="type" />
-                        <field name="name" />
-                        <field name="level" />
-                        <field name="path" />
-                        <field name="line" />
-                        <field name="func" />
-                        <field name="message" />
-                    </group>
+                    <sheet>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="dbname"/>
+                            <field name="type"/>
+                            <field name="name"/>
+                            <field name="level"/>
+                            <field name="path"/>
+                            <field name="line"/>
+                            <field name="func"/>
+                            <field name="message"/>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
