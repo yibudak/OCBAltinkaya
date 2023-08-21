@@ -90,7 +90,11 @@ class Pricelist(models.Model):
             pricelists = self
         results = {}
         for pricelist in pricelists:
-            subres = pricelist._compute_price_rule(products_qty_partner, date=date, uom_id=uom_id)
+            try:
+                subres = pricelist._compute_price_rule(products_qty_partner, date=date, uom_id=uom_id)
+            except Exception:
+                raise UserError(_('Pricelist computation error. It might be you'
+                                  ' have selected a wrong pricelist in sale order.'))
             for product_id, price in subres.items():
                 results.setdefault(product_id, {})
                 results[product_id][pricelist.id] = price

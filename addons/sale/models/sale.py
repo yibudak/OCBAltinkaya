@@ -831,7 +831,7 @@ class SaleOrder(models.Model):
     def has_to_be_paid(self, also_in_draft=False):
         # yibudak 14.08.2023: we implemented our own logic for payment
         sale_order = self
-        return not (
+        return not sale_order.is_expired and not (
             sale_order.invoice_ids.filtered(lambda r: r.state == "paid")
             or sale_order.payment_status == "done"
         )
