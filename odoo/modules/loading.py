@@ -512,6 +512,15 @@ def load_modules(registry, force_demo=False, status=None, update_module=False):
 
         # check that all installed modules have been loaded by the registry
         env = api.Environment(cr, SUPERUSER_ID, {})
+
+        # yigit: we had to do this trick before the odoo server starts
+        if tools.config.options.get("requeue_zombie_jobs"):
+            env["queue.job"].search([("state", "in", ("started", "enqueued"))]).write(
+                {"state": "pending"}
+            )
+            env.cr.commit()
+            _logger.info("Zombie jobs requeued")
+
         Module = env['ir.module.module']
         modules = Module.search(Module._get_modules_to_load_domain(), order='name')
         missing = [name for name in modules.mapped('name') if name not in graph]
