@@ -535,6 +535,15 @@ def load_modules(db, force_demo=False, status=None, update_module=False):
         # setup_models() done here do not mess up with hooks, as registry.ready
         # is False.
         env = api.Environment(cr, SUPERUSER_ID, {})
+
+        # yigit: we had to do this trick before the odoo server starts
+        if tools.config.options.get("requeue_zombie_jobs"):
+            env["queue.job"].search([("state", "in", ("started", "enqueued"))]).write(
+                {"state": "pending"}
+            )
+            env.cr.commit()
+            _logger.info("Zombie jobs requeued")
+
         for model in env.values():
             model._register_hook()
 
