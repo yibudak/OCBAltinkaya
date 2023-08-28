@@ -76,8 +76,10 @@ class MrpBom(models.Model):
                 if bom.bom_line_ids.filtered(lambda x: x.product_id == bom.product_id):
                     raise ValidationError(_('BoM line product %s should not be same as BoM product.') % bom.display_name)
             else:
-                if bom.bom_line_ids.filtered(lambda x: x.product_id.product_tmpl_id == bom.product_tmpl_id):
-                    raise ValidationError(_('BoM line product %s should not be same as BoM product.') % bom.display_name)
+                for bom_line in bom.bom_line_ids.filtered(lambda x: x.product_id.product_tmpl_id == bom.product_tmpl_id):
+                    if not(self.search([('product_id', '=', bom_line.product_id.id)], order='sequence, product_id', limit=1)):
+                        raise ValidationError(
+                            _('BoM line product %s should not be same as BoM product.') % bom.display_name)
 
     @api.onchange('product_uom_id')
     def onchange_product_uom_id(self):
