@@ -308,7 +308,7 @@ class MrpBom(models.Model):
             bom = self.search(domain, order='sequence, product_id, id')
             # yigit: prioritize bom with product_id over bom with product_tmpl_id
             bom_with_product_id = bom.filtered(lambda b: b.product_id == products)
-            bom = bom_with_product_id or bom
+            bom = fields.first(bom_with_product_id or bom)
             if bom:
                 bom_by_product[products] = bom
             return bom_by_product
