@@ -152,7 +152,13 @@ class MrpBom(models.Model):
                 for components, finished in grouped_by_components.items():
                     _check_cycle(components, finished)
             else:
-                _check_cycle(bom.bom_line_ids.product_id, finished_products)
+                components = bom.bom_line_ids.product_id
+                for bom_line in bom.bom_line_ids.filtered(lambda l: l.product_id.product_tmpl_id == bom.product_tmpl_id):
+                    # yigit: This means sub-product has the same template but with another BoM, so we should skip it.
+                    if self.search([("product_id", "=", bom_line.product_id.id), ("id", "!=", bom.id)], limit=1):
+                        components -= bom_line.product_id
+
+                _check_cycle(components, finished_products)
 
     def write(self, vals):
         res = super().write(vals)
@@ -299,7 +305,10 @@ class MrpBom(models.Model):
 
         # Performance optimization, allow usage of limit and avoid the for loop `bom.product_tmpl_id.product_variant_ids`
         if len(products) == 1:
-            bom = self.search(domain, order='sequence, product_id, id', limit=1)
+            bom = self.search(domain, order='sequence, product_id, id')
+            # yigit: prioritize bom with product_id over bom with product_tmpl_id
+            bom_with_product_id = bom.filtered(lambda b: b.product_id == products)
+            bom = bom_with_product_id or bom
             if bom:
                 bom_by_product[products] = bom
             return bom_by_product
