@@ -743,7 +743,7 @@ class Website(Home):
                 logger.warning('Google Search Console %s not recognize' % key)
                 raise werkzeug.exceptions.NotFound()
 
-        return request.make_response("google-site-verification: %s" % request.website.google_search_console)
+        return request.make_response("google-site-verification: %s.html" % request.website.google_search_console)
 
     @http.route('/website/google_maps_api_key', type='json', auth='public', website=True)
     def google_maps_api_key(self):
