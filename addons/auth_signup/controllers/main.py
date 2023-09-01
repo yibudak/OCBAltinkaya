@@ -154,7 +154,7 @@ class AuthSignupHome(Home):
         request.env.cr.commit()
 
     def _signup_with_values(self, token, values):
-        login, password = request.env['res.users'].sudo().signup(values, token)
+        login, password = request.env['res.users'].sudo().with_context(no_vat_validation=True).signup(values, token)
         request.env.cr.commit()     # as authenticate will use its own cursor we need to commit the current transaction
         pre_uid = request.session.authenticate(request.db, login, password)
         if not pre_uid:
