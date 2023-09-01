@@ -1032,6 +1032,9 @@ class WebsiteSale(http.Controller):
             except ValidationError as exception:
                 error["vat"] = 'error'
                 error_message.append(exception.args[0])
+        else:
+            error["vat"] = 'missing'
+            error_message.append(_('TIN / VAT number is missing.'))
 
         if [err for err in error.values() if err == 'missing']:
             error_message.append(_('Some required fields are empty.'))

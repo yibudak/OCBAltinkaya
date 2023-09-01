@@ -164,6 +164,8 @@ class ResPartner(models.Model):
             # yigit: we shouldn't skip the check for the partners with one character vat number
             # if not partner.vat or len(partner.vat) == 1:
             #     continue
+            if not partner.vat:
+                raise ValidationError(_("The VAT number of the partner [%s] is missing.", partner.name))
             country = partner.commercial_partner_id.country_id
             if self._run_vat_test(partner.vat, country, partner.is_company) is False:
                 partner_label = _("partner [%s]", partner.name)
