@@ -106,7 +106,8 @@ class MrpBom(models.Model):
     @api.constrains('active', 'product_id', 'product_tmpl_id', 'bom_line_ids')
     def _check_bom_cycle(self):
         subcomponents_dict = dict()
-
+        if self.env.context.get('skip_cycle_check'):
+            return
         def _check_cycle(components, finished_products):
             """
             Check whether the components are part of the finished products (-> cycle). Then, if
@@ -150,6 +151,9 @@ class MrpBom(models.Model):
                     components = bom.bom_line_ids.filtered(lambda l: not l._skip_bom_line(finished)).product_id
                     grouped_by_components[components] |= finished
                 for components, finished in grouped_by_components.items():
+                    # yigit: This means sub-product has the same template but with another BoM, so we should skip it.
+                    if self.search([("product_id", "in", components.ids), ("id", "!=", bom.id)], limit=1):
+                        continue
                     _check_cycle(components, finished)
             else:
                 components = bom.bom_line_ids.product_id
