@@ -1023,18 +1023,19 @@ class WebsiteSale(http.Controller):
 
         # vat validation
         Partner = request.env['res.partner']
-        if data.get("vat") and hasattr(Partner, "check_vat"):
-            if country_id:
-                data["vat"] = Partner.fix_eu_vat_number(country_id, data.get("vat"))
-            partner_dummy = Partner.new(self._get_vat_validation_fields(data))
-            try:
-                partner_dummy.check_vat()
-            except ValidationError as exception:
-                error["vat"] = 'error'
-                error_message.append(exception.args[0])
-        else:
-            error["vat"] = 'missing'
-            error_message.append(_('TIN / VAT number is missing.'))
+        if mode[1] != 'shipping':
+            if data.get("vat") and hasattr(Partner, "check_vat"):
+                if country_id:
+                    data["vat"] = Partner.fix_eu_vat_number(country_id, data.get("vat"))
+                partner_dummy = Partner.new(self._get_vat_validation_fields(data))
+                try:
+                    partner_dummy.check_vat()
+                except ValidationError as exception:
+                    error["vat"] = 'error'
+                    error_message.append(exception.args[0])
+            else:
+                error["vat"] = 'missing'
+                error_message.append(_('TIN / VAT number is missing.'))
 
         if [err for err in error.values() if err == 'missing']:
             error_message.append(_('Some required fields are empty.'))
@@ -1049,6 +1050,8 @@ class WebsiteSale(http.Controller):
 
     def _checkout_form_save(self, mode, checkout, all_values):
         Partner = request.env['res.partner']
+        if mode[1] == 'shipping':
+            Partner = Partner.with_context(no_vat_validation=True)
         if mode[0] == 'new':
             partner_id = Partner.sudo().with_context(tracking_disable=True).create(checkout).id
         elif mode[0] == 'edit':
