@@ -332,7 +332,7 @@ msgid ""
 "Changing VAT number is not allowed once document(s) have been issued for "
 "your account. Please contact us directly for this operation."
 msgstr ""
-"Hesabınız için belge(ler) düzenlendikten sonra KDV numarasının "
+"Hesabınız için belge(ler) düzenlendikten sonra TCKN/VKN numarasının "
 "değiştirilmesine izin verilmez. Bu işlem için lütfen doğrudan bizimle "
 "iletişime geçin."
 
