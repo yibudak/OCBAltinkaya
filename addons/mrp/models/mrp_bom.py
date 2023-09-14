@@ -172,6 +172,8 @@ class MrpBom(models.Model):
 
     @api.constrains('product_id', 'product_tmpl_id', 'bom_line_ids', 'byproduct_ids', 'operation_ids')
     def _check_bom_lines(self):
+        if self._context.get("skip_cycle_check"):
+            return
         for bom in self:
             apply_variants = bom.bom_line_ids.bom_product_template_attribute_value_ids | bom.operation_ids.bom_product_template_attribute_value_ids | bom.byproduct_ids.bom_product_template_attribute_value_ids
             if bom.product_id and apply_variants:
