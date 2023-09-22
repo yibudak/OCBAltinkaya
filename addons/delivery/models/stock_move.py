@@ -11,10 +11,21 @@ class StockMove(models.Model):
 
     weight = fields.Float(compute='_cal_move_weight', digits=dp.get_precision('Stock Weight'), store=True, compute_sudo=True)
 
-    @api.depends('product_id', 'product_uom_qty', 'product_uom')
+    @api.depends("product_id", "product_uom_qty", "product_uom")
     def _cal_move_weight(self):
         for move in self.filtered(lambda moves: moves.product_id.weight > 0.00):
-            move.weight = (move.product_qty * move.product_id.weight)
+            picking_weight_uom = (
+                move.picking_id.weight_uom_id
+                or self.env[
+                    "product.template"
+                ]._get_weight_uom_id_from_ir_config_parameter()
+            )
+            weight = move.product_id.weight_uom_id._compute_quantity(
+                qty=move.product_qty * move.product_id.weight,
+                to_unit=picking_weight_uom,
+                round=False,
+            )
+            move.weight = weight
 
     def _get_new_picking_values(self):
         vals = super(StockMove, self)._get_new_picking_values()
