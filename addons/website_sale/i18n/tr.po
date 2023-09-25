@@ -3706,7 +3706,7 @@ msgstr "Vergi No / TC No"
 #: code:addons/website_sale/controllers/main.py:0
 #, python-format
 msgid "TIN / VAT number is missing."
-msgstr ""
+msgstr "VKN / TCKN numarası eksik."
 
 #. module: website_sale
 #: model_terms:ir.ui.view,arch_db:website_sale.snippet_options
