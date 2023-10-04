@@ -737,18 +737,30 @@
                 <t t-call="website.placeholder_header_brand">
                     <t t-set="_link_class" t-valuef="me-4"/>
                 </t>
+
+                <ul id="mobile_login" class="nav navbar-nav d-flex flex-row d-md-none">
+                <!-- Sign In -->
+                <t t-call="portal.placeholder_user_sign_in">
+                    <t t-set="_item_class" t-valuef="nav-item ms-3"/>
+                    <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
+                </t>
+                </ul>
+
+                <!-- Navbar Toggler -->
+                <t t-call="website.navbar_toggler">
+                    <t t-set="_toggler_class" t-valuef="ms-auto"/>
+                </t>
+
                 <!-- Slogan -->
-                <div class="ms-lg-3 me-auto">
+                <div class="ms-lg-3 me-auto d-none d-md-flex">
                     <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_1"/>
                 </div>
+
                 <!-- Content builder empty space on navbar -->
                 <div class="col-12 col-md-4 mb-3 mb-md-0">
                     <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_3"/>
                 </div>
 
-
-                <!-- Navbar Toggler -->
-                <t t-call="website.navbar_toggler"/>
                  <!-- Navbar Collapse -->
                 <div id="top_menu_collapse" class="collapse navbar-collapse">
                     <t t-call="website.navbar_nav">
@@ -767,13 +779,25 @@
                         <t t-set="_dropdown_menu_class" t-valuef="float-lg-end"/>
                     </t>
                 </div>
-                <ul id="user_controls" class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0 flex-row">
-                    <!-- Sign In -->
-                    <t t-call="portal.placeholder_user_sign_in">
-                        <t t-set="_item_class" t-valuef="nav-item ms-3"/>
-                        <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
-                    </t>
 
+                <div id="contact_info" class="nav navbar-nav flex-row justify-content-evenly ms-auto">
+                    <li class="nav-item px-2">
+                        <a role="menuitem" href="https://www.altinkaya.eu"
+                           class="nav-link ">
+                            <img
+                                    src="/altinkaya_ecommerce/static/src/img/uk_flag.svg"
+                                    class="img-fluid" width="28" alt="United Kingdom"/>
+                            <span class="d-none d-md-inline-block">English</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a role="menuitem" href="tel:+903123952768" class="nav-link ">
+                            <span><i class="fa fa-phone"/> 0312 395 2768</span>
+                        </a>
+                    </li>
+                </div>
+
+                <ul id="user_controls" class="nav navbar-nav navbar-expand order-last order-lg-0 flex-row ">
 
                     <!-- User Dropdown -->
                     <t t-call="portal.user_dropdown">
