@@ -735,15 +735,18 @@
             <div id="top_menu_container" class="container flex-row flex-wrap">
                 <!-- Brand -->
                 <t t-call="website.placeholder_header_brand">
-                    <t t-set="_link_class" t-valuef="me-4"/>
+                    <t t-set="_link_class" t-valuef="me-1 me-md-4"/>
                 </t>
 
-                <ul id="mobile_login" class="nav navbar-nav d-flex flex-row d-md-none">
-                <!-- Sign In -->
-                <t t-call="portal.placeholder_user_sign_in">
-                    <t t-set="_item_class" t-valuef="nav-item ms-3"/>
-                    <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
-                </t>
+                <ul id="mobile_login" class="nav navbar-nav d-flex flex-row d-md-none me-2">
+                    <!-- User Dropdown -->
+                    <t t-call="portal.user_dropdown">
+                        <t t-set="_user_name" t-value="True"/>
+                        <t t-set="_user_name_class" t-valuef="fw-bold"/>
+                        <t t-set="_item_class" t-valuef="nav-item dropdown ms-3"/>
+                        <t t-set="_link_class" t-valuef="nav-link"/>
+                        <t t-set="_dropdown_menu_class" t-valuef="dropdown-menu-end position-absolute"/>
+                    </t>
                 </ul>
 
                 <!-- Navbar Toggler -->
@@ -797,9 +800,16 @@
                     </li>
                 </div>
 
-                <ul id="user_controls" class="nav navbar-nav navbar-expand order-last order-lg-0 flex-row ">
+                <ul id="user_controls" class="nav navbar-nav navbar-expand order-last order-lg-0 flex-row">
+                    <t t-call="portal.placeholder_user_sign_in">
+                        <t t-set="_item_class" t-valuef="nav-item ms-3"/>
+                        <t t-set="_link_class" t-valuef="btn btn-outline-primary"/>
+                    </t>
 
-                    <!-- User Dropdown -->
+                </ul>
+
+                <ul id="desktop_controls" class="nav navbar-nav navbar-expand order-last order-lg-0 flex-row d-none d-md-flex">
+                     <!-- User Dropdown -->
                     <t t-call="portal.user_dropdown">
                         <t t-set="_user_name" t-value="True"/>
                         <t t-set="_user_name_class" t-valuef="fw-bold"/>
