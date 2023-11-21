@@ -782,23 +782,33 @@
                         <t t-set="_dropdown_menu_class" t-valuef="float-lg-end"/>
                     </t>
                 </div>
-
-                <div id="contact_info" class="nav navbar-nav flex-row justify-content-evenly ms-auto">
-                    <li class="nav-item px-2">
-                        <a role="menuitem" href="https://www.altinkaya.eu"
-                           class="nav-link ">
-                            <img
-                                    src="/altinkaya_ecommerce/static/src/img/uk_flag.svg"
-                                    class="img-fluid" width="28" alt="United Kingdom"/>
-                            <span class="d-none d-md-inline-block">English</span>
-                        </a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a role="menuitem" href="tel:+903123952768" class="nav-link ">
-                            <span><i class="fa fa-phone"/> 0312 395 2768</span>
-                        </a>
-                    </li>
-                </div>
+                <t t-if="list(filter(lambda lg : lg[0] == lang, languages))[0][0] == 'tr_TR'">
+                    <div id="contact_info" class="nav navbar-nav flex-row justify-content-evenly ms-auto">
+                        <li class="nav-item px-2">
+                            <a role="menuitem" href="https://www.altinkaya.eu"
+                               class="nav-link ">
+                                <img
+                                        src="/altinkaya_ecommerce/static/src/img/uk_flag.svg"
+                                        class="img-fluid" width="28" alt="United Kingdom"/>
+                                <span class="d-none d-md-inline-block">English</span>
+                            </a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a role="menuitem" href="tel:+903123952768" class="nav-link ">
+                                <span><i class="fa fa-phone"/> 0312 395 2768</span>
+                            </a>
+                        </li>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div id="contact_info" class="nav navbar-nav flex-row justify-content-evenly ms-auto">
+                        <li class="nav-item px-2">
+                            <a role="menuitem" href="tel:+905382531288" class="nav-link ">
+                                <span><i class="fa fa-phone"/>+90 538 253 1288</span>
+                            </a>
+                        </li>
+                    </div>
+                </t>
 
                 <ul id="user_controls" class="nav navbar-nav navbar-expand order-last order-lg-0 flex-row">
                     <t t-call="portal.placeholder_user_sign_in">
