@@ -1514,7 +1514,7 @@ class CSVExport(ExportFormat, http.Controller):
 class ExcelExport(ExportFormat, http.Controller):
     # Excel needs raw data to correctly handle numbers and date values
     raw_data = True
-    max_rows = 65535
+    max_rows = 165535
 
     @http.route('/web/export/xls', type='http', auth="user")
     @serialize_exception
