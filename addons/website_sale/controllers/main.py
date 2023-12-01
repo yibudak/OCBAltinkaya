@@ -1023,7 +1023,7 @@ class WebsiteSale(http.Controller):
 
         # vat validation
         Partner = request.env['res.partner']
-        if mode[1] != 'shipping':
+        if mode[1] != 'shipping' and data.get("country_id") == 224: # yigit: Add VAT check for Turkish customers
             if data.get("vat") and hasattr(Partner, "check_vat"):
                 if country_id:
                     data["vat"] = Partner.fix_eu_vat_number(country_id, data.get("vat"))
