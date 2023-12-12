@@ -87,8 +87,8 @@
                             t-attf-class="fa fa-caret-{{ state.expanded[section.id][valueId] ? 'down' : 'right' }}"
                         />
                     </div>
-                    <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.display_name"/>
-                    <span t-else="" class="o_search_panel_label_title" t-esc="value.display_name"/>
+                    <b t-if="value.bold" class="o_search_panel_label_title" t-esc="value.display_name" t-att-data-tooltip="value.display_name"/>
+                    <span t-else="" class="o_search_panel_label_title" t-esc="value.display_name" t-att-data-tooltip="value.display_name"/>
                 </label>
                 <span t-if="section.enableCounters and value.__count gt 0"
                     class="o_search_panel_counter text-muted ml-2 small"
