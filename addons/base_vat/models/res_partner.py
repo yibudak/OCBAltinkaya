@@ -166,6 +166,8 @@ class ResPartner(models.Model):
             #     continue
             if partner.country_id.code != "TR":
                 return
+            if partner.type in ['delivery']:
+                return
             if not partner.vat:
                 raise ValidationError(_("The VAT number of the partner [%s] is missing.", partner.name))
             country = partner.commercial_partner_id.country_id
