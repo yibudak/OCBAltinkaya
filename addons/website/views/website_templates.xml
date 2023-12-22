@@ -803,8 +803,8 @@
                 <t t-else="">
                     <div id="contact_info" class="nav navbar-nav flex-row justify-content-evenly ms-auto">
                         <li class="nav-item px-2">
-                            <a role="menuitem" href="tel:+905382531288" class="nav-link ">
-                                <span><i class="fa fa-phone"/>+90 538 253 1288</span>
+                            <a role="menuitem" href="tel:+903129631985" class="nav-link ">
+                                <span><i class="fa fa-phone"/>+90 312 963 1985</span>
                             </a>
                         </li>
                     </div>
