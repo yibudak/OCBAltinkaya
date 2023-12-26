@@ -206,7 +206,7 @@ msgstr ""
 #: code:addons/phone_validation/tools/phone_validation.py:0
 #, python-format
 msgid "Impossible number %s: probably invalid number of digits."
-msgstr "İmkansız sayı %s: muhtemelen geçersiz basamak sayısı."
+msgstr "Geçersiz numara %s: muhtemelen eksik girildi."
 
 #. module: phone_validation
 #: model:ir.model.fields,help:phone_validation.field_mail_thread_phone__mobile_blacklisted
