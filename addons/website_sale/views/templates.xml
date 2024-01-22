@@ -300,10 +300,10 @@
                     <div class="row o_wsale_products_main_row align-items-start flex-nowrap">
                         <aside t-if="hasLeftColumn" id="products_grid_before" class="d-none d-lg-block position-sticky col-3 px-3 clearfix">
                             <div class="o_wsale_products_grid_before_rail vh-100 pe-lg-2 pb-lg-5 overflow-y-auto">
-                                <div class="products_attributes_filters"/>
                                 <div t-if="opt_wsale_categories" class="products_categories mb-3">
                                     <t t-call="website_sale.products_categories_list"/>
                                 </div>
+                                <div class="products_attributes_filters"/>
                                 <t t-if="opt_wsale_filter_price and opt_wsale_attributes"
                                    t-call="website_sale.filter_products_price"/>
                             </div>
