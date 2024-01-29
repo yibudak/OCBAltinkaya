@@ -1835,7 +1835,7 @@
                                                 <t t-if="list(filter(lambda lg : lg[0] == lang, languages))[0][0] == 'tr_TR'">
                                                     <div t-attf-class="mb-3 #{error.get('tax_office_name') and 'o_has_error' or ''} col-lg-3 mb-0">
                                                         <label class="col-form-label fw-normal label-optional" for="tax_office_name">Tax Office</label>
-                                                        <input type="text" name="tax_office_name" t-attf-class="form-control #{error.get('tax_office_name') and 'is-invalid' or ''}" t-att-value="'tax_office_name' in checkout and checkout['tax_office_name']" t-att-readonly="'1' if ('tax_office_name' in checkout and checkout['tax_office_name'] and not can_edit_vat) else None" />
+                                                        <input type="text" name="tax_office_name" t-attf-class="form-control #{error.get('tax_office_name') and 'is-invalid' or ''}" t-att-value="'tax_office_name' in checkout and checkout['tax_office_name']" />
                                                     </div>
                                                     <div t-attf-class="mb-3 #{error.get('vat') and 'o_has_error' or ''} col-lg-3 div_vat mb-0">
                                                         <label class="col-form-label" for="vat">TIN / VAT </label>
