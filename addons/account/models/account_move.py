@@ -844,7 +844,7 @@ class AccountMoveLine(models.Model):
             maxdate = max(aml.date, maxdate)
             total_amount_currency += aml.amount_currency
             # Convert in currency if we only have one currency and no amount_currency
-            if not aml.amount_currency and currency and aml.journal_id.id != 60:
+            if not aml.amount_currency and currency and aml.journal_id.code not in ['KFARK', 'KRDGR']:
                 multiple_currency = True
                 total_amount_currency += aml.company_id.currency_id._convert(aml.balance, currency, aml.company_id, aml.date)
             # If we still have residual value, it means that this move might need to be balanced using an exchange rate entry
@@ -1257,7 +1257,7 @@ class AccountMoveLine(models.Model):
             vals.setdefault('company_currency_id', account.company_id.currency_id.id) # important to bypass the ORM limitation where monetary fields are not rounded; more info in the commit message
             amount = vals.get('debit', 0.0) - vals.get('credit', 0.0)
             move = self.env['account.move'].browse(vals['move_id'])
-            diff_inv_journals = self.env['account.journal'].search([('code', 'in', ['KFARK', 'KRFRK'])])
+            diff_inv_journals = self.env['account.journal'].search([('code', 'in', ['KFARK', 'KRFRK', 'KRDGR'])])
             if account.deprecated:
                 raise UserError(_('The account %s (%s) is deprecated.') %(account.name, account.code))
             journal = vals.get('journal_id') and self.env['account.journal'].browse(vals['journal_id']) or move.journal_id

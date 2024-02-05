@@ -653,7 +653,13 @@ class AccountReconciliation(models.AbstractModel):
                     total_amount = company_currency._convert((line.debit - line.credit), target_currency, company, date)
                     total_amount_currency = line.currency_id and line.amount_currency or (line.debit - line.credit)
 
+            # Skip Kur Farkı lines
             if line.journal_id.code == 'KFARK':
+                amount = 0.0
+                total_amount = 0.0
+
+            # Skip Kur Değerleme lines
+            if line.journal_id.code == 'KRDGR':
                 amount = 0.0
                 total_amount = 0.0
 
