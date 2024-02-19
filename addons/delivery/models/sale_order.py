@@ -116,6 +116,7 @@ class SaleOrder(models.Model):
             'product_id': carrier.product_id.id,
             'price_unit': price_unit,
             'tax_id': [(6, 0, taxes_ids)],
+            'company_id': self.company_id.id,  # yigit: related field doesn't work, we need to set it manually
             'is_delivery': True,
         }
         if self.order_line:
