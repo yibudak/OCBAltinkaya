@@ -37,6 +37,7 @@ class MrpProduction(models.Model):
             }
             move = Move.create(data)
             move._action_confirm()
+            return move
 
     @api.multi
     def _generate_moves(self):
