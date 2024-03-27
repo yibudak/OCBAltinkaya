@@ -1749,7 +1749,7 @@
                 </div>
                 <div class='card-footer' t-if='not readonly'>
                     <span class='btn-ship' t-att-style="'' if selected else 'display:none;'">
-                        <a role="button" href='#' class="btn btn-block btn-primary">
+                        <a role="button" href='#' class="btn btn-block btn-success">
                             <i class='fa fa-check'></i> Ship to this address
                         </a>
                     </span>
