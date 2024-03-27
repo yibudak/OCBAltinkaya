@@ -1134,15 +1134,15 @@ class WebsiteSale(http.Controller):
         # IF ORDER LINKED TO A PARTNER
         else:
             if partner_id > 0:
-                if partner_id == order.partner_id.id:
+                if order.partner_id.commercial_partner_id.id == partner_id:
+                    mode = ('edit', 'billing')
+                    can_edit_vat = order.partner_id.can_edit_vat()
+                elif partner_id == order.partner_id.id:
                     mode = ('edit', 'billing')
                     can_edit_vat = order.partner_id.can_edit_vat()
                 else:
                     shippings = Partner.search([('id', 'child_of', order.partner_id.commercial_partner_id.ids)])
-                    if order.partner_id.commercial_partner_id.id == partner_id:
-                        mode = ('new', 'shipping')
-                        partner_id = -1
-                    elif partner_id in shippings.mapped('id'):
+                    if partner_id in shippings.mapped('id'):
                         mode = ('edit', 'shipping')
                     else:
                         return Forbidden()
