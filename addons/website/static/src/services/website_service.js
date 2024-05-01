@@ -149,7 +149,7 @@ export const websiteService = {
                         // `'1'` by `'True'`. See comment on `website.layout`.
                         canOptimizeSeo: canOptimizeSeo === undefined ? mainObject : canOptimizeSeo === '1',
                         canPublish: canPublish === 'True',
-                        editableInBackend: editableInBackend === 'True',
+                        editableInBackend: true,
                         title: document.title,
                         translatable: !!translatable,
                         contentMenus,
