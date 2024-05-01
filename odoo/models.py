@@ -2118,6 +2118,9 @@ class BaseModel(metaclass=MetaModel):
                     value = value[0]
                 elif ftype in ('date', 'datetime'):
                     locale = get_lang(self.env).code
+                    # yigit: arabic locale is not supported by babel workaround
+                    if locale == 'ar_AA':
+                        locale = 'ar_001'
                     fmt = DEFAULT_SERVER_DATETIME_FORMAT if ftype == 'datetime' else DEFAULT_SERVER_DATE_FORMAT
                     tzinfo = None
                     range_start = value
