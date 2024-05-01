@@ -46,7 +46,6 @@ class SeoMetadata(models.AbstractModel):
         self.ensure_one()
         company = request.website.company_id.sudo()
         title = (request.website or company).name
-        site_name = title
         if 'name' in self:
             title = '%s | %s' % (self.name, title)
 
@@ -56,7 +55,7 @@ class SeoMetadata(models.AbstractModel):
         default_opengraph = {
             'og:type': 'website',
             'og:title': title,
-            'og:site_name': site_name,
+            'og:site_name': (request.website or company).name,
             'og:url': url_join(request.httprequest.url_root, url_for(request.httprequest.path)),
             'og:image': request.website.image_url(request.website, img_field),
         }
