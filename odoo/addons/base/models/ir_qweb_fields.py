@@ -411,7 +411,13 @@ class MonetaryConverter(models.AbstractModel):
         # lang.format will not set one by default. currency.round will not
         # provide one either. So we need to generate a precision value
         # (integer > 0) from the currency's rounding (a float generally < 1.0).
-        fmt = "%.{0}f".format(display_currency.decimal_places)
+
+        # yigit: we've added precision to the options to allow the user to
+        # set the qweb rendering precision without changing the currencies'.
+        if options.get('precision'):
+            fmt = "%.{0}f".format(options['precision'])
+        else:
+            fmt = "%.{0}f".format(display_currency.decimal_places)
 
         if options.get('from_currency'):
             date = options.get('date') or fields.Date.today()
