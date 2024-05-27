@@ -1049,8 +1049,10 @@ class StockMove(models.Model):
         self.mapped('picking_id')._check_entire_pack()
 
     def _action_cancel(self):
+        # yigit: we've added return check for sale order cancellation.
         if any(move.state == 'done' and not move.scrapped for move in self):
-            raise UserError(_('You cannot cancel a stock move that has been set to \'Done\'.'))
+            raise UserError(_('You cannot cancel a stock move that has been set to \'Done\'.'
+                              ' If you are trying to cancel a sale order, you should create a return and then cancel it.'))
         moves_to_cancel = self.filtered(lambda m: m.state != 'cancel')
         # self cannot contain moves that are either cancelled or done, therefore we can safely
         # unlink all associated move_line_ids
