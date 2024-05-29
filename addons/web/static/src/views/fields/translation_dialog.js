@@ -65,7 +65,7 @@ export class TranslationDialog extends Component {
         return this.orm.call(this.props.resModel, "get_field_translations", [
             [this.props.resId],
             this.props.fieldName,
-        ]);
+        ], {context: {web_translation_dialog: true}});
     }
 
     /**
@@ -77,15 +77,7 @@ export class TranslationDialog extends Component {
         this.terms.map((term) => {
             const updatedTermValue = this.updatedTerms[term.id];
             if (term.id in this.updatedTerms && term.value !== updatedTermValue) {
-                if (this.props.showSource) {
-                    if (!translations[term.lang]) {
-                        translations[term.lang] = {};
-                    }
-                    const oldTermValue = term.value ? term.value : term.source;
-                    translations[term.lang][oldTermValue] = updatedTermValue || term.source;
-                } else {
-                    translations[term.lang] = updatedTermValue || false;
-                }
+                translations[term.lang] = updatedTermValue || false;
             }
         });
 
@@ -93,7 +85,7 @@ export class TranslationDialog extends Component {
             [this.props.resId],
             this.props.fieldName,
             translations,
-        ]);
+        ], {context: {web_translation_dialog: true}});
 
         await this.props.onSave();
         this.props.close();
