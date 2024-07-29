@@ -114,7 +114,11 @@ odoo.define('payment.payment_form', function (require) {
                             if (data.method === 'form') {
                                 $("#payment_method").append(data.response);
                                 $("#webform0").submit();
-                            } else {
+                            }
+                            else if (data.method === 'non_3ds') {
+                                location.reload();
+                            }
+                            else {
                                 // https://stackoverflow.com/questions/1236360/how-do-i-replace-the-entire-html-node-using-jquery
                                 let redirectPage = document.open("text/html", "replace");
                                 redirectPage.write(data.response);
