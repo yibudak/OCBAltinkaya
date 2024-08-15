@@ -622,6 +622,10 @@ var VariantMixin = {
         if ($('.decimal_precision').length) {
             precision = parseInt($('.decimal_precision').last().data('precision'));
         }
+        // yigit: if price is bigger than 1, we don't need to show decimals
+        if (price > 1.0) {
+            precision = 2;
+        }
         var formatted = _.str.sprintf('%.' + precision + 'f', price).split('.');
         formatted[0] = utils.insert_thousand_seps(formatted[0]);
         return formatted.join(l10n.decimal_point);
