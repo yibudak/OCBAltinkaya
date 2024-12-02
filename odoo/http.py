@@ -1627,6 +1627,7 @@ class Request:
         """
         try:
             self.registry = Registry(self.db).check_signaling()
+            threading.current_thread().dbname = self.registry.db_name
         except (AttributeError, psycopg2.OperationalError, psycopg2.ProgrammingError):
             # psycopg2 error or attribute error while constructing
             # the registry. That means either
