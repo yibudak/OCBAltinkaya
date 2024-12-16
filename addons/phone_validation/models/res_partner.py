@@ -27,7 +27,7 @@ class Partner(models.Model):
             country.code if country else None,
             country.phone_code if country else None,
             force_format=force_format,
-            raise_exception=False
+            raise_exception=True
         )
 
     def phone_get_sanitized_number(self, number_fname='mobile', force_format='E164'):

@@ -10,6 +10,7 @@ import logging
 import sys
 import threading
 import time
+import traceback
 
 import odoo
 import odoo.modules.db
@@ -88,7 +89,7 @@ def load_demo(cr, package, idref, mode):
             with cr.savepoint(flush=False):
                 load_data(cr, idref, mode, kind='demo', package=package)
         return True
-    except Exception as e:
+    except Exception:  # noqa: BLE001
         # If we could not install demo data for this module
         _logger.warning(
             "Module %s demo data failed to install, installed without demo data",
@@ -99,7 +100,7 @@ def load_demo(cr, package, idref, mode):
         Failure = env.get('ir.demo_failure')
         if todo and Failure is not None:
             todo.state = 'open'
-            Failure.create({'module_id': package.id, 'error': str(e)})
+            Failure.create({'module_id': package.id, 'error': traceback.format_exc()})
         return False
 
 
@@ -511,6 +512,15 @@ def load_modules(registry, force_demo=False, status=None, update_module=False):
 
         # check that all installed modules have been loaded by the registry
         env = api.Environment(cr, SUPERUSER_ID, {})
+
+        # yigit: we had to do this trick before the odoo server starts
+        if tools.config.options.get("requeue_zombie_jobs"):
+            env["queue.job"].search([("state", "in", ("started", "enqueued"))]).write(
+                {"state": "pending"}
+            )
+            env.cr.commit()
+            _logger.info("Zombie jobs requeued")
+
         Module = env['ir.module.module']
         modules = Module.search(Module._get_modules_to_load_domain(), order='name')
         missing = [name for name in modules.mapped('name') if name not in graph]

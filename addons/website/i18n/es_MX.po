@@ -8236,6 +8236,13 @@ msgstr "¿Listo para crear el"
 
 #. module: website
 #. odoo-javascript
+#: code:addons/website/static/src/snippets/s_facebook_page/options.js:0
+#, python-format
+msgid "Recent Facebook Issues"
+msgstr "Problemas recientes con Facebook"
+
+#. module: website
+#. odoo-javascript
 #: code:addons/website/static/src/js/form_editor_registry.js:0
 #, python-format
 msgid "Recipient Email"
@@ -9831,7 +9838,7 @@ msgstr "Vista de interfaz del tema"
 #. module: website
 #: model:ir.model,name:website.model_theme_utils
 msgid "Theme Utils"
-msgstr "Utilidades del tema"
+msgstr "Herramientas del tema"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.list_website_public_pages
@@ -9902,6 +9909,17 @@ msgstr "Tercer menú"
 #, python-format
 msgid "This URL is contained in the “%(field)s” of the following “%(model)s”"
 msgstr "Esta URL está contenida en %(field)s de %(model)s"
+
+#. module: website
+#. odoo-javascript
+#: code:addons/website/static/src/snippets/s_facebook_page/options.js:0
+#, python-format
+msgid ""
+"This block will temporarily not be shown on mobile due to recent Facebook "
+"issues."
+msgstr ""
+"Por el momento este bloque no aparecerá en dispositivos móviles por "
+"problemas recientes con Facebook."
 
 #. module: website
 #: model:ir.model.fields,help:website.field_res_config_settings__favicon
@@ -10133,8 +10151,8 @@ msgid ""
 " one as a copy."
 msgstr ""
 "Para agregar una cuarta columna, reduzca el tamaño de estas tres columnas "
-"mediante el icono adecuado de cada bloque. Luego duplique una de las "
-"columnas para crear una nueva como copia."
+"con el icono correspondiente de cada bloque y luego duplique una para crear "
+"una nueva como copia."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs

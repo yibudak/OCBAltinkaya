@@ -46,6 +46,9 @@ class WebsiteBlog(http.Controller):
             group['date_end'] = end
 
             locale = get_lang(request.env).code
+            # yigit: arabic locale is not supported by babel workaround
+            if locale == 'ar_AA':
+                locale = 'ar_001'
             start = pytz.UTC.localize(fields.Datetime.from_string(start))
             tzinfo = pytz.timezone(request.context.get('tz', 'utc') or 'utc')
 

@@ -109,7 +109,6 @@ endpoint
 """
 
 import base64
-import cgi
 import collections
 import collections.abc
 import contextlib
@@ -127,7 +126,6 @@ import threading
 import time
 import traceback
 import warnings
-import zlib
 from abc import ABC, abstractmethod
 from datetime import datetime
 from io import BytesIO
@@ -1629,6 +1627,7 @@ class Request:
         """
         try:
             self.registry = Registry(self.db).check_signaling()
+            threading.current_thread().dbname = self.registry.db_name
         except (AttributeError, psycopg2.OperationalError, psycopg2.ProgrammingError):
             # psycopg2 error or attribute error while constructing
             # the registry. That means either
@@ -2013,8 +2012,7 @@ class Application:
         if 'Content-Security-Policy' in headers:
             return
 
-        mime, _params = cgi.parse_header(headers.get('Content-Type', ''))
-        if not mime.startswith('image/'):
+        if not headers.get('Content-Type', '').startswith('image/'):
             return
 
         headers['Content-Security-Policy'] = "default-src 'none'"

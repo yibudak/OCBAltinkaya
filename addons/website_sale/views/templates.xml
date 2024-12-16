@@ -9,7 +9,7 @@
             <t t-set="website_sale_cart_quantity" t-value="request.session['website_sale_cart_quantity'] if 'website_sale_cart_quantity' in request.session else website.sale_get_order().cart_quantity or 0"/>
             <t t-set="show_cart" t-value="true"/>
             <li t-attf-class="#{_item_class} divider d-none"/> <!-- Make sure the cart and related menus are not folded (see autohideMenu) -->
-            <li t-attf-class="o_wsale_my_cart align-self-md-start #{not show_cart and 'd-none'} #{_item_class}">
+            <li t-attf-class="o_wsale_my_cart align-self-md-start px-3 px-md-0 #{not show_cart and 'd-none'} #{_item_class}">
                 <a href="/shop/cart" t-attf-class="#{_link_class}">
                     <i t-if="_icon" class="fa fa-shopping-cart"/>
                     <span t-if="_text">My Cart</span>
@@ -67,7 +67,7 @@
     </template>
 
     <template id="template_header_slogan" inherit_id="website.template_header_slogan">
-        <xpath expr="//t[@t-foreach='website.menu_id.child_id']" position="after">
+        <xpath expr="//t[@t-call='portal.placeholder_user_sign_in']" position="before">
             <t t-call="website_sale.header_cart_link">
                 <t t-set="_icon" t-value="True"/>
                 <t t-set="_item_class" t-value="'nav-item'"/>
@@ -175,7 +175,7 @@
                     <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
                     <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
                     <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
-                    <span t-attf-class="o_ribbon o_not_editable #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>
+                    <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-out="td_product['ribbon']['html'] or ''"/>
                 </a>
             </div>
             <div class="o_wsale_product_information position-relative d-flex flex-column flex-grow-1 flex-shrink-1">
@@ -191,13 +191,12 @@
                     <t t-set="template_price_vals" t-value="get_product_prices(product)"/>
                     <div class="o_wsale_product_btn"/>
                     <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
-                        <t t-if="'base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)">
+                        <t t-if="'base_price' in template_price_vals">
                             <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
                                 <em class="small" t-esc="template_price_vals['base_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
                             </del>
                         </t>
                         <span class="h6 mb-0" t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale" t-esc="template_price_vals['price_reduce']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                        <span class="h6 mb-0" t-elif="any(ptav.price_extra for ptav in product.attribute_line_ids.product_template_value_ids)">&amp;nbsp;</span>
                         <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"/>
                         <span itemprop="price" style="display:none;" t-esc="template_price_vals['price_reduce']" />
                         <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
@@ -292,9 +291,15 @@
             <div id="wrap" class="js_sale o_wsale_products_page">
                 <div class="oe_structure oe_empty oe_structure_not_nearest" id="oe_structure_website_sale_products_1"/>
                 <div class="container oe_website_sale pt-2">
+                    <div class="row align-items-start flex-nowrap">
+                        <t t-call="website_sale.products_breadcrumb">
+                            <t t-set="_classes"
+                               t-valuef="d-none d-lg-flex w-100 p-0 my-2 small"/>
+                        </t>
+                    </div>
                     <div class="row o_wsale_products_main_row align-items-start flex-nowrap">
-                        <aside t-if="hasLeftColumn" id="products_grid_before" class="d-none d-lg-block position-sticky col-3 px-3 clearfix">
-                            <div class="o_wsale_products_grid_before_rail vh-100 pe-lg-2 pb-lg-5 overflow-y-scroll">
+                        <aside t-if="hasLeftColumn" id="products_grid_before" class="d-none d-lg-block col-3 px-3 clearfix">
+                            <div class="o_wsale_products_grid_before_rail vh-100 pe-lg-2 pb-lg-5 overflow-y-auto">
                                 <div t-if="opt_wsale_categories" class="products_categories mb-3">
                                     <t t-call="website_sale.products_categories_list"/>
                                 </div>
@@ -305,9 +310,6 @@
                         </aside>
                         <div id="products_grid"
                              t-attf-class="#{'o_wsale_layout_list' if layout_mode == 'list' else ''} {{'col-lg-9' if hasLeftColumn else 'col-12'}}">
-                            <t t-call="website_sale.products_breadcrumb">
-                                <t t-set="_classes" t-valuef="d-none d-lg-flex w-100 p-0 small"/>
-                            </t>
                             <div class="products_header btn-toolbar flex-nowrap align-items-center justify-content-between mb-3">
                                 <t t-call="website_sale.search">
                                     <t t-set="search" t-value="original_search or search"/>
@@ -385,10 +387,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div t-nocache="get the actual search" t-else="" class="text-center text-muted mt128 mb256">
+                            <div t-else="" class="text-center text-muted mt128 mb256">
                                 <t t-if="not search">
                                     <h3 class="mt8">No product defined</h3>
-                                    <p t-if="category">No product defined in this category.</p>
+                                    <p t-if="category">No product defined in category "<strong t-esc="category.display_name"/>".</p>
                                 </t>
                                 <t t-else="">
                                     <h3 class="mt8">No results</h3>
@@ -407,13 +409,6 @@
                 <div class="oe_structure oe_empty oe_structure_not_nearest" id="oe_structure_website_sale_products_2"/>
             </div>
         </t>
-    </template>
-
-    <!-- Add the fiscal position in the t-cache key after all overrides -->
-    <template id="products_fiscal_position" inherit_id="website_sale.products" priority="99">
-        <xpath expr="//div[starts-with(@t-cache, 'pricelist,products')]" position="attributes">
-            <attribute name="t-cache" add="fiscal_position_id" separator=","/>
-        </xpath>
     </template>
 
     <!-- (Option) Products: Enable "Card" or "Thumbnails" designs -->
@@ -478,7 +473,7 @@
     </template>
 
     <template id="website_sale.add_grid_or_list_option" active="True" name="Grid or List button">
-        <t t-set="_activeClasses" t-translation="off">border-primary</t>
+        <t t-set="_activeClasses">border-primary</t>
         <div t-attf-class="o_wsale_apply_layout btn-group ms-3 {{_classes}}" t-att-data-active-classes="_activeClasses">
             <input type="radio" class="btn-check" name="wsale_products_layout" id="o_wsale_apply_grid"  t-att-checked="'checked' if layout_mode != 'list' else None" value="grid"/>
             <label t-attf-class="btn btn-{{navClass}} #{_activeClasses if layout_mode != 'list' else None} o_wsale_apply_grid" title="Grid" for="o_wsale_apply_grid">
@@ -816,7 +811,7 @@
                     </a>
                     <t t-foreach="attributes" t-as="a">
                         <div class="accordion-item nav-item mb-1" t-if="a.value_ids and len(a.value_ids) &gt; 1">
-                            <h6 class="mb-3">
+                            <h6 class="mb-1">
                                 <b class="o_products_attributes_title d-none d-lg-block" t-field="a.name"/>
                             </h6>
                             <div t-attf-id="o_products_attributes_{{a.id}}" class="">
@@ -829,7 +824,7 @@
                                     </select>
                                 </t>
                                 <t t-if="a.display_type == 'radio' or a.display_type == 'pills'">
-                                    <div class="flex-column mb-3">
+                                    <div class="flex-column mb-1">
                                         <t t-foreach="a.value_ids" t-as="v">
                                             <div class="form-check mb-1">
                                                 <input type="checkbox" name="attrib" class="form-check-input" t-att-id="'%s-%s' % (a.id,v.id)" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
@@ -919,8 +914,7 @@
                                 <li class="breadcrumb-item o_not_editable">
                                     <a t-att-href="keep(category=0)">All Products</a>
                                 </li>
-                                <li t-nocache="The category does not have to be cached, as the product can be accessed via different paths."
-                                    t-if="category" class="breadcrumb-item">
+                                <li t-if="category" class="breadcrumb-item">
                                     <a t-att-href="keep('/shop/category/%s' % slug(category), category=0)" t-field="category.name" />
                                 </li>
                                 <li class="breadcrumb-item active">
@@ -937,9 +931,7 @@
                             <t t-call="website_sale.shop_product_images"/>
                         </div>
                         <div t-attf-class="col-lg-#{image_cols[1]} mt-md-4" id="product_details">
-                            <t t-set="base_url" t-value="website.get_base_url()"/>
-                            <!-- TODO: remove next line in master. Stable fix not to break custos. -->
-                            <t t-if="False" t-set="base_url" t-value="product.get_base_url()"/>
+                            <t t-set="base_url" t-value="product.get_base_url()"/>
                             <h1 itemprop="name" t-field="product.name">Product Name</h1>
                             <span itemprop="url" style="display:none;" t-esc="base_url + product.website_url"/>
                             <span itemprop="image" style="display:none;" t-esc="base_url + website.image_url(product, 'image_1920')" />
@@ -1054,7 +1046,7 @@
         </div>
     </template>
 
-    <template id="product_custom_text" inherit_id="website_sale.product" customize_show="True" active="True" name="Terms and Conditions" priority="21">
+    <template id="product_custom_text" inherit_id="website_sale.product" active="True" name="Terms and Conditions" priority="21">
         <xpath expr="//div[@id='o_product_terms_and_share']" position="inside">
             <p class="text-muted mb-0">
                 <a href="/terms" class="text-muted"><u>Terms and Conditions</u></a><br/>
@@ -1166,20 +1158,18 @@
                 <span class="oe_price" style="white-space: nowrap;" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
                 <span itemprop="price" style="display:none;" t-esc="combination_info['price']"/>
                 <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
-                <span t-attf-class="text-danger oe_default_price ms-1 h5 {{'' if combination_info['has_discounted_price'] and not combination_info['compare_list_price'] else 'd-none'}}"
-                    style="text-decoration: line-through; white-space: nowrap;"
-                    t-esc="combination_info['list_price']"
-                    t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                <span t-attf-class="text-danger oe_default_price ms-1 h5 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;"
+                    t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
                     itemprop="listPrice"
                 />
                 <t t-if="is_view_active('website_sale.tax_indication')" t-call="website_sale.tax_indication"/>
-                <del t-if="combination_info['compare_list_price'] and (combination_info['compare_list_price'] &gt; combination_info['price'])">
+                <del t-if="product.compare_list_price">
                     <bdi dir="inherit">
-                    <span t-esc="combination_info['compare_list_price']"
+                    <span t-field="product.compare_list_price"
                         groups="website_sale.group_product_price_comparison"
                         t-options='{
                            "widget": "monetary",
-                           "display_currency": website.currency_id,
+                           "display_currency": product.currency_id,
                        }'/>
                     </bdi>
                 </del>
@@ -1191,13 +1181,13 @@
                        "display_currency": product.currency_id,
                 }'/>
                 <t t-if="is_view_active('website_sale.tax_indication')" t-call="website_sale.tax_indication"/>
-                <del t-if="combination_info['compare_list_price'] and (combination_info['compare_list_price'] &gt; combination_info['price'])">
+                <del t-if="product.compare_list_price">
                     <bdi dir="inherit">
                     <span t-field="product.compare_list_price"
                         groups="website_sale.group_product_price_comparison"
                         t-options='{
                             "widget": "monetary",
-                            "display_currency": website.currency_id,
+                            "display_currency": product.currency_id,
                         }'/>
                     </bdi>
                 </del>
@@ -1404,7 +1394,7 @@
                     <th></th>
                     <th class="text-center td-qty">
                         <t t-if="show_qty">
-                            <span>Quantity</span>
+                            Quantity
                         </t>
                     </th>
                     <th class="text-center td-price">Price</th>
@@ -1718,7 +1708,7 @@
                                                         <t t-set='selected' t-value="order.partner_shipping_id==ship"/>
                                                         <t t-set='readonly' t-value="bool(len(shippings)==1)"/>
                                                         <t t-set='edit_billing' t-value="bool(ship==order.partner_id)"/>
-                                                        <t t-set="allow_edit" t-value="not order.partner_id or (ship.id in order.partner_id.child_ids.ids)" />
+                                                        <t t-set="allow_edit" t-value="1" />
                                                     </t>
                                                 </div>
                                             </t>
@@ -1755,11 +1745,17 @@
             <div t-attf-class="card #{selected and 'border border-primary' or 'js_change_shipping'}">
                 <div class='card-body' style='min-height: 130px;'>
                     <a t-if="allow_edit" href="#" class="btn btn-link float-end p-0 js_edit_address no-decoration" role="button" title="Edit this address" aria-label="Edit this address"><i class='fa fa-edit'/></a>
-                    <t t-esc="contact" t-options="dict(widget='contact', fields=['name', 'address'], no_marker=True)"/>
+                    <t t-if="contact.type == 'delivery'">
+                        <t t-esc="contact" t-options="dict(widget='contact', fields=['name', 'address', 'phone'], no_marker=True)"/>
+                    </t>
+                    <t t-else="">
+                        <t t-esc="contact" t-options="dict(widget='contact', fields=['name', 'address', 'phone', 'vat', 'tax_office_name'], no_marker=True)"/>
+                    </t>
+
                 </div>
                 <div class='card-footer' t-if='not readonly'>
                     <span class='btn-ship' t-att-style="'' if selected else 'display:none;'">
-                        <a role="button" href='#' class="btn btn-block btn-primary">
+                        <a role="button" href='#' class="btn btn-block btn-success">
                             <i class='fa fa-check'></i> Ship to this address
                         </a>
                     </span>
@@ -1807,9 +1803,9 @@
                                     <h2 class="o_page_header mt8">Shipping Address </h2>
                                 </t>
                                 <t t-if="partner_id == website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id">
-                                    <div class="alert alert-warning" role="alert" t-if="not only_services" groups="account.group_delivery_invoice_address">
+                                    <div class="alert alert-warning" role="alert" t-if="not only_services">
                                         <h4 class="alert-heading">Be aware!</h4>
-                                        <p>
+                                        <p  groups="account.group_delivery_invoice_address">
                                             You are editing your <b>billing and shipping</b> addresses at the same time!<br/>
                                             If you want to modify your shipping address, create a <a href='/shop/address'>new address</a>.
                                         </p>
@@ -1836,48 +1832,34 @@
                                         <t t-if="website._display_partner_b2b_fields()">
                                             <div class="w-100"/>
                                             <t t-set='vat_warning' t-value="'vat' in checkout and checkout['vat'] and not can_edit_vat" />
-                                            <t t-if="mode == ('new', 'billing') or (mode == ('edit', 'billing') and (can_edit_vat or 'vat' in checkout and checkout['vat']))">
+                                            <t t-if="mode == ('new', 'billing') or (mode == ('edit', 'billing'))">
                                                 <div t-attf-class="mb-3 #{error.get('company_name') and 'o_has_error' or ''} col-lg-6 mb-0">
                                                     <label class="col-form-label fw-normal label-optional" for="company_name">Company Name</label>
-                                                    <input type="text" name="company_name" t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}" t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']" t-att-readonly="'1' if vat_warning else None" />
+                                                    <input type="text" name="company_name" t-attf-class="form-control #{error.get('company_name') and 'is-invalid' or ''}" t-att-value="'commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']" t-att-readonly="'1' if (('commercial_company_name' in checkout and checkout['commercial_company_name'] or 'company_name' in checkout and checkout['company_name']) and not can_edit_vat) else None" />
                                                     <small t-if="vat_warning" class="form-text text-muted d-block d-lg-none">Changing company name is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
                                                 </div>
-                                                <div t-attf-class="mb-3 #{error.get('vat') and 'o_has_error' or ''} col-lg-6 div_vat mb-0">
+                                                <t t-if="list(filter(lambda lg : lg[0] == lang, languages))[0][0] == 'tr_TR'">
+                                                    <div t-attf-class="mb-3 #{error.get('tax_office_name') and 'o_has_error' or ''} col-lg-3 mb-0">
+                                                        <label class="col-form-label fw-normal label-optional" for="tax_office_name">Tax Office</label>
+                                                        <input type="text" name="tax_office_name" t-attf-class="form-control #{error.get('tax_office_name') and 'is-invalid' or ''}" t-att-value="'tax_office_name' in checkout and checkout['tax_office_name']" />
+                                                    </div>
+                                                    <div t-attf-class="mb-3 #{error.get('vat') and 'o_has_error' or ''} col-lg-3 div_vat mb-0">
+                                                        <label class="col-form-label" for="vat">TIN / VAT </label>
+                                                        <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in checkout and checkout['vat']" t-att-readonly="'1' if ('vat' in checkout and checkout['vat'] and not can_edit_vat) else None"/>
+                                                        <small t-if="vat_warning" class="form-text text-muted d-block d-lg-none">Changing VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                <div t-attf-class="#{error.get('vat') and 'o_has_error'} div_vat col-lg-6 mb-2">
                                                     <label class="col-form-label fw-normal label-optional" for="vat">VAT</label>
                                                     <input type="text" name="vat" t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}" t-att-value="'vat' in checkout and checkout['vat']" t-att-readonly="'1' if vat_warning else None"/>
                                                     <small t-if="vat_warning" class="form-text text-muted d-block d-lg-none">Changing VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
                                                 </div>
+                                                </t>
                                                 <div t-if="vat_warning" class="col-12 d-none d-lg-block mb-1">
                                                     <small class="form-text text-muted">Changing company name or VAT number is not allowed once document(s) have been issued for your account. Please contact us directly for this operation.</small>
                                                 </div>
                                             </t>
-                                        </t>
-                                        <div class="w-100"/>
-                                        <div t-attf-class="mb-3 #{error.get('street') and 'o_has_error' or ''} col-lg-12 div_street">
-                                            <label class="col-form-label" for="street">Street <span class="d-none d-md-inline"> and Number</span></label>
-                                            <input type="text" name="street" t-attf-class="form-control #{error.get('street') and 'is-invalid' or ''}" t-att-value="'street' in checkout and checkout['street']" />
-                                        </div>
-                                        <div t-attf-class="mb-3 #{error.get('street2') and 'o_has_error' or ''} col-lg-12 div_street2">
-                                            <label class="col-form-label label-optional" for="street2">Street 2</label>
-                                            <input type="text" name="street2" t-attf-class="form-control #{error.get('street2') and 'is-invalid' or ''}" t-att-value="'street2' in checkout and checkout['street2']" />
-                                        </div>
-                                        <div class="w-100"/>
-                                        <t t-set='zip_city' t-value='country and [x for x in country.get_address_fields() if x in ["zip", "city"]] or ["city", "zip"]'/>
-                                        <t t-if="'zip' in zip_city and zip_city.index('zip') &lt; zip_city.index('city')">
-                                            <div t-attf-class="mb-3 #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip">
-                                                <label class="col-form-label label-optional" for="zip">Zip Code</label>
-                                                <input type="text" name="zip" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}" t-att-value="'zip' in checkout and checkout['zip']" />
-                                            </div>
-                                        </t>
-                                        <div t-attf-class="mb-3 #{error.get('city') and 'o_has_error' or ''} col-md-8 div_city">
-                                            <label class="col-form-label" for="city">City</label>
-                                            <input type="text" name="city" t-attf-class="form-control #{error.get('city') and 'is-invalid' or ''}" t-att-value="'city' in checkout and checkout['city']" />
-                                        </div>
-                                        <t t-if="'zip' in zip_city and zip_city.index('zip') &gt; zip_city.index('city')">
-                                            <div t-attf-class="mb-3 #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip">
-                                                <label class="col-form-label label-optional" for="zip">Zip Code</label>
-                                                <input type="text" name="zip" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}" t-att-value="'zip' in checkout and checkout['zip']" />
-                                            </div>
                                         </t>
                                         <div class="w-100"/>
                                         <div t-attf-class="mb-3 #{error.get('country_id') and 'o_has_error' or ''} col-lg-6 div_country">
@@ -1902,6 +1884,24 @@
                                                 </t>
                                             </select>
                                         </div>
+                                        <div class="w-100"/>
+                                        <div t-attf-class="mb-3 #{error.get('street') and 'o_has_error' or ''} col-lg-12 div_street">
+                                            <label class="col-form-label" for="street">Street <span class="d-none d-md-inline"> and Number</span></label>
+                                            <input type="text" name="street" t-attf-class="form-control #{error.get('street') and 'is-invalid' or ''}" t-att-value="'street' in checkout and checkout['street']" />
+                                        </div>
+                                        <div t-attf-class="mb-3 #{error.get('street2') and 'o_has_error' or ''} col-lg-12 div_street2">
+                                            <label class="col-form-label label-optional" for="street2">Street 2</label>
+                                            <input type="text" name="street2" t-attf-class="form-control #{error.get('street2') and 'is-invalid' or ''}" t-att-value="'street2' in checkout and checkout['street2']" />
+                                        </div>
+                                        <div class="w-100"/>
+                                        <div t-attf-class="mb-3 #{error.get('city') and 'o_has_error' or ''} col-md-8 div_city">
+                                            <label class="col-form-label" for="city">City</label>
+                                            <input type="text" name="city" t-attf-class="form-control #{error.get('city') and 'is-invalid' or ''}" t-att-value="'city' in checkout and checkout['city']" />
+                                        </div>
+                                            <div t-attf-class="mb-3 #{error.get('zip') and 'o_has_error' or ''} col-md-4 div_zip">
+                                                <label class="col-form-label label-optional" for="zip">Zip Code</label>
+                                                <input type="text" name="zip" t-attf-class="form-control #{error.get('zip') and 'is-invalid' or ''}" t-att-value="'zip' in checkout and checkout['zip']" />
+                                            </div>
                                         <div class="w-100"/>
                                         <t t-if="mode == ('new', 'billing') and not only_services">
                                             <div class="col-lg-12">
@@ -1993,15 +1993,13 @@
 
                             <div class="oe_structure clearfix mt-3" id="oe_structure_website_sale_payment_1"/>
 
-                            <t t-if="not errors and website_sale_order.amount_total" name="website_sale_non_free_cart">
+                            <t t-if="website_sale_order.amount_total">
                                 <div t-if="providers or tokens" id="payment_method" class="mt-3">
                                     <h3 class="mb24">Pay with </h3>
-                                    <div class="o_not_editable">
-                                        <t t-call="payment.checkout">
-                                            <t t-set="footer_template_id" t-value="'website_sale.payment_footer'"/>
-                                            <t t-set="submit_button_label">Pay Now</t>
-                                        </t>
-                                    </div>
+                                    <t t-call="payment.checkout">
+                                        <t t-set="footer_template_id" t-value="'website_sale.payment_footer'"/>
+                                        <t t-set="submit_button_label">Pay Now</t>
+                                    </t>
                                 </div>
                                 <div t-else="" class="alert alert-warning">
                                     <strong>No suitable payment option could be found.</strong><br/>
@@ -2016,7 +2014,7 @@
                                         <i class="fa fa-arrow-right"></i> Add payment providers
                                 </a>
                             </div>
-                            <div class="js_payment mt-3" t-if="not errors and not website_sale_order.amount_total" id="payment_method" name="o_website_sale_free_cart">
+                            <div class="js_payment mt-3" t-if="not website_sale_order.amount_total" id="payment_method" name="o_website_sale_free_cart">
                                 <form name="o_wsale_confirm_order" target="_self" action="/shop/payment/validate" method="post">
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>
                                     <t t-call="website_sale.payment_footer">
@@ -2339,15 +2337,12 @@
     </template>
 
     <template id="sale_order_portal_content_inherit_website_sale" name="Orders Followup Products Links" inherit_id="sale.sale_order_portal_content">
-        <xpath expr="//section[@id='details']//div[hasclass('table-responsive')]" position="attributes">
-            <attribute name="class" remove="table-responsive" separator=" "/>
-        </xpath>
         <xpath expr="//section[@id='details']//td[@id='product_name']/*" position="replace">
-            <a t-if="line.product_id.website_published" t-att-href="line.product_id.website_url" class="d-block text-wrap" style="max-width: 35vw">
+            <a t-if="line.product_id.website_published" t-att-href="line.product_id.website_url">
                 <span t-field="line.name" />
             </a>
             <t t-if="not line.product_id.website_published">
-                <span t-field="line.name" class="d-block text-wrap" style="max-width: 35vw"/>
+                <span t-field="line.name" />
             </t>
         </xpath>
     </template>

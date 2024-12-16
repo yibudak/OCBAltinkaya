@@ -129,6 +129,7 @@ const DynamicSnippet = publicWidget.Widget.extend({
                         // dataset is there only in dynamic snippets whose options
                         // have been configured after this fix was merged.
                         '_bugfix_force_minimum_max_limit_to_16': !!nodeData.forceMinimumMaxLimitTo16,
+                        'category_id': parseInt(nodeData.categoryId),
                     },
                 }, this._getRpcParameters()),
             });

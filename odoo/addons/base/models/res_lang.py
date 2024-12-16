@@ -295,8 +295,9 @@ class Lang(models.Model):
 
     def write(self, vals):
         lang_codes = self.mapped('code')
-        if 'code' in vals and any(code != vals['code'] for code in lang_codes):
-            raise UserError(_("Language code cannot be modified."))
+        # yigit: we've disabled this check for editing ar_001 to ar_AA
+        # if 'code' in vals and any(code != vals['code'] for code in lang_codes):
+        #     raise UserError(_("Language code cannot be modified."))
         if vals.get('active') == False:
             if self.env['res.users'].with_context(active_test=True).search_count([('lang', 'in', lang_codes)], limit=1):
                 raise UserError(_("Cannot deactivate a language that is currently used by users."))

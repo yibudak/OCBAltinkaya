@@ -106,7 +106,8 @@ class MrpBom(models.Model):
     @api.constrains('active', 'product_id', 'product_tmpl_id', 'bom_line_ids')
     def _check_bom_cycle(self):
         subcomponents_dict = dict()
-
+        if self.env.context.get('skip_cycle_check'):
+            return
         def _check_cycle(components, finished_products):
             """
             Check whether the components are part of the finished products (-> cycle). Then, if
@@ -150,9 +151,18 @@ class MrpBom(models.Model):
                     components = bom.bom_line_ids.filtered(lambda l: not l._skip_bom_line(finished)).product_id
                     grouped_by_components[components] |= finished
                 for components, finished in grouped_by_components.items():
+                    # yigit: This means sub-product has the same template but with another BoM, so we should skip it.
+                    if self.search([("product_id", "in", components.ids), ("id", "!=", bom.id)], limit=1):
+                        continue
                     _check_cycle(components, finished)
             else:
-                _check_cycle(bom.bom_line_ids.product_id, finished_products)
+                components = bom.bom_line_ids.product_id
+                for bom_line in bom.bom_line_ids.filtered(lambda l: l.product_id.product_tmpl_id == bom.product_tmpl_id):
+                    # yigit: This means sub-product has the same template but with another BoM, so we should skip it.
+                    if self.search([("product_id", "=", bom_line.product_id.id), ("id", "!=", bom.id)], limit=1):
+                        components -= bom_line.product_id
+
+                _check_cycle(components, finished_products)
 
     def write(self, vals):
         res = super().write(vals)
@@ -162,6 +172,8 @@ class MrpBom(models.Model):
 
     @api.constrains('product_id', 'product_tmpl_id', 'bom_line_ids', 'byproduct_ids', 'operation_ids')
     def _check_bom_lines(self):
+        if self._context.get("skip_cycle_check"):
+            return
         for bom in self:
             apply_variants = bom.bom_line_ids.bom_product_template_attribute_value_ids | bom.operation_ids.bom_product_template_attribute_value_ids | bom.byproduct_ids.bom_product_template_attribute_value_ids
             if bom.product_id and apply_variants:
@@ -299,7 +311,10 @@ class MrpBom(models.Model):
 
         # Performance optimization, allow usage of limit and avoid the for loop `bom.product_tmpl_id.product_variant_ids`
         if len(products) == 1:
-            bom = self.search(domain, order='sequence, product_id, id', limit=1)
+            bom = self.search(domain, order='sequence, product_id, id')
+            # yigit: prioritize bom with product_id over bom with product_tmpl_id
+            bom_with_product_id = bom.filtered(lambda b: b.product_id == products)
+            bom = fields.first(bom_with_product_id or bom)
             if bom:
                 bom_by_product[products] = bom
             return bom_by_product

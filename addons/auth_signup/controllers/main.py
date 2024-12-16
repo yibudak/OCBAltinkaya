@@ -58,7 +58,7 @@ class AuthSignupHome(Home):
                     qcontext["error"] = _("Another user is already registered using this email address.")
                 else:
                     _logger.error("%s", e)
-                    qcontext['error'] = _("Could not create a new account.")
+                    qcontext['error'] = _("Could not create a new account.") + " %s." % str(e)
 
         elif 'signup_email' in qcontext:
             user = request.env['res.users'].sudo().search([('email', '=', qcontext.get('signup_email')), ('state', '!=', 'new')], limit=1)
@@ -154,7 +154,7 @@ class AuthSignupHome(Home):
         request.env.cr.commit()
 
     def _signup_with_values(self, token, values):
-        login, password = request.env['res.users'].sudo().signup(values, token)
+        login, password = request.env['res.users'].sudo().with_context(no_vat_validation=True).signup(values, token)
         request.env.cr.commit()     # as authenticate will use its own cursor we need to commit the current transaction
         pre_uid = request.session.authenticate(request.db, login, password)
         if not pre_uid:

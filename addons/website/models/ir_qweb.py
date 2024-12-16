@@ -64,7 +64,8 @@ class IrQWeb(models.AbstractModel):
 
         current_website = request.website
         editable = request.env.user.has_group('website.group_website_designer')
-        translatable = editable and irQweb.env.context.get('lang') != irQweb.env['ir.http']._get_default_lang().code
+        # translatable = editable and irQweb.env.context.get('lang') != irQweb.env['ir.http']._get_default_lang().code
+        translatable = False  # yigit: we want to edit all languages
         editable = editable and not translatable
 
         has_group_restricted_editor = irQweb.env.user.has_group('website.group_website_restricted_editor')

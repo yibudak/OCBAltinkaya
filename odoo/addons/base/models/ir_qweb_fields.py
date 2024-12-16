@@ -449,8 +449,15 @@ class MonetaryConverter(models.AbstractModel):
         # lang.format will not set one by default. currency.round will not
         # provide one either. So we need to generate a precision value
         # (integer > 0) from the currency's rounding (a float generally < 1.0).
-        fmt = "%.{0}f".format(display_currency.decimal_places)
+        # yigit:
+        prec = display_currency.decimal_places
+        if prec and isinstance(prec, int) and prec > 2:
+            if value < 1.000:
+                prec = 4
+            else:
+                prec = 2
 
+        fmt = "%.{0}f".format(prec)
         if options.get('from_currency'):
             date = options.get('date') or fields.Date.today()
             company_id = options.get('company_id')

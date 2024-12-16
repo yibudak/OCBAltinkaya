@@ -1830,11 +1830,14 @@ class _String(Field):
                         if old_is_text or not closest_is_text:
                             translation_dictionary[closest_term] = translation_dictionary.pop(old_term)
             # pylint: disable=not-callable
-            new_translations = {
-                l: self.translate(lambda term: translation_dictionary.get(term, {l: None})[l], cache_value)
-                for l in old_translations.keys()
-            }
-            new_translations[lang] = cache_value
+            # yigit: always use old translations for other languages, do not overwrite them
+            old_translations[lang] = cache_value
+            new_translations = old_translations
+            # new_translations = {
+            #     l: self.translate(lambda term: translation_dictionary.get(term, {l: None})[l], cache_value)
+            #     for l in old_translations.keys()
+            # }
+            # new_translations[lang] = cache_value
             if not records.env['res.lang']._lang_get_id('en_US'):
                 new_translations['en_US'] = cache_value
             new_translations_list.append(new_translations)
